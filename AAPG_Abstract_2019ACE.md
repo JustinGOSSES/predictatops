@@ -19,9 +19,9 @@ Curve matching approaches, while useful for lithologic correlation, are abandone
 <br/>
 <br/>
 For the top McMurray pick, absolute mean errors are similar to that of a geologist new to the area mimicking the picking style of a geologist experienced with that formation. This type of approach may be useful in evaluation of nearby acreage, extending interpretation to infill wells, and quickly generating multiple probable picks in each well for monte carlo simulations. 
-<br/>
+<br/><br/>
 REFERENCES
 <br/>
 Wynne, D.A., Attalla, M., Berezniuk, T., Brulotte, M., Cotterill, D.K., Strobl, R. and Wightman, D. (1995): Athabasca Oil Sands data McMurray/Wabiskaw oil sands deposit - electronic data; Alberta Research Council, ARC/AGS Special Report 6. http://ags.aer.ca/publications/SPE_006.html
-<br/><br/>
+<br/>
 Gosses, J.C. and Licheng, Z., (2018): StratPickSupML; DOI: 10.5281/zenodo.1450597. https://github.com/JustinGOSSES/StratPickSupML/
