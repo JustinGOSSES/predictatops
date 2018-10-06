@@ -12,6 +12,7 @@ Licheng.zhang9@gmail.com<br/>
 <br/>
 <br/>
 <b>Abstract</b><br/>
+<br/>
 Variation in where stratigraphic surfaces are interpreted in well logs can significantly impact oil and gas resource calculations. Generating stratigraphic picks in hundreds of wells logs can take a geologist weeks to months. We propose a method for how supervised machine-learning can be used to extend human-generated well log picks to new wells, assuming a highly penetrated area where most depositional variance is captured in a training dataset. We use an open dataset of 2193 wells from the Mannville Group in Alberta Canada [Wynne et al., 1995] and our code is open-source [Gosses and Zhang, 2018]. 
 <br/>
 <br/>
@@ -21,7 +22,7 @@ Curve matching approaches, while useful for lithologic correlation, are abandone
 For the top McMurray pick, absolute mean errors are similar to that of a geologist new to the area mimicking the picking style of a geologist experienced with that formation. This type of approach may be useful in evaluation of nearby acreage, extending interpretation to infill wells, and quickly generating multiple probable picks in each well for monte carlo simulations. 
 <br/><br/>
 REFERENCES
-<br/>
+<br/><br/>
 Wynne, D.A., Attalla, M., Berezniuk, T., Brulotte, M., Cotterill, D.K., Strobl, R. and Wightman, D. (1995): Athabasca Oil Sands data McMurray/Wabiskaw oil sands deposit - electronic data; Alberta Research Council, ARC/AGS Special Report 6. http://ags.aer.ca/publications/SPE_006.html
-<br/>
+<br/><br/>
 Gosses, J.C. and Licheng, Z., (2018): StratPickSupML; DOI: 10.5281/zenodo.1450597. https://github.com/JustinGOSSES/StratPickSupML/
