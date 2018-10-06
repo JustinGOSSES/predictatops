@@ -5,6 +5,6 @@ This code is the subject of an abstract submitted to the AAPG ACE convention in 
 
 Once the approach has been narrowed, old approaches and test will be left and code will be cleaned and organized into more or more modules with demo notebooks in this repository. Current work is <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon">here</a>.
 
-DOI: 10.5281/zenodo.1450597
+[![DOI](https://zenodo.org/badge/151658252.svg)](https://zenodo.org/badge/latestdoi/151658252)
 
 
