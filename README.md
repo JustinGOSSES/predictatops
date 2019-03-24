@@ -13,7 +13,7 @@ This code is the subject of an <a href="https://github.com/JustinGOSSES/StratPic
 Credits
 -------
 
-#### Authors
+#### Contributors
 <a href="https://github.com/JustinGOSSES">Justin Gosses</a>, <a href="https://github.com/dalide">Licheng Zhang</a>, <a href="https://github.com/jazzskier">jazzskier</a>
 
 
