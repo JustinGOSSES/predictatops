@@ -13,12 +13,12 @@ This code is the subject of an <a href="https://github.com/JustinGOSSES/StratPic
 Credits
 -------
 
-### Authors
+#### Authors
 <a href="https://github.com/JustinGOSSES">Justin Gosses</a>, <a href="https://github.com/dalide">Licheng Zhang</a>, <a href="https://github.com/jazzskier">jazzskier</a>
 
 
 
-### Key Dependencies
+#### Key Dependencies
 This package was created with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> and the <a href="https://github.com/audreyr/cookiecutter-pypackage">`audreyr/cookiecutter-pypackage`_ project template</a>.
 
 Libraries used for working with well logs include: <a href="https://github.com/kinverarity1/lasio"L>Lasio</a> & <a href="https://github.com/search?q=welly">Welly</a>.
