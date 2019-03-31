@@ -2,8 +2,8 @@
 StratPickSupML
 ==============
 
-
-
+# PLEASE REFER TO THE README.md file for the time being <a href="https://github.com/JustinGOSSES/StratPickSupML/blob/master/README.md">here</a>.
+.
 A series of modules for various steps involved in a stratigraphic pick supervised machine-learning prediction.
 
 Development was in this repo:`MannvilleGroup_Strat_Hackathon`.
@@ -18,8 +18,6 @@ This code is the subject of an `2019 AAPG ACE abstract`.
 
 
 [![DOI](https://zenodo.org/badge/151658252.svg)](https://zenodo.org/badge/latestdoi/151658252)
-
-
 
 
 .. image:: https://img.shields.io/pypi/v/StratPickSupML.svg
