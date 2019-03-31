@@ -85,8 +85,9 @@ GettingStarted
 #### Working with your own dataset instead of the default Mannville Dataset
 `in progress`
 
-### Constraints 
+### Code features that might require changing for different datasets
 - Requires all wells to be in the same file format, LAS.
+- The load_all_wells_in() function in load.py does a slight transformation to the UWI names as the UWI uses / in places and - in others. Please look at this function and your datasets to figure out if it applies to your data. You may need to modify this piece of code for your own purposes.
 
 Credits
 -------
