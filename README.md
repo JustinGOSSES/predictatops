@@ -64,6 +64,20 @@ Mandetory ones will have (m). Option ones denoted by a (o).
 
 Each task has at least one, sometimes more than one .py file with low level functions and another higher level .py file that calls those functions. The higher level .py file refers to a configuration file, input data sources file, and output dataset file. Alternatively, the higher level .py file(s) can be replace with functions called in a notebook environment.
 
+Folder Structures
+-------
+- <b>StratPickSupML</b> = These are the source files. I.E. the actual code.
+- <b>Data</b> = Where the data input goes. 
+- <b>Demo</b> = I'll put some .py files and Jupyter Notebooks here that demo how to run the code.
+- <b>Docs</b> = Documentation will go here, eventaully.
+- <b>Results</b> = Intermediate and final results will be written by default to directories and files inside this directory.
+- <b>Tests</b> = Place to put code the runs tests.
+
+
+
+Installation
+-------
+<in progress>
 
 
 Credits
