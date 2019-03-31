@@ -3,7 +3,17 @@ StratPickSupML
 ==============
 
 # PLEASE REFER TO THE README.md .. _`here`:https://github.com/JustinGOSSES/StratPickSupML/blob/master/README.md not README_0.rst for the time being.
-.
+
+
+
+
+
+
+
+-----------------------------
+
+
+
 A series of modules for various steps involved in a stratigraphic pick supervised machine-learning prediction.
 
 Development was in this repo:`MannvilleGroup_Strat_Hackathon`.
