@@ -91,7 +91,7 @@ Credits
 #### Contributors
 <a href="https://github.com/JustinGOSSES">Justin Gosses</a>, <a href="https://github.com/dalide">Licheng Zhang</a>, <a href="https://github.com/jazzskier">jazzskier</a>
 
-Project originally started as <a href="http://www.agilegeoscience.com/">Agile Scientific</a> Hackathon project, September 24th, 2017. Original work is in another repository on github <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon">here<a/>.
+Project originally started as <a href="http://www.agilegeoscience.com/">Agile Scientific</a> Hackathon project, September 24th, 2017. Original work is in another repository on github <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon">here<a/>. This work has benefited from conversations on the integration of machine-learning and subsurface domains on the <a href="https://softwareunderground.org/">SWUNG</a> Slack channel. 
 
 
 #### Key Dependencies
