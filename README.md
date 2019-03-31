@@ -2,11 +2,12 @@
 
 _Code for supervised machine-learning stratigraphic pick prediction._
 
+<a href="https://github.com/JustinGOSSES/StratPickSupML/blob/master/LICENSE">MIT License</a>
+
 Development was in this repo: <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon">MannvilleGroup_Strat_Hackathon</a> but is now moving here as the code gets cleaned and modulized. This project is under active development. Significant portions of the code still only exist on MannvilleGroup_Strat_Hackathon repo at this time.
 
 This code is the subject of an <a href="https://github.com/JustinGOSSES/StratPickSupML/blob/master/AAPG_Abstract_2019ACE.md">abstract</a> submitted to the AAPG ACE convention in 2019.
 
-<a href="https://github.com/JustinGOSSES/StratPickSupML/blob/master/LICENSE">MIT License</a>
 
 [![DOI](https://zenodo.org/badge/151658252.svg)](https://zenodo.org/badge/latestdoi/151658252)
 
