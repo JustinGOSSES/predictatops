@@ -1,4 +1,4 @@
-from checkAvailableData import *
+from checkdata import *
 
 #### Configu and input data setup
 
