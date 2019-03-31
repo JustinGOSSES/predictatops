@@ -64,9 +64,7 @@ Mandetory ones will have (m). Option ones denoted by a (o).
 
 Each task has at least one, sometimes more than one .py file with low level functions and another higher level .py file that calls those functions. The higher level .py file refers to a configuration file, input data sources file, and output dataset file. Alternatively, the higher level .py file(s) can be replace with functions called in a notebook environment.
 
-Status
--------
-Most of the work is still in <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon">the old repository</a>, but it is progressively being moved here in a simplified form.
+
 
 Credits
 -------
@@ -82,6 +80,10 @@ Libraries used for working with well logs include: <a href="https://github.com/k
 
 
 -------------------------------------------
+Status
+-------
+Most of the work is still in <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon">the old repository</a>, but it is progressively being moved here in a simplified form.
+
 ## Recent updates
 The code runs faster and and mean absolute error is down from 90 to 15.03 and now 7+. Key approaches were:
 1. Leverage knowledge from nearby wells.
