@@ -42,7 +42,7 @@ Please note that there are a few misformed .LAS files in the full dataset, so th
 If for some reason the well data is not found at the links above, you should be able to find it <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/tree/master/SPE_006_originalData">here.</a>
 
 
-Architecture / Abstraction
+Architecture and Abstraction
 -------
 Although very much a work in progress, I've tried to organize things such that the whole process doesn't have to be done at once and intermediate work can be easily saved to file and the work started at a later date. This was done running an experiment to completion can take several hours, and I typically had less time than that to work on it. I suspect others will as well.
 
