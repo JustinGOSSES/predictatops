@@ -43,15 +43,15 @@ In terms of how much the code is abstracted into higher level actions vs small l
 The code is broken into individual Tasks. 
 Mandetory ones will have (m). Option ones denoted by a (o). 
 
-(o) Figure out what wells can be used based on presence or lack of tops and well curves
-(m) Load LAS files & restrict based on presence of tops and well curves
-(m) Find K nearest neighbors for each well.
-(m) Create features
-(m) Machine learning 1: Model training
-(m) Machine learning 2: Inference, modeling part 2, inference 2, and scoring
-(o) Map results
-(o) Evaluate results of machine-learning
-(o) Explore features and alternative feature creation though UMAP and other visualizations techniques.
+- (o) Figure out what wells can be used based on presence or lack of tops and well curves
+- (m) Load LAS files & restrict based on presence of tops and well curves
+- (m) Find K nearest neighbors for each well.
+- (m) Create features
+- (m) Machine learning 1: Model training
+- (m) Machine learning 2: Inference, modeling part 2, inference 2, and scoring
+- (o) Map results
+- (o) Evaluate results of machine-learning
+- (o) Explore features and alternative feature creation though UMAP and other visualizations techniques.
 
 Each task has at least one, sometimes more than one .py file with low level functions and another higher level .py file that calls those functions. The higher level .py file refers to a configuration file, input data sources file, and output dataset file. Alternatively, the higher level .py file(s) can be replace with functions called in a notebook environment.
 
