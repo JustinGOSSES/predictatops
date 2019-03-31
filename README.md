@@ -75,8 +75,38 @@ Credits
 <a href="https://github.com/JustinGOSSES">Justin Gosses</a>, <a href="https://github.com/dalide">Licheng Zhang</a>, <a href="https://github.com/jazzskier">jazzskier</a>
 
 
-
 #### Key Dependencies
 This package was created with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> and the <a href="https://github.com/audreyr/cookiecutter-pypackage">`audreyr/cookiecutter-pypackage`_</a> project template.
 
 Libraries used for working with well logs include: <a href="https://github.com/kinverarity1/lasio">Lasio</a> & <a href="https://github.com/search?q=welly">Welly</a>.
+
+
+-------------------------------------------
+## Recent updates
+The code runs faster and and mean absolute error is down from 90 to 15.03 and now 7+. Key approaches were:
+1. Leverage knowledge from nearby wells.
+2. Instead of distinguishing between 2 classes, pick and not pick, distinguish between 3 classes: (a) pick, (b) not pick but within 3 meters and (c) not pick and not within 3 meters of pick.
+3. More features
+4. A Two step approach to machine-learning: 
+
+- 4.1. First step is class-based prediction. Classes are groups based on distance from actual pick. For example, depths at the pick, depths within 0.5 meter, depths within 5 meters above, etc. 
+- 4-2. Second step is more concerned with picking between the depths predicted as being in the classes nearest to the pick. We've explored both a rule-based scoring and a regression machine-learning process for this. 
+- 4.2.1. The rule-based approach uses the class prediction and simple additive scoring of the class predictions based across different size windows. In a scenario where there are two depths with a predicted class of 100, we decide between them by adding up all the class scores across different size windows above and below each depth. The depth with the highest aggregate score wins  and it declared the "predicted depth". We take this route as we assume the right depth will have more depths near it that look like the top pick and as such have higher classes predicted for depths around it while false positives will be more likely to have more lower level classes around it.
+- 4.2.2. We're also trying regression-based machine-learning to predict the distance from each depth in question to the actual pick. The depth with the lowest predicted distance between it and actual pick is chosen as the "predicted pick". This approach hasn't given any better results than the simple rule-based aggregate scoring.
+ 
+
+#### Distribution of Absolute Error in Test Portion of Dataset for Top McMurray Surface in Meters. 
+Y-axis is number of picks in each bin, and X-axis is distance predicted pick is off from human-generated pick.
+<img src="current_errors_TopMcMr_20181006.png"
+     alt="image of current_errors_TopMcMr_20181006"
+     style="float: left; margin-right: 25px;" />
+
+Current algorithm used is XGBoost.
+
+## Future Work [also see issues]
+7. Visualize probabilty of pick along well instead of just returning max probability prediction in each well. 
+8. Generate average aggregate wells in different local areas for wells at different prediction levels. See if there are trends or if this helps to idenetify geologic meaningful features that correlate to many combined machine-learning model features. 
+9. Explore methods to visualize weigtings of features on individual well basis using techniques similar to those learned in image-based deep-learning. 
+10. Cluster wells using unsupervised learning and then see if clusters can be created that correlated with supervised prediction results. (initial trials with UMAP give encouraging results)
+11. Rework parts of this into more object oriented approach.
+12. Use H2O's automl library to try to improve on standard XGBoost approach.
