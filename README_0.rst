@@ -2,7 +2,7 @@
 StratPickSupML
 ==============
 
-# PLEASE REFER TO THE README.md file for the time being <a href="https://github.com/JustinGOSSES/StratPickSupML/blob/master/README.md">here</a>.
+# PLEASE REFER TO THE README.md .. _`here`:https://github.com/JustinGOSSES/StratPickSupML/blob/master/README.md not README_0.rst for the time being.
 .
 A series of modules for various steps involved in a stratigraphic pick supervised machine-learning prediction.
 
