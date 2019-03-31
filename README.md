@@ -35,7 +35,7 @@ Report for Athabasca Oil Sands Data McMurray/Wabiskaw Oil Sands Deposit http://a
 
 Electronic data for Athabasca Oil Sands Data McMurray/Wabiskaw Oil Sands Deposit http://ags.aer.ca/publications/SPE_006.html Data is also in the repo folder: SPE_006_originalData
 
-The Latitude and longitude of the wells is not in the original dataset. @dalide used the Alberta Geological Society's UWI conversion tool to find lat/longs for each of the well UWIs. These were then used to find each well's nearest neighbors as demonstrated in this notebook. A CSV with the coordinates of each well's location can be found <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/blob/master/well_lat_lng.csv">here.</a>
+_The Latitude and longitude of the wells is not in the original dataset._ @dalide used the Alberta Geological Society's UWI conversion tool to find lat/longs for each of the well UWIs. A CSV with the coordinates of each well's location can be found <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/blob/master/well_lat_lng.csv">here.</a> These were then used to find each well's nearest neighbors.
 
 Please note that there are a few misformed .LAS files in the full dataset, so the code in this repository skips those.
 
