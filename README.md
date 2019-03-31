@@ -91,6 +91,8 @@ Credits
 #### Contributors
 <a href="https://github.com/JustinGOSSES">Justin Gosses</a>, <a href="https://github.com/dalide">Licheng Zhang</a>, <a href="https://github.com/jazzskier">jazzskier</a>
 
+Project originally started as <a href="http://www.agilegeoscience.com/">Agile Scientific</a> Hackathon project, September 24th, 2017. Original work is in another repository on github <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon">here<a/>.
+
 
 #### Key Dependencies
 This package was created with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> and the <a href="https://github.com/audreyr/cookiecutter-pypackage">`audreyr/cookiecutter-pypackage`_</a> project template.
