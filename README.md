@@ -56,8 +56,10 @@ Mandetory ones will have (m). Option ones denoted by a (o).
 
 - (o) Figure out what wells can be used based on presence or lack of tops and well curves
 - (m) Load LAS files & restrict based on presence of tops and well curves
+- (m) Create train/test split (need to do before features due to using neighboring wells in feature creation)
 - (m) Find K nearest neighbors for each well.
 - (m) Create features
+- (m) Deal with imbalanced class distribution
 - (m) Machine learning 1: Model training
 - (m) Machine learning 2: Inference, modeling part 2, inference 2, and scoring
 - (o) Map results
