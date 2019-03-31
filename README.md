@@ -73,12 +73,15 @@ Folder Structures
 - <b>Results</b> = Intermediate and final results will be written by default to directories and files inside this directory.
 - <b>Tests</b> = Place to put code the runs tests.
 
-
-
-Installation
+GettingStarted
 -------
-<in progress>
+`in progress`
 
+### Installation
+`in progress`
+
+#### Working with your own dataset instead of the default Mannville Dataset
+`in progress`
 
 Credits
 -------
