@@ -85,6 +85,9 @@ GettingStarted
 #### Working with your own dataset instead of the default Mannville Dataset
 `in progress`
 
+### Constraints 
+- Requires all wells to be in the same file format, LAS.
+
 Credits
 -------
 
