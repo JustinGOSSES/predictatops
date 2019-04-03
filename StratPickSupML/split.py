@@ -1,3 +1,5 @@
+
+##### import statements
 import pandas as pd
 import numpy as np
 import itertools
@@ -5,6 +7,7 @@ import math
 import random 
 
 ##### IMPORT CONFIGURATION
+
 ##### HOW IS THIS CONFIGURATION DONE IF PEOPLE WANT TO SET IT BY HAND?????
 
 knn_dir = "../WellsKNN/"

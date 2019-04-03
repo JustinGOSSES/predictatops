@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 
+##### import statements
 import pandas as pd
 import numpy as np
 import itertools
@@ -12,6 +14,11 @@ import pickle
 import math
 import os
 
+
+##### import from other modules
+
+
+##### Classes
 class input_data():
     """doc string"""
     def __init__(self, picks_file_path, picks_delimiter_str,path_to_logs_str):

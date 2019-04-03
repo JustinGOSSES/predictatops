@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+##### import statements #####
 import pandas as pd
 import numpy as np
 import itertools
@@ -18,6 +21,12 @@ import dask.dataframe as dd
 from dask.distributed import Client
 
 
+
+##### Classes #####
+##### none
+
+
+##### Functions not in class objects
 def makeDF(well_list):
     """
     Changes format of well list into a pandas dataframe with one column called "UWI_file".

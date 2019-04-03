@@ -1,6 +1,8 @@
 
 
-from configurationsplusfiles import *
+
+##### import from other modules
+from configurationplusfiles import *
 
 
 

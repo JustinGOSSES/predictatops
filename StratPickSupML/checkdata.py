@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+##### import statements
 import pandas as pd
 import numpy as np
 import itertools
@@ -12,9 +15,13 @@ import math
 import os
 #env = %env
 
-from configurationsplusfiles import *
-    
 
+##### import from other modules
+from configurationplusfiles import *
+
+
+
+##### Classes
 class TopsAvailable():
     """
     Class that uses the configuration class and data_inpunt class objects and additional 
@@ -97,8 +104,11 @@ class TopsAvailable():
         
 
     def findWellsThatHaveCertainTop(self,top,quality_items_to_skip__list):
+        """
         #### Takes in top
         #### Returns a list of wells with the given top
+        """
+        
         #print(top)
         if self.wells_wAny_tops__list == "nothing here yet":
             print("self.wells_wAny_tops__list has not been populated properly yet. I'll run take_out_wells_with_no_tops() & get_df_wells_with_any_top")
@@ -132,9 +142,10 @@ class TopsAvailable():
             return rows_with_that_top
 
     def findWellsWithAllTopsGive(self):
+        """
         #### Takes in a list of tops
         #### Returns a list of wells that include all of those tops. If only one top occurs, well is not included
-        ###
+        """
         tops = self.config.get_must_have_tops__list()
         quality_items_to_skip__list = self.config.get_quality_items_to_skip__list()
         
@@ -158,6 +169,7 @@ class TopsAvailable():
             #list_of_wells_with_tops =list(set(list_of_wells_with_tops[0]).intersection(list_of_wells_with_tops[1]))
         
     def convertSiteIDListToUWIList(self):
+        """doc string goes here"""
         if self.input.wells_df is not None:
             wells = self.input.load_wells_file()
         else:
@@ -180,6 +192,7 @@ class TopsAvailable():
         return new_wells_with_all_given_tops
 
     def run_all(self):
+        """doc string goes here"""
         unique_tops = self.find_unique_tops_list()
         print("The list of unique tops is: ",unique_tops)
         print("The list of required tops from the configuration object that was used as an argument are: ",self.get_must_have_tops())
@@ -268,7 +281,8 @@ class CurvesAvailable():
     
     def findWellsWithCertainCurves(self):
         """
-        Function takes in an object with keys that are well names and values that are all curves in that well and as the second argument an array of plentiful curves expected to be in every well
+        Function takes in an object with keys that are well names and values that are all curves in that well 
+        and as the second argument an array of plentiful curves expected to be in every well
         Function returns an array of wells that have the specified curves in the second argument.
         """
         ######## Check if none, if none run appropriate function, if not use it,
@@ -315,9 +329,13 @@ class CurvesAvailable():
         return all_results_obj
 
 
+##### Functions not in class objects
 def findWellsWithCertainCurves(objectOfCurves,plentifulCurves):
+    """
     #### Function takes in an object with keys that are well names and values that are all curves in that well and as the second argument an array of plentiful curves expected to be in every well
     #### Function returns an array of wells that have the specified curves in the second argument.
+    """
+    
     wellsWithWantedCurves = []
     for eachWell in objectOfCurves.keys():
         if set(plentifulCurves).issubset(objectOfCurves[eachWell]):
@@ -326,8 +344,11 @@ def findWellsWithCertainCurves(objectOfCurves,plentifulCurves):
 
 
 def getCurvesListWithDifferentCurveName(originalCurveList,origCurve,newCurve):
-    #### Takes in list of curves, curve name to be replaced, and curve name to replace with.
-    #### Returns a list with the orginal and new curve names switched in the given curve list
+    """
+    Takes in list of curves, curve name to be replaced, and curve name to replace with.
+    Returns a list with the orginal and new curve names switched in the given curve list
+    """
+    
     plentifulCurves_wDEPTH = originalCurveList.copy()
     try:
         plentifulCurves_wDEPTH.remove(origCurve)

@@ -1,12 +1,15 @@
+##### Classes
+
+
 from load import *
 
 #### Import configuration, input, and output helpers
 knn_dir = "../WellsKNN/"
 check_dir = "../CheckAvailableData/"
 
-path_to_wells,file_ending
+#path_to_wells,file_ending
 
-max_numb_wells
+#max_numb_wells
 
 
 
