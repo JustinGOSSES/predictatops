@@ -85,6 +85,16 @@ GettingStarted
 ### Installation
 `in progress`
 
+
+
+How to use
+-------
+`in progress, will cover:`
+- Changing configuration, input data, and output data variables.
+- runner python files vs. function and imports only python files
+- running incrementally in jupyter notebook vs. bash pipeline in bulk
+
+
 #### Working with your own dataset instead of the default Mannville Dataset
 `in progress`
 
