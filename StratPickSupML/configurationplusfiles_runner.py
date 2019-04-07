@@ -16,6 +16,10 @@ input_data_inst.las_folder_path = '../data/SPE_006_originalData/OilSandsDB/Logs/
 
 print("head of picks df = ",input_data_inst.picks_df.head())
 
+#### Initiates an object  from the output data class and then creates all the directories for intermediate and final output files
+output_data_inst =output_data()
+output_data_inst.make_all_directories()
+
 config = configuration()
 
 config.set_must_have_curves(['ILD', 'NPHI', 'GR', 'DPHI', 'DEPT'])

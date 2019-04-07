@@ -2,7 +2,7 @@
 
 ##### import from other modules
 from checkdata import *
-from configurationplusfiles_runner import input_data_inst, config
+from configurationplusfiles_runner import input_data_inst, config, output_data_inst
 
 
 ##### running functions called from elsewhere #####
@@ -139,9 +139,9 @@ wells_with_required_tops_and_curves_list_df = pd.DataFrame(np.array(wells_with_r
 print("type",type(wells_with_required_tops_and_curves_list_df))
 
 
-file_path_for_results = config.results_path+"/"+config.availableData_path+"/"+"wells_with_required_tops_and_curves_list.h5"
-print("will now save results in hdf5 file in:",file_path_for_results)
+checkdata_path_results = output_data_inst.base_path_for_all_results+"/"+output_data_inst.path_checkData+"/"+"wellnames_with_required_tops_and_curves_list.h5"
+print("will now save results in hdf5 file in:",checkdata_path_results)
 key_for_file_path_for_results = 'wellsWTopsCurves'
 print("key for hdf file is",key_for_file_path_for_results)
 
-wells_with_required_tops_and_curves_list_df.to_hdf(file_path_for_results, key=key_for_file_path_for_results, mode='w')
+wells_with_required_tops_and_curves_list_df.to_hdf(checkdata_path_results, key=key_for_file_path_for_results, mode='w')

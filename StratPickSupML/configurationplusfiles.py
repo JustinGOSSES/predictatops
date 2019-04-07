@@ -20,7 +20,7 @@ import os
 
 ##### Classes
 class input_data():
-    """doc string"""
+    """A class object that holds paths and other information related to input data such as log files location, top files, well information files, etc."""
     def __init__(self, picks_file_path, picks_delimiter_str,path_to_logs_str):
         #### Default initiation = ('../../../SPE_006_originalData/OilSandsDB/PICKS.TXT','\t','../../../SPE_006_originalData/OilSandsDB/Logs/*.LAS')
         #### Only things that are mandatory on initiation are below
@@ -81,13 +81,16 @@ class configuration():
         #### Column string names
         self.top_name_col_in_picks_df = '' 
         self.siteID_col_in_picks_df = 'SitID'
+        self.UWI = "UWI"
         self.quality_col_name_in_picks_df = "Quality"
         self.picks_depth_col_in_picks_df = 'Pick'
         self.quality_items_to_skip__list = [-1,0]
         self.test = "test0"
         self.threshold_returnCurvesThatArePresentInThisManyWells = 2000
-        self.results_path = "../results"
-        self.availableData_path = "availableData"
+        self.max_numb_wells_to_load = 1000000
+        self.split_traintest_percent = 0.8
+        # self.results_path = "../results"
+        # self.availableData_path = "availableData"
     
     #### only keep wells that have these curves
     def set_must_have_curves(self,must_have_curves_in_list):
@@ -143,3 +146,50 @@ class configuration():
         
     def get_picks_depth_col_in_picks_df(self):
         return self.picks_depth_col_in_picks_df
+
+class output_data():
+    """
+    A class to keep information related to where output files are saved and naming conventions
+    """
+    def __init__(self):
+        #### paths to directories to store itermediate and final results
+        self.default_results_file_format = ".h5"
+        self.base_path_for_all_results= '../results'
+        self.path_checkData = 'checkData'
+        self.path_load = 'load'
+        self.path_split = 'split'
+        self.path_wellKNN = 'wellKNN'
+        self.path_features = 'features'
+        self.path_trainclasses = 'trainclasses'
+        self.path_prediction = 'prediction'
+        self.path_evaluate = 'evaluate'
+        self.path_map = 'map'
+        self.load_results_wells_df_onlywanted = "loaded_wells_wTopsCurves"
+        self.split_results_wells_df = "wells_wTopsCurvesSplits"
+    
+    def make_all_directories(self):
+        print("making base folder for results in:",self.base_path_for_all_results)
+        list_of_sub_directories = [self.path_checkData,self.path_load,self.path_split,self.path_wellKNN,self.path_features,self.path_trainclasses,self.path_prediction,self.path_evaluate,self.path_map]
+        if not os.path.exists(self.base_path_for_all_results):
+            os.makedirs(self.base_path_for_all_results)
+            try:
+                os.makedirs(directory)
+            except OSError as e:
+                print(e.errno )
+                # if e.errno != errno.EEXIST:
+                #     raise
+        else:
+            print("base_path directory already exists,",self.base_path_for_all_results," so not creating it again. This may or may not be what you intended, so just flagging it.")
+        for sub_dir in list_of_sub_directories:
+            if not os.path.exists(self.base_path_for_all_results+"/"+sub_dir):
+                os.makedirs(self.base_path_for_all_results+"/"+sub_dir)
+                try:
+                    os.makedirs(self.base_path_for_all_results+"/"+sub_dir)
+                except OSError as e:
+                    print(e.errno)
+                    # if e.errno != errno.EEXIST:
+                    #     raise
+            else:
+                print("directory ",sub_dir," already exists so not making it again in make_all_directories function of configurationplusfiles.py")
+        print("made directories for each step in the process. They should be in : ",self.base_path_for_all_results)
+
