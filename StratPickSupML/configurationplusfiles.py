@@ -27,15 +27,20 @@ class input_data():
         self.picks_file_path = picks_file_path #### example = '../../../SPE_006_originalData/OilSandsDB/PICKS.TXT'
         self.picks_delimiter_str = picks_delimiter_str  #### example = '\t'
         self.picks_df = pd.read_csv(picks_file_path,delimiter=picks_delimiter_str)
+        self.picks_dic = '../data/SPE_006_originalData/OilSandsDB/PICKS.TXT'
+        self.picks_dic_file_path_delimiter = '\t'
         self.logs_path_to_folder = path_to_logs_str #### example = '../../../SPE_006_originalData/OilSandsDB/Logs/*.LAS'
         #### non-mandatory attributes, defaults should work for the example dataset. Can be changed with set functions below
-        self.wells_file_path = '../../../SPE_006_originalData/OilSandsDB/WELLS.TXT'
+        self.wells_file_path = '../data/SPE_006_originalData/OilSandsDB/WELLS.TXT'
         self.wells_file_path_delimiter = '\t'
-        self.gis_file_path = '../../../well_lat_lng.csv'
+
+        self.gis_file_path = '../data/well_lat_lng.csv'
         self.gis_file_path_delimiter = ','
-        wells_wTopsCuves_toLoad = 'WellNamesWithGivenTopsCurves_defaultFileName.pkl'
+        self.gis_lat_col = "lat"
+        self.gis_long_col = "lng"
+        #wells_wTopsCuves_toLoad = 'WellNamesWithGivenTopsCurves_defaultFileName.pkl'
         #### for logs
-        self.las_folder_path = '../../../SPE_006_originalData/OilSandsDB/Logs/'
+        self.las_folder_path = '../data/SPE_006_originalData/OilSandsDB/Logs/'
         self.well_format = '.LAS'
         #### Technically optional but often used. 
         #### GIS file is mandatory if you want to use information from nearby wells or well's general location.
@@ -77,11 +82,14 @@ class configuration():
         self.csv_of_well_names_wTopCurves__path = '.'
         #### Choices
         self.must_have_curves_list = [''] # ['ILD', 'NPHI', 'GR', 'DPHI', 'DEPT']
-        self.must_have_tops__list = ['']
+        self.must_have_tops__list = [13000,14000]
+        self.target_top = 13000
+        self.top_under_target = 14000
         #### Column string names
         self.top_name_col_in_picks_df = '' 
         self.siteID_col_in_picks_df = 'SitID'
         self.UWI = "UWI"
+        self.HorID_name_col_in_picks_df = "HorID"
         self.quality_col_name_in_picks_df = "Quality"
         self.picks_depth_col_in_picks_df = 'Pick'
         self.quality_items_to_skip__list = [-1,0]
@@ -89,6 +97,11 @@ class configuration():
         self.threshold_returnCurvesThatArePresentInThisManyWells = 2000
         self.max_numb_wells_to_load = 1000000
         self.split_traintest_percent = 0.8
+        self.kdtree_leaf = 2
+        self.kdtree_k = 8
+        self.NN1_topTarget_DEPTH = 'NN1_topTarget_DEPTH'
+        self.NN1_TopHelper_DEPTH = "NN1_TopHelper_DEPTH"
+        self.trainOrTest = 'trainOrTest'
         # self.results_path = "../results"
         # self.availableData_path = "availableData"
     
@@ -166,6 +179,7 @@ class output_data():
         self.path_map = 'map'
         self.load_results_wells_df_onlywanted = "loaded_wells_wTopsCurves"
         self.split_results_wells_df = "wells_wTopsCurvesSplits"
+        self.wellsKNN_results_wells_df = "wells_wTopsCurvesSplitsKNN"
     
     def make_all_directories(self):
         print("making base folder for results in:",self.base_path_for_all_results)

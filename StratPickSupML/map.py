@@ -17,13 +17,12 @@ center2 = [54.840471, -110.269399]
 zoom2 = 6
 
 
-
 linear2 = cm.LinearColormap(
     ['#edf8b1','#7fcdbb','#2c7fb8','#273891'],
     vmin=-100, vmax=75
 )
 
-print(linear2)
+
 
 def depth_color(depth):
     if(math.isnan(depth)):
@@ -47,6 +46,8 @@ def depth_color(depth):
             color = 'blue'
     return color
 
+
+
 def depth_color3(depth,colorMap):
     if(math.isnan(depth)):
         print("!!!!!!!!!!!!!!!!!!!!  ' '  or nan is in depth => ", depth)
@@ -58,6 +59,8 @@ def depth_color3(depth,colorMap):
         
     print("color = ",color)    
     return color
+
+
 
 def makeMap_1(no_zeros_df):
     m5 = folium.Map(center2, tiles='Stamen Toner', zoom_start=zoom2)
@@ -74,6 +77,8 @@ def makeMap_1(no_zeros_df):
     #     popup=folium.Popup(str(row[9:10][0]+ ", depth Top McMurray="+str(row[15:16][0])), parse_html=True)
         ).add_to(m5)
     return m5
+
+
 
 def saveFoliumMap(map_m5):
     map_m5.save(os.path.join('.', 'MM_Top_Depth_Real_v_predBy_NN1thick_v2.html'))
