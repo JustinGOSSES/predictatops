@@ -2,7 +2,7 @@
 
 _Code for supervised machine-learning stratigraphic pick prediction._
 
-<a title="MathKnight based on photo by Nicholas R. Longrich and Daniel J. Field [CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Yale-Peabody-Triceratops-004Trp.png"><img width="512" alt="Yale-Peabody-Triceratops-004Trp" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Yale-Peabody-Triceratops-004Trp.png/512px-Yale-Peabody-Triceratops-004Trp.png"></a>
+<a title="MathKnight based on photo by Nicholas R. Longrich and Daniel J. Field [CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Yale-Peabody-Triceratops-004Trp.png"><img width="512" alt="Yale-Peabody-Triceratops-004Trp" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Yale-Peabody-Triceratops-004Trp.png/512px-Yale-Peabody-Triceratops-004Trp.png">"MathKnight based on photo by Nicholas R. Longrich and Daniel J. Field [CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)], via Wikimedia Commons" </a>
 
 <a href="https://github.com/JustinGOSSES/predictatops/blob/master/LICENSE">MIT License</a>
 
