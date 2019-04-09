@@ -11,7 +11,7 @@ This code is the subject of an <a href="https://github.com/JustinGOSSES/predicta
 
 [![DOI](https://zenodo.org/badge/151658252.svg)](https://zenodo.org/badge/latestdoi/151658252)
 
-<a title="MathKnight based on photo by Nicholas R. Longrich and Daniel J. Field [CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Yale-Peabody-Triceratops-004Trp.png"><img width="512" alt="Yale-Peabody-Triceratops-004Trp" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Yale-Peabody-Triceratops-004Trp.png/512px-Yale-Peabody-Triceratops-004Trp.png">"MathKnight based on photo by Nicholas R. Longrich and Daniel J. Field [CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)], via Wikimedia Commons" </a>
+<a title="MathKnight based on photo by Nicholas R. Longrich and Daniel J. Field [CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Yale-Peabody-Triceratops-004Trp.png"><img width="512" alt="Yale-Peabody-Triceratops-004Trp" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Yale-Peabody-Triceratops-004Trp.png/512px-Yale-Peabody-Triceratops-004Trp.png">"MathKnight based on photo by Nicholas R. Longrich and Daniel J. Field [CC BY-SA 4.0 </a>
 
 Philosophy
 -------
