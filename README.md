@@ -110,7 +110,7 @@ Credits
 
 #### Contributors
 
-Triceratops image by <a href=https://commons.wikimedia.org/wiki/File:Yale-Peabody-Triceratops-004Trp.png"><img width="512" alt="Yale-Peabody-Triceratops-004Trp">MathKnight based on photo by Nicholas R. Longrich and Daniel J. Field</a> [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) 
+Triceratops image by <a href="https://commons.wikimedia.org/wiki/File:Yale-Peabody-Triceratops-004Trp.png"><img width="512" alt="Yale-Peabody-Triceratops-004Trp">MathKnight based on photo by Nicholas R. Longrich and Daniel J. Field</a> [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) 
 <a href="https://github.com/JustinGOSSES">Justin Gosses</a>, <a href="https://github.com/dalide">Licheng Zhang</a>, <a href="https://github.com/jazzskier">jazzskier</a>
 
 Project originally started as <a href="http://www.agilegeoscience.com/">Agile Scientific</a> Hackathon project, September 24th, 2017. Original work is in another repository on github <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon">here<a/>. This work has benefited from conversations on the integration of machine-learning and subsurface domains on the <a href="https://softwareunderground.org/">SWUNG</a> Slack channel. 
