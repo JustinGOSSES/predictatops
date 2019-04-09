@@ -1,9 +1,6 @@
 # predictatops
 
-_Code for supervised machine-learning stratigraphic pick prediction._
-
-
-
+_Code for stratigraphic pick prediction via supervised machine-learning_
 
 [![DOI](https://zenodo.org/badge/151658252.svg)](https://zenodo.org/badge/latestdoi/151658252)
 
