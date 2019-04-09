@@ -4,8 +4,6 @@ _Code for supervised machine-learning stratigraphic pick prediction._
 
 <a href="https://github.com/JustinGOSSES/predictatops/blob/master/LICENSE">MIT License</a>
 
-Development was in this repo: <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon">MannvilleGroup_Strat_Hackathon</a> but is now moving here as the code gets cleaned and modulized. This project is under active development. Significant portions of the code still only exist on MannvilleGroup_Strat_Hackathon repo at this time.
-
 This code is the subject of an <a href="https://github.com/JustinGOSSES/predictatops/blob/master/AAPG_Abstract_2019ACE.md">abstract</a> submitted to the AAPG ACE convention in 2019.
 
 
@@ -14,6 +12,8 @@ This code is the subject of an <a href="https://github.com/JustinGOSSES/predicta
 <a title="MathKnight based on photo by Nicholas R. Longrich and Daniel J. Field [CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Yale-Peabody-Triceratops-004Trp.png"><img width="512" alt="Yale-Peabody-Triceratops-004Trp" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Yale-Peabody-Triceratops-004Trp.png/512px-Yale-Peabody-Triceratops-004Trp.png"></a>
 
 Image by MathKnight based on photo by Nicholas R. Longrich and Daniel J. Field [CC BY-SA 4.0] 
+
+Development was in this repo: <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon">MannvilleGroup_Strat_Hackathon</a> but is now moving here as the code gets cleaned and modulized. This project is under active development. Significant portions of the code still only exist on MannvilleGroup_Strat_Hackathon repo at this time.
 
 Philosophy
 -------
