@@ -2,6 +2,6 @@
 Usage
 =====
 
-To use StratPickSupML in a project::
+To use predictatops in a project::
 
-    import StratPickSupML
+    import predictatops

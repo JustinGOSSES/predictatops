@@ -1,12 +1,12 @@
-# StratPickSupML
+# predictatops
 
 _Code for supervised machine-learning stratigraphic pick prediction._
 
-<a href="https://github.com/JustinGOSSES/StratPickSupML/blob/master/LICENSE">MIT License</a>
+<a href="https://github.com/JustinGOSSES/predictatops/blob/master/LICENSE">MIT License</a>
 
 Development was in this repo: <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon">MannvilleGroup_Strat_Hackathon</a> but is now moving here as the code gets cleaned and modulized. This project is under active development. Significant portions of the code still only exist on MannvilleGroup_Strat_Hackathon repo at this time.
 
-This code is the subject of an <a href="https://github.com/JustinGOSSES/StratPickSupML/blob/master/AAPG_Abstract_2019ACE.md">abstract</a> submitted to the AAPG ACE convention in 2019.
+This code is the subject of an <a href="https://github.com/JustinGOSSES/predictatops/blob/master/AAPG_Abstract_2019ACE.md">abstract</a> submitted to the AAPG ACE convention in 2019.
 
 
 [![DOI](https://zenodo.org/badge/151658252.svg)](https://zenodo.org/badge/latestdoi/151658252)
@@ -73,7 +73,7 @@ Each task has at least one, sometimes more than one .py file with low level func
 
 Folder Structures
 -------
-- <b>StratPickSupML</b> = These are the source files. I.E. the actual code.
+- <b>predictatops</b> = These are the source files. I.E. the actual code.
 - <b>Data</b> = Where the data input goes. 
 - <b>Demo</b> = I'll put some .py files and Jupyter Notebooks here that demo how to run the code.
 - <b>Docs</b> = Documentation will go here, eventaully.

@@ -9,7 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=.
 set BUILDDIR=_build
-set SPHINXPROJ=StratPickSupML
+set SPHINXPROJ=predictatops
 
 if "%1" == "" goto help
 

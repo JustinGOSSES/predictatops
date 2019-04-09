@@ -1,4 +1,4 @@
-Welcome to StratPickSupML's documentation!
+Welcome to predictatops's documentation!
 ======================================
 
 .. toctree::

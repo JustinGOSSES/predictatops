@@ -25,4 +25,4 @@ REFERENCES
 <br/><br/>
 Wynne, D.A., Attalla, M., Berezniuk, T., Brulotte, M., Cotterill, D.K., Strobl, R. and Wightman, D. (1995): Athabasca Oil Sands data McMurray/Wabiskaw oil sands deposit - electronic data; Alberta Research Council, ARC/AGS Special Report 6. http://ags.aer.ca/publications/SPE_006.html
 <br/><br/>
-Gosses, J.C. and Licheng, Z., (2018): StratPickSupML; DOI: 10.5281/zenodo.1450597. https://github.com/JustinGOSSES/StratPickSupML/
+Gosses, J.C. and Licheng, Z., (2018): predictatops; DOI: 10.5281/zenodo.1450597. https://github.com/JustinGOSSES/predictatops/

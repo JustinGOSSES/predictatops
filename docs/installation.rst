@@ -8,13 +8,13 @@ Installation
 Stable release
 --------------
 
-To install StratPickSupML, run this command in your terminal:
+To install predictatops, run this command in your terminal:
 
 .. code-block:: console
 
-    $ pip install StratPickSupML
+    $ pip install predictatops
 
-This is the preferred method to install StratPickSupML, as it will always install the most recent stable release.
+This is the preferred method to install predictatops, as it will always install the most recent stable release.
 
 If you don't have `pip`_ installed, this `Python installation guide`_ can guide
 you through the process.
@@ -26,19 +26,19 @@ you through the process.
 From sources
 ------------
 
-The sources for StratPickSupML can be downloaded from the `Github repo`_.
+The sources for predictatops can be downloaded from the `Github repo`_.
 
 You can either clone the public repository:
 
 .. code-block:: console
 
-    $ git clone git://github.com/JustinGOSSES/StratPickSupML
+    $ git clone git://github.com/JustinGOSSES/predictatops
 
 Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl  -OL https://github.com/JustinGOSSES/StratPickSupML/tarball/master
+    $ curl  -OL https://github.com/JustinGOSSES/predictatops/tarball/master
 
 Once you have a copy of the source, you can install it with:
 
@@ -47,5 +47,5 @@ Once you have a copy of the source, you can install it with:
     $ python setup.py install
 
 
-.. _Github repo: https://github.com/JustinGOSSES/StratPickSupML
-.. _tarball: https://github.com/JustinGOSSES/StratPickSupML/tarball/master
+.. _Github repo: https://github.com/JustinGOSSES/predictatops
+.. _tarball: https://github.com/JustinGOSSES/predictatops/tarball/master

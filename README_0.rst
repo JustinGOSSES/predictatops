@@ -1,8 +1,8 @@
 ==============
-StratPickSupML
+predictatops
 ==============
 
-# PLEASE REFER TO THE README.md .. _`here`:https://github.com/JustinGOSSES/StratPickSupML/blob/master/README.md not README_0.rst for the time being.
+# PLEASE REFER TO THE README.md .. _`here`:https://github.com/JustinGOSSES/predictatops/blob/master/README.md not README_0.rst for the time being.
 
 
 
@@ -24,25 +24,25 @@ Now development is gradually moving over to this repository. Once the approach h
 
 This code is the subject of an `2019 AAPG ACE abstract`.
 
-.. _`2019 AAPG ACE abstract`:https://github.com/JustinGOSSES/StratPickSupML/blob/master/AAPG_Abstract_2019ACE.md
+.. _`2019 AAPG ACE abstract`:https://github.com/JustinGOSSES/predictatops/blob/master/AAPG_Abstract_2019ACE.md
 
 
 [![DOI](https://zenodo.org/badge/151658252.svg)](https://zenodo.org/badge/latestdoi/151658252)
 
 
-.. image:: https://img.shields.io/pypi/v/StratPickSupML.svg
-        :target: https://pypi.python.org/pypi/StratPickSupML
+.. image:: https://img.shields.io/pypi/v/predictatops.svg
+        :target: https://pypi.python.org/pypi/predictatops
 
-.. image:: https://img.shields.io/travis/JustinGOSSES/StratPickSupML.svg
-        :target: https://travis-ci.org/JustinGOSSES/StratPickSupML
+.. image:: https://img.shields.io/travis/JustinGOSSES/predictatops.svg
+        :target: https://travis-ci.org/JustinGOSSES/predictatops
 
-.. image:: https://readthedocs.org/projects/StratPickSupML/badge/?version=latest
-        :target: https://StratPickSupML.readthedocs.io/en/latest/?badge=latest
+.. image:: https://readthedocs.org/projects/predictatops/badge/?version=latest
+        :target: https://predictatops.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
 
-.. image:: https://pyup.io/repos/github/JustinGOSSES/StratPickSupML/shield.svg
-     :target: https://pyup.io/repos/github/JustinGOSSES/StratPickSupML/
+.. image:: https://pyup.io/repos/github/JustinGOSSES/predictatops/shield.svg
+     :target: https://pyup.io/repos/github/JustinGOSSES/predictatops/
      :alt: Updates
 
 
@@ -51,7 +51,7 @@ A series of modules for various steps involved in a stratigraphic pick machine-l
 
 
 * Free software: MIT license
-* Documentation: https://StratPickSupML.readthedocs.io.
+* Documentation: https://predictatops.readthedocs.io.
 
 
 Features

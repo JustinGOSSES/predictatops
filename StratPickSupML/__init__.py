@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Top-level package for StratPickSupML."""
+"""Top-level package for predictatops."""
 
 __author__ = """Justin Gosses"""
 __email__ = 'jgosses82@gmail.com'
