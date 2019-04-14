@@ -333,12 +333,12 @@ def useThicknessOfNeighborsToEst(df_new2):
     return df_new2
 
 
-def create_MM_Top_Depth_Real_v_predBy_NN1thick(df_new3):
+def create_diff_Top_Depth_Real_v_predBy_NN1thick(df_new3):
     """
     Takes in:
     Returns: 
     """
-    df_new3['MM_Top_Depth_Real_v_predBy_NN1thick'] =  df_new3['TopTarget_DEPTH'] - df_new3['topTarget_Depth_predBy_NN1thick'] 
+    df_new3['diff_Top_Depth_Real_v_predBy_NN1thick'] =  df_new3['TopTarget_DEPTH'] - df_new3['topTarget_Depth_predBy_NN1thick'] 
     return df_new3
 
 def onlyWellsInTestPortion(df,string_train_or_test):
@@ -394,7 +394,7 @@ def fullWellsKNN(wells_df_from_split,input_data_inst,config):
     df_new3 = useThicknessOfNeighborsToEst(df_new2)
     print("len(df_new3)",len(df_new3))
     print("printing first row of df_new2 in wellKNN_runner.py",df_new3[0:1])
-    df_new4 = create_MM_Top_Depth_Real_v_predBy_NN1thick(df_new3)
+    df_new4 = create_diff_Top_Depth_Real_v_predBy_NN1thick(df_new3)
     print("len(df_new4)",len(df_new4))
     return df_new4
 

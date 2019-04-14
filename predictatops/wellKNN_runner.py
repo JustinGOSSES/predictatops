@@ -80,7 +80,7 @@ df_new3 = useThicknessOfNeighborsToEst(df_new2)
 print("printing first row of df_new2 in wellKNN_runner.py",df_new3[0:1])
 
 
-df_new3 = create_MM_Top_Depth_Real_v_predBy_NN1thick(df_new3)
+df_new3 = create_diff_Top_Depth_Real_v_predBy_NN1thick(df_new3)
 
 ######
 ######

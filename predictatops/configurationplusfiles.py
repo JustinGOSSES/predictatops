@@ -102,6 +102,7 @@ class configuration():
         self.NN1_topTarget_DEPTH = 'NN1_topTarget_DEPTH'
         self.NN1_TopHelper_DEPTH = "NN1_TopHelper_DEPTH"
         self.trainOrTest = 'trainOrTest'
+        self.colsToNotTurnToFloats = ['UWI', 'SiteID', 'trainOrTest','Neighbors_Obj']
         # self.results_path = "../results"
         # self.availableData_path = "availableData"
     
