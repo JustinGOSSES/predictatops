@@ -19,29 +19,30 @@ GOODBOY = pooch.create(
     #path=pooch.os_cache("mypackage_test"),
     path="../data/",
     # Base URL of the remote data store. Will call .format on this string to insert
+    #https://github.com/JustinGOSSES/predictatops/
     # the version (see below).  https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/tree/master/SPE_006_originalData
-    base_url="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/raw/{version}/SPE_006_originalData/",
+    base_url="https://github.com/JustinGOSSES/predictatops/raw/{version}/data/",
     # Pooches are versioned so that you can use multiple versions of a package
     # simultaneously. Use PEP440 compliant version number. The version will be
     # appended to the path.
-    version='0.0.1',
+    version='v0.0.2-alpha',
     # If a version as a "+XX.XXXXX" suffix, we'll assume that this is a dev version
     # and replace the version with this string.
     version_dev="master",
     # An environment variable that overwrites the path.
-    env="../data",
+    env="../data/",
     # The cache file registry. A dictionary with all files managed by this pooch.
     # Keys are the file names (relative to *base_url*) and values are their
     # respective SHA256 hashes. Files will be downloaded automatically when needed
-    # (see fetch_gravity_data).
-    registry={"OilSandsDB/LITHOLOGY_DIC.TXT": "83f3be338d6fa42eeadf60466c716e4370fe8723682c187d214a054bd695880a"}
+    # (see fetch_gravity_data).  1414057d0c5235b0ed13103c72c864ddfd34a0c8
+    #registry={"OilSandsDB/LITHOLOGY_DIC.TXT": "83f3be338d6fa42eeadf60466c716e4370fe8723682c187d214a054bd695880a"}
 )
 # You can also load the registry from a file. Each line contains a file name and
 # it's sha256 hash separated by a space. This makes it easier to manage large
 # numbers of data files. The registry file should be in the same directory as this
 # module.
 
-#GOODBOY.load_registry("registry.txt")
+GOODBOY.load_registry("../data/registry.txt")
 
 
 # Define functions that your users can call to get back some sample data in memory

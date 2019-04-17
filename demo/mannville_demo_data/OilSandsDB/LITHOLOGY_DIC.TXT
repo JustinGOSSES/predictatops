@@ -1,0 +1,8 @@
+LithID	Description
+0	Undefined
+1	Sand
+2	ShalySand
+3	SandyShale
+4	Shale
+5	Coal
+6	CementedSand
