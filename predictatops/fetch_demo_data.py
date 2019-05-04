@@ -36,6 +36,7 @@ GOODBOY = pooch.create(
     # (see fetch_gravity_data). 1414057d0c5235b0ed13103c72c864ddfd34a0c8
     # https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/tree/85c39ac7c27c28e4b6df776e23b69afbecd30443/SPE_006_originalData
     registry={"OilSandsDB/WELLS.xls": "2520ace4bdab0762b4d587760f684bc5223fe3b759f98eee6af59a4442450144"}
+                                    #   1e0e49a8c51a88bffa69eb034a27114f97e96cfa
     #registry={"SPE_006_originalData": "83f3be338d6fa42eeadf60466c716e4370fe8723682c187d214a054bd695880a"}
 )
 # You can also load the registry from a file. Each line contains a file name and

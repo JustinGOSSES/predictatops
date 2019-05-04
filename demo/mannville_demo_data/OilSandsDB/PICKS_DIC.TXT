@@ -1,0 +1,16 @@
+HorID	Descriptopn
+1000	mannville
+2000	t61
+3000	t51
+4000	t41
+5000	t31
+6000	clw_wab
+7000	t21
+8000	e20
+9000	t15
+9500	e14
+10000	t11
+11000	t10.5
+12000	e10
+13000	mcmurray
+14000	paleozoic
