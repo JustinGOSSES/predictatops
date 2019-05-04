@@ -24,23 +24,24 @@ class input_data():
     def __init__(self, picks_file_path, picks_delimiter_str,path_to_logs_str):
         #### Default initiation = ('../../../SPE_006_originalData/OilSandsDB/PICKS.TXT','\t','../../../SPE_006_originalData/OilSandsDB/Logs/*.LAS')
         #### Only things that are mandatory on initiation are below
+        self.data_directory = '../data/Mannville_input_data/v0.0.0-alpha/'
         self.picks_file_path = picks_file_path #### example = '../../../SPE_006_originalData/OilSandsDB/PICKS.TXT'
         self.picks_delimiter_str = picks_delimiter_str  #### example = '\t'
         self.picks_df = pd.read_csv(picks_file_path,delimiter=picks_delimiter_str)
-        self.picks_dic = '../data/SPE_006_originalData/OilSandsDB/PICKS.TXT'
+        self.picks_dic = self.data_directory+'OilSandsDB/PICKS.TXT'
         self.picks_dic_file_path_delimiter = '\t'
         self.logs_path_to_folder = path_to_logs_str #### example = '../../../SPE_006_originalData/OilSandsDB/Logs/*.LAS'
         #### non-mandatory attributes, defaults should work for the example dataset. Can be changed with set functions below
-        self.wells_file_path = '../data/SPE_006_originalData/OilSandsDB/WELLS.TXT'
+        self.wells_file_path = self.data_directory+'OilSandsDB/WELLS.TXT'
         self.wells_file_path_delimiter = '\t'
 
-        self.gis_file_path = '../data/well_lat_lng.csv'
+        self.gis_file_path = self.data_directory+'well_lat_lng.csv'
         self.gis_file_path_delimiter = ','
         self.gis_lat_col = "lat"
         self.gis_long_col = "lng"
         #wells_wTopsCuves_toLoad = 'WellNamesWithGivenTopsCurves_defaultFileName.pkl'
         #### for logs
-        self.las_folder_path = '../data/SPE_006_originalData/OilSandsDB/Logs/'
+        self.las_folder_path = self.data_directory+'OilSandsDB/Logs/'
         self.well_format = '.LAS'
         #### Technically optional but often used. 
         #### GIS file is mandatory if you want to use information from nearby wells or well's general location.
