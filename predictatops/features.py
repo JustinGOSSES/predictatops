@@ -101,6 +101,7 @@ def mergeCurvesAndTopsDF(wells_df_from_split_curveData,wells_df_from_wellsKNN,co
     ####### THIS IS THE PART THAT ISN"T WORKING ################
     ####### THIS IS THE PART THAT ISN"T WORKING ################
     ####### THIS IS THE PART THAT ISN"T WORKING ################
+    #### check if UWI column exists in each dataframe, if not, find SitID and create UWI column from SiteID
     
     df_all_wells_wKNN = pd.merge(wells_df_from_split_curveData, wells_df_from_wellsKNN, on=config.UWI)
     return df_all_wells_wKNN
@@ -119,3 +120,39 @@ def convertAllColButGivenToFloat(config,df_all_wells_wKNN):
     columns_to_turn_to_floats = [item for item in columns if item not in keepStringsArray]
     df_all_wells_wKNN = df_all_wells_wKNN[columns_to_turn_to_floats].astype(float)
     return df_all_wells_wKNN
+
+def convertSiteIDListToUWIList(input_data_inst,df_with_sitID):
+        """doc string goes here"""
+        if input_data_inst.wells_df is not None:
+            wells = input_data_inst.load_wells_file()
+        else:
+            wells = input_data_inst.input.wells_df
+        # if self.wells_with_all_given_tops is not None:
+        #     wells_with_all_given_tops = self.findWellsWithAllTopsGive()
+        # else:
+        #     wells_with_all_given_tops = self.wells_with_all_given_tops
+        wells = wells[['SitID','UWI']]
+        wells["UWInew"] = wells["UWI"].str.replace("/","-")+".LAS"
+        wells = wells[['SitID','UWInew']]
+        wells_dict = wells.set_index('SitID').T.to_dict('r')[0]
+        print("wells_dict = ",wells_dict)
+        #df_with_sitID['UWI'] = df_with_sitID['SitID']
+        #df_with_sitID.replace({'UWI': wells_dict},inplace=True)
+        df_with_sitID['UWI'] = df_with_sitID['SitID'].map(wells_dict)
+        #df_with_sitID['UWI'] = df_with_sitID['UWI'][1]
+        #df_with_sitID['UWI'] = wells_dict[df_with_sitID['SitID']][1]
+        print("df_with_sitID[0:2]",df_with_sitID.UWI)
+        return df_with_sitID
+
+
+        # new_wells = wells.set_index('SitID').T.to_dict('list')
+        # for key in new_wells:
+        #     new_wells[key].append(new_wells[key][1].replace("/","-")+".LAS") 
+            #         print("new_wells",new_wells)
+            #         print(len(new_wells))
+        
+        # new_wells_with_all_given_tops = []
+        # for well in wells_with_all_given_tops:
+        #     new_wells_with_all_given_tops.append(new_wells[well][2])
+        # self.new_wells_with_all_given_tops = new_wells_with_all_given_tops
+        # return new_wells_with_all_given_tops

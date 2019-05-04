@@ -53,6 +53,10 @@ print("wells_df_from_split_curveData.columns",wells_df_from_split_curveData.colu
     ####### THIS IS THE PART THAT ISN"T WORKING ################
     ####### THIS IS THE PART THAT ISN"T WORKING ################
     ####### THIS IS THE PART THAT ISN"T WORKING ################
+
+wells_df_from_wellsKNN = convertSiteIDListToUWIList(input_data_inst,wells_df_from_wellsKNN)
+print("wells_df_from_wellsKNN",wells_df_from_wellsKNN)
+
 df_all_wells_wKNN = mergeCurvesAndTopsDF(wells_df_from_split_curveData,wells_df_from_wellsKNN,config)
 print("len(df_all_wells_wKNN 2)",len(df_all_wells_wKNN))
 
