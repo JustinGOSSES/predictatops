@@ -83,3 +83,8 @@ df_all_wells_wKNN_wEdgesMarked = NN1_TopMcMDepth_Abs(df_all_wells_wKNN_wEdgesMar
 df_all_wells_wKNN_wEdgesMarked = markingEdgeOfWells(df_all_wells_wKNN_wEdgesMarked,config)
 
 print("df_all_wells_wKNN_wEdgesMarked.head()",df_all_wells_wKNN_wEdgesMarked.head())
+
+
+##################### WINDOWS FEATURES ####################
+
+test5result = createManyFeatFromCurvesOverWindows(df_all_wells_wKNN_wEdgesMarked,config)

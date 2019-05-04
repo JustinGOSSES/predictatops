@@ -152,7 +152,10 @@ def convertSiteIDListToUWIList(input_data_inst,df_with_sitID):
         print("df_with_sitID[0:2]",df_with_sitID.UWI)
         return df_with_sitID
 
-#####
+################################################## #####################################
+########## ALL THE NEXT FEW FUNCTIONS BELOW CREATES FEATURES AS COL IN  ################
+########## DATAFRAME HAVING TO DO WITH NEAREST NEIGHBOR AND DEPTH IN WELL ##############
+########## AND RELATIVE TO KNOWN PICKS #################################################
 
 def createDepthRelToKnownTopInSameWell(df):
     """
@@ -261,3 +264,115 @@ def markingEdgeOfWells(df,config):
 
 
     return df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM 
+
+
+################################################## #####################################
+########## ALL THE NEXT FEW FUNCTIONS BELOW CREATES FEATURES AS COL IN  ################
+########## DATAFRAME HAVING TO DO WITH ANALYZING CURVES ACROSS WINDOWS #################
+########## RELATIVE TO EACH DEPTH IN EACH WELL #########################################
+
+def nLargest(array,nValues):
+    """
+    writes things here
+    """
+    answer = np.mean(array[np.argsort(array)[-nValues:]])  
+    return answer
+
+def thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses(dd,curves,windows):
+    """
+    for loop for each combination of parameter for rolling functions
+    curves = ['GR','ILD']
+    windows = [5,7,11,21]
+    directions = ["around","below","above"]
+        #         Not sure the best way to do the 'below' centered rolling in dask as the sort_index is expensive in dask so might be slow!
+        #       Skipping this for now will come back when not tired. Maybe use shift?
+    For each column created, check window size vs. allowable window size column, if too small, use single row value from original column
+    """
+    comboArg_B = [curves,windows]
+    all_comboArgs_B = list(itertools.product(*comboArg_B))
+    for eachArgList in all_comboArgs_B:
+        col = eachArgList[0]
+        windowSize = eachArgList[1]
+        #centered = eachArgList[2]
+        featureName = col+"_min_"+str(windowSize)+"winSize_"
+        half_window = int(windowSize/2)
+        #         quarter_window = int(windowSize/4)
+
+        
+        ### goes through distance to edge and when less than windowSize writes "too close" otherwise returns NaN
+        ### fills in Nan with calculated feature column
+        ### replaces "too close" with NaN
+        ### replaces NaN with dd[col]
+        ### overrights original column
+        
+        #### MIN
+        dd[featureName+'dir'+'Around'+'Min'] = dd[col].rolling(windowSize,center=True).min()
+        dd[featureName+'dir'+'Around'+'Min'] = dd[featureName+'dir'+'Around'+'Min'].where(cond=dd['closTopBotDist'] > half_window, other=dd[col])
+        
+        dd[featureName+'dir'+'Above'+'Min'] = dd[col].rolling(windowSize,center=False).min()
+        dd[featureName+'dir'+'Above'+'Min'] = dd[featureName+'dir'+'Above'+'Min'].where(cond=dd['closTopBotDist'] > windowSize, other=dd[col])
+        #### MAX
+        dd[featureName+'dir'+'Around'+'Max'] = dd[col].rolling(windowSize,center=True).max()
+        dd[featureName+'dir'+'Around'+'Max'] = dd[featureName+'dir'+'Around'+'Max'].where(cond=dd['closTopBotDist'] > half_window, other=dd[col])
+        
+        dd[featureName+'dir'+'Above'+'Max'] = dd[col].rolling(windowSize,center=False).max()
+        dd[featureName+'dir'+'Above'+'Max'] = dd[featureName+'dir'+'Above'+'Max'].where(cond=dd['closTopBotDist'] > windowSize, other=dd[col])
+        #### Mean
+        dd[featureName+'dir'+'Around'+'Mean'] = dd[col].rolling(windowSize,center=True).mean()
+        dd[featureName+'dir'+'Around'+'Mean'] = dd[featureName+'dir'+'Around'+'Mean'].where(cond=dd['closTopBotDist'] > half_window, other=dd[col])
+        
+        dd[featureName+'dir'+'Above'+'Mean'] = dd[col].rolling(windowSize,center=False).mean()
+        dd[featureName+'dir'+'Above'+'Mean'] = dd[featureName+'dir'+'Above'+'Mean'].where(cond=dd['closTopBotDist'] > windowSize, other=dd[col])
+
+        ## nLargest
+        nValues = 5
+        dd[featureName+'dir'+'Above'+'nLarge'] = dd[col].rolling(windowSize,center=False).apply( lambda x: nLargest(x,nValues),raw=True)  
+        dd[featureName+'dir'+'Above'+'nLarge'] = dd[featureName+'dir'+'Above'+'nLarge'].where(cond=dd['closTopBotDist'] > windowSize, other=dd[col])
+        
+        dd[featureName+'dir'+'Around'+'nLarge'] = dd[col].rolling(windowSize,center=True).apply(lambda x: nLargest(x,nValues),raw=True) 
+        dd[featureName+'dir'+'Around'+'nLarge'] = dd[featureName+'dir'+'Around'+'nLarge'].where(cond=dd['closTopBotDist'] > windowSize, other=dd[col])
+    
+    return dd
+
+
+def createManyFeatFromCurvesOverWindows(df,config):
+    """
+    asdf
+    """
+    ###
+    df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop = df 
+
+    ###
+    client = Client()
+    client
+    test_5 = df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop.copy()
+    test_5 = dd.from_pandas(test_5, npartitions=50)
+    print("type(test_5)",type(test_5))
+    #curves = ['GR','ILD','NPHI','DPHI']
+    curves = config.must_have_curves_list
+    #windows = [5,7,11,21]
+    windwows = config.curve_windows_for_rolling_features
+
+    #### The function nLargest is used via apply, I should probably re-write this to use Dask's Nlargest API 
+    #### but didn't here as the docs imply it might behave slightly differently.
+    #### A quick look at the status dashboard in the Dask Client suggests the use of apply takes up maybe 1/4-1/2 
+    #### of total compute time currently!
+    
+    ddf_test5 = thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses(test_5,curves,windows)
+    test5result = ddf_test5.compute()
+    print("test5result.head()",test5result.head())
+    print("type(test5result)",type(test5result))
+    print("len(test5result.columns)",len(test5result.columns))
+    return test5result
+
+
+########### ADD IN THIS #####
+########### ADD IN THIS #####
+########### ADD IN THIS #####
+########### ADD IN THIS #####
+########### ADD IN THIS #####
+########### ADD IN THIS #####
+########### ADD IN THIS #####
+########### ADD IN THIS #####
+#test5result['diff_DEPT_vs_NN1_topTarget_DEPTH'] = test5result['DEPT'] - test5result['NN1_topTarget_DEPTH']
+

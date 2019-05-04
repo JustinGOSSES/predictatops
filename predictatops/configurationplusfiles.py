@@ -83,6 +83,7 @@ class configuration():
         self.csv_of_well_names_wTopCurves__path = '.'
         #### Choices
         self.must_have_curves_list = [''] # ['ILD', 'NPHI', 'GR', 'DPHI', 'DEPT']
+        self.curve_windows_for_rolling_features = [5,7,11,21]
         self.must_have_tops__list = [13000,14000]
         self.target_top = 13000
         self.top_under_target = 14000
