@@ -90,9 +90,11 @@ class configuration():
         self.top_name_col_in_picks_df = '' 
         self.siteID_col_in_picks_df = 'SitID'
         self.UWI = "UWI"
+        self.DEPTH_col_in_featureCreation = "DEPT"
         self.HorID_name_col_in_picks_df = "HorID"
         self.quality_col_name_in_picks_df = "Quality"
         self.picks_depth_col_in_picks_df = 'Pick'
+        self.col_topTarget_Depth_predBy_NN1thick = 'topTarget_Depth_predBy_NN1thick'
         self.quality_items_to_skip__list = [-1,0]
         self.test = "test0"
         self.threshold_returnCurvesThatArePresentInThisManyWells = 2000
@@ -103,7 +105,8 @@ class configuration():
         self.NN1_topTarget_DEPTH = 'NN1_topTarget_DEPTH'
         self.NN1_TopHelper_DEPTH = "NN1_TopHelper_DEPTH"
         self.trainOrTest = 'trainOrTest'
-        self.colsToNotTurnToFloats = ['UWI', 'SiteID', 'trainOrTest','Neighbors_Obj']
+        self.colsToNotTurnToFloats = ['UWI', 'SitID', 'trainOrTest','Neighbors_Obj']
+        self.zonesAroundTops = {"100":[0],"95":[-0.5,0.5],"60":[-5,0.5],"70":[0.5,5],"0":[]} #### NOTE: The code in createFeat_withinZoneOfKnownPick(df,config) function in features.py current ASSUMES only 5 zone labels
         # self.results_path = "../results"
         # self.availableData_path = "availableData"
     

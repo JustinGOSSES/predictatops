@@ -59,6 +59,7 @@ print("wells_df_from_wellsKNN",wells_df_from_wellsKNN)
 
 df_all_wells_wKNN = mergeCurvesAndTopsDF(wells_df_from_split_curveData,wells_df_from_wellsKNN,config)
 print("len(df_all_wells_wKNN 2)",len(df_all_wells_wKNN))
+print("df_all_wells_wKNN.columns",df_all_wells_wKNN.columns)
 
 print("df_all_wells_wKNN.columns",df_all_wells_wKNN.columns)
 
@@ -68,7 +69,17 @@ print("df_all_wells_wKNN.columns",df_all_wells_wKNN.columns)
 
 df_all_wells_wKNN = convertAllColButGivenToFloat(config,df_all_wells_wKNN)
 
-
+df_all_wells_wKNN = takeLASOffUWI(df_all_wells_wKNN,config)
 print("df_all_wells_wKNN.info()",df_all_wells_wKNN.info())
-print("number of columns in len(df_all_wells_wKNN.columns)",len(df_all_wells_wKNN.columns))
-print(df_all_wells_wKNN[0:2])
+# print("number of columns in len(df_all_wells_wKNN.columns)",len(df_all_wells_wKNN.columns))
+# print(df_all_wells_wKNN[0:2])
+
+df_all_wells_wKNN_wEdgesMarked = createDepthRelToKnownTopInSameWell(df_all_wells_wKNN)
+
+df_all_wells_wKNN_wEdgesMarked = createFeat_withinZoneOfKnownPick(df_all_wells_wKNN_wEdgesMarked,config)
+
+df_all_wells_wKNN_wEdgesMarked = NN1_TopMcMDepth_Abs(df_all_wells_wKNN_wEdgesMarked,config)
+
+df_all_wells_wKNN_wEdgesMarked = markingEdgeOfWells(df_all_wells_wKNN_wEdgesMarked,config)
+
+print("df_all_wells_wKNN_wEdgesMarked.head()",df_all_wells_wKNN_wEdgesMarked.head())
