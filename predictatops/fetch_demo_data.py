@@ -33,8 +33,10 @@ GOODBOY = pooch.create(
     # The cache file registry. A dictionary with all files managed by this pooch.
     # Keys are the file names (relative to *base_url*) and values are their
     # respective SHA256 hashes. Files will be downloaded automatically when needed
-    # (see fetch_gravity_data).
-    registry={"OilSandsDB/LITHOLOGY_DIC.TXT": "83f3be338d6fa42eeadf60466c716e4370fe8723682c187d214a054bd695880a"}
+    # (see fetch_gravity_data). 1414057d0c5235b0ed13103c72c864ddfd34a0c8
+    # https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/tree/85c39ac7c27c28e4b6df776e23b69afbecd30443/SPE_006_originalData
+    registry={"OilSandsDB/WELLS.xls": "2520ace4bdab0762b4d587760f684bc5223fe3b759f98eee6af59a4442450144"}
+    #registry={"SPE_006_originalData": "83f3be338d6fa42eeadf60466c716e4370fe8723682c187d214a054bd695880a"}
 )
 # You can also load the registry from a file. Each line contains a file name and
 # it's sha256 hash separated by a space. This makes it easier to manage large
@@ -51,7 +53,7 @@ def fetch_gravity_data():
     """
     # Fetch the path to a file in the local storae. If it's not there, we'll
     # download it.
-    fname = GOODBOY.fetch("OilSandsDB/LITHOLOGY_DIC.TXT")
+    fname = GOODBOY.fetch("OilSandsDB/WELLS.xls")
     # Load it with numpy/pandas/etc
     data = ...
     return data
