@@ -15,7 +15,10 @@ import pickle
 import math
 import dask
 import dask.dataframe as dd
-from dask.distributed import Client
+#from dask.distributed import Client
+#from distributed import Client
+from distributed.client import *
+
 # import pdvega
 # import vega
 #from IPython.display import display
@@ -262,7 +265,7 @@ def markingEdgeOfWells(df,config):
     df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM['rowsToEdge'] = df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM['closTopBotDist']/0.25
     df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM['rowsToEdge'] = df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM['rowsToEdge'].astype(int)
 
-
+    df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM['diff_DEPT_vs_NN1_topTarget_DEPTH'] = df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM['DEPT'] - df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM['NN1_topTarget_DEPTH']
     return df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM 
 
 
@@ -311,7 +314,8 @@ def thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses(dd,curves,windows
         
         dd[featureName+'dir'+'Above'+'Min'] = dd[col].rolling(windowSize,center=False).min()
         dd[featureName+'dir'+'Above'+'Min'] = dd[featureName+'dir'+'Above'+'Min'].where(cond=dd['closTopBotDist'] > windowSize, other=dd[col])
-        #### MAX
+        print("finished min in function thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses")
+        ### MAX
         dd[featureName+'dir'+'Around'+'Max'] = dd[col].rolling(windowSize,center=True).max()
         dd[featureName+'dir'+'Around'+'Max'] = dd[featureName+'dir'+'Around'+'Max'].where(cond=dd['closTopBotDist'] > half_window, other=dd[col])
         
@@ -323,7 +327,7 @@ def thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses(dd,curves,windows
         
         dd[featureName+'dir'+'Above'+'Mean'] = dd[col].rolling(windowSize,center=False).mean()
         dd[featureName+'dir'+'Above'+'Mean'] = dd[featureName+'dir'+'Above'+'Mean'].where(cond=dd['closTopBotDist'] > windowSize, other=dd[col])
-
+        print("finished mean in function thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses")
         ## nLargest
         nValues = 5
         dd[featureName+'dir'+'Above'+'nLarge'] = dd[col].rolling(windowSize,center=False).apply( lambda x: nLargest(x,nValues),raw=True)  
@@ -340,18 +344,22 @@ def createManyFeatFromCurvesOverWindows(df,config):
     asdf
     """
     ###
-    df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop = df 
+    #### To run Dask computations with only a subset of the full dataframe is sometimes useful for debugging as seen in line below.
+    #### df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop = df[0:20000] 
+    df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop = df
 
     ###
-    client = Client()
-    client
+    #client = Client()
+    client = Client(processes=False)
+    #client
     test_5 = df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop.copy()
+    print("copied test_5")
     test_5 = dd.from_pandas(test_5, npartitions=50)
     print("type(test_5)",type(test_5))
     #curves = ['GR','ILD','NPHI','DPHI']
     curves = config.must_have_curves_list
     #windows = [5,7,11,21]
-    windwows = config.curve_windows_for_rolling_features
+    windows = config.curve_windows_for_rolling_features
 
     #### The function nLargest is used via apply, I should probably re-write this to use Dask's Nlargest API 
     #### but didn't here as the docs imply it might behave slightly differently.
@@ -359,20 +367,13 @@ def createManyFeatFromCurvesOverWindows(df,config):
     #### of total compute time currently!
     
     ddf_test5 = thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses(test_5,curves,windows)
+    print("NOTE: currently in createManyFeatFromCurvesOverWindows(df,config) function & calculated graph for ddf_test5. This will take a while to compute() via Dask, so sit tight!")
     test5result = ddf_test5.compute()
     print("test5result.head()",test5result.head())
     print("type(test5result)",type(test5result))
     print("len(test5result.columns)",len(test5result.columns))
     return test5result
 
-
-########### ADD IN THIS #####
-########### ADD IN THIS #####
-########### ADD IN THIS #####
-########### ADD IN THIS #####
-########### ADD IN THIS #####
-########### ADD IN THIS #####
-########### ADD IN THIS #####
-########### ADD IN THIS #####
+########### MIGHT HAVE ALREADY ADDED IN THIS , BUT CHECK #####
 #test5result['diff_DEPT_vs_NN1_topTarget_DEPTH'] = test5result['DEPT'] - test5result['NN1_topTarget_DEPTH']
 
