@@ -192,7 +192,7 @@ class output_data():
         self.split_results_wells_df = "wells_wTopsCurvesSplits"
         self.wellsKNN_results_wells_df = "wells_wTopsCurvesSplitsKNN"
         self.features_results_wells_df = "wells_wTopsCurvesSplitsKNNFeatures"
-        self.balance_results_wells_df = "wells_wTopsCurvesSplitsKNNFeatures"
+        self.balance_results_wells_df = "wells_wTopsCurvesSplitsKNNFeaturesBalance"
     
     def make_all_directories(self):
         print("making base folder for results in:",self.base_path_for_all_results)

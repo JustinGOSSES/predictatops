@@ -87,11 +87,14 @@ print("df_all_wells_wKNN_wEdgesMarked.head()",df_all_wells_wKNN_wEdgesMarked.hea
 
 ##################### WINDOWS FEATURES ####################
 #### NOTE: There may be a window that pops up and asks you to approve incoming network communication to python3 from Dask.
-df_features_result = createManyFeatFromCurvesOverWindows(df_all_wells_wKNN_wEdgesMarked,config)
+#### THERE ARE TWO FUNCTIONS YOU CAN PICK TO RUN BELOW, ONE WITH AND ONE WITHOUT DASK
+
+#df_features_result = createManyFeatFromCurvesOverWindows_withDask(df_all_wells_wKNN_wEdgesMarked,config)
+df_features_results = createManyFeatFromCurvesOverWindows_withOutDask(df_all_wells_wKNN_wEdgesMarked,config)
 
 ##################### Save dataframe as hdf #####################
 load_dir = output_data_inst.base_path_for_all_results+ "/" + output_data_inst.path_features
 load_filename = output_data_inst.features_results_wells_df+output_data_inst.default_results_file_format
 load_results_full_file_path = load_dir+"/"+load_filename
 
-df_features_result.to_hdf(load_results_full_file_path, key='df', mode='w')
+df_features_results.to_hdf(load_results_full_file_path, key='df', mode='w')

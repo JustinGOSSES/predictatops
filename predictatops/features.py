@@ -339,7 +339,7 @@ def thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses(dd,curves,windows
     return dd
 
 
-def createManyFeatFromCurvesOverWindows(df,config):
+def createManyFeatFromCurvesOverWindows_withDask(df,config):
     """
     asdf
     """
@@ -376,4 +376,42 @@ def createManyFeatFromCurvesOverWindows(df,config):
 
 ########### MIGHT HAVE ALREADY ADDED IN THIS , BUT CHECK #####
 #test5result['diff_DEPT_vs_NN1_topTarget_DEPTH'] = test5result['DEPT'] - test5result['NN1_topTarget_DEPTH']
+
+
+def createManyFeatFromCurvesOverWindows_withOutDask(df,config):
+    """
+    asdf
+    """
+    ###
+    #### To run Dask computations with only a subset of the full dataframe is sometimes useful for debugging as seen in line below.
+    #### df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop = df[0:20000] 
+    df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop = df
+
+    ###
+    #client = Client()
+    #client = Client(processes=False)
+    #client
+    #test_5 = df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop.copy()
+    #print("copied test_5")
+    #test_5 = dd.from_pandas(test_5, npartitions=50)
+    #print("type(test_5)",type(test_5))
+    #curves = ['GR','ILD','NPHI','DPHI']
+    curves = config.must_have_curves_list
+    #windows = [5,7,11,21]
+    windows = config.curve_windows_for_rolling_features
+
+    #### The function nLargest is used via apply, I should probably re-write this to use Dask's Nlargest API 
+    #### but didn't here as the docs imply it might behave slightly differently.
+    #### A quick look at the status dashboard in the Dask Client suggests the use of apply takes up maybe 1/4-1/2 
+    #### of total compute time currently!
+    print("started to run long function to create features in createManyFeatFromCurvesOverWindows_withOutDask(df,config), sit tight!")
+    df_test5 = thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses(df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop,curves,windows)
+    #print("NOTE: currently in createManyFeatFromCurvesOverWindows(df,config) function & calculated graph for ddf_test5. This will take a while to compute() via Dask, so sit tight!")
+    #test5result = ddf_test5.compute()
+    print("test5result.head()",df_test5.head())
+    print("type(test5result)",type(df_test5))
+    print("len(test5result.columns)",len(df_test5.columns))
+    print("len(df_test5)",len(df_test5))
+    return df_test5
+
 
