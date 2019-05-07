@@ -11,7 +11,7 @@ from configurationplusfiles_runner import input_data_inst, config, output_data_i
 
 ################ path_to_wells,file_ending ###################
 load_dir = output_data_inst.base_path_for_all_results+ "/" + output_data_inst.path_load
-load_filename = output_data_inst.load_results_wells_df_onlywanted 
+load_filename = output_data_inst.loaded_results_wells_df 
 load_results_full_file_path = load_dir+"/"+load_filename+output_data_inst.default_results_file_format
 
 #saved_wells_df_name_h5 = saved_wells_df_name_h5

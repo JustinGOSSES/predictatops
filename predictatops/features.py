@@ -47,12 +47,12 @@ def getMainDFsavedInStep(path_to_results,path_to_directory,file_name,ending):
     full_path_to_results_file = dir_path+"/"+file_name+ending
     return full_path_to_results_file
 
-def load_prev_results_at_path(full_path_to_results_file):
+def load_prev_results_at_path(full_path_to_results_file,key='df'):
     """
     Takes in 
     Returns
     """
-    wells_df_from_wellsKNN  = pd.read_hdf(full_path_to_results_file)
+    wells_df_from_wellsKNN  = pd.read_hdf(full_path_to_results_file,key=key)
     return wells_df_from_wellsKNN
 
 def get_wellsKNN_results(output_data_inst):
@@ -97,13 +97,6 @@ def mergeCurvesAndTopsDF(wells_df_from_split_curveData,wells_df_from_wellsKNN,co
     Takes in 
     Returns
     """
-    ####### THIS IS THE PART THAT ISN"T WORKING ################
-    ####### THIS IS THE PART THAT ISN"T WORKING ################
-    ####### THIS IS THE PART THAT ISN"T WORKING ################
-    ####### THIS IS THE PART THAT ISN"T WORKING ################
-    ####### THIS IS THE PART THAT ISN"T WORKING ################
-    ####### THIS IS THE PART THAT ISN"T WORKING ################
-    ####### THIS IS THE PART THAT ISN"T WORKING ################
     #### check if UWI column exists in each dataframe, if not, find SitID and create UWI column from SiteID
     
     df_all_wells_wKNN = pd.merge(wells_df_from_split_curveData, wells_df_from_wellsKNN, on=config.UWI)
@@ -191,9 +184,9 @@ def createFeat_withinZoneOfKnownPick(df,config):
     zonesAroundTops = config.zonesAroundTops
     zones = list(zonesAroundTops.keys())
     #### CHANGE => diff_TMcM_Pick_v_DEPT
-    df_all_wells_wKNN_DEPTHtoDEPT['class_DistFrPick_TopTarget']=df_all_wells_wKNN_DEPTHtoDEPT['diff_TopTarget_DEPTH_v_rowDEPT'].apply(lambda x: zones[0] if x==zonesAroundTops[zones[0]][0] else ( zones[1] if (zonesAroundTops[zones[1]][0] < x and x <zonesAroundTops[zones[1]][1]) else zones[2] if (zonesAroundTops[zones[2]][0] < x and x <zonesAroundTops[zones[2]][1]) else zones[3] if (zonesAroundTops[zones[3]][0] < x and x <zonesAroundTops[zones[3]][1]) else zones[4]))
+    df_all_wells_wKNN_DEPTHtoDEPT['class_DistFrPick_TopTarget']=df_all_wells_wKNN_DEPTHtoDEPT['diff_TopTarget_DEPTH_v_rowDEPT'].apply(lambda x: zones[0] if x==zonesAroundTops[zones[0]][0] else ( zones[1] if (zonesAroundTops[zones[1]][0] < x and x <= zonesAroundTops[zones[1]][1]) else zones[2] if (zonesAroundTops[zones[2]][0] < x and x <= zonesAroundTops[zones[2]][1]) else zones[3] if (zonesAroundTops[zones[3]][0] < x and x <= zonesAroundTops[zones[3]][1]) else zones[4]))
     #### Top paleozoic version
-    df_all_wells_wKNN_DEPTHtoDEPT['class_DistFrPick_TopHelper']=df_all_wells_wKNN_DEPTHtoDEPT['diff_TopTarget_DEPTH_v_rowDEPT'].apply(lambda x: zones[0] if x==zonesAroundTops[zones[0]][0] else ( zones[1] if (zonesAroundTops[zones[1]][0] < x and x <zonesAroundTops[zones[1]][1]) else zones[2] if (zonesAroundTops[zones[2]][0] < x and x <zonesAroundTops[zones[2]][1]) else zones[3] if (zonesAroundTops[zones[3]][0] < x and x <zonesAroundTops[zones[3]][1]) else zones[4]))
+    df_all_wells_wKNN_DEPTHtoDEPT['class_DistFrPick_TopHelper']=df_all_wells_wKNN_DEPTHtoDEPT['diff_TopTarget_DEPTH_v_rowDEPT'].apply(lambda x: zones[0] if x==zonesAroundTops[zones[0]][0] else ( zones[1] if (zonesAroundTops[zones[1]][0] < x and x <= zonesAroundTops[zones[1]][1]) else zones[2] if (zonesAroundTops[zones[2]][0] < x and x <= zonesAroundTops[zones[2]][1]) else zones[3] if (zonesAroundTops[zones[3]][0] < x and x <= zonesAroundTops[zones[3]][1]) else zones[4]))
 
     # df_all_wells_wKNN_DEPTHtoDEPT['class_DistFrPick_TopHelper']=df_all_wells_wKNN_DEPTHtoDEPT['diff_TopHelper_DEPTH_v_rowDEPT'].apply(lambda x: 100 if x==0 else ( 95 if (-0.5 < x and x <0.5) else 60 if (-5 < x and x <-0.5) else 70 if (0.5 < x and x <5) else 0))
     return df_all_wells_wKNN_DEPTHtoDEPT

@@ -70,7 +70,7 @@ df_1 = turn_dict_of_well_dfs_to_single_df(dict_of_well_df_0)
 
 print("we now has all the wells we want in a single dataframe with ",len(df_1['UWI'].unique())," unique UWI identifiers")
 
-saved_wells_df_name_h5 = output_data_inst.base_path_for_all_results+"/"+output_data_inst.path_load+"/"+output_data_inst.load_results_wells_df_onlywanted+output_data_inst.default_results_file_format
+saved_wells_df_name_h5 = output_data_inst.base_path_for_all_results+"/"+output_data_inst.path_load+"/"+output_data_inst.loaded_results_wells_df+output_data_inst.default_results_file_format
 
 
 #### Save dataframe as hdf

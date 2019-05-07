@@ -188,7 +188,7 @@ class output_data():
         self.path_evaluate = 'evaluate'
         self.path_map = 'map'
         #### IF YOU ADD ANOTHER DIRECTORY TO THE ONES ABOVE, ADD IT TO THE LIST IN make_all_directories(self) FUNCTION !!! ####
-        self.load_results_wells_df_onlywanted = "loaded_wells_wTopsCurves"
+        self.loaded_results_wells_df = "loaded_wells_wTopsCurves"
         self.split_results_wells_df = "wells_wTopsCurvesSplits"
         self.wellsKNN_results_wells_df = "wells_wTopsCurvesSplitsKNN"
         self.features_results_wells_df = "wells_wTopsCurvesSplitsKNNFeatures"
