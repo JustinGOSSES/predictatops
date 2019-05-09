@@ -57,19 +57,30 @@ In terms of how much the code is abstracted into higher level actions vs small l
 The code is broken into individual Tasks. 
 Mandetory ones will have (m). Option ones denoted by a (o). 
 
-- (o) Figure out what wells can be used based on presence or lack of tops and well curves
-- (m) Load LAS files & restrict based on presence of tops and well curves
-- (m) Create train/test split (need to do before features due to using neighboring wells in feature creation)
-- (m) Find K nearest neighbors for each well. Creates features based on neighbor relationships.
-- (m) Create features
-- (m) Deal with imbalanced class distribution
-- (m) Machine learning 1: Model training
-- (m) Machine learning 2: Inference, modeling part 2, inference 2, and scoring
-- (o) Map results
-- (o) Evaluate results of machine-learning
-- (o) Explore features and alternative feature creation though UMAP and other visualizations techniques.
+- (m) [main] Main.py function. Used for some utilities leveraged across multiple steps.
+- (m) [configurationplusfiles] Sets input path, configuration, and output path variables used by the Predictatops
+- (o) [checkdata] Counts combinations of available tops and curves to help users figure out what wells can be used.
+- (m) [load] Loads LAS files based on a well list constructed in the checkdata step.
+- (m) [split] Splits the wells from load into train or test wells and assigns labels. Need to do before feature creation due to some features using neighboring wells. You don't want to use test well information when creating features for training.
+- (m) [wellsKNN] Find K nearest neighbors for each well. Creates features based on neighbor relationships.
+- (m) [features] Create additioal features.
+- (m) [balance] Deal with imbalanced class distribution by duplicating some rows and taking out very common varieties.
+- (m) [trainclasses] Machine learning 1: Model training
+- (m) [predictionclasses] Go from trained model from trainclasses.py to predicted classes at each depth point.
+- (o) [traintops] Secondary Machine learning 2 that takes results of class prediction and uses a secondary machine learning model to predict the top based on regression. : Inference
+- (o) [predictiontops] Uses models in traintops and predict the top through regression & and a limited set of features instead of heuristic set of rules.
+- (o) [plot] Map & plot results.
+- (o) [uncertainty] Potential places for functions for calculating uncertainty predictions and plotting ranges.
 
-Each task has at least one, sometimes more than one .py file with low level functions and another higher level .py file that calls those functions. The higher level .py file refers to a configuration file, input data sources file, and output dataset file. Alternatively, the higher level .py file(s) can be replace with functions called in a notebook environment.
+Each task has at least one .py file with low level functions and another higher level .py file that calls those functions, often with the same name but _runner appended. 
+
+An example is `load.py` and `load_runner.py`. 
+
+The higher level .py file imports the results of configurationplusfiles.py to get variables for configuration, input file locations, and output saved files locations. It also calls the functions in the lower level .py file. The lower level .py files hold functions, nothing is run by them when the file is run. For example, in a command line `python3 load.py` won't do anything. `python3 load_runner.py` will execute code. 
+
+Alternatively to using the higher level .py files, just the lower level .py files can be called and work of the _runner files done in the cells of a jupyter notebook.
+
+I've followed this breakdown as I wanted to both train together things like configurationplusfiles_runner.py load_runner.py and split_runner.py easily while also easily ignoring them altogether as different methods are substituted. The goal was to allow code to be swapped out easily without having to keep track of much as the code is still rapidly changing while also be able to set up different trials to run in sequence. 
 
 Folder Structures
 -------
@@ -77,7 +88,7 @@ Folder Structures
 - <b>Data</b> = Where the data input goes. 
 - <b>Demo</b> = I'll put some .py files and Jupyter Notebooks here that demo how to run the code.
 - <b>Docs</b> = Documentation will go here, eventaully.
-- <b>Results</b> = Intermediate and final results will be written by default to directories and files inside this directory.
+- <b>Results</b> = Intermediate and final results will be written by default to directories and files inside this directory as established in the output function of configurationplusfiles.py.
 - <b>Tests</b> = Place to put code the runs tests.
 
 GettingStarted
@@ -87,7 +98,11 @@ GettingStarted
 ### Installation
 `in progress`
 
-
+A series of commands to install using Conda.
+- `git clone https://github.com/JustinGOSSES/predictatops.git`
+- `cd predictatops`
+- `conda env create -f environment.yml`
+- `source activate predictatops`
 
 How to use
 -------
