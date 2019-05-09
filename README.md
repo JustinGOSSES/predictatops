@@ -58,6 +58,7 @@ The code is broken into individual Tasks.
 Mandetory ones will have (m). Option ones denoted by a (o). 
 
 - (m) [main] Main.py function. Used for some utilities leveraged across multiple steps.
+- (o) [fetch_demo_data.py] The full example dataset is quite large, so it is kept in a separate folder that won't be added to PyPy (eventually this will be there maybe). Instead, we fetch it once via this script, which leverages Pooch.
 - (m) [configurationplusfiles] Sets input path, configuration, and output path variables used by the Predictatops
 - (o) [checkdata] Counts combinations of available tops and curves to help users figure out what wells can be used.
 - (m) [load] Loads LAS files based on a well list constructed in the checkdata step.
