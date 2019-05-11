@@ -25,6 +25,8 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import r2_score
 from sklearn.metrics import mean_absolute_error
 import multiprocessing
+
+from main import getJobLibPickleResults
 #### Adding this bit to silence an error that was causing the notebook to have a dead kernal
 #### This is an unsafe solution but couldn't get any  of the "right solutions" to work!
 #### Ended up using this = https://www.kaggle.com/c/bosch-production-line-performance/discussion/25082
@@ -34,6 +36,11 @@ import os
 
 
 ################## Class Prediction Results for training dataframe for X #############
+def loadMLinstanceAndModel(output_data_inst):
+    model = getJobLibPickleResults(output_data_inst,output_data_inst.path_trainclasses,"trainclasses_model.pkl")
+    ML1 = getJobLibPickleResults(output_data_inst,output_data_inst.path_trainclasses,"trainclasses_ML1_instance.pkl")
+    return model,ML1
+
 
 class class_accuracy():
     """
@@ -245,7 +252,7 @@ class InputDistClassPrediction_to_BestDepthForTop():
         df_merges[pick_pred_class_str+'classRollMeanSum'] = 0
         for col in all_new_rolling_mean_col:
             df_merges[pick_pred_class_str+'classRollMeanSum'] += df_merges[col]
-        df_merges[pick_pred_class_str+'classRollMeanSum'] += df_merges[pick_pred_class_str]
+        df_merges[pick_pred_class_str+'classRollMeanSum'] += df_merges[pick_pred_class_str].astype(float)
         idx = df_merges.loc[df_merges.groupby(["UWI"])[pick_pred_class_str+'classRollMeanSum'].idxmax()] 
         #print('idx=',idx)
         print('type(idx)',type(idx))
@@ -257,7 +264,7 @@ class InputDistClassPrediction_to_BestDepthForTop():
         return df_merges
     
                        #ML1,model,"test",         vs,cols_to_keep_list,concatClass_test.df_results_trainOrtest_wIndex,vs.depth_str,vs.pick_class_str,vs.UWI_str,vs.rollingWindows,vs.distClassIntegersArray
-    def run_all(self,MLobj,model,trainOrTest_str,vs,cols_to_keep_list,depth_str,pick_pred_class_str,UWI_str,rollingWindows,predClasses):
+    def run_all(self,MLobj,model,trainOrTest_str,cols_to_keep_list,depth_str,pick_pred_class_str,UWI_str,rollingWindows,predClasses):
         """
         Runs two functions. Takes in first the resulting dataframe from model.predict(df_X_toPredict). Take in second, depth_str,pick_pred_class_str,UWI_str,rollingWindows,predClasses.
         Creates rolling means and median distance class values across different size rolling windows.
@@ -269,7 +276,7 @@ class InputDistClassPrediction_to_BestDepthForTop():
         else:
             self.predict_from_model(model,MLobj.test_X)
         #self.load_dist_class_pred_df(dist_class_pred_df)
-        self.concat_modelResultsNDArray_w_indexValues(self.result_df_dist_class_prediction,trainOrTest_str,vs.pick_class_str)
+        self.concat_modelResultsNDArray_w_indexValues(self.result_df_dist_class_prediction,trainOrTest_str,pick_pred_class_str)
         self.concat_step2(MLobj,trainOrTest_str,cols_to_keep_list)
         
         ##
@@ -291,11 +298,11 @@ class accuracy_singleTopPerWellPrediction_fromRollingRules():
     from sklearn.metrics import mean_absolute_error
     
     def __init__(self,ML, vs,distClassDF_wRollingCols_training):
-        self.knn_dir = ML.knn_dir
-        self.load_dir = ML.load_dir
-        self.features_dir = ML.features_dir
-        self.machine_learning_dir = ML.machine_learning_dir
-        self.h5_to_load = ML.h5_to_load 
+        # self.knn_dir = ML.knn_dir
+        # self.load_dir = ML.load_dir
+        # self.features_dir = ML.features_dir
+        # self.machine_learning_dir = ML.machine_learning_dir
+        # self.h5_to_load = ML.h5_to_load 
         self.train_X = ML.train_X
         self.train_y = ML.train_y
         self.test_X = ML.test_X
@@ -307,11 +314,11 @@ class accuracy_singleTopPerWellPrediction_fromRollingRules():
         ####
         ####
         self.vs = vs # object instance from variables class
-        self.depth_str = vs.depth_str
-        self.pick_class_str = vs.depth_str
-        self.UWI_str = vs.UWI_str
-        self.rollingWindows = vs.rollingWindows
-        self.distClassIntegersArray = vs.distClassIntegersArray
+        self.depth_str = vs["depth_str"]
+        self.pick_class_str = vs["pick_class_str"]
+        self.UWI_str = vs["UWI_str"]
+        self.rollingWindows = vs["rollingWindows"]
+        self.distClassIntegersArray = vs["distClassIntegersArray"]
         ####
         self.calc_pred = distClassDF_wRollingCols_training
         self.excludeWellsThatOnlyHaveTheseClasses = [] ### aka dropIfOnlyClasses in optionallyExcludeWellsWithoutStrongPredictions()
@@ -337,7 +344,7 @@ class accuracy_singleTopPerWellPrediction_fromRollingRules():
     def optionallyExcludeWellsWithoutStrongPredictions(self,keepAllWells=None,dropIfOnlyClasses=[0]):
         # [0,60,70,95,100]
         self.excludeWellsThatOnlyHaveTheseClasses = dropIfOnlyClasses
-        if keepAllWells == "yes":
+        if keepAllWells == "no":
             calc_pred = self.calc_pred
             self.fullUWIsSet = calc_pred[self.UWI_str].unique()
             for eachClass in dropIfOnlyClasses:
@@ -348,9 +355,10 @@ class accuracy_singleTopPerWellPrediction_fromRollingRules():
             self.calc_pred = calc_pred
             print("hit yes in optionallyExcludeWellsWithoutStrongPredictions()")
         else:
+            calc_pred = self.calc_pred
             self.fullUWIsSet = calc_pred[self.UWI_str].unique()
             self.UWIsSetSubsetKept = calc_pred[self.UWI_str].unique()
-            uniqueVals = df["cluster"].unique()
+            #uniqueVals = df["cluster"].unique()
             print("hit pass in optionallyExcludeWellsWithoutStrongPredictions()")
         self.precentWellsKept = len(self.UWIsSetSubsetKept) / len(self.fullUWIsSet)
     
@@ -409,7 +417,7 @@ class accuracy_singleTopPerWellPrediction_fromRollingRules():
         self.calc_pred_Top_Pick_pred_DEPT_pred.hist(column=new_diff_col,bins=80,figsize=(15,5))
     
     
-    def run_all(self,TopTarget_Pick_pred_DEPT_pred,TopTarget_DEPTH,keepAllWells=None,dropIfOnlyClasses=[0]):
+    def run_all(self,TopTarget_Pick_pred_DEPT_pred,TopTarget_DEPTH,keepAllWells="no",dropIfOnlyClasses=[0]):
         """
         
         """

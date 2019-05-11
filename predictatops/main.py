@@ -9,6 +9,7 @@ import welly
 from welly import Well
 import lasio
 import glob
+from sklearn.externals import joblib
 
 """Main module."""
 
@@ -45,3 +46,11 @@ def get_df_results_from_step_X(output_data_inst,directory,filename,key="df"):
     ##### load dataframe from full path
     wells_df_of_results  = load_prev_results_at_path(full_path_to_features_results,key)
     return wells_df_of_results 
+
+def getJobLibPickleResults(output_data_inst,subfolder,filename):
+    """
+    Inputs
+    Returns
+    """
+    full_path_to_pickle = output_data_inst.base_path_for_all_results+ "/" + subfolder +"/"+ filename
+    return joblib.load(full_path_to_pickle)

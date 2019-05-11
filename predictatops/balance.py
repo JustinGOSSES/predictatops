@@ -171,13 +171,13 @@ def addsRowsToBalanceClasses(df,rangeFor100,rangeFor95):
     Copies the rows with labels that don't occur very much so they are a larger part of dataframe
     returns the new dataframe with additional copies of rows added on
     """
-    df_class100 = df[df['class_DistFrPick_TopTarget'] == 100]
-    df_class95 = df[df['class_DistFrPick_TopTarget'] == 95]
+    df_class100 = df[df['class_DistFrPick_TopTarget'] == '100']
+    df_class95 = df[df['class_DistFrPick_TopTarget'] == '95']
     for each1 in range(rangeFor100):
-        #print(each1)
+        print("replicating rows of uncommon classes to ensure balance",each1)
         df = df.append(df_class100, ignore_index=True)
     for each2 in range(rangeFor95):
-        #print(each2)
+        print("replicating rows of uncommon classes to ensure balance",each2)
         df = df.append(df_class95, ignore_index=True)
     return df
 

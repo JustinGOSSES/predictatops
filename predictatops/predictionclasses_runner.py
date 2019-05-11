@@ -1,12 +1,24 @@
 # -*- coding: utf-8 -*-
 import predictionclasses 
 from configurationplusfiles_runner import input_data_inst, config, output_data_inst
-from main import get_df_results_from_step_X, getMainDFsavedInStep, load_prev_results_at_path
+from main import getJobLibPickleResults
 
 
 
+################## Load model & ML class instance from trainclasses step #############
 
+# model = getJobLibPickleResults(output_data_inst,output_data_inst.path_trainclasses,"trainclasses_model.pkl")
+# ML1 = getJobLibPickleResults(output_data_inst,output_data_inst.path_trainclasses,"trainclasses_ML1_instance.pkl")
 
+model,ML1 =loadMLinstanceAndModel()
+
+vs = {
+    "depth_str" = config.DEPTH_col_in_featureCreation,
+"pick_class_str" = config.pick_class_str,
+"UWI_str" = config.UWI,
+"rollingWindows" = config.curve_windows_,
+"distClassIntegersArray" = list(config.zonesAroundTops.keys())
+}
 
 ################## Class Prediction Results for training dataframe for X #############
 
@@ -52,14 +64,24 @@ concatClass.help()
 
 prediction_distClass_trainingData_ndarray = concatClass.predict_from_model(model,ML1.train_X)
 
-concatClass1 = concatClass.concat_modelResultsNDArray_w_indexValues(concatClass.result_df_dist_class_prediction,"train",vs.pick_class_str)
+concatClass1 = concatClass.concat_modelResultsNDArray_w_indexValues(concatClass.result_df_dist_class_prediction,"train",concatClass1 = concatClass.concat_modelResultsNDArray_w_indexValues(concatClass.result_df_dist_class_prediction,"train",config.pick_class_str)
+)
 
 ##### NEED TO PUT THIS LIST IN CONFIG ########## !!!!!!!
 cols_to_keep_list = ['DEPT',"NN1_TopHelper_DEPTH","NN1_thickness","topTarget_Depth_predBy_NN1thick","DistFrom_NN1ThickPredTopDepth_toRowDept"]
 
 concatClass2 = concatClass.concat_step2(ML1,"train",cols_to_keep_list)
 
-distClassDF_wRollingCols_training = concatClass.run_all(concatClass.df_results_trainOrtest_wIndex,vs.depth_str,vs.pick_class_str,vs.UWI_str,vs.rollingWindows,vs.distClassIntegersArray)
+#distClassDF_wRollingCols_training = concatClass.run_all(concatClass.df_results_trainOrtest_wIndex,vs.depth_str,vs.pick_class_str,vs.UWI_str,vs.rollingWindows,vs.distClassIntegersArray)
+#####
+DEPTH_col_in_featureCreation = config.DEPTH_col_in_featureCreation
+pick_class_str = config.pick_class_str
+UWI = config.UWI
+curve_windows_for_rolling_features = config.curve_windows_for_rolling_features
+label_intergers = list(config.zonesAroundTops.keys())
+
+distClassDF_wRollingCols_training = concatClass.calc_pred_vs_real_top_dif(concatClass.df_results_trainOrtest_wIndex,DEPTH_col_in_featureCreation,pick_class_str,UWI,curve_windows_for_rolling_features,label_intergers)
+
 
 print("distClassDF_wRollingCols_training.head() = ",distClassDF_wRollingCols_training.head())
 

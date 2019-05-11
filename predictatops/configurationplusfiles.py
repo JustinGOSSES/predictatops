@@ -98,6 +98,7 @@ class configuration():
         self.col_topTarget_Depth_predBy_NN1thick = 'topTarget_Depth_predBy_NN1thick'
         self.quality_items_to_skip__list = [-1,0]
         self.test = "test0"
+        self.pick_class_str = 'TopTarget_Pick_pred'
         self.threshold_returnCurvesThatArePresentInThisManyWells = 2000
         self.max_numb_wells_to_load = 1000000
         self.split_traintest_percent = 0.8

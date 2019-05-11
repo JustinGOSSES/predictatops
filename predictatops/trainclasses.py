@@ -103,28 +103,16 @@ class ML_obj_class():
         print(check_response_train)
         return "Loading the h5 format data into pandas finished. You may access the dataframes by appending to the ML1 object .train_X | .train_y | test_X | .test_y | .train_index | .test_index | .preSplitpreBal"
     
-    def init_XGBoost_withSettings(self,gamma=0, 
-            reg_alpha=0.3, 
-            max_depth=6, 
-            subsample=0.8, 
-            colsample_bytree= 0.8, 
-            n_estimators= 300, 
-            learning_rate= 0.03, 
-            min_child_weight= 3,n_jobs=8):
+    def init_XGBoost_withSettings(self):
         """
-        doc string
-        uses settings from previous test on manville dataset
-        Use your own once you can optmize the settings
+        Takes in 
+        Returns
         """
-        params = {
-            'max_depth': 4,
-            'objective': 'multi:softmax',  # error evaluation for multiclass training
-            'num_class': 5,
-            'n_gpus': 0
-        }
-        print("model = XGBClassifier(gamma=0, reg_alpha=0.3, max_depth=6, subsample=0.8, colsample_bytree= 0.8, n_estimators= 300, learning_rate= 0.03, min_child_weight= 3,n_jobs=8)")
+        
+        ##########################     Initial Machine Learning Using XGBoost classification   ##########################
+        ##########################     Optional
         model = XGBClassifier(
-            max_depth=3,
+            max_depth=4,
             objective='multi:softmax',  # error evaluation for multiclass training
             num_class=5,
             n_gpus= 0,
@@ -139,55 +127,18 @@ class ML_obj_class():
             # min_child_weight= min_child_weight,
             # n_jobs=n_jobs
             #params
-            )
+        )
+        print(" init_XGBoost_withSettings function has been called which initiates a XGBoost classifier with settings of : max_depth=4,objective='multi:softmax', training,num_class=5,n_gpus= 0,n_jobs=8")
+        print("model coming out of init_XGBoost_withSettings() function is:",model)
         return model
                             
 
-
-###### LOAD RESULTS DATAFRAME IN HD5 FROM BALANCE PORTION OF WORKFLOW ###########
-
-##### OLD STYLE #########
-
-# knn_dir = "../WellsKNN/"
-# load_dir = "../loadLAS"
-# features_dir = "../createFeatures/"
-# machine_learning_dir = "../Pre_ML_Rebalance_Splitting/"
-# h5_to_load = 'df_all_Col_preSplit_wTrainTest_ClassBalanced_PreML_20181003.h5'
-
-# ML1 = ML_obj_class(knn_dir,load_dir,features_dir,machine_learning_dir,h5_to_load )
-
-# ML1.knn_dir
-
-# ML1.load_data_for_ml()
-
-# ML1.preSplitpreBal.head()
-
-
-
-
-
-##########################
-
-
-
-
-
-
-##########################     Initial Machine Learning Using XGBoost classification   ##########################
-
-# For now we're using settings we found from previous work but you probably want to optimize for your own settings:
-
-# - model = XGBClassifier( gamma=0, reg_alpha=0.3, max_depth=6, subsample=0.8, colsample_bytree= 0.8, n_estimators= 300, learning_rate= 0.03, min_child_weight= 3,n_jobs=8)
-
-#### in runner
-#model = ML1.init_XGBoost_withSettings()
-
-
-def saveTrainClassesResultsAsHDF(model,output_data_inst):
+def saveTrainClassesResultsAsPickle(model,MLinstance,output_data_inst):
     """
     Takes in 
     Saves 
     Returns 
+    NOTE: This pickle may have problems loading properly if you switch OS or version of Python!!!
     """
     ###### Establish file path to save 
     load_dir = output_data_inst.base_path_for_all_results + "/" + output_data_inst.path_trainclasses
@@ -198,5 +149,7 @@ def saveTrainClassesResultsAsHDF(model,output_data_inst):
     joblib_file = load_dir+"/"+joblib_file 
     joblib.dump(model, joblib_file)
     #model.to_hdf(load_results_full_file_path, key='model', mode='w')
+    joblib_fileMLInstance = load_dir+"/"+"trainclasses_ML1_instance.pkl"
+    joblib.dump(MLinstance, joblib_fileMLInstance)
     print("finished saving the results of the model step in the location set in the output class instance. = ",joblib_file)
 

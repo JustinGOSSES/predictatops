@@ -82,5 +82,5 @@ print("model.subsample",model.subsample)
 
 #model = pickle.load(open("classModel_20181122a.pickle.dat", "rb")) & print(type(model))
 
-saveTrainClassesResultsAsHDF(model,output_data_inst)
+saveTrainClassesResultsAsPickle(model,ML1,output_data_inst)
 
