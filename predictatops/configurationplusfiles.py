@@ -108,7 +108,7 @@ class configuration():
         self.trainOrTest = 'trainOrTest'
         self.colsToNotTurnToFloats = ['UWI', 'SitID', 'trainOrTest','Neighbors_Obj']
         self.zonesAroundTops = {"100":[0],"95":[-0.5,0.5],"60":[-5,0.5],"70":[0.5,5],"0":[]} #### NOTE: The code in createFeat_withinZoneOfKnownPick(df,config) function in features.py current ASSUMES only 5 zone labels
-        self.columns_to_not_trainOn_andNotCurves =  ['FromBotWell','FromTopWel''rowsToEdge','lat','lng',  'SitID','TopHelper_HorID','TopTarget_HorID','TopHelper_DEPTH','diff_Top_Depth_Real_v_predBy_NN1thick','diff_TopTarget_DEPTH_v_rowDEPT','diff_TopHelper_DEPTH_v_rowDEPT','class_DistFrPick_TopHelper','NewWell','LastBitWell','TopWellDept','BotWellDept','WellThickness','rowsToEdge','closTopBotDist','closerToBotOrTop']
+        self.columns_to_not_trainOn_andNotCurves =  ['FromBotWell','FromTopWel''rowsToEdge','lat','lng',  'SitID','TopHelper_HorID','TopTarget_HorID','TopHelper_DEPTH','diff_Top_Depth_Real_v_predBy_NN1thick','diff_TopTarget_DEPTH_v_rowDEPT','diff_TopHelper_DEPTH_v_rowDEPT','class_DistFrPick_TopHelper','NewWell','LastBitWell','TopWellDept','BotWellDept','WellThickness','rowsToEdge','closTopBotDist','closerToBotOrTop','Neighbors_Obj']
         self.columns_to_not_trainOn_andAreCurves =  ['RHOB','SP','CALI','COND','DELT','DENS','DPHI:1','DPHI:2','DT','GR:1','GR:2','IL','ILD:1','ILD:2','ILM','LITH','LLD','LLS','PHID','PHIN','RESD','RT','SFL','SFLU','SN','SNP','Sp']
         self.columns_to_use_as_labels = ['class_DistFrPick_TopTarget','UWI','trainOrTest','TopTarget_DEPTH']
         # self.results_path = "../results"
@@ -193,6 +193,7 @@ class output_data():
         self.wellsKNN_results_wells_df = "wells_wTopsCurvesSplitsKNN"
         self.features_results_wells_df = "wells_wTopsCurvesSplitsKNNFeatures"
         self.balance_results_wells_df = "wells_wTopsCurvesSplitsKNNFeaturesBalance"
+        self.trainclasses_results_model = "model_trainclasses_wTopsCurvesSplitsKNNFeaturesBalance"
     
     def make_all_directories(self):
         print("making base folder for results in:",self.base_path_for_all_results)
