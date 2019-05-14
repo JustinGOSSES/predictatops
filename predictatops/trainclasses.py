@@ -80,10 +80,13 @@ class ML_obj_class():
     
     def dropNeighbors_ObjCol(self,col_list):
         """doc string goes here"""
-        self.train_X = self.dropCol(self.train_X,col_list)
-        self.test_X = self.dropCol(self.test_X,col_list)
-        self.preSplitpreBal = self.dropCol(self.preSplitpreBal,col_list)
-        print("dropped :",col_list," in train_X, test_X, and preSplitpreBal dataframes")
+        try:
+            self.train_X = self.dropCol(self.train_X,col_list)
+            self.test_X = self.dropCol(self.test_X,col_list)
+            self.preSplitpreBal = self.dropCol(self.preSplitpreBal,col_list)
+            print("dropped :",col_list," in train_X, test_X, and preSplitpreBal dataframes")
+        except:
+            print("Could not find something in ",col_list," and such did not drop :",col_list," in train_X, test_X, and preSplitpreBal dataframes. It may nto exist.")
         
     def load_data_for_ml(self):
         """

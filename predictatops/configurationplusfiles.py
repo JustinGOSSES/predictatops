@@ -104,6 +104,8 @@ class configuration():
         self.split_traintest_percent = 0.8
         self.kdtree_leaf = 2
         self.kdtree_k = 8
+        self.rebalanceClassZeroMultiplier = 100
+        self.rebalanceClass95Multiplier = 40
         self.NN1_topTarget_DEPTH = 'NN1_topTarget_DEPTH'
         self.NN1_TopHelper_DEPTH = "NN1_TopHelper_DEPTH"
         self.trainOrTest = 'trainOrTest'
@@ -202,7 +204,7 @@ class output_data():
         if not os.path.exists(self.base_path_for_all_results):
             os.makedirs(self.base_path_for_all_results)
             try:
-                os.makedirs(directory)
+                os.makedirs(self.base_path_for_all_results)
             except OSError as e:
                 print(e.errno )
                 # if e.errno != errno.EEXIST:

@@ -77,7 +77,8 @@ df_all_Col_preSplit_wTrainTest_ClassBalanced = dropsRowsWithMatchClassAndDeptRem
 df_all_Col_preSplit_wTrainTest_ClassBalanced.info()
 
 #### now we duplicate some rows for the class that wasn't well populated.
-df_all_Col_preSplit_wTrainTest_ClassBalanced2 = addsRowsToBalanceClasses(df_all_Col_preSplit_wTrainTest_ClassBalanced,50,10)
+## df_all_Col_preSplit_wTrainTest_ClassBalanced2 = addsRowsToBalanceClasses(df_all_Col_preSplit_wTrainTest_ClassBalanced,50,10)
+df_all_Col_preSplit_wTrainTest_ClassBalanced2 = addsRowsToBalanceClasses(df_all_Col_preSplit_wTrainTest_ClassBalanced,config.rebalanceClassZeroMultiplier ,config.rebalanceClass95Multiplier)
 
 #### Prints some status on : findNumberOfEachClass
 findNumberOfEachClass(df_all_Col_preSplit_wTrainTest_ClassBalanced2,'class_DistFrPick_TopTarget')

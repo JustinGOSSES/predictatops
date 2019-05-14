@@ -18,7 +18,13 @@ print("head of picks df = ",input_data_inst.picks_df.head())
 
 #### Initiates an object  from the output data class and then creates all the directories for intermediate and final output files
 output_data_inst =output_data()
+
+#### CHANGE base_path_for_all_results, was '../results'
+output_data_inst.base_path_for_all_results = '../results_higherBlance_20190513'
+
 output_data_inst.make_all_directories()
+
+
 
 config = configuration()
 

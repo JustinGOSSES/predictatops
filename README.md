@@ -144,7 +144,7 @@ Status
 Most of the work is still in <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon">the old repository</a>, but it is progressively being moved here in a simplified form.
 
 ## Recent updates
-The code runs faster and and mean absolute error is down from 90 to 15.03 and now 7+. Key approaches were:
+The code runs faster and and mean absolute error is down from 90 to 15.03 and now 8.5. Key approaches were:
 1. Leverage knowledge from nearby wells.
 2. Instead of distinguishing between 2 classes, pick and not pick, distinguish between 3 classes: (a) pick, (b) not pick but within 3 meters and (c) not pick and not within 3 meters of pick.
 3. More features
