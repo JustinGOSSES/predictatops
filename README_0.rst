@@ -47,9 +47,9 @@ Development was in `this repo, MannvilleGroup_Strat_Hackathon
 * Documentation: https://predictatops.readthedocs.io. <- well, eventually, until then look in docs folder and readme.md
 
 
-
+==============
 Philosophy
--------
+==============
 
 In human-generated stratigraphic correlations there is often talk of lithostratigraphy vs. chronostratigraphy. We propose there is a weak analogy between lithostratigraphy and chronostratigraphy and different methods of computer assisted stratigraphy. 
 
@@ -59,8 +59,9 @@ In contrast, chronostratigraphy assumes lithology can equate to facies belts tha
 
 Instead of relying on stratigraphic models, this project proposes known picks can define spatial distribution of, and variance of, well log curve patterns that are then used to predict picks in new wells. This project attempts to focus on creating programatic features and operations that mimic the low level observations of a human geologist and progressively build into higher order clustering of patterns occuring across many wells that would have been done by a human geologist.
 
+==============
 Datasets
--------
+==============
 The default demo dataset used is a collection of over 2000 wells made public by the Alberta Geological Survey's Alberta Energy Regulator. To quote their webpage, "In 1986, Alberta Geological Survey began a project to map the McMurray Formation and the overlying Wabiskaw Member of the Clearwater Formation in the Athabasca Oil Sands Area. The data that accompany this report are one of the most significant products of the project and will hopefully facilitate future development of the oil sands." It includes well log curves as LAS files and tops in txt files and xls files. There is a word doc and a text file that describes the files and associated metadata. 
 
 _Wynne, D.A., Attalla, M., Berezniuk, T., Brulotte, M., Cotterill, D.K., Strobl, R. and Wightman, D. (1995): Athabasca Oil Sands data McMurray/Wabiskaw oil sands deposit - electronic data; Alberta Research Council, ARC/AGS Special Report 6._
@@ -80,8 +81,9 @@ Please note that there are a few misformed .LAS files in the full dataset, so th
 If for some reason the well data is not found at the links above, you should be able to find it https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/tree/master/SPE_006_originalData
 
 
+==============
 Architecture and Abstraction
--------
+==============
 Although very much a work in progress, I've tried to organize things such that the whole process doesn't have to be done at once and intermediate work can be easily saved to file and the work started at a later date. This was done running the full sequence of tasks to completion can take several hours, and I typically had less time than that to work on this project. I suspect others will have time limits as well.
 
 This project is made up of a series of self-contained tasks done in series. The results from one task can be optionally saved to file and then reloaded into memory at a later time before starting the next task. Also, a task can be run x different ways and results saved in x different files which are then used x different times by the later steps.
@@ -129,9 +131,9 @@ Folder Structures
 - **Results** = Intermediate and final results will be written by default to directories and files inside this directory as established in the output function of configurationplusfiles.py.
 - **Tests** = Place to put code the runs tests.
 
-
+==============
 Credits
--------
+==============
 Original hackathon participants: 
 `Justin Gosses
 <https://github.com/JustinGOSSES/>`_.
