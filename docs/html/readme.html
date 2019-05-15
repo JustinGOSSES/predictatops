@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Readme File &#8212; predictatops 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="prev" title="Welcome to predictatops’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="readme-file">
+<h1>Readme File<a class="headerlink" href="#readme-file" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="predictatops">
+<h2>predictatops<a class="headerlink" href="#predictatops" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="code-for-stratigraphic-pick-prediction-via-supervised-machine-learning">
+<h3>Code for stratigraphic pick prediction via supervised machine-learning<a class="headerlink" href="#code-for-stratigraphic-pick-prediction-via-supervised-machine-learning" title="Permalink to this headline">¶</a></h3>
+<a class="reference internal image-reference" href="_images/Yale-Peabody-Triceratops-004Trp.png"><img alt="_images/Yale-Peabody-Triceratops-004Trp.png" src="_images/Yale-Peabody-Triceratops-004Trp.png" style="width: 512pt;" /></a>
+<p><a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/LICENSE/">MIT License</a>.</p>
+<p>This repository has a <a class="reference external" href="https://zenodo.org/record/2642860">https://zenodo.org/record/2642860</a> but be aware the repository on github is ahead of the DOI’d version.</p>
+<p>This code is the subject of an <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/AAPG_Abstract_2019ACE.md/">abstract</a>.</p>
+<p>Development was in <a class="reference external" href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon.html/">this repo, MannvilleGroup_Strat_Hackathon</a>. but is now moving here as the code gets cleaned and modulized. This project is under active development. Significant portions of the code still only exist on MannvilleGroup_Strat_Hackathon repo at this time.</p>
+<p># YOU MAY WISH TO REFER TO THE README.md here -&gt; <a class="reference external" href="https://github.com/JustinGOSSES/predictatops.html">https://github.com/JustinGOSSES/predictatops.html</a> instead of README_0.rst for the time being as it is more complete.</p>
+<p>[these are in progress]</p>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/predictatops"><img alt="PyPi Status" src="https://img.shields.io/pypi/v/predictatops.svg" /></a>
+<a class="reference external image-reference" href="https://travis-ci.org/JustinGOSSES/predictatops"><img alt="Travis Status" src="https://img.shields.io/travis/JustinGOSSES/predictatops.svg" /></a>
+<a class="reference external image-reference" href="https://predictatops.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation Status" src="https://readthedocs.org/projects/predictatops/badge/?version=latest" /></a>
+<a class="reference external image-reference" href="https://pyup.io/repos/github/JustinGOSSES/predictatops/"><img alt="Updates" src="https://pyup.io/repos/github/JustinGOSSES/predictatops/shield.svg" /></a>
+<ul class="simple">
+<li><p>Documentation: <a class="reference external" href="https://predictatops.readthedocs.io">https://predictatops.readthedocs.io</a>. &lt;- well, eventually, until then look in docs folder and readme.md</p></li>
+</ul>
+<div class="section" id="philosophy">
+<h4>Philosophy<a class="headerlink" href="#philosophy" title="Permalink to this headline">¶</a></h4>
+<p>In human-generated stratigraphic correlations there is often talk of lithostratigraphy vs. chronostratigraphy. We propose there is a weak analogy between lithostratigraphy and chronostratigraphy and different methods of computer assisted stratigraphy.</p>
+<p>Historically, many papers that attempted to use code to correlate well logs either assumed there was a mathematical or pattern basis for stratigraphic surfaces that can be teased out of individual logs or one could measured differences in curve patterns between neighboring wells. These workflows share some characteristics with lithostratigraphy in terms of their reliance of matching curve shapes and assumption that changes in lithology are equivelant to stratigraphy, at least at distances equal or greater than well to well distances.</p>
+<p>In contrast, chronostratigraphy assumes lithology can equate to facies belts that can fluctuate gradually in space over time resulting in two wells having similar lithology patterns in different time packages. Traditional chronostratigraphy relies on models of how facies belts should change in space when not otherwise constrained by biostratigraphy, chemostratigraphy, or radiometric dating.</p>
+<p>Instead of relying on stratigraphic models, this project proposes known picks can define spatial distribution of, and variance of, well log curve patterns that are then used to predict picks in new wells. This project attempts to focus on creating programatic features and operations that mimic the low level observations of a human geologist and progressively build into higher order clustering of patterns occuring across many wells that would have been done by a human geologist.</p>
+</div>
+<div class="section" id="datasets">
+<h4>Datasets<a class="headerlink" href="#datasets" title="Permalink to this headline">¶</a></h4>
+<p>The default demo dataset used is a collection of over 2000 wells made public by the Alberta Geological Survey’s Alberta Energy Regulator. To quote their webpage, “In 1986, Alberta Geological Survey began a project to map the McMurray Formation and the overlying Wabiskaw Member of the Clearwater Formation in the Athabasca Oil Sands Area. The data that accompany this report are one of the most significant products of the project and will hopefully facilitate future development of the oil sands.” It includes well log curves as LAS files and tops in txt files and xls files. There is a word doc and a text file that describes the files and associated metadata.</p>
+<p>_Wynne, D.A., Attalla, M., Berezniuk, T., Brulotte, M., Cotterill, D.K., Strobl, R. and Wightman, D. (1995): Athabasca Oil Sands data McMurray/Wabiskaw oil sands deposit - electronic data; Alberta Research Council, ARC/AGS Special Report 6._</p>
+<p>Please go to the links below for more information and the dataset:</p>
+<p>Report for Athabasca Oil Sands Data McMurray/Wabiskaw Oil Sands Deposit <a class="reference external" href="http://ags.aer.ca/document/OFR/OFR_1994_14.PDF">http://ags.aer.ca/document/OFR/OFR_1994_14.PDF</a></p>
+<p>Electronic data for Athabasca Oil Sands Data McMurray/Wabiskaw Oil Sands Deposit <a class="reference external" href="http://ags.aer.ca/publications/SPE_006.html">http://ags.aer.ca/publications/SPE_006.html</a> Data is also in the repo folder: SPE_006_originalData of the original repo for this project <a class="reference external" href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/tree/master/SPE_006_originalData">https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/tree/master/SPE_006_originalData</a></p>
+<p>In the metadata file <a class="reference external" href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/blob/master/SPE_006_originalData/Metadata/SPE_006.txt">https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/blob/master/SPE_006_originalData/Metadata/SPE_006.txt</a> -&gt; SPE_006.txt. the dataset is described as <cite>Access Constraints: Public</cite> and <cite>Use Constraints: Credit to originator/source required. Commercial reproduction not allowed.</cite></p>
+<p>_The Latitude and longitude of the wells is not in the original dataset. <a class="reference external" href="https://github.com/dalide">https://github.com/dalide</a> -&gt; &#64;dalide used the Alberta Geological Society’s UWI conversion tool to find lat/longs for each of the well UWIs. A CSV with the coordinates of each well’s location can be found <a class="reference external" href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/blob/master/well_lat_lng.csv">https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/blob/master/well_lat_lng.csv</a> . These were then used to find each well’s nearest neighbors.</p>
+<p>Please note that there are a few misformed .LAS files in the full dataset, so the code in this repository skips those.</p>
+<p>If for some reason the well data is not found at the links above, you should be able to find it <a class="reference external" href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/tree/master/SPE_006_originalData">https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/tree/master/SPE_006_originalData</a></p>
+</div>
+<div class="section" id="architecture-and-abstraction">
+<h4>Architecture and Abstraction<a class="headerlink" href="#architecture-and-abstraction" title="Permalink to this headline">¶</a></h4>
+<p>Although very much a work in progress, I’ve tried to organize things such that the whole process doesn’t have to be done at once and intermediate work can be easily saved to file and the work started at a later date. This was done running the full sequence of tasks to completion can take several hours, and I typically had less time than that to work on this project. I suspect others will have time limits as well.</p>
+<p>This project is made up of a series of self-contained tasks done in series. The results from one task can be optionally saved to file and then reloaded into memory at a later time before starting the next task. Also, a task can be run x different ways and results saved in x different files which are then used x different times by the later steps.</p>
+<p>In terms of how much the code is abstracted into higher level actions vs small lower level actions, I’m trying to enable two levels of abstraction. At one level, individual arguments are supplied to functions by the users who then calls those functions, potentially in a Jupyter Notebook. Many functions are called for each task. I’m also trying to enable a higher order way of working in which all arguments are configuration options set in configuration files before any code runs. This gives less visability into what is happening, but allows one to set up a bunch of different configuration variables, write a script to run all of them through to completion in the cloud, walk away, come back hours later, and evaluate what options work better for their particular datasets.</p>
+<p><strong>Code Tasks</strong></p>
+<p>The code is broken into individual Tasks.
+Mandetory ones will have (m). Option ones denoted by a (o).</p>
+<ul class="simple">
+<li><ol class="loweralpha simple" start="13">
+<li><p>[main] Main.py function. Used for some utilities leveraged across multiple steps.</p></li>
+</ol>
+</li>
+<li><ol class="loweralpha simple" start="15">
+<li><p>[fetch_demo_data.py] The full example dataset is quite large, so it is kept in a separate folder that won’t be added to PyPy (eventually this will be there maybe). Instead, we fetch it once via this script, which leverages Pooch.</p></li>
+</ol>
+</li>
+<li><ol class="loweralpha simple" start="13">
+<li><p>[configurationplusfiles] Sets input path, configuration, and output path variables used by the Predictatops</p></li>
+</ol>
+</li>
+<li><ol class="loweralpha simple" start="15">
+<li><p>[checkdata] Counts combinations of available tops and curves to help users figure out what wells can be used.</p></li>
+</ol>
+</li>
+<li><ol class="loweralpha simple" start="13">
+<li><p>[load] Loads LAS files based on a well list constructed in the checkdata step.</p></li>
+</ol>
+</li>
+<li><ol class="loweralpha simple" start="13">
+<li><p>[split] Splits the wells from load into train or test wells and assigns labels. Need to do before feature creation due to some features using neighboring wells. You don’t want to use test well information when creating features for training.</p></li>
+</ol>
+</li>
+<li><ol class="loweralpha simple" start="13">
+<li><p>[wellsKNN] Find K nearest neighbors for each well. Creates features based on neighbor relationships.</p></li>
+</ol>
+</li>
+<li><ol class="loweralpha simple" start="13">
+<li><p>[features] Create additioal features.</p></li>
+</ol>
+</li>
+<li><ol class="loweralpha simple" start="13">
+<li><p>[balance] Deal with imbalanced class distribution by duplicating some rows and taking out very common varieties.</p></li>
+</ol>
+</li>
+<li><ol class="loweralpha simple" start="13">
+<li><p>[trainclasses] Machine learning 1: Model training</p></li>
+</ol>
+</li>
+<li><ol class="loweralpha simple" start="13">
+<li><p>[predictionclasses] Go from trained model from trainclasses.py to predicted classes at each depth point.</p></li>
+</ol>
+</li>
+<li><ol class="loweralpha simple" start="15">
+<li><p>[traintops] Secondary Machine learning 2 that takes results of class prediction and uses a secondary machine learning model to predict the top based on regression. : Inference</p></li>
+</ol>
+</li>
+<li><ol class="loweralpha simple" start="15">
+<li><p>[predictiontops] Uses models in traintops and predict the top through regression &amp; and a limited set of features instead of heuristic set of rules.</p></li>
+</ol>
+</li>
+<li><ol class="loweralpha simple" start="15">
+<li><p>[plot] Map &amp; plot results.</p></li>
+</ol>
+</li>
+<li><ol class="loweralpha simple" start="15">
+<li><p>[uncertainty] Potential places for functions for calculating uncertainty predictions and plotting ranges.</p></li>
+</ol>
+</li>
+</ul>
+<p>Each task has at least one .py file with low level functions and another higher level .py file that calls those functions, often with the same name but _runner appended.</p>
+<p>An example is <cite>load.py</cite> and <cite>load_runner.py</cite>.</p>
+<p>The higher level .py file imports the results of configurationplusfiles.py to get variables for configuration, input file locations, and output saved files locations. It also calls the functions in the lower level .py file. The lower level .py files hold functions, nothing is run by them when the file is run. For example, in a command line <cite>python3 load.py</cite> won’t do anything. <cite>python3 load_runner.py</cite> will execute code.</p>
+<p>Alternatively to using the higher level .py files, just the lower level .py files can be called and work of the _runner files done in the cells of a jupyter notebook.</p>
+<p>I’ve followed this breakdown as I wanted to both train together things like configurationplusfiles_runner.py load_runner.py and split_runner.py easily while also easily ignoring them altogether as different methods are substituted. The goal was to allow code to be swapped out easily without having to keep track of much as the code is still rapidly changing while also be able to set up different trials to run in sequence.</p>
+</div>
+<div class="section" id="folder-structures">
+<h4>Folder Structures<a class="headerlink" href="#folder-structures" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p><strong>predictatops</strong> = These are the source files. I.E. the actual code.</p></li>
+<li><p><strong>Data</strong> = Where the data input goes.</p></li>
+<li><p><strong>Demo</strong> = I’ll put some .py files and Jupyter Notebooks here that demo how to run the code.</p></li>
+<li><p><strong>Docs</strong> = Documentation will go here, eventaully.</p></li>
+<li><p><strong>Results</strong> = Intermediate and final results will be written by default to directories and files inside this directory as established in the output function of configurationplusfiles.py.</p></li>
+<li><p><strong>Tests</strong> = Place to put code the runs tests.</p></li>
+</ul>
+</div>
+<div class="section" id="credits">
+<h4>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h4>
+<p>Original hackathon participants:
+<a class="reference external" href="https://github.com/JustinGOSSES/">Justin Gosses</a>.</p>
+<p><a class="reference external" href="https://github.com/dalide/">Licheng Zhange</a>.</p>
+<p><a href="#id1"><span class="problematic" id="id2">`https://github.com/jazzskier&lt;https://github.com/jazzskier/&gt;`_</span></a>.</p>
+<p>This package was created with <a class="reference external" href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> and the <a class="reference external" href="https://github.com/audreyr/cookiecutter-pypackage">audreyr/cookiecutter-pypackage</a> project template.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">predictatops</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Readme File</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#predictatops">predictatops</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to predictatops’s documentation!</a></li>
+      <li>Next: <a href="installation.html" title="next chapter">Installation</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Justin Gosses.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/readme.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

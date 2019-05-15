@@ -1,0 +1,808 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>predictatops package &#8212; predictatops 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="predictatops-package">
+<h1>predictatops package<a class="headerlink" href="#predictatops-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="predictatops-all-runner-module">
+<h2>predictatops.all_runner module<a class="headerlink" href="#predictatops-all-runner-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="predictatops-balance-module">
+<h2>predictatops.balance module<a class="headerlink" href="#predictatops-balance-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="predictatops-balance-runner-module">
+<h2>predictatops.balance_runner module<a class="headerlink" href="#predictatops-balance-runner-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="predictatops-checkdata-module">
+<h2>predictatops.checkdata module<a class="headerlink" href="#predictatops-checkdata-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="predictatops-checkdata-runner-module">
+<h2>predictatops.checkdata_runner module<a class="headerlink" href="#predictatops-checkdata-runner-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-predictatops.cli">
+<span id="predictatops-cli-module"></span><h2>predictatops.cli module<a class="headerlink" href="#module-predictatops.cli" title="Permalink to this headline">¶</a></h2>
+<p>Console script for predictatops.</p>
+</div>
+<div class="section" id="module-predictatops.configurationplusfiles">
+<span id="predictatops-configurationplusfiles-module"></span><h2>predictatops.configurationplusfiles module<a class="headerlink" href="#module-predictatops.configurationplusfiles" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="predictatops.configurationplusfiles.configuration">
+<em class="property">class </em><code class="descclassname">predictatops.configurationplusfiles.</code><code class="descname">configuration</code><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#configuration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>class to keep configuration variables you might change between runs. 
+Types of information information stored in here would include paths and names of intermediate files, 
+so not initial input files which go in the input_data class, as well as which tops or curves were mandatory in well select.</p>
+<dl class="method">
+<dt id="predictatops.configurationplusfiles.configuration.get_must_have_curves">
+<code class="descname">get_must_have_curves</code><span class="sig-paren">(</span><em>must_have_curves_in_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#configuration.get_must_have_curves"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.get_must_have_curves" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.configurationplusfiles.configuration.get_must_have_tops__list">
+<code class="descname">get_must_have_tops__list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#configuration.get_must_have_tops__list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.get_must_have_tops__list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.configurationplusfiles.configuration.get_picks_depth_col_in_picks_df">
+<code class="descname">get_picks_depth_col_in_picks_df</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#configuration.get_picks_depth_col_in_picks_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.get_picks_depth_col_in_picks_df" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.configurationplusfiles.configuration.get_quality_col_name_in_picks_df">
+<code class="descname">get_quality_col_name_in_picks_df</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#configuration.get_quality_col_name_in_picks_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.get_quality_col_name_in_picks_df" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.configurationplusfiles.configuration.get_quality_items_to_skip__list">
+<code class="descname">get_quality_items_to_skip__list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#configuration.get_quality_items_to_skip__list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.get_quality_items_to_skip__list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.configurationplusfiles.configuration.get_siteID_col_in_picks_df">
+<code class="descname">get_siteID_col_in_picks_df</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#configuration.get_siteID_col_in_picks_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.get_siteID_col_in_picks_df" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.configurationplusfiles.configuration.get_top_name_col_in_picks_df">
+<code class="descname">get_top_name_col_in_picks_df</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#configuration.get_top_name_col_in_picks_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.get_top_name_col_in_picks_df" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.configurationplusfiles.configuration.set_must_have_curves">
+<code class="descname">set_must_have_curves</code><span class="sig-paren">(</span><em>must_have_curves_in_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#configuration.set_must_have_curves"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.set_must_have_curves" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.configurationplusfiles.configuration.set_must_have_tops__list">
+<code class="descname">set_must_have_tops__list</code><span class="sig-paren">(</span><em>must_have_tops__list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#configuration.set_must_have_tops__list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.set_must_have_tops__list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.configurationplusfiles.configuration.set_picks_depth_col_in_picks_df">
+<code class="descname">set_picks_depth_col_in_picks_df</code><span class="sig-paren">(</span><em>picks_depth_col_in_picks_df</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#configuration.set_picks_depth_col_in_picks_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.set_picks_depth_col_in_picks_df" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.configurationplusfiles.configuration.set_quality_col_name_in_picks_df">
+<code class="descname">set_quality_col_name_in_picks_df</code><span class="sig-paren">(</span><em>Quality__str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#configuration.set_quality_col_name_in_picks_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.set_quality_col_name_in_picks_df" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.configurationplusfiles.configuration.set_quality_items_to_skip__list">
+<code class="descname">set_quality_items_to_skip__list</code><span class="sig-paren">(</span><em>quality_items_to_skip__list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#configuration.set_quality_items_to_skip__list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.set_quality_items_to_skip__list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.configurationplusfiles.configuration.set_siteID_col_in_picks_df">
+<code class="descname">set_siteID_col_in_picks_df</code><span class="sig-paren">(</span><em>sitID__str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#configuration.set_siteID_col_in_picks_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.set_siteID_col_in_picks_df" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.configurationplusfiles.configuration.set_top_name_col_in_picks_df">
+<code class="descname">set_top_name_col_in_picks_df</code><span class="sig-paren">(</span><em>top_name_col_in_picks_df__str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#configuration.set_top_name_col_in_picks_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.set_top_name_col_in_picks_df" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="predictatops.configurationplusfiles.input_data">
+<em class="property">class </em><code class="descclassname">predictatops.configurationplusfiles.</code><code class="descname">input_data</code><span class="sig-paren">(</span><em>picks_file_path</em>, <em>picks_delimiter_str</em>, <em>path_to_logs_str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#input_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.input_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class object that holds paths and other information related to input data such as log files location, top files, well information files, etc.</p>
+<dl class="method">
+<dt id="predictatops.configurationplusfiles.input_data.load_gis_file">
+<code class="descname">load_gis_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#input_data.load_gis_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.input_data.load_gis_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>load wells file into pandas dataframe</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.configurationplusfiles.input_data.load_wells_file">
+<code class="descname">load_wells_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#input_data.load_wells_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.input_data.load_wells_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>load wells file into pandas dataframe</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.configurationplusfiles.input_data.set_gis_file_path">
+<code class="descname">set_gis_file_path</code><span class="sig-paren">(</span><em>gis_file_path_str</em>, <em>gis_file_path_delimiter</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#input_data.set_gis_file_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.input_data.set_gis_file_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>set wells file path as attribute of object and returns wells data frame using load_well_file. Can be txt, tsv, or csv</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.configurationplusfiles.input_data.set_wells_file_path">
+<code class="descname">set_wells_file_path</code><span class="sig-paren">(</span><em>wells_file_path_str</em>, <em>wells_file_delimiter</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#input_data.set_wells_file_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.input_data.set_wells_file_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>set wells file path as attribute of object and returns wells data frame using load_well_file. Can be txt, tsv, or csv</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="predictatops.configurationplusfiles.output_data">
+<em class="property">class </em><code class="descclassname">predictatops.configurationplusfiles.</code><code class="descname">output_data</code><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#output_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.output_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class to keep information related to where output files are saved and naming conventions</p>
+<dl class="method">
+<dt id="predictatops.configurationplusfiles.output_data.make_all_directories">
+<code class="descname">make_all_directories</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#output_data.make_all_directories"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.output_data.make_all_directories" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="predictatops-configurationplusfiles-runner-module">
+<h2>predictatops.configurationplusfiles_runner module<a class="headerlink" href="#predictatops-configurationplusfiles-runner-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-predictatops.features">
+<span id="predictatops-features-module"></span><h2>predictatops.features module<a class="headerlink" href="#module-predictatops.features" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="predictatops.features.NN1_TopMcMDepth_Abs">
+<code class="descclassname">predictatops.features.</code><code class="descname">NN1_TopMcMDepth_Abs</code><span class="sig-paren">(</span><em>df</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#NN1_TopMcMDepth_Abs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.NN1_TopMcMDepth_Abs" title="Permalink to this definition">¶</a></dt>
+<dd><p>### Takes MM_Top_Depth_predBy_NN1thick and subtracts depth at that point, returns <em>absolute</em> value</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.features.convertAllColButGivenToFloat">
+<code class="descclassname">predictatops.features.</code><code class="descname">convertAllColButGivenToFloat</code><span class="sig-paren">(</span><em>config</em>, <em>df_all_wells_wKNN</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#convertAllColButGivenToFloat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.convertAllColButGivenToFloat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in 
+Returns</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.features.convertSiteIDListToUWIList">
+<code class="descclassname">predictatops.features.</code><code class="descname">convertSiteIDListToUWIList</code><span class="sig-paren">(</span><em>input_data_inst</em>, <em>df_with_sitID</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#convertSiteIDListToUWIList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.convertSiteIDListToUWIList" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.features.createDepthRelToKnownTopInSameWell">
+<code class="descclassname">predictatops.features.</code><code class="descname">createDepthRelToKnownTopInSameWell</code><span class="sig-paren">(</span><em>df</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#createDepthRelToKnownTopInSameWell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.createDepthRelToKnownTopInSameWell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create columns for how close a row is (based on depth) from the official pick for that well.
+We’ll be doing this for Top and Base McMurray in the example.
+Returns the input dataframe with additional column(s)
+#### IT SHOULD BE NOTED THAT THE ‘correct’ PICK DEPTHS IN MANY CASES DO NOT PERFECTLY MATCH THE DEPTHS AVAILABLE IN THE LOGS.
+#### In other words, the pick might be 105 but there is no row with 105.00 depth, only a 104.98 and a 105.02!
+#### This matters for what you count as a correct label!</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.features.createFeat_withinZoneOfKnownPick">
+<code class="descclassname">predictatops.features.</code><code class="descname">createFeat_withinZoneOfKnownPick</code><span class="sig-paren">(</span><em>df</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#createFeat_withinZoneOfKnownPick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.createFeat_withinZoneOfKnownPick" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input is 3 parts. 
+First part is: dataframe with tops &amp; curve data for feature creation after wellsKNN step.
+Second part is: A dict consisting of keys that are the labels for each zone values which are a list with two items, the min and max for that zone.
+For example: {100:[0],95:[-0.5,0.5],60:[-5.0.5],70:[0.5,&lt;5],0:[]}
+NOTE: The code in createFeat_withinZoneOfKnownPick(df,config) function in features.py current ASSUMES only 5 zone labels</p>
+<p>#### Create a column that has a number that symbolizes whether a row is close or not to the ‘real’ pick
+#### We’ll do this first for Top McMurray and then top Paleozoic, which is basically base McMurray</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.features.createManyFeatFromCurvesOverWindows_withDask">
+<code class="descclassname">predictatops.features.</code><code class="descname">createManyFeatFromCurvesOverWindows_withDask</code><span class="sig-paren">(</span><em>df</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#createManyFeatFromCurvesOverWindows_withDask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.createManyFeatFromCurvesOverWindows_withDask" title="Permalink to this definition">¶</a></dt>
+<dd><p>asdf</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.features.createManyFeatFromCurvesOverWindows_withOutDask">
+<code class="descclassname">predictatops.features.</code><code class="descname">createManyFeatFromCurvesOverWindows_withOutDask</code><span class="sig-paren">(</span><em>df</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#createManyFeatFromCurvesOverWindows_withOutDask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.createManyFeatFromCurvesOverWindows_withOutDask" title="Permalink to this definition">¶</a></dt>
+<dd><p>asdf</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.features.getMainDFsavedInStep">
+<code class="descclassname">predictatops.features.</code><code class="descname">getMainDFsavedInStep</code><span class="sig-paren">(</span><em>path_to_results</em>, <em>path_to_directory</em>, <em>file_name</em>, <em>ending</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#getMainDFsavedInStep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.getMainDFsavedInStep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in 
+Returns</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.features.get_split_curve_results">
+<code class="descclassname">predictatops.features.</code><code class="descname">get_split_curve_results</code><span class="sig-paren">(</span><em>output_data_inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#get_split_curve_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.get_split_curve_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in 
+Returns</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.features.get_wellsKNN_results">
+<code class="descclassname">predictatops.features.</code><code class="descname">get_wellsKNN_results</code><span class="sig-paren">(</span><em>output_data_inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#get_wellsKNN_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.get_wellsKNN_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in 
+Returns</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.features.load_prev_results_at_path">
+<code class="descclassname">predictatops.features.</code><code class="descname">load_prev_results_at_path</code><span class="sig-paren">(</span><em>full_path_to_results_file</em>, <em>key='df'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#load_prev_results_at_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.load_prev_results_at_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in 
+Returns</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.features.markingEdgeOfWells">
+<code class="descclassname">predictatops.features.</code><code class="descname">markingEdgeOfWells</code><span class="sig-paren">(</span><em>df</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#markingEdgeOfWells"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.markingEdgeOfWells" title="Permalink to this definition">¶</a></dt>
+<dd><p>#### The difficult thing about creating features based on windows within a well when you have multiple wells stacked 
+#### in a dataframe is that sometimes that window from one well goes into the next well.
+#### To get around that, we’re going create a column that says the distance from the top of the well and another 
+#### column that says the distance form the bottom of the well. When a row’s distance from top or bottom is greater 
+#### than 1/2 the max window size, we’ll just use proceed as normal. When the distance between that row’s depth and
+#### top or bottom is less than 1/2 the max window size, we’ll</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.features.mergeCurvesAndTopsDF">
+<code class="descclassname">predictatops.features.</code><code class="descname">mergeCurvesAndTopsDF</code><span class="sig-paren">(</span><em>wells_df_from_split_curveData</em>, <em>wells_df_from_wellsKNN</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#mergeCurvesAndTopsDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.mergeCurvesAndTopsDF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in 
+Returns</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.features.nLargest">
+<code class="descclassname">predictatops.features.</code><code class="descname">nLargest</code><span class="sig-paren">(</span><em>array</em>, <em>nValues</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#nLargest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.nLargest" title="Permalink to this definition">¶</a></dt>
+<dd><p>writes things here</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.features.takeLASOffUWI">
+<code class="descclassname">predictatops.features.</code><code class="descname">takeLASOffUWI</code><span class="sig-paren">(</span><em>df</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#takeLASOffUWI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.takeLASOffUWI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change UWI string .LAS to just UWI string</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.features.thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses">
+<code class="descclassname">predictatops.features.</code><code class="descname">thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses</code><span class="sig-paren">(</span><em>dd</em>, <em>curves</em>, <em>windows</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses" title="Permalink to this definition">¶</a></dt>
+<dd><p>for loop for each combination of parameter for rolling functions
+curves = [‘GR’,’ILD’]
+windows = [5,7,11,21]
+directions = [“around”,”below”,”above”]</p>
+<blockquote>
+<div><p>#         Not sure the best way to do the ‘below’ centered rolling in dask as the sort_index is expensive in dask so might be slow!
+#       Skipping this for now will come back when not tired. Maybe use shift?</p>
+</div></blockquote>
+<p>For each column created, check window size vs. allowable window size column, if too small, use single row value from original column</p>
+</dd></dl>
+
+</div>
+<div class="section" id="predictatops-features-runner-module">
+<h2>predictatops.features_runner module<a class="headerlink" href="#predictatops-features-runner-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="predictatops-fetch-demo-data-module">
+<h2>predictatops.fetch_demo_data module<a class="headerlink" href="#predictatops-fetch-demo-data-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-predictatops.load">
+<span id="predictatops-load-module"></span><h2>predictatops.load module<a class="headerlink" href="#module-predictatops.load" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="predictatops.load.find_number_well_files_in_a_folder">
+<code class="descclassname">predictatops.load.</code><code class="descname">find_number_well_files_in_a_folder</code><span class="sig-paren">(</span><em>path_to_wells</em>, <em>file_ending</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/load.html#find_number_well_files_in_a_folder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.load.find_number_well_files_in_a_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in: a path to a directory and a file ending we’re searching for
+Returns: the number  of files in that directory withe that file ending</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.load.load_all_wells_in">
+<code class="descclassname">predictatops.load.</code><code class="descname">load_all_wells_in</code><span class="sig-paren">(</span><em>wells_df</em>, <em>max_numb_wells</em>, <em>path_to_wells</em>, <em>file_ending</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/load.html#load_all_wells_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.load.load_all_wells_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in: a dataframe of well names called wells_df, the max number of wells if we’re doing testing and don’t want to bother with all the wells, path to directory with well files, and file ending for well files, like .LAS.
+Returns: A list with two dicts. One of successfully imported wells, the other with wells that failed to import for various reasons. This then further processed by turn_dict_of_well_dfs_to_single_df() in the next step.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.load.makeDF">
+<code class="descclassname">predictatops.load.</code><code class="descname">makeDF</code><span class="sig-paren">(</span><em>well_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/load.html#makeDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.load.makeDF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes format of well list into a pandas dataframe with one column called “UWI_file”.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.load.turn_dict_of_well_dfs_to_single_df">
+<code class="descclassname">predictatops.load.</code><code class="descname">turn_dict_of_well_dfs_to_single_df</code><span class="sig-paren">(</span><em>dictOfWellDf</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/load.html#turn_dict_of_well_dfs_to_single_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.load.turn_dict_of_well_dfs_to_single_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in a dict of dataframes, where each dataframe is for a well created by LASIO. Likely created by load_all_wells_in function and is the first item in the returned list.
+and returns a single dataframe of all wells</p>
+</dd></dl>
+
+</div>
+<div class="section" id="predictatops-load-runner-module">
+<h2>predictatops.load_runner module<a class="headerlink" href="#predictatops-load-runner-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-predictatops.main">
+<span id="predictatops-main-module"></span><h2>predictatops.main module<a class="headerlink" href="#module-predictatops.main" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="predictatops.main.getJobLibPickleResults">
+<code class="descclassname">predictatops.main.</code><code class="descname">getJobLibPickleResults</code><span class="sig-paren">(</span><em>output_data_inst</em>, <em>subfolder</em>, <em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/main.html#getJobLibPickleResults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.main.getJobLibPickleResults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inputs
+Returns</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.main.getMainDFsavedInStep">
+<code class="descclassname">predictatops.main.</code><code class="descname">getMainDFsavedInStep</code><span class="sig-paren">(</span><em>path_to_results</em>, <em>path_to_directory</em>, <em>file_name</em>, <em>ending</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/main.html#getMainDFsavedInStep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.main.getMainDFsavedInStep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in 
+Returns</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.main.get_df_results_from_step_X">
+<code class="descclassname">predictatops.main.</code><code class="descname">get_df_results_from_step_X</code><span class="sig-paren">(</span><em>output_data_inst</em>, <em>directory</em>, <em>filename</em>, <em>key='df'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/main.html#get_df_results_from_step_X"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.main.get_df_results_from_step_X" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in 
+Returns</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.main.load_prev_results_at_path">
+<code class="descclassname">predictatops.main.</code><code class="descname">load_prev_results_at_path</code><span class="sig-paren">(</span><em>full_path_to_results_file</em>, <em>key='df'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/main.html#load_prev_results_at_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.main.load_prev_results_at_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in 
+Returns</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.main.printHello">
+<code class="descclassname">predictatops.main.</code><code class="descname">printHello</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/main.html#printHello"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.main.printHello" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-predictatops.map">
+<span id="predictatops-map-module"></span><h2>predictatops.map module<a class="headerlink" href="#module-predictatops.map" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="predictatops.map.depth_color">
+<code class="descclassname">predictatops.map.</code><code class="descname">depth_color</code><span class="sig-paren">(</span><em>depth</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/map.html#depth_color"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.map.depth_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="predictatops.map.depth_color3">
+<code class="descclassname">predictatops.map.</code><code class="descname">depth_color3</code><span class="sig-paren">(</span><em>depth</em>, <em>colorMap</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/map.html#depth_color3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.map.depth_color3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="predictatops.map.makeMap_1">
+<code class="descclassname">predictatops.map.</code><code class="descname">makeMap_1</code><span class="sig-paren">(</span><em>no_zeros_df</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/map.html#makeMap_1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.map.makeMap_1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="predictatops.map.saveFoliumMap">
+<code class="descclassname">predictatops.map.</code><code class="descname">saveFoliumMap</code><span class="sig-paren">(</span><em>map_m5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/map.html#saveFoliumMap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.map.saveFoliumMap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-predictatops.plot">
+<span id="predictatops-plot-module"></span><h2>predictatops.plot module<a class="headerlink" href="#module-predictatops.plot" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="predictatops.plot.depth_color">
+<code class="descclassname">predictatops.plot.</code><code class="descname">depth_color</code><span class="sig-paren">(</span><em>depth</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/plot.html#depth_color"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.plot.depth_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="predictatops.plot.depth_color3">
+<code class="descclassname">predictatops.plot.</code><code class="descname">depth_color3</code><span class="sig-paren">(</span><em>depth</em>, <em>colorMap</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/plot.html#depth_color3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.plot.depth_color3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="predictatops.plot.makeMap_1">
+<code class="descclassname">predictatops.plot.</code><code class="descname">makeMap_1</code><span class="sig-paren">(</span><em>no_zeros_df</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/plot.html#makeMap_1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.plot.makeMap_1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="predictatops.plot.saveFoliumMap">
+<code class="descclassname">predictatops.plot.</code><code class="descname">saveFoliumMap</code><span class="sig-paren">(</span><em>map_m5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/plot.html#saveFoliumMap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.plot.saveFoliumMap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-predictatops.plot_runner">
+<span id="predictatops-plot-runner-module"></span><h2>predictatops.plot_runner module<a class="headerlink" href="#module-predictatops.plot_runner" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="predictatops-predictionclasses-module">
+<h2>predictatops.predictionclasses module<a class="headerlink" href="#predictatops-predictionclasses-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="predictatops-predictionclasses-runner-module">
+<h2>predictatops.predictionclasses_runner module<a class="headerlink" href="#predictatops-predictionclasses-runner-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="predictatops-predictionclasses-runner-old-module">
+<h2>predictatops.predictionclasses_runner_old module<a class="headerlink" href="#predictatops-predictionclasses-runner-old-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-predictatops.split">
+<span id="predictatops-split-module"></span><h2>predictatops.split module<a class="headerlink" href="#module-predictatops.split" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="predictatops.split.split_train_test">
+<code class="descclassname">predictatops.split.</code><code class="descname">split_train_test</code><span class="sig-paren">(</span><em>df_all_Col_preSplit</em>, <em>split_variable</em>, <em>uwi_column_str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/split.html#split_train_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.split.split_train_test" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="predictatops-split-runner-module">
+<h2>predictatops.split_runner module<a class="headerlink" href="#predictatops-split-runner-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-predictatops.trainclasses">
+<span id="predictatops-trainclasses-module"></span><h2>predictatops.trainclasses module<a class="headerlink" href="#module-predictatops.trainclasses" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="predictatops.trainclasses.ML_obj_class">
+<em class="property">class </em><code class="descclassname">predictatops.trainclasses.</code><code class="descname">ML_obj_class</code><span class="sig-paren">(</span><em>output_data_inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/trainclasses.html#ML_obj_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.trainclasses.ML_obj_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>doc string</p>
+<dl class="method">
+<dt id="predictatops.trainclasses.ML_obj_class.check_test_df_same_size">
+<code class="descname">check_test_df_same_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/trainclasses.html#ML_obj_class.check_test_df_same_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.trainclasses.ML_obj_class.check_test_df_same_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.trainclasses.ML_obj_class.check_train_df_same_size">
+<code class="descname">check_train_df_same_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/trainclasses.html#ML_obj_class.check_train_df_same_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.trainclasses.ML_obj_class.check_train_df_same_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.trainclasses.ML_obj_class.dropCol">
+<code class="descname">dropCol</code><span class="sig-paren">(</span><em>df</em>, <em>col_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/trainclasses.html#ML_obj_class.dropCol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.trainclasses.ML_obj_class.dropCol" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.trainclasses.ML_obj_class.dropNeighbors_ObjCol">
+<code class="descname">dropNeighbors_ObjCol</code><span class="sig-paren">(</span><em>col_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/trainclasses.html#ML_obj_class.dropNeighbors_ObjCol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.trainclasses.ML_obj_class.dropNeighbors_ObjCol" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.trainclasses.ML_obj_class.init_XGBoost_withSettings">
+<code class="descname">init_XGBoost_withSettings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/trainclasses.html#ML_obj_class.init_XGBoost_withSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.trainclasses.ML_obj_class.init_XGBoost_withSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in 
+Returns</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.trainclasses.ML_obj_class.load_data_for_ml">
+<code class="descname">load_data_for_ml</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/trainclasses.html#ML_obj_class.load_data_for_ml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.trainclasses.ML_obj_class.load_data_for_ml" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.trainclasses.findDirAndPathForBalancedresults">
+<code class="descclassname">predictatops.trainclasses.</code><code class="descname">findDirAndPathForBalancedresults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/trainclasses.html#findDirAndPathForBalancedresults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.trainclasses.findDirAndPathForBalancedresults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="predictatops.trainclasses.saveTrainClassesResultsAsPickle">
+<code class="descclassname">predictatops.trainclasses.</code><code class="descname">saveTrainClassesResultsAsPickle</code><span class="sig-paren">(</span><em>model</em>, <em>MLinstance</em>, <em>output_data_inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/trainclasses.html#saveTrainClassesResultsAsPickle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.trainclasses.saveTrainClassesResultsAsPickle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in 
+Saves 
+Returns 
+NOTE: This pickle may have problems loading properly if you switch OS or version of Python!!!</p>
+</dd></dl>
+
+</div>
+<div class="section" id="predictatops-trainclasses-runner-module">
+<h2>predictatops.trainclasses_runner module<a class="headerlink" href="#predictatops-trainclasses-runner-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-predictatops.trainclasses_temp">
+<span id="predictatops-trainclasses-temp-module"></span><h2>predictatops.trainclasses_temp module<a class="headerlink" href="#module-predictatops.trainclasses_temp" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="predictatops.trainclasses_temp.ML_obj_class">
+<em class="property">class </em><code class="descclassname">predictatops.trainclasses_temp.</code><code class="descname">ML_obj_class</code><span class="sig-paren">(</span><em>output_data_inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/trainclasses_temp.html#ML_obj_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.trainclasses_temp.ML_obj_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>doc string</p>
+<dl class="method">
+<dt id="predictatops.trainclasses_temp.ML_obj_class.check_test_df_same_size">
+<code class="descname">check_test_df_same_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/trainclasses_temp.html#ML_obj_class.check_test_df_same_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.trainclasses_temp.ML_obj_class.check_test_df_same_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.trainclasses_temp.ML_obj_class.check_train_df_same_size">
+<code class="descname">check_train_df_same_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/trainclasses_temp.html#ML_obj_class.check_train_df_same_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.trainclasses_temp.ML_obj_class.check_train_df_same_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.trainclasses_temp.ML_obj_class.dropCol">
+<code class="descname">dropCol</code><span class="sig-paren">(</span><em>df</em>, <em>col_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/trainclasses_temp.html#ML_obj_class.dropCol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.trainclasses_temp.ML_obj_class.dropCol" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.trainclasses_temp.ML_obj_class.dropNeighbors_ObjCol">
+<code class="descname">dropNeighbors_ObjCol</code><span class="sig-paren">(</span><em>col_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/trainclasses_temp.html#ML_obj_class.dropNeighbors_ObjCol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.trainclasses_temp.ML_obj_class.dropNeighbors_ObjCol" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.trainclasses_temp.ML_obj_class.init_XGBoost_withSettings">
+<code class="descname">init_XGBoost_withSettings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/trainclasses_temp.html#ML_obj_class.init_XGBoost_withSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.trainclasses_temp.ML_obj_class.init_XGBoost_withSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in 
+Returns</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.trainclasses_temp.ML_obj_class.load_data_for_ml">
+<code class="descname">load_data_for_ml</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/trainclasses_temp.html#ML_obj_class.load_data_for_ml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.trainclasses_temp.ML_obj_class.load_data_for_ml" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.trainclasses_temp.findDirAndPathForBalancedresults">
+<code class="descclassname">predictatops.trainclasses_temp.</code><code class="descname">findDirAndPathForBalancedresults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/trainclasses_temp.html#findDirAndPathForBalancedresults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.trainclasses_temp.findDirAndPathForBalancedresults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="predictatops.trainclasses_temp.saveTrainClassesResultsAsPickle">
+<code class="descclassname">predictatops.trainclasses_temp.</code><code class="descname">saveTrainClassesResultsAsPickle</code><span class="sig-paren">(</span><em>model</em>, <em>MLinstance</em>, <em>output_data_inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/trainclasses_temp.html#saveTrainClassesResultsAsPickle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.trainclasses_temp.saveTrainClassesResultsAsPickle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in 
+Saves 
+Returns 
+NOTE: This pickle may have problems loading properly if you switch OS or version of Python!!!</p>
+</dd></dl>
+
+</div>
+<div class="section" id="predictatops-wellknn-runner-module">
+<h2>predictatops.wellKNN_runner module<a class="headerlink" href="#predictatops-wellknn-runner-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-predictatops.wellsKNN">
+<span id="predictatops-wellsknn-module"></span><h2>predictatops.wellsKNN module<a class="headerlink" href="#module-predictatops.wellsKNN" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="predictatops.wellsKNN.broadcastFuncForFindNearestNPickDepth">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">broadcastFuncForFindNearestNPickDepth</code><span class="sig-paren">(</span><em>df_new_cleaned_plus_nn</em>, <em>pickColInt</em>, <em>newPickColName</em>, <em>UWI_col</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#broadcastFuncForFindNearestNPickDepth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.broadcastFuncForFindNearestNPickDepth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in:
+Returns:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.wellsKNN.changeLASfileToBeUWIstr">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">changeLASfileToBeUWIstr</code><span class="sig-paren">(</span><em>lasStr</em>, <em>well_format_str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#changeLASfileToBeUWIstr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.changeLASfileToBeUWIstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in:
+Returns:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.wellsKNN.cleanRenameDF">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">cleanRenameDF</code><span class="sig-paren">(</span><em>df</em>, <em>topTarget</em>, <em>thicknessHelperTop</em>, <em>config</em>, <em>input_data_inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#cleanRenameDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.cleanRenameDF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in:
+Returns:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.wellsKNN.convertStringToFloat">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">convertStringToFloat</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#convertStringToFloat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.convertStringToFloat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in:
+Returns:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.wellsKNN.createListOfWellNamesLoadedSplit">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">createListOfWellNamesLoadedSplit</code><span class="sig-paren">(</span><em>wells_df_from_split</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#createListOfWellNamesLoadedSplit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.createListOfWellNamesLoadedSplit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="predictatops.wellsKNN.create_diff_Top_Depth_Real_v_predBy_NN1thick">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">create_diff_Top_Depth_Real_v_predBy_NN1thick</code><span class="sig-paren">(</span><em>df_new3</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#create_diff_Top_Depth_Real_v_predBy_NN1thick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.create_diff_Top_Depth_Real_v_predBy_NN1thick" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in:
+Returns:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.wellsKNN.findAllPicksForTops">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">findAllPicksForTops</code><span class="sig-paren">(</span><em>picks</em>, <em>target</em>, <em>target_base</em>, <em>HorID</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#findAllPicksForTops"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.findAllPicksForTops" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in: picks dataframe, target top string, top under top target, and string for HorID column name.
+Returns: 2 dataframes, first with only pick depths for target top, and second with pick depths for only top under target top.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.wellsKNN.findListOfConvertedUWInamesForWellsLoaded">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">findListOfConvertedUWInamesForWellsLoaded</code><span class="sig-paren">(</span><em>wellsLoaded_df_fromh5</em>, <em>UWI</em>, <em>well_format_str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#findListOfConvertedUWInamesForWellsLoaded"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.findListOfConvertedUWInamesForWellsLoaded" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in:
+Returns:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.wellsKNN.fullWellsKNN">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">fullWellsKNN</code><span class="sig-paren">(</span><em>wells_df_from_split</em>, <em>input_data_inst</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#fullWellsKNN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.fullWellsKNN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in:
+Returns:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.wellsKNN.getColNames_for_cleanRenameDF">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">getColNames_for_cleanRenameDF</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#getColNames_for_cleanRenameDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.getColNames_for_cleanRenameDF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in:
+Returns:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.wellsKNN.getTestRowsOnlyPicksDF">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">getTestRowsOnlyPicksDF</code><span class="sig-paren">(</span><em>df</em>, <em>wellsLoaded_df_fromh5_newUWI</em>, <em>config</em>, <em>whichTrainOrTest_str</em>, <em>well_file_ending</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#getTestRowsOnlyPicksDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.getTestRowsOnlyPicksDF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="predictatops.wellsKNN.getTopsForWantedPickNames">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">getTopsForWantedPickNames</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#getTopsForWantedPickNames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.getTopsForWantedPickNames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in: configuration instance object
+Returns: two strings or integers that are the target top and top below target top</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.wellsKNN.get_data_for_wellsKNN">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">get_data_for_wellsKNN</code><span class="sig-paren">(</span><em>input_data_inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#get_data_for_wellsKNN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.get_data_for_wellsKNN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in a class instance of the input data class which has information on the paths needed to load various dataframe of data
+Returns dataframes of picks, pick dictionaries, well names, and gis data.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.wellsKNN.kdtree">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">kdtree</code><span class="sig-paren">(</span><em>df_reduced</em>, <em>lat_col</em>, <em>long_col</em>, <em>leaf_size</em>, <em>k</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#kdtree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.kdtree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in:
+Returns:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.wellsKNN.makeKNearNeighObj">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">makeKNearNeighObj</code><span class="sig-paren">(</span><em>df_reduced</em>, <em>UWI</em>, <em>Lat</em>, <em>Long</em>, <em>dist</em>, <em>ind</em>, <em>numberNeighbors</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#makeKNearNeighObj"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.makeKNearNeighObj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in:
+Returns:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.wellsKNN.mergeCleanedAndUWIGeog_dfs">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">mergeCleanedAndUWIGeog_dfs</code><span class="sig-paren">(</span><em>df_new_cleaned</em>, <em>UWIs_Geog</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#mergeCleanedAndUWIGeog_dfs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.mergeCleanedAndUWIGeog_dfs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="predictatops.wellsKNN.mergeDataframes">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">mergeDataframes</code><span class="sig-paren">(</span><em>wells</em>, <em>picks_targetTop</em>, <em>SitID</em>, <em>picks_targetBase</em>, <em>gis</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#mergeDataframes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.mergeDataframes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in:
+Returns:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.wellsKNN.onlyWellsInTestPortion">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">onlyWellsInTestPortion</code><span class="sig-paren">(</span><em>df</em>, <em>string_train_or_test</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#onlyWellsInTestPortion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.onlyWellsInTestPortion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in:
+Returns:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.wellsKNN.reduced_df_from_split_plus_more">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">reduced_df_from_split_plus_more</code><span class="sig-paren">(</span><em>df_new</em>, <em>new_wells_loaded_list_inUWIstyle</em>, <em>UWI</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#reduced_df_from_split_plus_more"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.reduced_df_from_split_plus_more" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in:
+Returns:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.wellsKNN.replacenthSubStr">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">replacenthSubStr</code><span class="sig-paren">(</span><em>string</em>, <em>sub</em>, <em>wanted</em>, <em>n</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#replacenthSubStr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.replacenthSubStr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in:
+Returns:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.wellsKNN.useThicknessOfNeighborsToEst">
+<code class="descclassname">predictatops.wellsKNN.</code><code class="descname">useThicknessOfNeighborsToEst</code><span class="sig-paren">(</span><em>df_new2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/wellsKNN.html#useThicknessOfNeighborsToEst"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.wellsKNN.useThicknessOfNeighborsToEst" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-predictatops">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-predictatops" title="Permalink to this headline">¶</a></h2>
+<p>Top-level package for predictatops.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">predictatops</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">Readme File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../history.html">History</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Justin Gosses.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/source/predictatops.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
