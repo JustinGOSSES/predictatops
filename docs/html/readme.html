@@ -52,15 +52,17 @@
 <ul class="simple">
 <li><p>Documentation: <a class="reference external" href="https://predictatops.readthedocs.io">https://predictatops.readthedocs.io</a>. &lt;- well, eventually, until then look in docs folder and readme.md</p></li>
 </ul>
+</div>
+</div>
 <div class="section" id="philosophy">
-<h4>Philosophy<a class="headerlink" href="#philosophy" title="Permalink to this headline">¶</a></h4>
+<h2>Philosophy<a class="headerlink" href="#philosophy" title="Permalink to this headline">¶</a></h2>
 <p>In human-generated stratigraphic correlations there is often talk of lithostratigraphy vs. chronostratigraphy. We propose there is a weak analogy between lithostratigraphy and chronostratigraphy and different methods of computer assisted stratigraphy.</p>
 <p>Historically, many papers that attempted to use code to correlate well logs either assumed there was a mathematical or pattern basis for stratigraphic surfaces that can be teased out of individual logs or one could measured differences in curve patterns between neighboring wells. These workflows share some characteristics with lithostratigraphy in terms of their reliance of matching curve shapes and assumption that changes in lithology are equivelant to stratigraphy, at least at distances equal or greater than well to well distances.</p>
 <p>In contrast, chronostratigraphy assumes lithology can equate to facies belts that can fluctuate gradually in space over time resulting in two wells having similar lithology patterns in different time packages. Traditional chronostratigraphy relies on models of how facies belts should change in space when not otherwise constrained by biostratigraphy, chemostratigraphy, or radiometric dating.</p>
 <p>Instead of relying on stratigraphic models, this project proposes known picks can define spatial distribution of, and variance of, well log curve patterns that are then used to predict picks in new wells. This project attempts to focus on creating programatic features and operations that mimic the low level observations of a human geologist and progressively build into higher order clustering of patterns occuring across many wells that would have been done by a human geologist.</p>
 </div>
 <div class="section" id="datasets">
-<h4>Datasets<a class="headerlink" href="#datasets" title="Permalink to this headline">¶</a></h4>
+<h2>Datasets<a class="headerlink" href="#datasets" title="Permalink to this headline">¶</a></h2>
 <p>The default demo dataset used is a collection of over 2000 wells made public by the Alberta Geological Survey’s Alberta Energy Regulator. To quote their webpage, “In 1986, Alberta Geological Survey began a project to map the McMurray Formation and the overlying Wabiskaw Member of the Clearwater Formation in the Athabasca Oil Sands Area. The data that accompany this report are one of the most significant products of the project and will hopefully facilitate future development of the oil sands.” It includes well log curves as LAS files and tops in txt files and xls files. There is a word doc and a text file that describes the files and associated metadata.</p>
 <p>_Wynne, D.A., Attalla, M., Berezniuk, T., Brulotte, M., Cotterill, D.K., Strobl, R. and Wightman, D. (1995): Athabasca Oil Sands data McMurray/Wabiskaw oil sands deposit - electronic data; Alberta Research Council, ARC/AGS Special Report 6._</p>
 <p>Please go to the links below for more information and the dataset:</p>
@@ -72,7 +74,7 @@
 <p>If for some reason the well data is not found at the links above, you should be able to find it <a class="reference external" href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/tree/master/SPE_006_originalData">https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/tree/master/SPE_006_originalData</a></p>
 </div>
 <div class="section" id="architecture-and-abstraction">
-<h4>Architecture and Abstraction<a class="headerlink" href="#architecture-and-abstraction" title="Permalink to this headline">¶</a></h4>
+<h2>Architecture and Abstraction<a class="headerlink" href="#architecture-and-abstraction" title="Permalink to this headline">¶</a></h2>
 <p>Although very much a work in progress, I’ve tried to organize things such that the whole process doesn’t have to be done at once and intermediate work can be easily saved to file and the work started at a later date. This was done running the full sequence of tasks to completion can take several hours, and I typically had less time than that to work on this project. I suspect others will have time limits as well.</p>
 <p>This project is made up of a series of self-contained tasks done in series. The results from one task can be optionally saved to file and then reloaded into memory at a later time before starting the next task. Also, a task can be run x different ways and results saved in x different files which are then used x different times by the later steps.</p>
 <p>In terms of how much the code is abstracted into higher level actions vs small lower level actions, I’m trying to enable two levels of abstraction. At one level, individual arguments are supplied to functions by the users who then calls those functions, potentially in a Jupyter Notebook. Many functions are called for each task. I’m also trying to enable a higher order way of working in which all arguments are configuration options set in configuration files before any code runs. This gives less visability into what is happening, but allows one to set up a bunch of different configuration variables, write a script to run all of them through to completion in the cloud, walk away, come back hours later, and evaluate what options work better for their particular datasets.</p>
@@ -146,9 +148,6 @@ Mandetory ones will have (m). Option ones denoted by a (o).</p>
 <p>The higher level .py file imports the results of configurationplusfiles.py to get variables for configuration, input file locations, and output saved files locations. It also calls the functions in the lower level .py file. The lower level .py files hold functions, nothing is run by them when the file is run. For example, in a command line <cite>python3 load.py</cite> won’t do anything. <cite>python3 load_runner.py</cite> will execute code.</p>
 <p>Alternatively to using the higher level .py files, just the lower level .py files can be called and work of the _runner files done in the cells of a jupyter notebook.</p>
 <p>I’ve followed this breakdown as I wanted to both train together things like configurationplusfiles_runner.py load_runner.py and split_runner.py easily while also easily ignoring them altogether as different methods are substituted. The goal was to allow code to be swapped out easily without having to keep track of much as the code is still rapidly changing while also be able to set up different trials to run in sequence.</p>
-</div>
-<div class="section" id="folder-structures">
-<h4>Folder Structures<a class="headerlink" href="#folder-structures" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p><strong>predictatops</strong> = These are the source files. I.E. the actual code.</p></li>
 <li><p><strong>Data</strong> = Where the data input goes.</p></li>
@@ -159,14 +158,12 @@ Mandetory ones will have (m). Option ones denoted by a (o).</p>
 </ul>
 </div>
 <div class="section" id="credits">
-<h4>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h4>
+<h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
 <p>Original hackathon participants:
 <a class="reference external" href="https://github.com/JustinGOSSES/">Justin Gosses</a>.</p>
 <p><a class="reference external" href="https://github.com/dalide/">Licheng Zhange</a>.</p>
 <p><a href="#id1"><span class="problematic" id="id2">`https://github.com/jazzskier&lt;https://github.com/jazzskier/&gt;`_</span></a>.</p>
 <p>This package was created with <a class="reference external" href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> and the <a class="reference external" href="https://github.com/audreyr/cookiecutter-pypackage">audreyr/cookiecutter-pypackage</a> project template.</p>
-</div>
-</div>
 </div>
 </div>
 
@@ -191,6 +188,10 @@ Mandetory ones will have (m). Option ones denoted by a (o).</p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Readme File</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#predictatops">predictatops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#philosophy">Philosophy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#datasets">Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#architecture-and-abstraction">Architecture and Abstraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#credits">Credits</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
