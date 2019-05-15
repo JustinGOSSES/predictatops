@@ -1,0 +1,528 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>predictatops.wellsKNN &#8212; predictatops 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for predictatops.wellsKNN</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1">##### import statements #####</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="c1">#%matplotlib inline</span>
+<span class="kn">import</span> <span class="nn">welly</span>
+<span class="kn">from</span> <span class="nn">welly</span> <span class="k">import</span> <span class="n">Well</span>
+<span class="kn">import</span> <span class="nn">lasio</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">neighbors</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">folium</span>
+<span class="c1">#print(&quot;folium&quot;,folium.__version__)</span>
+<span class="kn">import</span> <span class="nn">branca.colormap</span> <span class="k">as</span> <span class="nn">cm</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="c1">#print(&quot;welly&quot;,welly.__version__)</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+
+<span class="c1">################### Purpose for this code ###################</span>
+<span class="c1"># Purpose of this notebook = leverage knowledge about neighbors formation thicknesses &amp; nearby well depths</span>
+<span class="c1"># What a geologist would do:</span>
+<span class="c1"># Look at neighboring wells to find thickness of unit from a top and base pick, in prediction well flatten on base pick, and see where neighboring top pick lands on well in question. Further evaluation starts there.</span>
+<span class="c1"># Feature creation summary:</span>
+<span class="c1"># Find thickness of unit in neighboring wells in training dataset. Subtract that thickness from the base pick depth in the well we&#39;re going to predict for to find where that top pick would be in the prediction well if the thickness is the same.</span>
+<span class="c1"># Feature Creation Additional Details:</span>
+
+<span class="c1">#     We could get quite elaborate with this in terms of whether neighbors are on all sides of prediction well or just one side or which neighbors are most similar in terms of total depth drilled, variances in gamma-ray, etc.</span>
+<span class="c1">#     For now, we&#39;re going going to create two features (1) a prediction feature based on nearest neighbor thickness (2) a prediction feature based on average of nearest 5 neighbors.</span>
+<span class="c1">#     Neighbor thickness helper features columns will be floats representing the distance from the depth predicted from neighbor thickness and prediction well base pick.</span>
+<span class="c1">#     We will also have column to keep track of the range between the smallest and largest neighbor thickness of that well.</span>
+<span class="c1">#     This feature creation requires the things below, if they aren&#39;t present this shouldn&#39;t be used:</span>
+<span class="c1">#         We have lat/long to determine neighbors.</span>
+<span class="c1">#         We have a base pick and a top pick for each well.</span>
+<span class="c1">#         We have reason to believe the thickness of neighbors is a good indicator or where the top will be in this well. Reasons that wouldn&#39;t be the case include: presence of faults, known local outliers, and possibly other things I haven&#39;t thought of yet.</span>
+<span class="c1">##############################################################</span>
+
+
+<span class="c1">################ Load all df for picks, pick dictionary, wells, and coordinate data. ###################</span>
+<span class="c1">################ Paths for loading these come from input_data class in configurationplusfiles.py ###################</span>
+<div class="viewcode-block" id="get_data_for_wellsKNN"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.get_data_for_wellsKNN">[docs]</a><span class="k">def</span> <span class="nf">get_data_for_wellsKNN</span><span class="p">(</span><span class="n">input_data_inst</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in a class instance of the input data class which has information on the paths needed to load various dataframe of data</span>
+<span class="sd">    Returns dataframes of picks, pick dictionaries, well names, and gis data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">picks</span> <span class="o">=</span> <span class="n">input_data_inst</span><span class="o">.</span><span class="n">picks_df</span>
+    <span class="n">picks_dic</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">input_data_inst</span><span class="o">.</span><span class="n">picks_dic</span><span class="p">,</span><span class="n">input_data_inst</span><span class="o">.</span><span class="n">picks_dic_file_path_delimiter</span><span class="p">)</span>
+    <span class="n">input_data_inst</span><span class="o">.</span><span class="n">load_wells_file</span><span class="p">()</span>
+    <span class="n">wells</span> <span class="o">=</span> <span class="n">input_data_inst</span><span class="o">.</span><span class="n">wells_df</span>
+    <span class="n">gis</span> <span class="o">=</span> <span class="n">input_data_inst</span><span class="o">.</span><span class="n">load_gis_file</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">picks</span><span class="p">,</span> <span class="n">picks_dic</span><span class="p">,</span> <span class="n">wells</span><span class="p">,</span> <span class="n">gis</span> </div>
+
+
+<span class="c1">##### Give top pick code that we want to predict and give base pick code that we want to assume we have #####</span>
+<span class="c1"># ##### Dataframe of well curves data created in load notebook #####</span>
+<span class="c1"># #### top pick code we are going to predict</span>
+<span class="c1"># picks_targetTop=picks[picks[&#39;HorID&#39;]==13000]</span>
+<span class="c1"># #### base pick code we are going to assume we have</span>
+<span class="c1"># picks_targetBase=picks[picks[&#39;HorID&#39;]==14000]</span>
+
+<div class="viewcode-block" id="getTopsForWantedPickNames"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.getTopsForWantedPickNames">[docs]</a><span class="k">def</span> <span class="nf">getTopsForWantedPickNames</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in: configuration instance object</span>
+<span class="sd">    Returns: two strings or integers that are the target top and top below target top</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">target_top</span>
+    <span class="n">target_base</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">top_under_target</span>
+    <span class="k">return</span> <span class="n">target</span><span class="p">,</span> <span class="n">target_base</span></div>
+
+<span class="c1">################ Get pick dataframes with just specific tops ###################</span>
+<div class="viewcode-block" id="findAllPicksForTops"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.findAllPicksForTops">[docs]</a><span class="k">def</span> <span class="nf">findAllPicksForTops</span><span class="p">(</span><span class="n">picks</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">target_base</span><span class="p">,</span> <span class="n">HorID</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in: picks dataframe, target top string, top under top target, and string for HorID column name.</span>
+<span class="sd">    Returns: 2 dataframes, first with only pick depths for target top, and second with pick depths for only top under target top.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#### top pick code we are going to predict</span>
+    <span class="n">picks_targetTop</span><span class="o">=</span><span class="n">picks</span><span class="p">[</span><span class="n">picks</span><span class="p">[</span><span class="n">HorID</span><span class="p">]</span> <span class="o">==</span> <span class="n">target</span><span class="p">]</span>
+    <span class="c1">#### base pick code we are going to assume we have</span>
+    <span class="n">picks_targetBase</span><span class="o">=</span><span class="n">picks</span><span class="p">[</span><span class="n">picks</span><span class="p">[</span><span class="n">HorID</span><span class="p">]</span> <span class="o">==</span> <span class="n">target_base</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">picks_targetTop</span><span class="p">,</span> <span class="n">picks_targetBase</span></div>
+
+
+
+<div class="viewcode-block" id="mergeDataframes"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.mergeDataframes">[docs]</a><span class="k">def</span> <span class="nf">mergeDataframes</span><span class="p">(</span><span class="n">wells</span><span class="p">,</span><span class="n">picks_targetTop</span><span class="p">,</span><span class="n">SitID</span><span class="p">,</span><span class="n">picks_targetBase</span><span class="p">,</span> <span class="n">gis</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in:</span>
+<span class="sd">    Returns: </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df_new</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">wells</span><span class="p">,</span> <span class="n">picks_targetTop</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;SitID&#39;</span><span class="p">)</span>
+    <span class="n">df_paleoz</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">wells</span><span class="p">,</span> <span class="n">picks_targetBase</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;SitID&#39;</span><span class="p">)</span>
+    <span class="n">df_gis</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_paleoz</span><span class="p">,</span> <span class="n">gis</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;SitID&#39;</span><span class="p">)</span>
+    <span class="n">df_new</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_gis</span><span class="p">,</span> <span class="n">df_new</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;SitID&#39;</span><span class="p">)</span>
+    <span class="n">df_new</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">df_new</span></div>
+
+
+
+<span class="c1">################ Functions for limiting the df_new dataframe to only those wells loaded in load step. ###################</span>
+<span class="c1">################ This will involve changes to the well name as there are `/` in the name when in a file #################</span>
+<span class="c1">################ but those are changed to `-` in filenames. ###################</span>
+
+<div class="viewcode-block" id="createListOfWellNamesLoadedSplit"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.createListOfWellNamesLoadedSplit">[docs]</a><span class="k">def</span> <span class="nf">createListOfWellNamesLoadedSplit</span><span class="p">(</span><span class="n">wells_df_from_split</span><span class="p">,</span><span class="n">config</span><span class="p">):</span>
+    <span class="n">wellsLoaded_list</span> <span class="o">=</span> <span class="n">wells_df_from_split</span><span class="p">[[</span><span class="n">config</span><span class="o">.</span><span class="n">UWI</span><span class="p">]][</span><span class="n">config</span><span class="o">.</span><span class="n">UWI</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="nb">len</span><span class="p">(</span><span class="n">wellsLoaded_list</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;examples of what the well format looks like in wellsLoaded_list&quot;</span><span class="p">,</span><span class="n">wellsLoaded_list</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">12</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">wellsLoaded_list</span></div>
+
+<div class="viewcode-block" id="replacenthSubStr"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.replacenthSubStr">[docs]</a><span class="k">def</span> <span class="nf">replacenthSubStr</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">wanted</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in:</span>
+<span class="sd">    Returns: </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">where</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">string</span><span class="p">)][</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">before</span> <span class="o">=</span> <span class="n">string</span><span class="p">[:</span><span class="n">where</span><span class="p">]</span>
+    <span class="n">after</span> <span class="o">=</span> <span class="n">string</span><span class="p">[</span><span class="n">where</span><span class="p">:]</span>
+    <span class="n">after</span> <span class="o">=</span> <span class="n">after</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">wanted</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">newString</span> <span class="o">=</span> <span class="n">before</span> <span class="o">+</span> <span class="n">after</span>
+    <span class="k">return</span> <span class="n">newString</span></div>
+
+<div class="viewcode-block" id="changeLASfileToBeUWIstr"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.changeLASfileToBeUWIstr">[docs]</a><span class="k">def</span> <span class="nf">changeLASfileToBeUWIstr</span><span class="p">(</span><span class="n">lasStr</span><span class="p">,</span><span class="n">well_format_str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in:</span>
+<span class="sd">    Returns: </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">string1</span> <span class="o">=</span> <span class="n">replacenthSubStr</span><span class="p">(</span><span class="n">lasStr</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">string2</span> <span class="o">=</span> <span class="n">replacenthSubStr</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">well_format_str</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">string2</span></div>
+
+
+<div class="viewcode-block" id="findListOfConvertedUWInamesForWellsLoaded"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.findListOfConvertedUWInamesForWellsLoaded">[docs]</a><span class="k">def</span> <span class="nf">findListOfConvertedUWInamesForWellsLoaded</span><span class="p">(</span><span class="n">wellsLoaded_df_fromh5</span><span class="p">,</span><span class="n">UWI</span><span class="p">,</span><span class="n">well_format_str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in:</span>
+<span class="sd">    Returns: </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">wellsLoaded_list</span> <span class="o">=</span> <span class="n">wellsLoaded_df_fromh5</span><span class="p">[[</span><span class="n">UWI</span><span class="p">]][</span><span class="n">UWI</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="n">new_wells_loaded_list_inUWIstyle</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">lasStr</span> <span class="ow">in</span> <span class="n">wellsLoaded_list</span><span class="p">:</span>
+        <span class="n">new_wells_loaded_list_inUWIstyle</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">changeLASfileToBeUWIstr</span><span class="p">(</span><span class="n">lasStr</span><span class="p">,</span><span class="n">well_format_str</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">new_wells_loaded_list_inUWIstyle</span></div>
+
+
+
+<span class="c1">################ This next step will reduce the total number of wells to just the ones that have at least the tops and curves we need ################</span>
+
+<div class="viewcode-block" id="reduced_df_from_split_plus_more"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.reduced_df_from_split_plus_more">[docs]</a><span class="k">def</span> <span class="nf">reduced_df_from_split_plus_more</span><span class="p">(</span><span class="n">df_new</span><span class="p">,</span><span class="n">new_wells_loaded_list_inUWIstyle</span><span class="p">,</span><span class="n">UWI</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in:</span>
+<span class="sd">    Returns: </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df_new_allWells</span> <span class="o">=</span> <span class="n">df_new</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(df_new_allWells)&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">df_new_allWells</span><span class="p">))</span>
+    <span class="n">df_reduced</span> <span class="o">=</span> <span class="n">df_new</span><span class="p">[</span><span class="n">df_new</span><span class="p">[</span><span class="n">UWI</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">new_wells_loaded_list_inUWIstyle</span><span class="p">)]</span>
+    <span class="n">df_reduced</span> <span class="o">=</span> <span class="n">df_new</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1">##### Now that we&#39;ve reduced the wells, we&#39;ll reset the index. #####</span>
+    <span class="c1">##### We&#39;ll do this because another step below will use a loop that gets confused if there are index values missing. #####</span>
+    <span class="k">return</span> <span class="n">df_reduced</span></div>
+
+<span class="c1">################ We&#39;ll now find nearest N neighbors using a kdtree approach ################ </span>
+
+<div class="viewcode-block" id="kdtree"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.kdtree">[docs]</a><span class="k">def</span> <span class="nf">kdtree</span><span class="p">(</span><span class="n">df_reduced</span><span class="p">,</span><span class="n">lat_col</span><span class="p">,</span><span class="n">long_col</span><span class="p">,</span><span class="n">leaf_size</span><span class="p">,</span><span class="n">k</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in:</span>
+<span class="sd">    Returns: </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">position</span> <span class="o">=</span> <span class="n">df_reduced</span><span class="p">[[</span><span class="n">lat_col</span><span class="p">,</span><span class="n">long_col</span><span class="p">]]</span>
+    <span class="n">tree</span> <span class="o">=</span> <span class="n">neighbors</span><span class="o">.</span><span class="n">KDTree</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">leaf_size</span><span class="o">=</span><span class="n">leaf_size</span><span class="p">)</span> 
+    <span class="n">dist</span><span class="p">,</span> <span class="n">ind</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">query</span><span class="p">([</span><span class="n">position</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>  
+    <span class="k">return</span> <span class="n">tree</span><span class="p">,</span> <span class="n">dist</span><span class="p">,</span> <span class="n">ind</span></div>
+
+
+<div class="viewcode-block" id="makeKNearNeighObj"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.makeKNearNeighObj">[docs]</a><span class="k">def</span> <span class="nf">makeKNearNeighObj</span><span class="p">(</span><span class="n">df_reduced</span><span class="p">,</span><span class="n">UWI</span><span class="p">,</span><span class="n">Lat</span><span class="p">,</span><span class="n">Long</span><span class="p">,</span><span class="n">dist</span><span class="p">,</span><span class="n">ind</span><span class="p">,</span><span class="n">numberNeighbors</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in:</span>
+<span class="sd">    Returns: </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">##### first part......</span>
+    <span class="c1">#### make a data frame of UWI &amp; index from main dataframe</span>
+    <span class="n">UWIs</span> <span class="o">=</span> <span class="n">df_reduced</span><span class="p">[[</span><span class="s1">&#39;UWI&#39;</span><span class="p">]]</span>
+    <span class="n">position</span> <span class="o">=</span> <span class="n">df_reduced</span><span class="p">[[</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lng&#39;</span><span class="p">]]</span>
+    <span class="c1">#UWIs.join(position, how=&#39;outer&#39;) </span>
+    <span class="n">UWIs_Geog</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">UWIs</span><span class="p">,</span> <span class="n">position</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1">#print(UWIs_Geog.head())</span>
+    <span class="c1">#### Add object of tree for 8 neighbors to a dataframe</span>
+    <span class="c1">#latlng_kd_tree_leaf2 = pd.read_pickle(pickleFileOfKDtree)</span>
+    <span class="c1">#### Finding 8 nearest neighbors based on lat/long</span>
+    <span class="c1">#### K is number of neighbors</span>
+    <span class="c1">#dist, ind = latlng_kd_tree_leaf2.query([position][0], k=numberNeighbors) </span>
+
+    <span class="n">neighbor_array_per_well_row</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1">#### for i in ind.length</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ind</span><span class="p">)):</span>
+        <span class="c1">#### get the array of index values of neighbors, note: first one is the point in question which should be ignored!</span>
+        <span class="n">neighbors_ind</span> <span class="o">=</span> <span class="n">ind</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="c1"># for each index in that array, </span>
+        <span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">array_of_holder_obj</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">neighbors_ind</span><span class="p">:</span>
+            <span class="c1">#### start temp object of {&quot;neighbor&quot;:&quot;int&quot;,&quot;UWI&quot;:&quot;string&quot;,&quot;distance&quot;:&quot;float&quot;}</span>
+            <span class="n">holder_obj</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;neighbor&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span><span class="s2">&quot;UWI&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="s2">&quot;distance&quot;</span><span class="p">:</span><span class="s2">&quot;float&quot;</span><span class="p">}</span>
+            <span class="c1">#### get the distance into the temp object using index of i and each,</span>
+            <span class="n">holder_obj</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">counter</span><span class="p">]</span>
+            <span class="c1">#### get the UWI using i and the dataframe</span>
+            <span class="n">holder_obj</span><span class="p">[</span><span class="s1">&#39;UWI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">UWIs_Geog</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">n</span><span class="p">,</span><span class="s1">&#39;UWI&#39;</span><span class="p">]</span>
+            <span class="c1">#### and position via &quot;counter&quot;</span>
+            <span class="n">holder_obj</span><span class="p">[</span><span class="s1">&#39;neighbor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">counter</span>
+            <span class="c1">#### add the temp object populated as a column entry into an array</span>
+            <span class="n">counter</span> <span class="o">=</span> <span class="n">counter</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">array_of_holder_obj</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">holder_obj</span><span class="p">)</span>
+        <span class="c1">#### turn array of objects into series and add as new column to dataframe</span>
+        <span class="n">neighbor_array_per_well_row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">array_of_holder_obj</span><span class="p">)</span>
+    <span class="n">UWIs_Geog</span><span class="p">[</span><span class="s1">&#39;Neighbors_Obj&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">neighbor_array_per_well_row</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="n">UWIs</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">UWIs_Geog</span></div>
+
+
+<div class="viewcode-block" id="getColNames_for_cleanRenameDF"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.getColNames_for_cleanRenameDF">[docs]</a><span class="k">def</span> <span class="nf">getColNames_for_cleanRenameDF</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in:</span>
+<span class="sd">    Returns: </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">SitID_col</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">siteID_col_in_picks_df</span> <span class="o">=</span> <span class="s1">&#39;SitID&#39;</span>
+    <span class="n">UWI_col</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">UWI</span> <span class="o">=</span> <span class="s2">&quot;UWI&quot;</span>
+    <span class="n">HorID_col</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">HorID_name_col_in_picks_df</span> <span class="o">=</span> <span class="s2">&quot;HorID&quot;</span>
+    <span class="n">Quality_col</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">quality_col_name_in_picks_df</span> <span class="o">=</span> <span class="s2">&quot;Quality&quot;</span>
+    <span class="n">Pick_depth_col</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">picks_depth_col_in_picks_df</span> <span class="o">=</span> <span class="s1">&#39;Pick&#39;</span>
+    <span class="k">return</span> <span class="n">SitID_col</span><span class="p">,</span> <span class="n">UWI_col</span><span class="p">,</span> <span class="n">HorID_col</span><span class="p">,</span> <span class="n">Quality_col</span><span class="p">,</span> <span class="n">Pick_depth_col</span></div>
+
+<div class="viewcode-block" id="cleanRenameDF"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.cleanRenameDF">[docs]</a><span class="k">def</span> <span class="nf">cleanRenameDF</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">topTarget</span><span class="p">,</span><span class="n">thicknessHelperTop</span><span class="p">,</span><span class="n">config</span><span class="p">,</span><span class="n">input_data_inst</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in:</span>
+<span class="sd">    Returns: </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#### HorID and Pick should be for the topTarget &amp; HorID_x and Pick_x should be for helper top which is a base of the unit</span>
+    <span class="c1">#### First step is to check the assumption above:</span>
+    <span class="n">SitID_col</span><span class="p">,</span> <span class="n">UWI_col</span><span class="p">,</span> <span class="n">HorID_col</span><span class="p">,</span> <span class="n">Quality_col</span><span class="p">,</span> <span class="n">Pick_depth_col</span> <span class="o">=</span> <span class="n">getColNames_for_cleanRenameDF</span><span class="p">(</span><span class="n">input_data_inst</span><span class="p">)</span>
+    <span class="n">lat</span> <span class="o">=</span> <span class="n">input_data_inst</span><span class="o">.</span><span class="n">gis_lat_col</span>
+    <span class="n">lng</span> <span class="o">=</span> <span class="n">input_data_inst</span><span class="o">.</span><span class="n">gis_long_col</span>
+    <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">HorID_col</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">!=</span> <span class="nb">int</span><span class="p">(</span><span class="n">topTarget</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">int</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">HorID_col</span><span class="o">+</span><span class="s1">&#39;_x&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">!=</span> <span class="nb">int</span><span class="p">(</span><span class="n">thicknessHelperTop</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">HorID_col</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;should equal topTarget&quot;</span><span class="p">,</span><span class="n">topTarget</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="n">HorID_col</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot; should also equal, thicknessHelperTop&quot;</span><span class="p">,</span><span class="n">thicknessHelperTop</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;THERE WAS A PROBLEM AND THE COLUMNS AND TOPS VALUES DONT MATCH IN cleanRenameDF&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">df_new_cleaned</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="n">SitID_col</span><span class="p">,</span><span class="n">HorID_col</span><span class="o">+</span><span class="s1">&#39;_x&#39;</span><span class="p">,</span><span class="n">Pick_depth_col</span><span class="o">+</span><span class="s1">&#39;_x&#39;</span><span class="p">,</span><span class="n">Quality_col</span><span class="o">+</span><span class="s1">&#39;_x&#39;</span><span class="p">,</span><span class="n">HorID_col</span><span class="p">,</span><span class="n">Pick_depth_col</span><span class="p">,</span><span class="n">Quality_col</span><span class="p">,</span><span class="n">lat</span><span class="p">,</span><span class="n">lng</span><span class="p">,</span><span class="n">UWI_col</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">df_new_cleaned</span><span class="p">[</span><span class="s1">&#39;TopHelper_HorID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_new_cleaned</span><span class="p">[</span><span class="n">HorID_col</span><span class="o">+</span><span class="s1">&#39;_x&#39;</span><span class="p">]</span>
+        <span class="n">df_new_cleaned</span><span class="p">[</span><span class="s1">&#39;TopTarget_HorID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_new_cleaned</span><span class="p">[</span><span class="n">HorID_col</span><span class="p">]</span>
+        <span class="n">df_new_cleaned</span><span class="p">[</span><span class="s1">&#39;TopHelper_DEPTH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_new_cleaned</span><span class="p">[</span><span class="n">Pick_depth_col</span><span class="o">+</span><span class="s1">&#39;_x&#39;</span><span class="p">]</span>
+        <span class="n">df_new_cleaned</span><span class="p">[</span><span class="s1">&#39;TopTarget_DEPTH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_new_cleaned</span><span class="p">[</span><span class="n">Pick_depth_col</span><span class="p">]</span>
+        <span class="n">df_new_cleaned</span><span class="p">[</span><span class="s1">&#39;TopHelper_HorID_Qual&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_new_cleaned</span><span class="p">[</span><span class="n">Quality_col</span><span class="o">+</span><span class="s1">&#39;_x&#39;</span><span class="p">]</span>
+        <span class="n">df_new_cleaned</span><span class="p">[</span><span class="s1">&#39;TopTarget_Qual&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_new_cleaned</span><span class="p">[</span><span class="n">Quality_col</span><span class="p">]</span>
+        <span class="n">df_new_cleaned</span> <span class="o">=</span> <span class="n">df_new_cleaned</span><span class="p">[[</span><span class="n">SitID_col</span><span class="p">,</span><span class="n">lat</span><span class="p">,</span><span class="n">lng</span><span class="p">,</span><span class="n">UWI_col</span><span class="p">,</span><span class="s1">&#39;TopHelper_HorID&#39;</span><span class="p">,</span><span class="s1">&#39;TopTarget_HorID&#39;</span><span class="p">,</span><span class="s1">&#39;TopHelper_DEPTH&#39;</span><span class="p">,</span><span class="s1">&#39;TopTarget_DEPTH&#39;</span><span class="p">,</span><span class="s1">&#39;TopHelper_HorID_Qual&#39;</span><span class="p">,</span><span class="s1">&#39;TopTarget_Qual&#39;</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">df_new_cleaned</span></div>
+
+
+<div class="viewcode-block" id="mergeCleanedAndUWIGeog_dfs"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.mergeCleanedAndUWIGeog_dfs">[docs]</a><span class="k">def</span> <span class="nf">mergeCleanedAndUWIGeog_dfs</span><span class="p">(</span><span class="n">df_new_cleaned</span><span class="p">,</span><span class="n">UWIs_Geog</span><span class="p">):</span>
+    <span class="n">df_new_cleaned_plus_nn</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_new_cleaned</span><span class="p">,</span> <span class="n">UWIs_Geog</span><span class="p">[[</span><span class="s1">&#39;Neighbors_Obj&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df_new_cleaned_plus_nn</span></div>
+
+
+<span class="c1">#### Neighbors_Obj must be 10th Col!!</span>
+
+<div class="viewcode-block" id="broadcastFuncForFindNearestNPickDepth"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.broadcastFuncForFindNearestNPickDepth">[docs]</a><span class="k">def</span> <span class="nf">broadcastFuncForFindNearestNPickDepth</span><span class="p">(</span><span class="n">df_new_cleaned_plus_nn</span><span class="p">,</span><span class="n">pickColInt</span><span class="p">,</span><span class="n">newPickColName</span><span class="p">,</span><span class="n">UWI_col</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in:</span>
+<span class="sd">    Returns: </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df_new_cleaned_plus_nn</span>
+    <span class="c1">#### For each row in dataframe,</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">newPickColName</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="nb">print</span><span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">][</span><span class="n">newPickColName</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">eachRow</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)):</span>
+        <span class="c1">#print(&quot;len(df)&quot;,len(df))</span>
+        <span class="c1">#### Find the nearest neighbor UWI</span>
+        <span class="c1">#print(eachRow)</span>
+        <span class="n">UWI</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">eachRow</span><span class="p">,</span><span class="mi">10</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="n">UWI_col</span><span class="p">]</span>
+        <span class="c1">#print(type(UWI),&quot;type to right of &quot;,UWI)</span>
+        <span class="c1">#### With the UWI from above, find the pickDepthName</span>
+        <span class="n">index_of_neigh_UWI</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">UWI_col</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">UWI</span><span class="p">)</span>
+        <span class="c1">#print(&quot;index_of_neigh_UWI= &quot;,index_of_neigh_UWI)</span>
+        <span class="n">pick_depth</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">index_of_neigh_UWI</span><span class="p">,</span><span class="n">pickColInt</span><span class="p">]</span>
+        <span class="c1">#print(&quot;pick_depth &quot;,pick_depth)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">pick_depth</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">pick_depth</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">UWI</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">eachRow</span><span class="p">,</span><span class="mi">10</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="n">UWI_col</span><span class="p">]</span>
+            <span class="n">index_of_neigh_UWI</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">UWI_col</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">UWI</span><span class="p">)</span>
+            <span class="n">pick_depth</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">index_of_neigh_UWI</span><span class="p">,</span><span class="n">pickColInt</span><span class="p">]</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">pick_depth</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">pick_depth</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">UWI</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">eachRow</span><span class="p">,</span><span class="mi">10</span><span class="p">][</span><span class="mi">3</span><span class="p">][</span><span class="n">UWI_col</span><span class="p">]</span>
+                <span class="n">index_of_neigh_UWI</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">UWI_col</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">UWI</span><span class="p">)</span>
+                <span class="n">pick_depth</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">index_of_neigh_UWI</span><span class="p">,</span><span class="n">pickColInt</span><span class="p">]</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">pick_depth</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">pick_depth</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="n">UWI</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">eachRow</span><span class="p">,</span><span class="mi">10</span><span class="p">][</span><span class="mi">4</span><span class="p">][</span><span class="n">UWI_col</span><span class="p">]</span>
+                    <span class="n">index_of_neigh_UWI</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">UWI_col</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">UWI</span><span class="p">)</span>
+                    <span class="n">pick_depth</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">index_of_neigh_UWI</span><span class="p">,</span><span class="n">pickColInt</span><span class="p">]</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">pick_depth</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">pick_depth</span><span class="p">)</span>
+                    <span class="k">except</span><span class="p">:</span>
+                        <span class="n">pick_depth</span> <span class="o">=</span> <span class="s2">&quot;no_pick&quot;</span>
+            
+        <span class="c1">#### Write the pickDepthName to a new column</span>
+<span class="c1">#         df[newPickColName][eachRow] = pick_depth</span>
+        <span class="n">eachRowP1</span> <span class="o">=</span> <span class="n">eachRow</span><span class="o">+</span><span class="mi">1</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">eachRow</span><span class="p">:</span><span class="n">eachRowP1</span><span class="p">][</span><span class="n">newPickColName</span><span class="p">]</span> <span class="o">=</span> <span class="n">pick_depth</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+<div class="viewcode-block" id="convertStringToFloat"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.convertStringToFloat">[docs]</a><span class="k">def</span> <span class="nf">convertStringToFloat</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in:</span>
+<span class="sd">    Returns: </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">string</span></div>
+
+<div class="viewcode-block" id="useThicknessOfNeighborsToEst"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.useThicknessOfNeighborsToEst">[docs]</a><span class="k">def</span> <span class="nf">useThicknessOfNeighborsToEst</span><span class="p">(</span><span class="n">df_new2</span><span class="p">):</span>
+    <span class="n">df_new2</span><span class="p">[</span><span class="s1">&#39;NN1_topTarget_DEPTH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_new2</span><span class="p">[</span><span class="s1">&#39;NN1_topTarget_DEPTH&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">convertStringToFloat</span><span class="p">)</span>
+    <span class="n">df_new2</span><span class="p">[</span><span class="s1">&#39;NN1_TopHelper_DEPTH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_new2</span><span class="p">[</span><span class="s1">&#39;NN1_TopHelper_DEPTH&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">convertStringToFloat</span><span class="p">)</span>
+    <span class="n">df_new2</span><span class="p">[</span><span class="s1">&#39;TopHelper_DEPTH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_new2</span><span class="p">[</span><span class="s1">&#39;TopHelper_DEPTH&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">convertStringToFloat</span><span class="p">)</span>
+    <span class="n">df_new2</span><span class="p">[</span><span class="s1">&#39;TopTarget_DEPTH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_new2</span><span class="p">[</span><span class="s1">&#39;TopTarget_DEPTH&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">convertStringToFloat</span><span class="p">)</span>
+    <span class="n">df_new2</span><span class="p">[</span><span class="s1">&#39;NN1_thickness&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_new2</span><span class="p">[</span><span class="s1">&#39;NN1_TopHelper_DEPTH&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_new2</span><span class="p">[</span><span class="s1">&#39;NN1_topTarget_DEPTH&#39;</span><span class="p">]</span>
+    <span class="c1"># df_new2[&#39;trainOrTest&#39;] = df_new2[&#39;trainOrTest&#39;]</span>
+    <span class="n">df_new2</span><span class="p">[</span><span class="s1">&#39;topTarget_Depth_predBy_NN1thick&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="n">df_new2</span><span class="p">[</span><span class="s1">&#39;TopHelper_DEPTH&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_new2</span><span class="p">[</span><span class="s1">&#39;NN1_thickness&#39;</span><span class="p">]</span> 
+    <span class="k">return</span> <span class="n">df_new2</span></div>
+
+
+<div class="viewcode-block" id="create_diff_Top_Depth_Real_v_predBy_NN1thick"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.create_diff_Top_Depth_Real_v_predBy_NN1thick">[docs]</a><span class="k">def</span> <span class="nf">create_diff_Top_Depth_Real_v_predBy_NN1thick</span><span class="p">(</span><span class="n">df_new3</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in:</span>
+<span class="sd">    Returns: </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df_new3</span><span class="p">[</span><span class="s1">&#39;diff_Top_Depth_Real_v_predBy_NN1thick&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="n">df_new3</span><span class="p">[</span><span class="s1">&#39;TopTarget_DEPTH&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_new3</span><span class="p">[</span><span class="s1">&#39;topTarget_Depth_predBy_NN1thick&#39;</span><span class="p">]</span> 
+    <span class="k">return</span> <span class="n">df_new3</span></div>
+
+<div class="viewcode-block" id="onlyWellsInTestPortion"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.onlyWellsInTestPortion">[docs]</a><span class="k">def</span> <span class="nf">onlyWellsInTestPortion</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">string_train_or_test</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in:</span>
+<span class="sd">    Returns: </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df_just_trainOrMaybeTest</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;trainOrTest&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">string_train_or_test</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;len(df_just_trainOrMaybeTest)&#39;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">df_just_trainOrMaybeTest</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(df_just_trainOrMaybeTest[&#39;UWI&#39;].unique())&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">df_just_trainOrMaybeTest</span><span class="p">[</span><span class="s2">&quot;UWI&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()))</span>
+    <span class="k">return</span> <span class="n">df_just_trainOrMaybeTest</span></div>
+
+<div class="viewcode-block" id="fullWellsKNN"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.fullWellsKNN">[docs]</a><span class="k">def</span> <span class="nf">fullWellsKNN</span><span class="p">(</span><span class="n">wells_df_from_split</span><span class="p">,</span><span class="n">input_data_inst</span><span class="p">,</span><span class="n">config</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in:</span>
+<span class="sd">    Returns: </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(wells_df_from_split)&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">wells_df_from_split</span><span class="p">))</span>
+    <span class="c1">################ Load all df for picks, pick dictionary, wells, and coordinate data. ###################</span>
+    <span class="c1">################ Paths for loading these come from input_data class in configurationplusfiles.py ###################</span>
+    <span class="n">picks</span><span class="p">,</span> <span class="n">picks_dic</span><span class="p">,</span> <span class="n">wells</span><span class="p">,</span> <span class="n">gis</span>  <span class="o">=</span> <span class="n">get_data_for_wellsKNN</span><span class="p">(</span><span class="n">input_data_inst</span><span class="p">)</span>
+    <span class="c1">################ Target is the name of the top we&#39;re trying to predict ###################</span>
+    <span class="c1">################ target_base is the name of the top under if we&#39;re using for guidance ###################</span>
+    <span class="n">target</span><span class="p">,</span> <span class="n">target_base</span> <span class="o">=</span> <span class="n">getTopsForWantedPickNames</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+    <span class="c1">################ Generates two dataframes. Each with the pick depths of only a given top. ###################</span>
+    <span class="n">picks_targetTop</span><span class="p">,</span> <span class="n">picks_targetBase</span> <span class="o">=</span> <span class="n">findAllPicksForTops</span><span class="p">(</span><span class="n">picks</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">target_base</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">HorID_name_col_in_picks_df</span><span class="p">)</span>
+    <span class="c1">################ Merges many of the dataframes together based on config.siteID_col_in_picks_df ###################</span>
+    <span class="n">df_new</span> <span class="o">=</span> <span class="n">mergeDataframes</span><span class="p">(</span><span class="n">wells</span><span class="p">,</span><span class="n">picks_targetTop</span><span class="p">,</span><span class="n">config</span><span class="o">.</span><span class="n">siteID_col_in_picks_df</span><span class="p">,</span><span class="n">picks_targetBase</span><span class="p">,</span> <span class="n">gis</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(df_new )&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">df_new</span> <span class="p">))</span>
+    <span class="c1">################ Let&#39;s limit the GIS and pick information dataframe to only the wells we&#39;re going to use and ###################</span>
+    <span class="c1">################ exclude any we&#39;re not going to use for not having the needed tops and curves. ###################</span>
+    <span class="c1">################ We&#39;ll have to change the format of the UWU col slightly to do this ###################</span>
+    <span class="n">wellsLoaded_list</span> <span class="o">=</span> <span class="n">createListOfWellNamesLoadedSplit</span><span class="p">(</span><span class="n">wells_df_from_split</span><span class="p">,</span><span class="n">config</span><span class="p">)</span>
+    <span class="n">new_wells_loaded_list_inUWIstyle</span> <span class="o">=</span> <span class="n">findListOfConvertedUWInamesForWellsLoaded</span><span class="p">(</span><span class="n">wells_df_from_split</span><span class="p">,</span><span class="n">config</span><span class="o">.</span><span class="n">UWI</span><span class="p">,</span><span class="n">input_data_inst</span><span class="o">.</span><span class="n">well_format</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;new_wells_loaded_list_inUWIstyle[5:8]&quot;</span><span class="p">,</span><span class="n">new_wells_loaded_list_inUWIstyle</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">8</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(new_wells_loaded_list_inUWIstyle )&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">new_wells_loaded_list_inUWIstyle</span><span class="p">))</span>
+    <span class="c1">################ This next step will reduce the total number of wells to just the ones that have at least the tops and curves we need ################ </span>
+    <span class="n">df_reduced</span> <span class="o">=</span> <span class="n">reduced_df_from_split_plus_more</span><span class="p">(</span><span class="n">df_new</span><span class="p">,</span><span class="n">new_wells_loaded_list_inUWIstyle</span><span class="p">,</span><span class="n">config</span><span class="o">.</span><span class="n">UWI</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(df_reduced)&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">df_reduced</span><span class="p">))</span>
+    <span class="c1">################ We&#39;ll now find nearest N neighbors using a kdtree approach ################ </span>
+    <span class="n">tree</span><span class="p">,</span> <span class="n">dist</span><span class="p">,</span> <span class="n">ind</span> <span class="o">=</span> <span class="n">kdtree</span><span class="p">(</span><span class="n">df_reduced</span><span class="p">,</span> <span class="n">input_data_inst</span><span class="o">.</span><span class="n">gis_lat_col</span><span class="p">,</span> <span class="n">input_data_inst</span><span class="o">.</span><span class="n">gis_long_col</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">kdtree_leaf</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">kdtree_k</span><span class="p">)</span>
+    <span class="n">UWIs_Geog</span> <span class="o">=</span> <span class="n">makeKNearNeighObj</span><span class="p">(</span><span class="n">df_reduced</span><span class="p">,</span><span class="n">config</span><span class="o">.</span><span class="n">UWI</span><span class="p">,</span><span class="n">input_data_inst</span><span class="o">.</span><span class="n">gis_lat_col</span><span class="p">,</span> <span class="n">input_data_inst</span><span class="o">.</span><span class="n">gis_long_col</span><span class="p">,</span><span class="n">dist</span><span class="p">,</span><span class="n">ind</span><span class="p">,</span><span class="n">config</span><span class="o">.</span><span class="n">kdtree_k</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;UWIs_Geog.head()&quot;</span><span class="p">,</span><span class="n">UWIs_Geog</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    <span class="c1">################# Now to clean the dataframe, rename columns, and merge with the new dataframe that has the neighbors! ##################</span>
+    <span class="n">df_new_cleaned</span> <span class="o">=</span> <span class="n">cleanRenameDF</span><span class="p">(</span><span class="n">df_reduced</span><span class="p">,</span><span class="n">target</span><span class="p">,</span> <span class="n">target_base</span><span class="p">,</span><span class="n">config</span><span class="p">,</span><span class="n">input_data_inst</span><span class="p">)</span>
+    <span class="n">df_new_cleaned_plus_nn</span> <span class="o">=</span> <span class="n">mergeCleanedAndUWIGeog_dfs</span><span class="p">(</span><span class="n">df_new_cleaned</span><span class="p">,</span><span class="n">UWIs_Geog</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(df_new_cleaned_plus_nn)&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">df_new_cleaned_plus_nn</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This is how to access the data on nearest neigbhors in the &#39;Neighbors_Obj&#39; column - df_new_cleaned_plus_nn.loc[1:1,&#39;Neighbors_Obj&#39;][1][1] =&quot;</span><span class="p">,</span><span class="n">df_new_cleaned_plus_nn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;Neighbors_Obj&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;an example of neighbors is : df_new_cleaned_plus_nn.loc[1:2,&#39;Neighbors_Obj&#39;][2] which is = &quot;</span><span class="p">,</span><span class="n">df_new_cleaned_plus_nn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;Neighbors_Obj&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+    <span class="c1">################# 6 and 7 in the functions below are the 6th and 7th columns... should replace with something more obvious!!!!! ##################</span>
+    <span class="n">df_new_cleaned_plus_nn_temp</span> <span class="o">=</span> <span class="n">broadcastFuncForFindNearestNPickDepth</span><span class="p">(</span><span class="n">df_new_cleaned_plus_nn</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">NN1_topTarget_DEPTH</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">UWI</span><span class="p">)</span>
+    <span class="n">df_new2</span> <span class="o">=</span> <span class="n">broadcastFuncForFindNearestNPickDepth</span><span class="p">(</span><span class="n">df_new_cleaned_plus_nn_temp</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">NN1_TopHelper_DEPTH</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">UWI</span><span class="p">)</span>
+    <span class="n">df_new3</span> <span class="o">=</span> <span class="n">useThicknessOfNeighborsToEst</span><span class="p">(</span><span class="n">df_new2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(df_new3)&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">df_new3</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;printing first row of df_new2 in wellKNN_runner.py&quot;</span><span class="p">,</span><span class="n">df_new3</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">df_new4</span> <span class="o">=</span> <span class="n">create_diff_Top_Depth_Real_v_predBy_NN1thick</span><span class="p">(</span><span class="n">df_new3</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(df_new4)&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">df_new4</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">df_new4</span></div>
+
+
+
+<div class="viewcode-block" id="getTestRowsOnlyPicksDF"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.wellsKNN.getTestRowsOnlyPicksDF">[docs]</a><span class="k">def</span> <span class="nf">getTestRowsOnlyPicksDF</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">wellsLoaded_df_fromh5_newUWI</span><span class="p">,</span><span class="n">config</span><span class="p">,</span><span class="n">whichTrainOrTest_str</span><span class="p">,</span><span class="n">well_file_ending</span><span class="p">):</span>
+    <span class="c1">#### funtion that takes in curves df and gets lists of test only wells</span>
+    <span class="n">wells_test_only</span> <span class="o">=</span> <span class="n">wellsLoaded_df_fromh5_newUWI</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">wellsLoaded_df_fromh5_newUWI</span><span class="p">[</span><span class="n">config</span><span class="o">.</span><span class="n">trainOrTest</span><span class="p">]</span> <span class="o">==</span> <span class="n">whichTrainOrTest_str</span><span class="p">]</span>
+    <span class="c1">#print(wells_test_only.head())</span>
+    <span class="c1">#print(wells_test_only[&#39;UWI&#39;].unique())</span>
+    <span class="n">UWI_test</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">wells_test_only</span><span class="p">[</span><span class="n">config</span><span class="o">.</span><span class="n">UWI</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(UWI_test)&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">UWI_test</span><span class="p">))</span>
+    <span class="n">UWI_test_new</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">well_name</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">UWI_test</span><span class="p">):</span>
+        <span class="n">UWI_test_new</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">changeLASfileToBeUWIstr</span><span class="p">(</span><span class="n">well_name</span><span class="p">,</span><span class="n">well_file_ending</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;UWI_test[0]&quot;</span><span class="p">,</span><span class="n">UWI_test_new</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;df[config.UWI][0]&quot;</span><span class="p">,</span><span class="n">df</span><span class="p">[</span><span class="n">config</span><span class="o">.</span><span class="n">UWI</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="c1">#### function that takes in list of test only wells and picks df and returns only well from picks dataframe that match</span>
+    <span class="n">df_new</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">config</span><span class="o">.</span><span class="n">UWI</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">UWI_test_new</span><span class="p">)]</span>
+    <span class="c1">#### returns dataframe</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(df_new)&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">df_new</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">df_new</span></div>
+
+
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">predictatops</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Readme File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../history.html">History</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Justin Gosses.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

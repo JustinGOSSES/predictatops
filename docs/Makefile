@@ -6,7 +6,8 @@ SPHINXOPTS    =
 SPHINXBUILD   = python -msphinx
 SPHINXPROJ    = predictatops
 SOURCEDIR     = .
-BUILDDIR      = _build
+#BUILDDIR      = _build
+BUILDDIR      = docs
 
 # Put it first so that "make" without argument is like "make help".
 help:
