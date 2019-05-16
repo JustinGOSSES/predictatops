@@ -1,5 +1,6 @@
+
 ==============
-predictatops
+Predictatops
 ==============
 
 --------------
@@ -17,13 +18,11 @@ This repository has a https://zenodo.org/record/2642860 but be aware the reposit
 
 This code is the subject of an `abstract
 <https://github.com/JustinGOSSES/predictatops/blob/master/AAPG_Abstract_2019ACE.md
-/>`_. 
+/>`_. for a `talk
+<https://www.abstractsonline.com/pp8/#!/6795/presentation/3405/>`_. that will be given at AAPG ACE 2019. 
 
 Development was in `this repo, MannvilleGroup_Strat_Hackathon
 <https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon.html/>`_. but is now moving here as the code gets cleaned and modulized. This project is under active development. Significant portions of the code still only exist on MannvilleGroup_Strat_Hackathon repo at this time.
-
-
-# YOU MAY WISH TO REFER TO THE README.md here -> https://github.com/JustinGOSSES/predictatops.html instead of README_0.rst for the time being as it is more complete.
 
 
 [these are in progress]
@@ -44,7 +43,11 @@ Development was in `this repo, MannvilleGroup_Strat_Hackathon
      :target: https://pyup.io/repos/github/JustinGOSSES/predictatops/
      :alt: Updates
 
-* Documentation: https://predictatops.readthedocs.io. <- well, eventually, until then look in docs folder and readme.md
+========
+Docs
+========
+Can be found `here
+<https://justingosses.github.io/predictatops/html/index.html/>`_..
 
 
 ==============
@@ -134,17 +137,7 @@ Folder Structures
 ==============
 Credits
 ==============
-Original hackathon participants: 
-`Justin Gosses
-<https://github.com/JustinGOSSES/>`_.
 
-`Licheng Zhange
-<https://github.com/dalide/>`_.
+Please see credits in the docs `here 
+<https://justingosses.github.io/predictatops/html/authors.html>`_.
 
-`https://github.com/jazzskier<https://github.com/jazzskier/>`_.
-
-
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
-
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage

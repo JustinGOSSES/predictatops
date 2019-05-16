@@ -96,27 +96,19 @@ Folder Structures
 
 GettingStarted
 -------
-`in progress`
+see <a href="https://justingosses.github.io/predictatops/html/index.html">docs</a>
 
 ### Installation
-`in progress`
-
-A series of commands to install using Conda.
-- `git clone https://github.com/JustinGOSSES/predictatops.git`
-- `cd predictatops`
-- `conda env create -f environment.yml`
-- `source activate predictatops`
+see <a href="https://justingosses.github.io/predictatops/html/index.html">docs</a>
 
 How to use
 -------
-`in progress, will cover:`
+Multiple options
 - Changing configuration, input data, and output data variables.
 - runner python files vs. function and imports only python files
 - running incrementally in jupyter notebook vs. bash pipeline in bulk
+But see <a href="https://justingosses.github.io/predictatops/html/index.html">docs</a>
 
-
-#### Working with your own dataset instead of the default Mannville Dataset
-`in progress`
 
 ### Code features that might require changing for different datasets
 - Requires all wells to be in the same file format, LAS.
@@ -143,10 +135,12 @@ Libraries used for working with well logs include: <a href="https://github.com/k
 -------------------------------------------
 Status
 -------
-Most of the work is still in <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon">the old repository</a>, but it is progressively being moved here in a simplified form.
+Some of the work is still in <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon">the old repository</a>, but it is progressively being moved here and repackaged out of Jupyter notebooks and into an actual package.
 
 ## Recent updates
-The code runs faster and and mean absolute error is down from 90 to 15.03 and now 8.5. Key approaches were:
+The code runs faster and and mean absolute error is down from 90 to 15.03 and now ~7 (with a handful of wells identified as too difficult to predict, -8% depending on the run and settings. 
+
+Key approaches were:
 1. Leverage knowledge from nearby wells.
 2. Instead of distinguishing between 2 classes, pick and not pick, distinguish between 3 classes: (a) pick, (b) not pick but within 3 meters and (c) not pick and not within 3 meters of pick.
 3. More features
