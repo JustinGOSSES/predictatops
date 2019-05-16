@@ -1,6 +1,8 @@
 Welcome to predictatops's documentation!
 ======================================
 
+We're new and still developing, so please pardon the disorganization
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:

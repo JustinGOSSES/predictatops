@@ -34,9 +34,53 @@
             
   <div class="section" id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
-<p>To use predictatops in a project:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">predictatops</span>
+<div class="section" id="how-to-use-predictatops-in-a-project">
+<h2>How to use predictatops in a project:<a class="headerlink" href="#how-to-use-predictatops-in-a-project" title="Permalink to this headline">¶</a></h2>
+<p>This uses Conda, so you might have to install that first.</p>
+<div class="section" id="in-a-terminal-type-the-following-commands">
+<h3>In a terminal type the following commands -<a class="headerlink" href="#in-a-terminal-type-the-following-commands" title="Permalink to this headline">¶</a></h3>
+<p>Clone the predictatops repository first as we don’t have have it PyPy yet:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">JustinGOSSES</span><span class="o">/</span><span class="n">predictatops</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
+</div>
+<p>CD into the the folder:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">predictatops</span>
+</pre></div>
+</div>
+<p>Create the conda environment with all the dependencies from the environment.yml at the top level folder:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">env</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+<p>Activate that conda environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="n">activate</span> <span class="n">predictatops</span>
+</pre></div>
+</div>
+<p>Change directories to the predictatops source folder inside of the top-level Predictatops:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">predictatops</span>
+</pre></div>
+</div>
+<p>Run the script to fetch the demo data and put it in the data folder:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Python</span> <span class="n">fetch_demo_data</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>Run the all_runner script to run all the code in one go:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Python</span> <span class="n">all_runner</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="what-this-runs">
+<h3>What this runs<a class="headerlink" href="#what-this-runs" title="Permalink to this headline">¶</a></h3>
+<p>This will run all the code using the demo dataset and default configuration, which predicts the top McMurray surface. It takes about an hour on a 2015 MacBook Pro.</p>
+</div>
+<div class="section" id="changing-how-it-runs">
+<h3>Changing how it runs<a class="headerlink" href="#changing-how-it-runs" title="Permalink to this headline">¶</a></h3>
+<p>Results should be in the results folder or whatever output folder is set as the base output folder via configurationplusfiles.py
+This method of running assumes you’re using all the default input, configuration, and output settings for the demo dataset. If you aren’t interested in that, you’ll need to change those via the configurationplusfiles.py file.</p>
+</div>
+<div class="section" id="running-with-more-control-or-different-code-swapped-in">
+<h3>Running with more control or different code swapped in<a class="headerlink" href="#running-with-more-control-or-different-code-swapped-in" title="Permalink to this headline">¶</a></h3>
+<p>There will be jupyter notebooks showing other examples of how to run Predictatops in the demo directory, at some point soon. In addition to running the code in one go, you can also run it by major steps like (check data, load, split, etc.) or use the functions base directly and call every function with your own code. This lets you more earily swap in and out new parts and interrogate itermedia results. I’ll include some examples of that soon as well.</p>
+</div>
 </div>
 </div>
 
@@ -61,7 +105,10 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="readme.html">Readme File</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-use-predictatops-in-a-project">How to use predictatops in a project:</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
