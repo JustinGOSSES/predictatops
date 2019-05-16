@@ -22,7 +22,7 @@ This code is the subject of an `abstract
 <https://www.abstractsonline.com/pp8/#!/6795/presentation/3405/>`_. that will be given at AAPG ACE 2019. 
 
 Development was in `this repo, MannvilleGroup_Strat_Hackathon
-<https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon.html/>`_. but is now moving here as the code gets cleaned and modulized. This project is under active development. Significant portions of the code still only exist on MannvilleGroup_Strat_Hackathon repo at this time.
+<https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon.html/>`_. but is now moving here as the code gets cleaned and modulized. This project is under active development. A few portions of the code still only exist on MannvilleGroup_Strat_Hackathon repo at this time. This is a nights and weekend side project, but will continue to be developed by the main developer.
 
 
 [these are in progress]
