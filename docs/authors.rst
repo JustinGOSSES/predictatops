@@ -11,7 +11,7 @@
 <https://github.com/GeophysicsPanda/>`_.
 
 `Zhenzhen zhong
-<https://github.com/jazzskier<https://github.com/jazzskier/>`_.
+<https://github.com/jazzskier/>`_.
 
 Thanks to the people who build community
 -----------------
