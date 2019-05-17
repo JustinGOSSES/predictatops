@@ -13,6 +13,9 @@
 `Zhenzhen zhong
 <https://github.com/jazzskier/>`_.
 
+Since the hackathon has since been worked largely by Justin with help from Licheng but we're very much accepting of pull requests and suggestions, no matter how small! Please check out the issues and contributing sections.
+
+
 Thanks to the people who build community
 -----------------
 
@@ -22,7 +25,6 @@ This project was originally started before a Society of Exploration Geophysicist
 Thank you as well to excellent discussion with the community of geoscientists who code on the `SWUNG (software underground) Slack Channel
 <https://softwareunderground.org/slack/>`_.
 
-Since the hackathon has since been worked largely by Justin with help from Licheng but we're very much accepting of pull requests and suggestions, no matter how small! Please check out the issues and contributing sections.
 
 
 Project History
