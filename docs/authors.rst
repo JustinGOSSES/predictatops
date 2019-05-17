@@ -1,10 +1,14 @@
 .. include:: ../AUTHORS.rst
 
 
-- Justin Gosses.
-- `Licheng Zhange<https://github.com/dalide//>`_.
-- GeophysicsPanda`<https://github.com/GeophysicsPanda/>`_.
-- `jazzskier<https://github.com/jazzskier<https://github.com/jazzskier/>`_.
+- `Justin Gosses
+<https://github.com/JustinGOSSES/>`_.
+- `Licheng Zhange
+<https://github.com/dalide/>`_.
+- `Jonathon Parker
+<https://github.com/GeophysicsPanda/>`_.
+- `Zhenzhen zhong
+<https://github.com/jazzskier<https://github.com/jazzskier/>`_.
 
 Thanks to the people who build community
 -----------------
