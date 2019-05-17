@@ -1,7 +1,9 @@
-Predictatops
-============
+# Predictatops
 
 <table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
 <tbody>
 <tr class="odd">
 <td>Code for stratigraphic pick prediction via supervised machine-learning</td>
@@ -25,28 +27,28 @@ Predictatops
 <td>`MIT License</td>
 </tr>
 <tr class="even">
-<td><p>&lt;<a href="https://github.com/JustinGOSSES/predictatops/blob/master/LICENSE/" class="uri">https://github.com/JustinGOSSES/predictatops/blob/master/LICENSE/</a>&gt;`_.</p></td>
+<td><p>&lt;<a href="https://github.com/JustinGOSSES/predictatops/blob/master/LICENSE/" class="uri uri">https://github.com/JustinGOSSES/predictatops/blob/master/LICENSE/</a>&gt;`_.</p></td>
 </tr>
 <tr class="odd">
-<td><p>This repository has a <a href="https://zenodo.org/record/2642860" class="uri">https://zenodo.org/record/2642860</a> but be aware the repository on github is ahead of the DOI'd version.</p></td>
+<td><p>This repository has a <a href="https://zenodo.org/record/2642860" class="uri uri">https://zenodo.org/record/2642860</a> but be aware the repository on github is ahead of the DOI'd version.</p></td>
 </tr>
 <tr class="even">
 <td>This code is the subject of an `abstract</td>
 </tr>
 <tr class="odd">
-<td>&lt;<a href="https://github.com/JustinGOSSES/predictatops/blob/master/AAPG_Abstract_2019ACE.md" class="uri">https://github.com/JustinGOSSES/predictatops/blob/master/AAPG_Abstract_2019ACE.md</a></td>
+<td>&lt;<a href="https://github.com/JustinGOSSES/predictatops/blob/master/AAPG_Abstract_2019ACE.md" class="uri uri">https://github.com/JustinGOSSES/predictatops/blob/master/AAPG_Abstract_2019ACE.md</a></td>
 </tr>
 <tr class="even">
 <td>/&gt;_. for a talk</td>
 </tr>
 <tr class="odd">
-<td><p>&lt;<a href="https://www.abstractsonline.com/pp8/#!/6795/presentation/3405/" class="uri">https://www.abstractsonline.com/pp8/#!/6795/presentation/3405/</a>&gt;`_. that will be given at AAPG ACE 2019.</p></td>
+<td><p>&lt;<a href="https://www.abstractsonline.com/pp8/#!/6795/presentation/3405/" class="uri uri">https://www.abstractsonline.com/pp8/#!/6795/presentation/3405/</a>&gt;`_. that will be given at AAPG ACE 2019.</p></td>
 </tr>
 <tr class="even">
 <td>Development was in `this repo, MannvilleGroup_Strat_Hackathon</td>
 </tr>
 <tr class="odd">
-<td><p>&lt;<a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon.html/" class="uri">https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon.html/</a>&gt;`_. but is now moving here as the code gets cleaned and modulized. This project is under active development. A few portions of the code still only exist on MannvilleGroup_Strat_Hackathon repo at this time. This is a nights and weekend side project, but will continue to be developed by the main developer.</p></td>
+<td><p>&lt;<a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon.html/" class="uri uri">https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon.html/</a>&gt;`_. but is now moving here as the code gets cleaned and modulized. This project is under active development. A few portions of the code still only exist on MannvilleGroup_Strat_Hackathon repo at this time. This is a nights and weekend side project, but will continue to be developed by the main developer.</p></td>
 </tr>
 <tr class="even">
 <td><p>[these are in progress]</p></td>
@@ -58,7 +60,7 @@ Predictatops
 <td><blockquote>
 <dl>
 <dt>target</dt>
-<dd><p><a href="https://pypi.python.org/pypi/predictatops" class="uri">https://pypi.python.org/pypi/predictatops</a></p>
+<dd><p><a href="https://pypi.python.org/pypi/predictatops" class="uri uri">https://pypi.python.org/pypi/predictatops</a></p>
 </dd>
 </dl>
 </blockquote></td>
@@ -79,7 +81,7 @@ Predictatops
 <td><blockquote>
 <dl>
 <dt>target</dt>
-<dd><p><a href="https://travis-ci.org/JustinGOSSES/predictatops" class="uri">https://travis-ci.org/JustinGOSSES/predictatops</a></p>
+<dd><p><a href="https://travis-ci.org/JustinGOSSES/predictatops" class="uri uri">https://travis-ci.org/JustinGOSSES/predictatops</a></p>
 </dd>
 </dl>
 </blockquote></td>
@@ -100,7 +102,7 @@ Predictatops
 <td><blockquote>
 <dl>
 <dt>target</dt>
-<dd><p><a href="https://predictatops.readthedocs.io/en/latest/?badge=latest" class="uri">https://predictatops.readthedocs.io/en/latest/?badge=latest</a></p>
+<dd><p><a href="https://predictatops.readthedocs.io/en/latest/?badge=latest" class="uri uri">https://predictatops.readthedocs.io/en/latest/?badge=latest</a></p>
 </dd>
 </dl>
 </blockquote></td>
@@ -121,7 +123,7 @@ Predictatops
 <td><blockquote>
 <dl>
 <dt>target</dt>
-<dd><p><a href="https://pyup.io/repos/github/JustinGOSSES/predictatops/" class="uri">https://pyup.io/repos/github/JustinGOSSES/predictatops/</a></p>
+<dd><p><a href="https://pyup.io/repos/github/JustinGOSSES/predictatops/" class="uri uri">https://pyup.io/repos/github/JustinGOSSES/predictatops/</a></p>
 </dd>
 </dl>
 </blockquote></td>
@@ -148,7 +150,7 @@ Predictatops
 <td>Can be found `here</td>
 </tr>
 <tr class="odd">
-<td><p>&lt;<a href="https://justingosses.github.io/predictatops/html/index.html/" class="uri">https://justingosses.github.io/predictatops/html/index.html/</a>&gt;`_..</p></td>
+<td><p>&lt;<a href="https://justingosses.github.io/predictatops/html/index.html/" class="uri uri">https://justingosses.github.io/predictatops/html/index.html/</a>&gt;`_..</p></td>
 </tr>
 <tr class="even">
 <td>==============</td>
@@ -189,8 +191,7 @@ and progressively build into higher order clustering of patterns
 occuring across many wells that would have been done by a human
 geologist.
 
-Datasets
-========
+# Datasets
 
 The default demo dataset used is a collection of over 2000 wells made
 public by the Alberta Geological Survey's Alberta Energy Regulator. To
@@ -221,12 +222,12 @@ project
 
 In the metadata file
 <https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/blob/master/SPE_006_originalData/Metadata/SPE_006.txt>
--&gt; SPE\_006.txt. the dataset is described as
-Access Constraints: Public and
-Use Constraints: Credit to originator/source required. Commercial reproduction not allowed.
+-\> SPE\_006.txt. the dataset is described as Access Constraints: Public
+and Use Constraints: Credit to originator/source required. Commercial
+reproduction not allowed.
 
 \_The Latitude and longitude of the wells is not in the original
-dataset. <https://github.com/dalide> -&gt; @dalide used the Alberta
+dataset. <https://github.com/dalide> -\> @dalide used the Alberta
 Geological Society's UWI conversion tool to find lat/longs for each of
 the well UWIs. A CSV with the coordinates of each well's location can be
 found
@@ -241,6 +242,9 @@ should be able to find it
 <https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/tree/master/SPE_006_originalData>
 
 <table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>Architecture and Abstraction</th>
