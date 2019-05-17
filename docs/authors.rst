@@ -1,16 +1,16 @@
 .. include:: ../AUTHORS.rst
 
 
-- `Justin Gosses
+`Justin Gosses
 <https://github.com/JustinGOSSES/>`_.
 
-- `Licheng Zhange
+`Licheng Zhange
 <https://github.com/dalide/>`_.
 
-- `Jonathon Parker
+`Jonathon Parker
 <https://github.com/GeophysicsPanda/>`_.
 
-- `Zhenzhen zhong
+`Zhenzhen zhong
 <https://github.com/jazzskier<https://github.com/jazzskier/>`_.
 
 Thanks to the people who build community
