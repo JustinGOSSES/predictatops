@@ -3,10 +3,13 @@
 
 - `Justin Gosses
 <https://github.com/JustinGOSSES/>`_.
+
 - `Licheng Zhange
 <https://github.com/dalide/>`_.
+
 - `Jonathon Parker
 <https://github.com/GeophysicsPanda/>`_.
+
 - `Zhenzhen zhong
 <https://github.com/jazzskier<https://github.com/jazzskier/>`_.
 
