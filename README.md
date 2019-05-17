@@ -1,4 +1,5 @@
-# Predictatops
+Predictatops
+============
 
 <table>
 <tbody>
@@ -188,7 +189,8 @@ and progressively build into higher order clustering of patterns
 occuring across many wells that would have been done by a human
 geologist.
 
-# Datasets
+Datasets
+========
 
 The default demo dataset used is a collection of over 2000 wells made
 public by the Alberta Geological Survey's Alberta Energy Regulator. To
@@ -219,12 +221,12 @@ project
 
 In the metadata file
 <https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/blob/master/SPE_006_originalData/Metadata/SPE_006.txt>
--\> SPE\_006.txt. the dataset is described as Access Constraints: Public
-and Use Constraints: Credit to originator/source required. Commercial
-reproduction not allowed.
+-&gt; SPE\_006.txt. the dataset is described as
+Access Constraints: Public and
+Use Constraints: Credit to originator/source required. Commercial reproduction not allowed.
 
 \_The Latitude and longitude of the wells is not in the original
-dataset. <https://github.com/dalide> -\> @dalide used the Alberta
+dataset. <https://github.com/dalide> -&gt; @dalide used the Alberta
 Geological Society's UWI conversion tool to find lat/longs for each of
 the well UWIs. A CSV with the coordinates of each well's location can be
 found
