@@ -1,0 +1,575 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>predictatops.checkdata &mdash; predictatops 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> predictatops
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Readme File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../history.html">History</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">predictatops</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>predictatops.checkdata</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for predictatops.checkdata</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1">##### import statements</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="c1">#%matplotlib inline</span>
+<span class="kn">import</span> <span class="nn">welly</span>
+<span class="kn">from</span> <span class="nn">welly</span> <span class="k">import</span> <span class="n">Well</span>
+<span class="kn">import</span> <span class="nn">lasio</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="c1">#env = %env</span>
+
+
+<span class="c1">##### import from other modules</span>
+<span class="kn">from</span> <span class="nn">configurationplusfiles</span> <span class="k">import</span> <span class="o">*</span>
+
+
+
+<span class="c1">##### Classes</span>
+<div class="viewcode-block" id="TopsAvailable"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable">[docs]</a><span class="k">class</span> <span class="nc">TopsAvailable</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class that uses the configuration class and data_inpunt class objects and additional </span>
+<span class="sd">    user input to find out the number of wells of those available that have the tops we want.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">input_data_obj</span><span class="p">,</span><span class="n">configuration_obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="c1">#### intermediate files and paths</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="n">input_data_obj</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">configuration_obj</span>
+        <span class="c1">####</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">picks_df_noNullPicks</span> <span class="o">=</span> <span class="s2">&quot;nothing here yet, run take_out_wells_with_no_tops or set_picks_df_noNullPicks&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wells_wAny_tops__list</span> <span class="o">=</span> <span class="s2">&quot;nothing here yet&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wells_with_all_given_tops</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># populated in function below within this class</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_wells_with_all_given_tops</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># populated by </span>
+        
+        
+<div class="viewcode-block" id="TopsAvailable.find_unique_tops_list"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.find_unique_tops_list">[docs]</a>    <span class="k">def</span> <span class="nf">find_unique_tops_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="n">unique_tops_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">picks_df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get_top_name_col_in_picks_df</span><span class="p">()]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;: unique_tops_list&quot;</span><span class="p">,</span><span class="n">unique_tops_list</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">unique_tops_list</span></div>
+        
+<div class="viewcode-block" id="TopsAvailable.get_must_have_tops"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.get_must_have_tops">[docs]</a>    <span class="k">def</span> <span class="nf">get_must_have_tops</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get_must_have_tops__list</span><span class="p">()</span></div>
+        <span class="c1">#print(&quot;must have top list is: &quot;,must_have_curves_in_list)</span>
+        
+<div class="viewcode-block" id="TopsAvailable.take_out_wells_with_no_tops"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.take_out_wells_with_no_tops">[docs]</a>    <span class="k">def</span> <span class="nf">take_out_wells_with_no_tops</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        function is defined to take in a picks_df and </span>
+<span class="sd">        exclude any wells that have no picks or are flagged as very bad quality.</span>
+<span class="sd">        This function assumes a data structure that is</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#### THIS FUNCTION ASSUMES SOME STRUCTURES THAT MIGHT NOT EXIST IN YOUR PROJECT</span>
+        <span class="c1">#### YOU MAY HAVE TO DO THIS A DIFFERENT WAY</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;THIS FUNCTION ASSUMES SOME STRUCTURES THAT MIGHT NOT EXIST IN YOUR PROJECT. It should work find with Mannville default data&#39;</span><span class="p">)</span>
+        <span class="c1">#### produces dataframe with no picks that have a value of zero</span>
+        <span class="n">noZeroPicks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">picks_df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">picks_df</span><span class="o">.</span><span class="n">Pick</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="c1">#### produces dataframe that doesn&#39;t have any picks with a quality of negative one, meaning not to be trusted or present</span>
+        <span class="n">noNullPicks</span> <span class="o">=</span> <span class="n">noZeroPicks</span><span class="p">[</span><span class="n">noZeroPicks</span><span class="o">.</span><span class="n">Quality</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">picks_df_noNullPicks</span> <span class="o">=</span> <span class="n">noNullPicks</span></div>
+        
+<div class="viewcode-block" id="TopsAvailable.get_picks_df_noNullPicks"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.get_picks_df_noNullPicks">[docs]</a>    <span class="k">def</span> <span class="nf">get_picks_df_noNullPicks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">picks_df_noNullPicks</span></div>
+
+    
+ <span class="c1">#### THIS ONE NEEDS EDITING AS IT REQUIRES ARGUMENTS THAT MAY NOT BE NEEDED LIKE THIS????????   </span>
+<div class="viewcode-block" id="TopsAvailable.set_picks_df_noNullPicks"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.set_picks_df_noNullPicks">[docs]</a>    <span class="k">def</span> <span class="nf">set_picks_df_noNullPicks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">picks_df_noNullPicks</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="k">if</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">picks_df_noNullPicks</span><span class="p">))</span> <span class="o">==</span> <span class="s2">&quot;&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">picks_df_noNullPicks</span> <span class="o">=</span> <span class="n">picks_df_noNullPicks</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;set picks_df_noNullPicks attribute as &quot;</span><span class="p">,</span><span class="n">picks_df_noNullPicks</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Argument picks_df_noNullPicks should be type dataframe&quot;</span><span class="p">)</span></div>
+            
+<div class="viewcode-block" id="TopsAvailable.get_df_of_top_counts_in_picks_df"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.get_df_of_top_counts_in_picks_df">[docs]</a>    <span class="k">def</span> <span class="nf">get_df_of_top_counts_in_picks_df</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="c1">#### produces dataframe of horID and counts of non-zero,non-null picks</span>
+        <span class="n">pick_counts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">picks_df_noNullPicks</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get_top_name_col_in_picks_df</span><span class="p">())[</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">siteID_col_in_picks_df</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">pick_counts</span></div>
+    
+<div class="viewcode-block" id="TopsAvailable.get_df_wells_with_any_top"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.get_df_wells_with_any_top">[docs]</a>    <span class="k">def</span> <span class="nf">get_df_wells_with_any_top</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="c1">#### The total number of wells with any sort of pick is:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wells_wAny_tops__list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">picks_df_noNullPicks</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">siteID_col_in_picks_df</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wells_wAny_tops__list</span></div>
+    
+<div class="viewcode-block" id="TopsAvailable.get_number_wells_with_any_top"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.get_number_wells_with_any_top">[docs]</a>    <span class="k">def</span> <span class="nf">get_number_wells_with_any_top</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wells_wAny_tops__list</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_df_wells_with_any_top</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wells_wAny_tops__list</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;expected self.wells_wAny_tops__list to be array but is type str, please run get_df_wells_with_any_top function&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wells_wAny_tops__list</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wells_wAny_tops__list</span><span class="p">)</span></div>
+        
+
+<div class="viewcode-block" id="TopsAvailable.findWellsThatHaveCertainTop"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.findWellsThatHaveCertainTop">[docs]</a>    <span class="k">def</span> <span class="nf">findWellsThatHaveCertainTop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">top</span><span class="p">,</span><span class="n">quality_items_to_skip__list</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        #### Takes in top</span>
+<span class="sd">        #### Returns a list of wells with the given top</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="c1">#print(top)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">wells_wAny_tops__list</span> <span class="o">==</span> <span class="s2">&quot;nothing here yet&quot;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;self.wells_wAny_tops__list has not been populated properly yet. I&#39;ll run take_out_wells_with_no_tops() &amp; get_df_wells_with_any_top&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">take_out_wells_with_no_tops</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_df_wells_with_any_top</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;test2&quot;</span><span class="p">)</span>
+            <span class="c1">#raise ValueError(&quot;self.wells_wAny_tops__list has not been populated properly yet. I&#39;ll run take_out_wells_with_no_tops() &amp; get_df_wells_with_any_top()&quot;)            </span>
+        
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">picks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">picks_df_noNullPicks</span>
+            <span class="n">Quality</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get_quality_col_name_in_picks_df</span><span class="p">()</span>
+            <span class="n">HorID</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get_top_name_col_in_picks_df</span><span class="p">()</span>
+            <span class="n">SitID</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get_siteID_col_in_picks_df</span><span class="p">()</span>
+            <span class="n">Pick</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get_picks_depth_col_in_picks_df</span><span class="p">()</span>
+            <span class="c1">#####   g</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">quality_items_to_skip__list</span><span class="p">:</span>
+                <span class="c1">#print(&quot;Quality = &quot;,Quality)</span>
+                <span class="c1">#print(&quot;picks type&quot;,type(picks),&quot;and picks = &quot;,picks)</span>
+                <span class="n">picks</span> <span class="o">=</span> <span class="n">picks</span><span class="p">[</span><span class="n">picks</span><span class="p">[</span><span class="n">Quality</span><span class="p">]</span> <span class="o">!=</span> <span class="n">item</span><span class="p">]</span>
+            <span class="n">rows_with_picks</span> <span class="o">=</span> <span class="n">picks</span>
+            <span class="c1">#rows_with_picks = picks[picks.Quality != 0]</span>
+            <span class="c1">#rows_with_picks = rows_with_picks[rows_with_picks.Quality != -1]</span>
+            <span class="c1">#print(rows_with_picks[0:4])\</span>
+
+            <span class="n">test</span> <span class="o">=</span> <span class="n">rows_with_picks</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">rows_with_picks</span><span class="p">[</span><span class="n">HorID</span><span class="p">]</span> <span class="o">==</span> <span class="n">top</span><span class="p">]</span>
+            <span class="n">test</span><span class="p">[</span><span class="n">Pick</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="c1">#print(test)</span>
+            <span class="n">rows_with_that_top</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rows_with_picks</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">rows_with_picks</span><span class="p">[</span><span class="n">HorID</span><span class="p">]</span> <span class="o">==</span> <span class="n">top</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()[</span><span class="n">SitID</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+            <span class="c1">#print(&quot;before return&quot;,rows_with_that_top)</span>
+            <span class="k">return</span> <span class="n">rows_with_that_top</span></div>
+
+<div class="viewcode-block" id="TopsAvailable.findWellsWithAllTopsGive"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.findWellsWithAllTopsGive">[docs]</a>    <span class="k">def</span> <span class="nf">findWellsWithAllTopsGive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        #### Takes in a list of tops</span>
+<span class="sd">        #### Returns a list of wells that include all of those tops. If only one top occurs, well is not included</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tops</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get_must_have_tops__list</span><span class="p">()</span>
+        <span class="n">quality_items_to_skip__list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get_quality_items_to_skip__list</span><span class="p">()</span>
+        
+        <span class="c1">#</span>
+        <span class="n">list_of_wells_with_tops</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">top</span> <span class="ow">in</span> <span class="n">tops</span><span class="p">:</span>
+            <span class="n">list_of_wells_with_tops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">findWellsThatHaveCertainTop</span><span class="p">(</span><span class="n">top</span><span class="p">,</span><span class="n">quality_items_to_skip__list</span><span class="p">))</span> 
+        <span class="c1">#print(len(list_of_wells_with_tops))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_of_wells_with_tops</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;nothing in list_of_wells_with_tops, there should be at least one item! Something bad happened.&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_of_wells_with_tops</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;returning list of wells names that have the required tops. The length of list is :&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">list_of_wells_with_tops</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="s2">&quot; If this number is too small, consider changing the required tops in the configuration object.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wells_with_all_given_tops</span> <span class="o">=</span> <span class="n">list_of_wells_with_tops</span>
+            <span class="k">return</span> <span class="n">list_of_wells_with_tops</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">eachlist</span> <span class="ow">in</span> <span class="n">list_of_wells_with_tops</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="n">list_of_wells_with_tops</span> <span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">list_of_wells_with_tops</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">eachlist</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;returning list of wells names that have the required tops. The length of list is :&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">list_of_wells_with_tops</span><span class="p">),</span><span class="s2">&quot; If this number is too small, consider changing the required tops in the configuration object.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wells_with_all_given_tops</span> <span class="o">=</span> <span class="n">list_of_wells_with_tops</span>
+            <span class="k">return</span> <span class="n">list_of_wells_with_tops</span></div>
+            <span class="c1">#list_of_wells_with_tops =list(set(list_of_wells_with_tops[0]).intersection(list_of_wells_with_tops[1]))</span>
+        
+<div class="viewcode-block" id="TopsAvailable.convertSiteIDListToUWIList"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.convertSiteIDListToUWIList">[docs]</a>    <span class="k">def</span> <span class="nf">convertSiteIDListToUWIList</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">wells_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">wells</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">load_wells_file</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">wells</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">wells_df</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">wells_with_all_given_tops</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">wells_with_all_given_tops</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findWellsWithAllTopsGive</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">wells_with_all_given_tops</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wells_with_all_given_tops</span>
+            
+        <span class="n">new_wells</span> <span class="o">=</span> <span class="n">wells</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;SitID&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;list&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">new_wells</span><span class="p">:</span>
+            <span class="n">new_wells</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_wells</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="s2">&quot;-&quot;</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;.LAS&quot;</span><span class="p">)</span> 
+            <span class="c1">#         print(&quot;new_wells&quot;,new_wells)</span>
+            <span class="c1">#         print(len(new_wells))</span>
+        
+        <span class="n">new_wells_with_all_given_tops</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">well</span> <span class="ow">in</span> <span class="n">wells_with_all_given_tops</span><span class="p">:</span>
+            <span class="n">new_wells_with_all_given_tops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_wells</span><span class="p">[</span><span class="n">well</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_wells_with_all_given_tops</span> <span class="o">=</span> <span class="n">new_wells_with_all_given_tops</span>
+        <span class="k">return</span> <span class="n">new_wells_with_all_given_tops</span></div>
+
+<div class="viewcode-block" id="TopsAvailable.run_all"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.run_all">[docs]</a>    <span class="k">def</span> <span class="nf">run_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="n">unique_tops</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_unique_tops_list</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The list of unique tops is: &quot;</span><span class="p">,</span><span class="n">unique_tops</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The list of required tops from the configuration object that was used as an argument are: &quot;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">get_must_have_tops</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This will, of course, exclude wells with no tops.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">take_out_wells_with_no_tops</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The counts for each top in the dataset are: &quot;</span><span class="p">)</span>
+        <span class="n">top_counts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_df_of_top_counts_in_picks_df</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">top_counts</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;and the total number of wells with any tops is: &quot;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">get_number_wells_with_any_top</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wells_with_all_given_tops</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findWellsWithAllTopsGive</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The length of the list with all the names of the wells that have the required tops&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_must_have_tops</span><span class="p">())</span><span class="o">+</span><span class="s2">&quot;is: &quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wells_with_all_given_tops</span><span class="p">),</span> <span class="s2">&quot; and it will be what is returned&quot;</span><span class="p">)</span>
+        <span class="n">wells_with_all_given_tops_by_uwi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convertSiteIDListToUWIList</span><span class="p">()</span>
+        
+        <span class="k">return</span> <span class="n">wells_with_all_given_tops_by_uwi</span></div></div>
+
+
+<div class="viewcode-block" id="CurvesAvailable"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.CurvesAvailable">[docs]</a><span class="k">class</span> <span class="nc">CurvesAvailable</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class that uses the configuration class and data_inpunt class objects and additional </span>
+<span class="sd">    user input to find out the number of wells of those available that have the tops we want.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">input_data_obj</span><span class="p">,</span><span class="n">configuration_obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="c1">#### intermediate files and paths</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="n">input_data_obj</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">configuration_obj</span>
+        <span class="c1">####</span>
+        <span class="c1">#self.full_well_path = self.input.las_path+&#39;*&#39;+self.input.well_format</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objectOfCurves</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># populates from findAllCurvesInGivenWells()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">countsOfCurvesObj</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># populates from _____ function </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">onlyPlentifulCurvesArray</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># populates from getCurvesInMinNumberOfWells</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wellsWithWantedCurves</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># populates from findWellsWithCertainCurves(self)</span>
+        <span class="c1">#self.picks_df_noNullPicks = &quot;nothing here yet, run take_out_wells_with_no_tops or set_picks_df_noNullPicks&quot;</span>
+        <span class="c1">#self.wells_wAny_tops__list = &quot;nothing here yet&quot;</span>
+        <span class="c1">#### self.config.threshold_returnCurvesThatArePresentInThisManyWells = 2000</span>
+        <span class="c1">#### self.input.las_folder_path</span>
+        <span class="c1">#### self.input.well_format</span>
+        
+<div class="viewcode-block" id="CurvesAvailable.findAllCurvesInGivenWells"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.CurvesAvailable.findAllCurvesInGivenWells">[docs]</a>    <span class="k">def</span> <span class="nf">findAllCurvesInGivenWells</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; say what it does here&quot;&quot;&quot;</span>
+        <span class="n">objectOfCurves</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">las_folder_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">las_folder_path</span>
+        <span class="n">well_format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">well_format</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">las_folder_path</span><span class="o">+</span><span class="s1">&#39;*&#39;</span><span class="o">+</span><span class="n">well_format</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;loading all wells in the path = &quot;</span><span class="p">,</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="n">las</span> <span class="o">=</span> <span class="n">lasio</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">ignore_data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">mnemonics</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">mnemonic</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">las</span><span class="o">.</span><span class="n">curves</span><span class="p">]</span>
+            <span class="n">fnShort</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">las_folder_path</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">objectOfCurves</span><span class="p">[</span><span class="n">fnShort</span><span class="p">]</span> <span class="o">=</span> <span class="n">mnemonics</span>
+        <span class="c1">#print(fn + &#39;\n\t&#39; + &#39;\n\t&#39;.join(mnemonics))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objectOfCurves</span> <span class="o">=</span> <span class="n">objectOfCurves</span>
+        <span class="k">return</span> <span class="n">objectOfCurves</span></div>
+    
+<div class="viewcode-block" id="CurvesAvailable.countsOfCurves"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.CurvesAvailable.countsOfCurves">[docs]</a>    <span class="k">def</span> <span class="nf">countsOfCurves</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; say what it does here&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">objectOfCurves</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">findAllCurvesInGivenWells</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="n">listOfListOfCurves</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">objectOfCurves</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+        <span class="n">startList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">listI</span> <span class="ow">in</span> <span class="n">listOfListOfCurves</span><span class="p">:</span>
+            <span class="n">startList</span> <span class="o">=</span> <span class="n">startList</span><span class="o">+</span><span class="n">listI</span>
+        <span class="n">uniq_CurvesList</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">startList</span><span class="p">)</span>
+        <span class="n">countsOfCurvesObj</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">eachCurve</span> <span class="ow">in</span> <span class="n">uniq_CurvesList</span><span class="p">:</span>
+            <span class="n">countsOfCurvesObj</span><span class="p">[</span><span class="n">eachCurve</span><span class="p">]</span> <span class="o">=</span> <span class="n">startList</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">eachCurve</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;counts of curves are: &quot;</span><span class="p">,</span><span class="n">countsOfCurvesObj</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">countsOfCurvesObj</span> <span class="o">=</span> <span class="n">countsOfCurvesObj</span>
+        <span class="k">return</span> <span class="n">countsOfCurvesObj</span></div>
+    
+<div class="viewcode-block" id="CurvesAvailable.getCurvesInMinNumberOfWells"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.CurvesAvailable.getCurvesInMinNumberOfWells">[docs]</a>    <span class="k">def</span> <span class="nf">getCurvesInMinNumberOfWells</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; say what it does here&quot;&quot;&quot;</span>
+        <span class="n">minNumberCurves</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">threshold_returnCurvesThatArePresentInThisManyWells</span>
+        <span class="n">countsOfCurves</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">countsOfCurvesObj</span>
+        <span class="c1">#### Takes in a minmum number of wells that need to have specific curves and an object where keys are curve names and values is the count of that curves across all wells.</span>
+        <span class="c1">#### Returns an array of curve names that are found in at least the given number of wells.</span>
+        <span class="n">curvePlusCountArray</span> <span class="o">=</span> <span class="n">countsOfCurves</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="n">onlyPlentifulCurvesArray</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">curve</span> <span class="ow">in</span> <span class="n">curvePlusCountArray</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">curve</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">minNumberCurves</span><span class="p">:</span>
+                <span class="n">onlyPlentifulCurvesArray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curve</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">onlyPlentifulCurvesArray</span> <span class="o">=</span> <span class="n">onlyPlentifulCurvesArray</span>
+        <span class="k">return</span> <span class="n">onlyPlentifulCurvesArray</span></div>
+    
+<div class="viewcode-block" id="CurvesAvailable.findWellsWithCertainCurves"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.CurvesAvailable.findWellsWithCertainCurves">[docs]</a>    <span class="k">def</span> <span class="nf">findWellsWithCertainCurves</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function takes in an object with keys that are well names and values that are all curves in that well </span>
+<span class="sd">        and as the second argument an array of plentiful curves expected to be in every well</span>
+<span class="sd">        Function returns an array of wells that have the specified curves in the second argument.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">######## Check if none, if none run appropriate function, if not use it,</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">onlyPlentifulCurvesArray</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;self.onlyPlentifulCurvesArray was not populated yet so getCurvesInMinNumberOfWells() will be ran&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getCurvesInMinNumberOfWells</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;self.onlyPlentifulCurvesArray is now&quot;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">onlyPlentifulCurvesArray</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="n">plentifulCurves</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">onlyPlentifulCurvesArray</span>
+        
+        <span class="c1">######## Check if none, if none run appropriate function, if not use it,</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">countsOfCurvesObj</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;self.countsOfCurvesObj was not populated yet so countsOfCurves()) will be ran&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">countsOfCurves</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;self.countsOfCurvesObj is now&quot;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">countsOfCurvesObj</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>        
+        <span class="n">objectOfCurves</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">objectOfCurves</span>
+        <span class="c1">#######</span>
+        <span class="n">wellsWithWantedCurves</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">plentifulCurves</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;plentifulCurves is:&quot;</span><span class="p">,</span><span class="n">plentifulCurves</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">objectOfCurves</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;objectOfCurves is: &quot;</span><span class="p">,</span><span class="n">objectOfCurves</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">eachWell</span> <span class="ow">in</span> <span class="n">objectOfCurves</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">eachWell</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">plentifulCurves</span><span class="p">)</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">objectOfCurves</span><span class="p">[</span><span class="n">eachWell</span><span class="p">]):</span>
+                <span class="n">wellsWithWantedCurves</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">eachWell</span><span class="p">)</span>
+        <span class="c1">######## Initiate THIS !!!!!</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wellsWithWantedCurves</span> <span class="o">=</span> <span class="n">wellsWithWantedCurves</span>
+        <span class="k">return</span> <span class="n">wellsWithWantedCurves</span></div>
+    
+<div class="viewcode-block" id="CurvesAvailable.run_all"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.CurvesAvailable.run_all">[docs]</a>    <span class="k">def</span> <span class="nf">run_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        runs all included functions and returns a ____ of wells with the requested log curves</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">countsOfCurves</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">countsOfCurves</span><span class="p">()</span>
+        <span class="n">objectOfCurves</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findAllCurvesInGivenWells</span><span class="p">()</span>
+        <span class="n">onlyPlentifulCurvesArray</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getCurvesInMinNumberOfWells</span><span class="p">()</span>
+        <span class="n">wellsWithWantedCurves</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findWellsWithCertainCurves</span><span class="p">()</span>
+        <span class="n">all_results_obj</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;countsOfCurves&quot;</span><span class="p">:</span><span class="n">countsOfCurves</span><span class="p">,</span><span class="s2">&quot;objectOfCurves&quot;</span><span class="p">:</span><span class="n">objectOfCurves</span><span class="p">,</span><span class="s2">&quot;onlyPlentifulCurvesArray&quot;</span><span class="p">:</span><span class="n">onlyPlentifulCurvesArray</span><span class="p">,</span><span class="s2">&quot;wellsWithWantedCurves&quot;</span><span class="p">:</span><span class="n">wellsWithWantedCurves</span><span class="p">}</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;returning an object with 4 parts, each a piece of information that helps determine how many log curves are availabe in how many logs &quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">all_results_obj</span></div></div>
+
+
+<span class="c1">##### Functions not in class objects</span>
+<div class="viewcode-block" id="findWellsWithCertainCurves"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.findWellsWithCertainCurves">[docs]</a><span class="k">def</span> <span class="nf">findWellsWithCertainCurves</span><span class="p">(</span><span class="n">objectOfCurves</span><span class="p">,</span><span class="n">plentifulCurves</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    #### Function takes in an object with keys that are well names and values that are all curves in that well and as the second argument an array of plentiful curves expected to be in every well</span>
+<span class="sd">    #### Function returns an array of wells that have the specified curves in the second argument.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">wellsWithWantedCurves</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">eachWell</span> <span class="ow">in</span> <span class="n">objectOfCurves</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">plentifulCurves</span><span class="p">)</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">objectOfCurves</span><span class="p">[</span><span class="n">eachWell</span><span class="p">]):</span>
+            <span class="n">wellsWithWantedCurves</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">eachWell</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">wellsWithWantedCurves</span></div>
+
+
+<div class="viewcode-block" id="getCurvesListWithDifferentCurveName"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.getCurvesListWithDifferentCurveName">[docs]</a><span class="k">def</span> <span class="nf">getCurvesListWithDifferentCurveName</span><span class="p">(</span><span class="n">originalCurveList</span><span class="p">,</span><span class="n">origCurve</span><span class="p">,</span><span class="n">newCurve</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in list of curves, curve name to be replaced, and curve name to replace with.</span>
+<span class="sd">    Returns a list with the orginal and new curve names switched in the given curve list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">plentifulCurves_wDEPTH</span> <span class="o">=</span> <span class="n">originalCurveList</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">plentifulCurves_wDEPTH</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">origCurve</span><span class="p">)</span>
+        <span class="n">plentifulCurves_wDEPTH</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newCurve</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;did not find &quot;</span><span class="p">,</span><span class="n">origCurve</span><span class="p">,</span> <span class="s2">&quot; when attempting to replace it with &quot;</span><span class="p">,</span><span class="n">newCurve</span><span class="p">,</span><span class="s2">&quot; in the getCurvesListWithDifferentCurveName function&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">plentifulCurves_wDEPTH</span></div>
+
+
+<div class="viewcode-block" id="findWellsWithGivenTopsCurves"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.findWellsWithGivenTopsCurves">[docs]</a><span class="k">def</span> <span class="nf">findWellsWithGivenTopsCurves</span><span class="p">(</span><span class="n">wells</span><span class="p">,</span><span class="n">wells_with_all_given_tops</span><span class="p">,</span><span class="n">wellsWithNeededCurvesList_real</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    NOTE: THIS FUNCTION MAY NOT BE USED DUE TO OTHER CHANGES IN THE CODE.</span>
+<span class="sd">    It was created to deal with wanting to find the intersection of a list of wells with SITEID only and a list of wells with UWI only.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">new_wells</span> <span class="o">=</span> <span class="n">wells</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;SitID&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;list&#39;</span><span class="p">)</span>
+   <span class="c1">#print(&quot;new_wells&quot;,new_wells[0])</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">new_wells</span><span class="p">:</span>
+        <span class="n">new_wells</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_wells</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="s2">&quot;-&quot;</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;.LAS&quot;</span><span class="p">)</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;new_wells&quot;</span><span class="p">,</span><span class="n">new_wells</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">new_wells</span><span class="p">))</span>
+    <span class="n">new_wells_with_all_given_tops</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">well</span> <span class="ow">in</span> <span class="n">wells_with_all_given_tops</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;well in wells_with_all_given_tops:&quot;</span><span class="p">,</span><span class="n">well</span><span class="p">)</span>
+        <span class="n">new_wells_with_all_given_tops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_wells</span><span class="p">[</span><span class="n">well</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">new_wells_with_all_given_tops</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">wellsWithNeededCurvesList_real</span><span class="p">))</span></div>
+
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Justin Gosses
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

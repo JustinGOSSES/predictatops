@@ -168,8 +168,153 @@
 <div class="section" id="predictatops-balance-runner-module">
 <h2>predictatops.balance_runner module<a class="headerlink" href="#predictatops-balance-runner-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="predictatops-checkdata-module">
-<h2>predictatops.checkdata module<a class="headerlink" href="#predictatops-checkdata-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-predictatops.checkdata">
+<span id="predictatops-checkdata-module"></span><h2>predictatops.checkdata module<a class="headerlink" href="#module-predictatops.checkdata" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="predictatops.checkdata.CurvesAvailable">
+<em class="property">class </em><code class="descclassname">predictatops.checkdata.</code><code class="descname">CurvesAvailable</code><span class="sig-paren">(</span><em>input_data_obj</em>, <em>configuration_obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#CurvesAvailable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.CurvesAvailable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class that uses the configuration class and data_inpunt class objects and additional 
+user input to find out the number of wells of those available that have the tops we want.</p>
+<dl class="method">
+<dt id="predictatops.checkdata.CurvesAvailable.countsOfCurves">
+<code class="descname">countsOfCurves</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#CurvesAvailable.countsOfCurves"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.CurvesAvailable.countsOfCurves" title="Permalink to this definition">¶</a></dt>
+<dd><p>say what it does here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.checkdata.CurvesAvailable.findAllCurvesInGivenWells">
+<code class="descname">findAllCurvesInGivenWells</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#CurvesAvailable.findAllCurvesInGivenWells"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.CurvesAvailable.findAllCurvesInGivenWells" title="Permalink to this definition">¶</a></dt>
+<dd><p>say what it does here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.checkdata.CurvesAvailable.findWellsWithCertainCurves">
+<code class="descname">findWellsWithCertainCurves</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#CurvesAvailable.findWellsWithCertainCurves"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.CurvesAvailable.findWellsWithCertainCurves" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function takes in an object with keys that are well names and values that are all curves in that well 
+and as the second argument an array of plentiful curves expected to be in every well
+Function returns an array of wells that have the specified curves in the second argument.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.checkdata.CurvesAvailable.getCurvesInMinNumberOfWells">
+<code class="descname">getCurvesInMinNumberOfWells</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#CurvesAvailable.getCurvesInMinNumberOfWells"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.CurvesAvailable.getCurvesInMinNumberOfWells" title="Permalink to this definition">¶</a></dt>
+<dd><p>say what it does here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.checkdata.CurvesAvailable.run_all">
+<code class="descname">run_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#CurvesAvailable.run_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.CurvesAvailable.run_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>runs all included functions and returns a ____ of wells with the requested log curves</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="predictatops.checkdata.TopsAvailable">
+<em class="property">class </em><code class="descclassname">predictatops.checkdata.</code><code class="descname">TopsAvailable</code><span class="sig-paren">(</span><em>input_data_obj</em>, <em>configuration_obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class that uses the configuration class and data_inpunt class objects and additional 
+user input to find out the number of wells of those available that have the tops we want.</p>
+<dl class="method">
+<dt id="predictatops.checkdata.TopsAvailable.convertSiteIDListToUWIList">
+<code class="descname">convertSiteIDListToUWIList</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.convertSiteIDListToUWIList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.convertSiteIDListToUWIList" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.checkdata.TopsAvailable.findWellsThatHaveCertainTop">
+<code class="descname">findWellsThatHaveCertainTop</code><span class="sig-paren">(</span><em>top</em>, <em>quality_items_to_skip__list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.findWellsThatHaveCertainTop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.findWellsThatHaveCertainTop" title="Permalink to this definition">¶</a></dt>
+<dd><p>#### Takes in top
+#### Returns a list of wells with the given top</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.checkdata.TopsAvailable.findWellsWithAllTopsGive">
+<code class="descname">findWellsWithAllTopsGive</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.findWellsWithAllTopsGive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.findWellsWithAllTopsGive" title="Permalink to this definition">¶</a></dt>
+<dd><p>#### Takes in a list of tops
+#### Returns a list of wells that include all of those tops. If only one top occurs, well is not included</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.checkdata.TopsAvailable.find_unique_tops_list">
+<code class="descname">find_unique_tops_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.find_unique_tops_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.find_unique_tops_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.checkdata.TopsAvailable.get_df_of_top_counts_in_picks_df">
+<code class="descname">get_df_of_top_counts_in_picks_df</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.get_df_of_top_counts_in_picks_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.get_df_of_top_counts_in_picks_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.checkdata.TopsAvailable.get_df_wells_with_any_top">
+<code class="descname">get_df_wells_with_any_top</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.get_df_wells_with_any_top"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.get_df_wells_with_any_top" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.checkdata.TopsAvailable.get_must_have_tops">
+<code class="descname">get_must_have_tops</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.get_must_have_tops"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.get_must_have_tops" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.checkdata.TopsAvailable.get_number_wells_with_any_top">
+<code class="descname">get_number_wells_with_any_top</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.get_number_wells_with_any_top"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.get_number_wells_with_any_top" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.checkdata.TopsAvailable.get_picks_df_noNullPicks">
+<code class="descname">get_picks_df_noNullPicks</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.get_picks_df_noNullPicks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.get_picks_df_noNullPicks" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.checkdata.TopsAvailable.run_all">
+<code class="descname">run_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.run_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.run_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.checkdata.TopsAvailable.set_picks_df_noNullPicks">
+<code class="descname">set_picks_df_noNullPicks</code><span class="sig-paren">(</span><em>picks_df_noNullPicks</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.set_picks_df_noNullPicks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.set_picks_df_noNullPicks" title="Permalink to this definition">¶</a></dt>
+<dd><p>doc string goes here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.checkdata.TopsAvailable.take_out_wells_with_no_tops">
+<code class="descname">take_out_wells_with_no_tops</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.take_out_wells_with_no_tops"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.take_out_wells_with_no_tops" title="Permalink to this definition">¶</a></dt>
+<dd><p>function is defined to take in a picks_df and 
+exclude any wells that have no picks or are flagged as very bad quality.
+This function assumes a data structure that is</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.checkdata.findWellsWithCertainCurves">
+<code class="descclassname">predictatops.checkdata.</code><code class="descname">findWellsWithCertainCurves</code><span class="sig-paren">(</span><em>objectOfCurves</em>, <em>plentifulCurves</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#findWellsWithCertainCurves"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.findWellsWithCertainCurves" title="Permalink to this definition">¶</a></dt>
+<dd><p>#### Function takes in an object with keys that are well names and values that are all curves in that well and as the second argument an array of plentiful curves expected to be in every well
+#### Function returns an array of wells that have the specified curves in the second argument.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.checkdata.findWellsWithGivenTopsCurves">
+<code class="descclassname">predictatops.checkdata.</code><code class="descname">findWellsWithGivenTopsCurves</code><span class="sig-paren">(</span><em>wells</em>, <em>wells_with_all_given_tops</em>, <em>wellsWithNeededCurvesList_real</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#findWellsWithGivenTopsCurves"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.findWellsWithGivenTopsCurves" title="Permalink to this definition">¶</a></dt>
+<dd><p>NOTE: THIS FUNCTION MAY NOT BE USED DUE TO OTHER CHANGES IN THE CODE.
+It was created to deal with wanting to find the intersection of a list of wells with SITEID only and a list of wells with UWI only.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.checkdata.getCurvesListWithDifferentCurveName">
+<code class="descclassname">predictatops.checkdata.</code><code class="descname">getCurvesListWithDifferentCurveName</code><span class="sig-paren">(</span><em>originalCurveList</em>, <em>origCurve</em>, <em>newCurve</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#getCurvesListWithDifferentCurveName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.getCurvesListWithDifferentCurveName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in list of curves, curve name to be replaced, and curve name to replace with.
+Returns a list with the orginal and new curve names switched in the given curve list</p>
+</dd></dl>
+
 </div>
 <div class="section" id="predictatops-checkdata-runner-module">
 <h2>predictatops.checkdata_runner module<a class="headerlink" href="#predictatops-checkdata-runner-module" title="Permalink to this headline">¶</a></h2>
@@ -561,8 +706,235 @@ Returns</p>
 <div class="section" id="module-predictatops.plot_runner">
 <span id="predictatops-plot-runner-module"></span><h2>predictatops.plot_runner module<a class="headerlink" href="#module-predictatops.plot_runner" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="predictatops-predictionclasses-module">
-<h2>predictatops.predictionclasses module<a class="headerlink" href="#predictatops-predictionclasses-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-predictatops.predictionclasses">
+<span id="predictatops-predictionclasses-module"></span><h2>predictatops.predictionclasses module<a class="headerlink" href="#module-predictatops.predictionclasses" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop">
+<em class="property">class </em><code class="descclassname">predictatops.predictionclasses.</code><code class="descname">InputDistClassPrediction_to_BestDepthForTop</code><span class="sig-paren">(</span><em>output_data_inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#InputDistClassPrediction_to_BestDepthForTop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Explain theyself</p>
+<dl class="method">
+<dt id="predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.calc_pred_vs_real_top_dif">
+<code class="descname">calc_pred_vs_real_top_dif</code><span class="sig-paren">(</span><em>df</em>, <em>depth_str</em>, <em>pick_pred_class_str</em>, <em>UWI_str</em>, <em>rollingWindows</em>, <em>predClasses</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#InputDistClassPrediction_to_BestDepthForTop.calc_pred_vs_real_top_dif"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.calc_pred_vs_real_top_dif" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Function takes in:</dt><dd><p>A dataframe with predictions and dataframe with UWIs and known pick depths. Dataframes may not be same length but df 2 must have all UWIs in df 1.</p>
+</dd>
+<dt>Function returns:</dt><dd><p>A column for predicted dataframe with calculated single prediction depth pick based on the median row technique
+A column for predicted dataframe with calculated single prediction depth pick based on rolling means of classes predicted for each row.</p>
+</dd>
+<dt>THESE BELOW ARE NOTE YET IMPLIMENTED!    </dt><dd><p>A new dataframe that is just one row per well and includes as col of UWIs, known picks, predicted picks, and difference
+A new col in the new df that has high and low error by some metric?
+A score of mean abosolute error across all wells in the given dataframe 1.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.concat_modelResultsNDArray_w_indexValues">
+<code class="descname">concat_modelResultsNDArray_w_indexValues</code><span class="sig-paren">(</span><em>distClassModel_resultsNDArry</em>, <em>train_or_test</em>, <em>col_name_prediction</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#InputDistClassPrediction_to_BestDepthForTop.concat_modelResultsNDArray_w_indexValues"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.concat_modelResultsNDArray_w_indexValues" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.concat_step2">
+<code class="descname">concat_step2</code><span class="sig-paren">(</span><em>MLobj</em>, <em>train_or_test</em>, <em>cols_to_keep_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#InputDistClassPrediction_to_BestDepthForTop.concat_step2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.concat_step2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.help">
+<code class="descname">help</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#InputDistClassPrediction_to_BestDepthForTop.help"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.load_MLobj">
+<code class="descname">load_MLobj</code><span class="sig-paren">(</span><em>MLobj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#InputDistClassPrediction_to_BestDepthForTop.load_MLobj"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.load_MLobj" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.load_dist_class_pred_df">
+<code class="descname">load_dist_class_pred_df</code><span class="sig-paren">(</span><em>dist_class_pred_df</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#InputDistClassPrediction_to_BestDepthForTop.load_dist_class_pred_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.load_dist_class_pred_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>explain theyself</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.predict_from_model">
+<code class="descname">predict_from_model</code><span class="sig-paren">(</span><em>model</em>, <em>df_X_toPredict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#InputDistClassPrediction_to_BestDepthForTop.predict_from_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.predict_from_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>The predict_from_model function takes as argument a model that is already trained on training data, in the demo case a 
+scikit-learn XGBoost model and the dataframe of the columns to predict. From this, it fills in 
+the self.result_df_from_prediction attribute and returns nothing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.run_all">
+<code class="descname">run_all</code><span class="sig-paren">(</span><em>MLobj</em>, <em>model</em>, <em>trainOrTest_str</em>, <em>cols_to_keep_list</em>, <em>depth_str</em>, <em>pick_pred_class_str</em>, <em>UWI_str</em>, <em>rollingWindows</em>, <em>predClasses</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#InputDistClassPrediction_to_BestDepthForTop.run_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.run_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs two functions. Takes in first the resulting dataframe from model.predict(df_X_toPredict). Take in second, depth_str,pick_pred_class_str,UWI_str,rollingWindows,predClasses.
+Creates rolling means and median distance class values across different size rolling windows.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules">
+<em class="property">class </em><code class="descclassname">predictatops.predictionclasses.</code><code class="descname">accuracy_singleTopPerWellPrediction_fromRollingRules</code><span class="sig-paren">(</span><em>ML</em>, <em>vs</em>, <em>distClassDF_wRollingCols_training</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#accuracy_singleTopPerWellPrediction_fromRollingRules"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>stuff here
+calculates accuracy on a per well basis after doing some rolling mean analysis on per depth point scores from machine-learning classification of distance class.</p>
+<dl class="method">
+<dt id="predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.compare_RealTop_vsTopFromRollingMean">
+<code class="descname">compare_RealTop_vsTopFromRollingMean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#accuracy_singleTopPerWellPrediction_fromRollingRules.compare_RealTop_vsTopFromRollingMean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.compare_RealTop_vsTopFromRollingMean" title="Permalink to this definition">¶</a></dt>
+<dd><p>things go here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.help">
+<code class="descname">help</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#accuracy_singleTopPerWellPrediction_fromRollingRules.help"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.load_variables_obj">
+<code class="descname">load_variables_obj</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#accuracy_singleTopPerWellPrediction_fromRollingRules.load_variables_obj"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.load_variables_obj" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.mean_absolute_error">
+<code class="descname">mean_absolute_error</code><span class="sig-paren">(</span><em>y_pred</em>, <em>sample_weight=None</em>, <em>multioutput='uniform_average'</em><span class="sig-paren">)</span><a class="headerlink" href="#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.mean_absolute_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mean absolute error regression loss</p>
+<p>Read more in the <span class="xref std std-ref">User Guide</span>.</p>
+<dl>
+<dt>y_true<span class="classifier">array-like of shape = (n_samples) or (n_samples, n_outputs)</span></dt><dd><p>Ground truth (correct) target values.</p>
+</dd>
+<dt>y_pred<span class="classifier">array-like of shape = (n_samples) or (n_samples, n_outputs)</span></dt><dd><p>Estimated target values.</p>
+</dd>
+<dt>sample_weight<span class="classifier">array-like of shape = (n_samples), optional</span></dt><dd><p>Sample weights.</p>
+</dd>
+<dt>multioutput<span class="classifier">string in [‘raw_values’, ‘uniform_average’]</span></dt><dd><p>or array-like of shape (n_outputs)
+Defines aggregating of multiple output values.
+Array-like value defines weights used to average errors.</p>
+<dl class="simple">
+<dt>‘raw_values’ :</dt><dd><p>Returns a full set of errors in case of multioutput input.</p>
+</dd>
+<dt>‘uniform_average’ :</dt><dd><p>Errors of all outputs are averaged with uniform weight.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl>
+<dt>loss<span class="classifier">float or ndarray of floats</span></dt><dd><p>If multioutput is ‘raw_values’, then mean absolute error is returned
+for each output separately.
+If multioutput is ‘uniform_average’ or an ndarray of weights, then the
+weighted average of all output errors is returned.</p>
+<p>MAE output is non-negative floating point. The best value is 0.0.</p>
+</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">mean_absolute_error</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">0.75</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">multioutput</span><span class="o">=</span><span class="s1">&#39;raw_values&#39;</span><span class="p">)</span>
+<span class="go">array([ 0.5,  1. ])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">multioutput</span><span class="o">=</span><span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">])</span>
+<span class="gp">... </span><span class="c1"># doctest: +ELLIPSIS</span>
+<span class="go">0.849...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.mean_absolute_error_func">
+<code class="descname">mean_absolute_error_func</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#accuracy_singleTopPerWellPrediction_fromRollingRules.mean_absolute_error_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.mean_absolute_error_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>THINGS GO HERE</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.optionallyExcludeWellsWithoutStrongPredictions">
+<code class="descname">optionallyExcludeWellsWithoutStrongPredictions</code><span class="sig-paren">(</span><em>keepAllWells=None, dropIfOnlyClasses=[0]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#accuracy_singleTopPerWellPrediction_fromRollingRules.optionallyExcludeWellsWithoutStrongPredictions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.optionallyExcludeWellsWithoutStrongPredictions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.r2_func">
+<code class="descname">r2_func</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#accuracy_singleTopPerWellPrediction_fromRollingRules.r2_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.r2_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>THINGS GO HERE</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.reduceDFtoOneBestTopPredictionPerWell">
+<code class="descname">reduceDFtoOneBestTopPredictionPerWell</code><span class="sig-paren">(</span><em>TopTarget_Pick_pred_DEPT_pred</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#accuracy_singleTopPerWellPrediction_fromRollingRules.reduceDFtoOneBestTopPredictionPerWell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.reduceDFtoOneBestTopPredictionPerWell" title="Permalink to this definition">¶</a></dt>
+<dd><p>THINGS GO HERE</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.reduceDFtoOriginalTopPerWell">
+<code class="descname">reduceDFtoOriginalTopPerWell</code><span class="sig-paren">(</span><em>TopTarget_DEPTH</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#accuracy_singleTopPerWellPrediction_fromRollingRules.reduceDFtoOriginalTopPerWell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.reduceDFtoOriginalTopPerWell" title="Permalink to this definition">¶</a></dt>
+<dd><p>THINGS GO HERE</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.run_all">
+<code class="descname">run_all</code><span class="sig-paren">(</span><em>TopTarget_Pick_pred_DEPT_pred, TopTarget_DEPTH, keepAllWells='no', dropIfOnlyClasses=[0]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#accuracy_singleTopPerWellPrediction_fromRollingRules.run_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.run_all" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="predictatops.predictionclasses.class_accuracy">
+<em class="property">class </em><code class="descclassname">predictatops.predictionclasses.</code><code class="descname">class_accuracy</code><span class="sig-paren">(</span><em>ML</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#class_accuracy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.class_accuracy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class holds several functions for calculating accuracy of the class-identification model
+It takes in as the initiation argument, an instance of the ML_obj_class, which contains all the 
+necessary data already processed with features created and ready to do for the machine-learning task.
+It initiates on creation a variety of class instance attributes that mirror those created in the ML_obj_class class.
+There are 5 functions. The help function will print some explanitory text. 
+The rest proceed to predict a dataframe from a trained model, reformat some of the input data so
+it can be combined, calculate accuracy, and a final function that runs the last three if you don’t want to
+run them individually. 
+The last two functions will return an accuracy nubmer as a percentage of class rows or instances the model predicted corrected.</p>
+<dl class="method">
+<dt id="predictatops.predictionclasses.class_accuracy.accuracy_calc">
+<code class="descname">accuracy_calc</code><span class="sig-paren">(</span><em>train_y</em>, <em>TopTarget_Pick_pred</em>, <em>class_DistFrPick_TopTarget</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#class_accuracy.accuracy_calc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.class_accuracy.accuracy_calc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.predictionclasses.class_accuracy.first_Reformat">
+<code class="descname">first_Reformat</code><span class="sig-paren">(</span><em>train_y</em>, <em>TopTarget_Pick_pred</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#class_accuracy.first_Reformat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.class_accuracy.first_Reformat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.predictionclasses.class_accuracy.help">
+<code class="descname">help</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#class_accuracy.help"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.class_accuracy.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="predictatops.predictionclasses.class_accuracy.predict_from_model">
+<code class="descname">predict_from_model</code><span class="sig-paren">(</span><em>model</em>, <em>df_X_toPredict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#class_accuracy.predict_from_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.class_accuracy.predict_from_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>The predict_from_model function takes as argument a model that is already trained on training data, in the demo case a 
+scikit-learn XGBoost model and the dataframe of the columns to predict. From this, it fills in 
+the self.result_df_from_prediction attribute and returns nothing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="predictatops.predictionclasses.class_accuracy.run_all">
+<code class="descname">run_all</code><span class="sig-paren">(</span><em>model</em>, <em>df_X_toPredict</em>, <em>train_y</em>, <em>TopTarget_Pick_pred</em>, <em>class_DistFrPick_TopTarget</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#class_accuracy.run_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.class_accuracy.run_all" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.predictionclasses.loadMLinstanceAndModel">
+<code class="descclassname">predictatops.predictionclasses.</code><code class="descname">loadMLinstanceAndModel</code><span class="sig-paren">(</span><em>output_data_inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#loadMLinstanceAndModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.loadMLinstanceAndModel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="predictatops.predictionclasses.saveRebalanceResultsAsHDF">
+<code class="descclassname">predictatops.predictionclasses.</code><code class="descname">saveRebalanceResultsAsHDF</code><span class="sig-paren">(</span><em>df_testPlusRebalTrain_featWithHighCount</em>, <em>train_X</em>, <em>train_y</em>, <em>test_X</em>, <em>test_y</em>, <em>train_index</em>, <em>test_index</em>, <em>output_data_inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#saveRebalanceResultsAsHDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.saveRebalanceResultsAsHDF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in 
+Saves 
+Returns</p>
+</dd></dl>
+
 </div>
 <div class="section" id="predictatops-predictionclasses-runner-module">
 <h2>predictatops.predictionclasses_runner module<a class="headerlink" href="#predictatops-predictionclasses-runner-module" title="Permalink to this headline">¶</a></h2>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-import predictionclasses 
-from configurationplusfiles_runner import input_data_inst, config, output_data_inst
-from main import getJobLibPickleResults
+# import predictionclasses 
+# from configurationplusfiles_runner import input_data_inst, config, output_data_inst
+# from main import getJobLibPickleResults
 
 
 
@@ -11,6 +11,7 @@ from main import getJobLibPickleResults
 # ML1 = getJobLibPickleResults(output_data_inst,output_data_inst.path_trainclasses,"trainclasses_ML1_instance.pkl")
 
 model,ML1 =loadMLinstanceAndModel(output_data_inst)
+
 
 print("the model imported is:",model)
 

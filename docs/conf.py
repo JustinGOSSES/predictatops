@@ -163,4 +163,22 @@ texinfo_documents = [
 ]
 
 
-
+autodoc_mock_imports = ["fetch_demo_data","main","configurationplusfiles","configurationplusfiles_runner"]
+# import checkdata
+# import checkdata_runner
+# import load
+# import load_runner
+# import split
+# import split_runner
+# import wellsKNN
+# import wellsKNN_runner
+# import features
+# import features_runner
+# import balance
+# import balance_runner
+# import trainclasses
+# import trainclasses_runner
+# import predictionclasses
+# import predictionclasses_runner
+# import plot
+# import plot_runner]

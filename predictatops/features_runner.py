@@ -10,10 +10,10 @@ from configurationplusfiles_runner import input_data_inst, config, output_data_i
 ################ code ###################
 
 
-################ Load dataframe from wellKNN script ###################
+################ Load dataframe from wellsKNN script ###################
 
 # path_to_prev_results = output_data_inst.base_path_for_all_results
-# path_to_directory = output_data_inst.path_wellKNN
+# path_to_directory = output_data_inst.path_wellsKNN
 # file_name = output_data_inst.wellsKNN_results_wells_df
 # ending = output_data_inst.default_results_file_format
 

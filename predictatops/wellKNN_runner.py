@@ -6,7 +6,6 @@ from wellsKNN import *
 from configurationplusfiles_runner import input_data_inst, config, output_data_inst
 
 
-
 ################ Load wells df saved from running split functions ###################
 ################ This file is wells loaded with no features but does have a column for train test split ###################
 ##### path to input file ######
@@ -77,7 +76,7 @@ df_new2 = broadcastFuncForFindNearestNPickDepth(df_new_cleaned_plus_nn_temp, 6, 
 
 df_new3 = useThicknessOfNeighborsToEst(df_new2)
 
-print("printing first row of df_new2 in wellKNN_runner.py",df_new3[0:1])
+print("printing first row of df_new2 in wellsKNN_runner.py",df_new3[0:1])
 
 
 df_new3 = create_diff_Top_Depth_Real_v_predBy_NN1thick(df_new3)
@@ -110,7 +109,7 @@ print("length df_completed_trainAndTest = ",len(df_completed_trainAndTest))
 
 #### Save dataframe as hdf
 
-load_dir = output_data_inst.base_path_for_all_results+ "/" + output_data_inst.path_wellKNN
+load_dir = output_data_inst.base_path_for_all_results+ "/" + output_data_inst.path_wellsKNN
 load_filename = output_data_inst.wellsKNN_results_wells_df+output_data_inst.default_results_file_format
 load_results_full_file_path = load_dir+"/"+load_filename
 

@@ -12,7 +12,7 @@ import load_runner
 
 import split_runner
 
-import wellKNN_runner
+import wellsKNN_runner
 
 import features_runner
 

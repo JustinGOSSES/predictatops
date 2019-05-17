@@ -36,7 +36,7 @@ from distributed.client import *
 
 
 
-################ Load dataframe of tops data from wellKNN script ###################
+################ Load dataframe of tops data from wellsKNN script ###################
 
 def getMainDFsavedInStep(path_to_results,path_to_directory,file_name,ending):
     """
@@ -62,7 +62,7 @@ def get_wellsKNN_results(output_data_inst):
     """
     #### get parts of the path to the resulting dataframe from wellsKN from the output_data_inst variable
     path_to_prev_results = output_data_inst.base_path_for_all_results
-    path_to_directory = output_data_inst.path_wellKNN
+    path_to_directory = output_data_inst.path_wellsKNN
     file_name = output_data_inst.wellsKNN_results_wells_df
     ending = output_data_inst.default_results_file_format
     ##### combine all those variables into a single 

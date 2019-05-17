@@ -2,9 +2,6 @@
 
 ##### import statements #####
 
-"""
-Module mypackage/datasets.py
-"""
 import pooch
 import os
 

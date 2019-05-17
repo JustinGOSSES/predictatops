@@ -393,7 +393,7 @@ def fullWellsKNN(wells_df_from_split,input_data_inst,config):
     df_new2 = broadcastFuncForFindNearestNPickDepth(df_new_cleaned_plus_nn_temp, 6, config.NN1_TopHelper_DEPTH, config.UWI)
     df_new3 = useThicknessOfNeighborsToEst(df_new2)
     print("len(df_new3)",len(df_new3))
-    print("printing first row of df_new2 in wellKNN_runner.py",df_new3[0:1])
+    print("printing first row of df_new2 in wellsKNN_runner.py",df_new3[0:1])
     df_new4 = create_diff_Top_Depth_Real_v_predBy_NN1thick(df_new3)
     print("len(df_new4)",len(df_new4))
     return df_new4

@@ -183,7 +183,7 @@ class output_data():
         self.path_checkData = 'checkData'
         self.path_load = 'load'
         self.path_split = 'split'
-        self.path_wellKNN = 'wellKNN'
+        self.path_wellsKNN = 'wellsKNN'
         self.path_features = 'features'
         self.path_balance = 'balance'
         self.path_trainclasses = 'trainclasses'
@@ -200,7 +200,7 @@ class output_data():
     
     def make_all_directories(self):
         print("making base folder for results in:",self.base_path_for_all_results)
-        list_of_sub_directories = [self.path_checkData,self.path_load,self.path_split,self.path_wellKNN,self.path_features,self.path_balance,self.path_trainclasses,self.path_prediction,self.path_evaluate,self.path_map]
+        list_of_sub_directories = [self.path_checkData,self.path_load,self.path_split,self.path_wellsKNN,self.path_features,self.path_balance,self.path_trainclasses,self.path_prediction,self.path_evaluate,self.path_map]
         if not os.path.exists(self.base_path_for_all_results):
             os.makedirs(self.base_path_for_all_results)
             try:
