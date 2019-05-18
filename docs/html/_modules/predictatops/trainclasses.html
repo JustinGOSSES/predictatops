@@ -270,11 +270,11 @@
         <span class="c1">##########################     Initial Machine Learning Using XGBoost classification   ##########################</span>
         <span class="c1">##########################     Optional</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">XGBClassifier</span><span class="p">(</span>
-            <span class="n">max_depth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+            <span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
             <span class="n">objective</span><span class="o">=</span><span class="s1">&#39;multi:softmax&#39;</span><span class="p">,</span>  <span class="c1"># error evaluation for multiclass training</span>
             <span class="n">num_class</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
             <span class="n">n_gpus</span><span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="n">n_jobs</span><span class="o">=</span><span class="mi">8</span>
+            <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span>
             <span class="c1"># gamma=gamma, </span>
             <span class="c1"># reg_alpha=reg_alpha, </span>
             <span class="c1"># max_depth=max_depth, </span>

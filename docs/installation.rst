@@ -31,6 +31,14 @@ Once you have a copy of the source, you can install it with:
 .. _Github repo: https://github.com/JustinGOSSES/predictatops
 .. _tarball: https://github.com/JustinGOSSES/predictatops/tarball/master
 
+Or instead of setup.py install, I usually use conda environments. The command below changes into the top level predictatops directory, creates a conda environment named predictatops from the environment.yml file and then activates that environment.
+
+.. code-block:: console
+
+    $ cd predictatops 
+    $ conda env create -f environment.yml
+    $ source activate predictatops
+
 
 Stable release
 --------------
