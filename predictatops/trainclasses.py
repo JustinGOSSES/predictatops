@@ -115,11 +115,11 @@ class ML_obj_class():
         ##########################     Initial Machine Learning Using XGBoost classification   ##########################
         ##########################     Optional
         model = XGBClassifier(
-            max_depth=4,
+            max_depth=3,
             objective='multi:softmax',  # error evaluation for multiclass training
             num_class=5,
             n_gpus= 0,
-            n_jobs=8
+            n_jobs=-1
             # gamma=gamma, 
             # reg_alpha=reg_alpha, 
             # max_depth=max_depth, 

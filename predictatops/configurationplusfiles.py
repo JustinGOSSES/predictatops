@@ -179,7 +179,7 @@ class output_data():
     def __init__(self):
         #### paths to directories to store itermediate and final results
         self.default_results_file_format = ".h5"
-        self.base_path_for_all_results= '../results'
+        self.base_path_for_all_results= '../results/'
         self.path_checkData = 'checkData'
         self.path_load = 'load'
         self.path_split = 'split'

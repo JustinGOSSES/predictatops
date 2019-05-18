@@ -20,7 +20,7 @@ print("head of picks df = ",input_data_inst.picks_df.head())
 output_data_inst =output_data()
 
 #### CHANGE base_path_for_all_results, was '../results'
-output_data_inst.base_path_for_all_results = '../results_higherBlance_20190513'
+output_data_inst.base_path_for_all_results = '../results_higherBlanceAndLowerWindows_20190517'
 
 output_data_inst.make_all_directories()
 
@@ -31,6 +31,12 @@ config = configuration()
 config.set_must_have_curves(['ILD', 'NPHI', 'GR', 'DPHI', 'DEPT'])
 
 config.set_must_have_tops__list([13000,14000])
+
+#### Changed for may 17th
+config.curve_windows_for_rolling_features = [3,5,11,21]
+config.rebalanceClassZeroMultiplier = 120
+config.rebalanceClass95Multiplier = 60
+
 
 config.get_must_have_tops__list()
 
