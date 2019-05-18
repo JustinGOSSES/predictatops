@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# import predictionclasses 
-# from configurationplusfiles_runner import input_data_inst, config, output_data_inst
-# from main import getJobLibPickleResults
+import predictionclasses 
+from configurationplusfiles_runner import input_data_inst, config, output_data_inst
+from main import getJobLibPickleResults
 
 
 
