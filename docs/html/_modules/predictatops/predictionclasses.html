@@ -189,6 +189,14 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="c1">#os.environ[&#39;KMP_DUPLICATE_LIB_OK&#39;]=&#39;True&#39;</span>
 
+<span class="c1">###### Set environment variable to get around weird conda clang error that causes notebook kernal to die. ########</span>
+<span class="c1">###### Error was: OMP: Error #15: Initializing libomp.dylib, but found libiomp5.dylib already initialized.</span>
+<span class="c1">###### OMP: Hint This means that multiple copies of the OpenMP runtime have been linked into the program. That is dangerous, since it can degrade performance or cause incorrect results. The best thing to do is to ensure that only a single OpenMP runtime is linked into the process, e.g. by avoiding static linking of the OpenMP runtime in any library. As an unsafe, unsupported, undocumented workaround you can set the environment variable KMP_DUPLICATE_LIB_OK=TRUE to allow the program to continue to execute, but that may cause crashes or silently produce incorrect results. For more information, please see http://openmp.llvm.org/</span>
+<span class="c1">###### Abort trap: 6</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;KMP_DUPLICATE_LIB_OK&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;True&#39;</span>
+
+
 
 <span class="c1">################## Class Prediction Results for training dataframe for X #############</span>
 <div class="viewcode-block" id="loadMLinstanceAndModel"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.loadMLinstanceAndModel">[docs]</a><span class="k">def</span> <span class="nf">loadMLinstanceAndModel</span><span class="p">(</span><span class="n">output_data_inst</span><span class="p">):</span>

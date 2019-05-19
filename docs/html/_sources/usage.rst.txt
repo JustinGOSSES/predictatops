@@ -51,3 +51,12 @@ This method of running assumes you're using all the default input, configuration
 Running with more control or different code swapped in
 =============
 There will be jupyter notebooks showing other examples of how to run Predictatops in the demo directory, at some point soon. In addition to running the code in one go, you can also run it by major steps like (check data, load, split, etc.) or use the functions base directly and call every function with your own code. This lets you more earily swap in and out new parts and interrogate itermedia results. I'll include some examples of that soon as well. 
+
+
+Code features that might require changing for different datasets
+=============
+Requires all wells to be in the same file format, LAS.
+
+The load_all_wells_in() function in load.py does a slight transformation to the UWI names as the UWI uses / in places and - in others. Please look at this function and your datasets to figure out if it applies to your data. You may need to modify this piece of code for your own purposes.
+
+There is an assumption that the picks text file includes a quality column. If there isn't, fake one with everything as equally quality at value of
