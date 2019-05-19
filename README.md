@@ -56,11 +56,6 @@ GettingStarted
 See the <a href="https://justingosses.github.io/predictatops/html/usage.html">Usage</a> and the <a href="https://justingosses.github.io/predictatops/html/installation.html">Installation</a> sections of the docs.
 
 
-### Code features that might require changing for different datasets
-- Requires all wells to be in the same file format, LAS.
-- The load_all_wells_in() function in load.py does a slight transformation to the UWI names as the UWI uses / in places and - in others. Please look at this function and your datasets to figure out if it applies to your data. You may need to modify this piece of code for your own purposes.
-- There is an assumption that the picks text file includes a quality column. If there isn't, fake one with everything as equally quality at value of 
-
 Credits
 -------
 There's a theme here. Check the <a href="https://justingosses.github.io/predictatops/html/authors.html">docs</a>.
@@ -70,7 +65,7 @@ ______________________________
 
 Small parts of the code are still in <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon">the old repository</a>, but it is progressively being moved here and repackaged out of Jupyter notebooks and into an actual package.
 
-The code runs faster and and mean absolute error is down from 90 to 15.03 and now ~7 (with a handful of wells identified as too difficult to predict, -8% depending on the run and settings. 
+The code runs faster and and mean absolute error is down from 90 to 15.03 and now ~7 (with a handful of wells identified as too difficult to predict, -8% depending on settings. 
 
 Key approaches were:
 1. Leverage knowledge from nearby wells.
@@ -86,8 +81,8 @@ Key approaches were:
 
 #### Distribution of Absolute Error in Test Portion of Dataset for Top McMurray Surface in Meters. 
 Y-axis is number of picks in each bin, and X-axis is distance predicted pick is off from human-generated pick.
-<img src="demo/current_errors_TopMcMr_20181006.png"
-     alt="image of current_errors_TopMcMr_20181006"
+<img src="docs/images/Histogram_Error_predictatops_6.6_vA.png"
+     alt="image of current_errors_TopMcMr_20190517"
      style="float: left; margin-right: 25px;" />
 
 Current algorithm used is XGBoost.
