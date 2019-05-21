@@ -14,7 +14,7 @@ Further Information will eventually be in the docs <a href="https://justingosses
 
 This code is the subject of an <a href="https://github.com/JustinGOSSES/predictatops/blob/master/AAPG_Abstract_2019ACE.md">abstract</a> submitted to the AAPG ACE convention in 2019. 
 
-The slides I presented at AAPG ACE 2019 are <a href="https://1drv.ms/p/s!Ah1GtGqFjQIMlkkCTh5OaBGSYXLp"> here</a>.
+The slides I presented at AAPG ACE 2019 are <a href="https://1drv.ms/p/s!Ah1GtGqFjQIMlkkCTh5OaBGSYXLp"> here</a>. They give an introduction to the theory and thought process behind Predictatops. Speaker notes are included on the bottom of the slide.
 
 Development was in this repo: <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon">MannvilleGroup_Strat_Hackathon</a> but is now moving here as the code gets cleaned and modulized. This project is under active development. A few portions of the code still only exist on MannvilleGroup_Strat_Hackathon repo at this time. This is a nights and weekend side project, but will continue to be developed by the main developer.
 
