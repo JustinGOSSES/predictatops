@@ -12,7 +12,7 @@ _Code for stratigraphic pick prediction via supervised machine-learning_
 
 #### Current best RMSE on Top McMurray surface is 6.6 meters.
 
-Additional Information will eventually be in the <b>docs <a href="https://justingosses.github.io/predictatops/html/index.html">here</a></b>.
+Additional Information is in the <b>docs <a href="https://justingosses.github.io/predictatops/html/index.html">here</a></b>.
 
 This code is the subject of an <a href="https://github.com/JustinGOSSES/predictatops/blob/master/AAPG_Abstract_2019ACE.md">abstract</a> submitted to the AAPG ACE convention in 2019. 
 
