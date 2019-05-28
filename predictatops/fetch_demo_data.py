@@ -15,7 +15,7 @@ GOODBOY = pooch.create(
    # cache folder for your OS.
    #path=pooch.os_cache("mypackage_test"),
    #path=pooch.os_cache("mypackage_test"),
-   path="../data/",
+   path="../data/Mannville_input_data/",
    # Base URL of the remote data store. Will call .format on this string to insert
    #https://github.com/JustinGOSSES/predictatops/
    # the version (see below).  https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/tree/master/SPE_006_originalData
