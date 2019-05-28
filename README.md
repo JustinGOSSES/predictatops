@@ -6,8 +6,8 @@ _Code for stratigraphic pick prediction via supervised machine-learning_
 
 <a title="Triceratops logo based on MathKnight based on photo by Nicholas R. Longrich and Daniel J. Field [CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Yale-Peabody-Triceratops-004Trp.png"><img width="512" alt="Yale-Peabody-Triceratops-004Trp" src="docs/Yale-Peabody-Triceratops-004Trp.png"></a>
 
-<a href="https://github.com/JustinGOSSES/predictatops/blob/master/LICENSE">MIT License</a>
-![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
+<a href="https://github.com/JustinGOSSES/predictatops/blob/master/LICENSE">![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)</a>
+
 
 <b>Status</b>: Runs and ready for others to try, but not yet stable. 
 
