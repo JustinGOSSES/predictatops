@@ -60,3 +60,39 @@ Requires all wells to be in the same file format, LAS.
 The load_all_wells_in() function in load.py does a slight transformation to the UWI names as the UWI uses / in places and - in others. Please look at this function and your datasets to figure out if it applies to your data. You may need to modify this piece of code for your own purposes.
 
 There is an assumption that the picks text file includes a quality column. If there isn't, fake one with everything as equally quality at value of
+
+Demo notebooks to examine
+=============
+1. The notebook https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_firstSteps_modules_fetchdata_configuration_checkdata.ipynb covers the initial steps of:
+
+- fetch_demo_data.py , to get the data into the data folder from the demo folder in the repository.
+
+- configurationplusfiles.py, to instantiate the class objects that contain information on how to run the rest of the program as it applies to input files, output files, and general configuration.
+
+- checkdata.py, to find out which wells have the tops and curves you need or the inverse to find out which curves you have if you want a certain number of wells in your data population.
+
+2. The notebook tbd
+
+- load.py
+
+- split.py
+
+3. The notebook tbd
+
+- wellsKNN.py
+
+4. The notebook tbd
+
+- features.py
+
+5. The notebook tbd
+
+- balance.py
+
+6. The notebook tbd
+
+- trainclasses.py
+
+7. The notebook tbd
+
+- predictionclasses.py

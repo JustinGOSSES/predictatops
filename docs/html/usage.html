@@ -95,6 +95,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#changing-how-it-runs">Changing how it runs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#running-with-more-control-or-different-code-swapped-in">Running with more control or different code swapped in</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#code-features-that-might-require-changing-for-different-datasets">Code features that might require changing for different datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#demo-notebooks-to-examine">Demo notebooks to examine</a></li>
 </ul>
 </li>
 </ul>
@@ -220,6 +221,54 @@ This method of running assumes you’re using all the default input, configurati
 <p>Requires all wells to be in the same file format, LAS.</p>
 <p>The load_all_wells_in() function in load.py does a slight transformation to the UWI names as the UWI uses / in places and - in others. Please look at this function and your datasets to figure out if it applies to your data. You may need to modify this piece of code for your own purposes.</p>
 <p>There is an assumption that the picks text file includes a quality column. If there isn’t, fake one with everything as equally quality at value of</p>
+</div>
+<div class="section" id="demo-notebooks-to-examine">
+<h3>Demo notebooks to examine<a class="headerlink" href="#demo-notebooks-to-examine" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>The notebook <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_firstSteps_modules_fetchdata_configuration_checkdata.ipynb">https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_firstSteps_modules_fetchdata_configuration_checkdata.ipynb</a> covers the initial steps of:</p></li>
+</ol>
+<ul class="simple">
+<li><p>fetch_demo_data.py , to get the data into the data folder from the demo folder in the repository.</p></li>
+<li><p>configurationplusfiles.py, to instantiate the class objects that contain information on how to run the rest of the program as it applies to input files, output files, and general configuration.</p></li>
+<li><p>checkdata.py, to find out which wells have the tops and curves you need or the inverse to find out which curves you have if you want a certain number of wells in your data population.</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>The notebook tbd</p></li>
+</ol>
+<ul class="simple">
+<li><p>load.py</p></li>
+<li><p>split.py</p></li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p>The notebook tbd</p></li>
+</ol>
+<ul class="simple">
+<li><p>wellsKNN.py</p></li>
+</ul>
+<ol class="arabic simple" start="4">
+<li><p>The notebook tbd</p></li>
+</ol>
+<ul class="simple">
+<li><p>features.py</p></li>
+</ul>
+<ol class="arabic simple" start="5">
+<li><p>The notebook tbd</p></li>
+</ol>
+<ul class="simple">
+<li><p>balance.py</p></li>
+</ul>
+<ol class="arabic simple" start="6">
+<li><p>The notebook tbd</p></li>
+</ol>
+<ul class="simple">
+<li><p>trainclasses.py</p></li>
+</ul>
+<ol class="arabic simple" start="7">
+<li><p>The notebook tbd</p></li>
+</ol>
+<ul class="simple">
+<li><p>predictionclasses.py</p></li>
+</ul>
 </div>
 </div>
 </div>
