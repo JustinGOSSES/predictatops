@@ -26,11 +26,12 @@ Activate that conda environment::
 
     source activate predictatops
 
+
+Now we're into the actual usuage part.
+
 Change directories to the predictatops source folder inside of the top-level Predictatops::
 
     cd predictatops
-
-Now we're into the actual usuage part.
 
 Run the script to fetch the demo data and put it in the data folder::
 
