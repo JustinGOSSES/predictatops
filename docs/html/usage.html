@@ -92,14 +92,13 @@
 <li class="toctree-l2"><a class="reference internal" href="#how-to-use-predictatops-in-a-project">How to use predictatops in a project:</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#in-a-terminal-type-the-following-commands">In a terminal type the following commands -</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#what-this-runs">What this runs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#changing-how-it-runs">Changing how it runs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#running-with-more-control-or-different-code-swapped-in">Running with more control or different code swapped in</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#code-features-that-might-require-changing-for-different-datasets">Code features that might require changing for different datasets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#demo-notebooks-to-examine">Demo notebooks to examine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#changing-how-it-runs-via-configuration-instructions">Changing how it runs via configuration instructions</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="#more-complicated-ways-to-run">More complicated ways to run</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#if-you-use-your-own-dataset-some-code-features-you-might-need-to-change">If you use your own dataset, some code features you might need to change</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
@@ -174,7 +173,8 @@
 <p>This uses Conda, so you might have to install that first.</p>
 <div class="section" id="in-a-terminal-type-the-following-commands">
 <h3>In a terminal type the following commands -<a class="headerlink" href="#in-a-terminal-type-the-following-commands" title="Permalink to this headline">¶</a></h3>
-<p>Clone the predictatops repository first as we don’t have have it PyPy yet:</p>
+<p>These first steps are duplicated here from the installation section:
+Clone the predictatops repository first as we don’t have have it PyPy yet:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">JustinGOSSES</span><span class="o">/</span><span class="n">predictatops</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
@@ -194,6 +194,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">predictatops</span>
 </pre></div>
 </div>
+<p>Now we’re into the actual usuage part.</p>
 <p>Run the script to fetch the demo data and put it in the data folder:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Python</span> <span class="n">fetch_demo_data</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
@@ -205,72 +206,131 @@
 </div>
 <div class="section" id="what-this-runs">
 <h3>What this runs<a class="headerlink" href="#what-this-runs" title="Permalink to this headline">¶</a></h3>
-<p>This will run all the code using the demo dataset and default configuration, which predicts the top McMurray surface. It takes about an hour on a 2015 MacBook Pro.</p>
+<p>This will run all the code using the demo dataset and default configuration, which predicts the top McMurray surface. It takes about 1.5 hours on a 2015 MacBook Pro.</p>
 </div>
-<div class="section" id="changing-how-it-runs">
-<h3>Changing how it runs<a class="headerlink" href="#changing-how-it-runs" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="changing-how-it-runs-via-configuration-instructions">
+<h3>Changing how it runs via configuration instructions<a class="headerlink" href="#changing-how-it-runs-via-configuration-instructions" title="Permalink to this headline">¶</a></h3>
 <p>Results should be in the results folder or whatever output folder is set as the base output folder via configurationplusfiles.py
 This method of running assumes you’re using all the default input, configuration, and output settings for the demo dataset. If you aren’t interested in that, you’ll need to change those via the configurationplusfiles.py file.</p>
 </div>
-<div class="section" id="running-with-more-control-or-different-code-swapped-in">
-<h3>Running with more control or different code swapped in<a class="headerlink" href="#running-with-more-control-or-different-code-swapped-in" title="Permalink to this headline">¶</a></h3>
-<p>There will be jupyter notebooks showing other examples of how to run Predictatops in the demo directory, at some point soon. In addition to running the code in one go, you can also run it by major steps like (check data, load, split, etc.) or use the functions base directly and call every function with your own code. This lets you more earily swap in and out new parts and interrogate itermedia results. I’ll include some examples of that soon as well.</p>
 </div>
-<div class="section" id="code-features-that-might-require-changing-for-different-datasets">
-<h3>Code features that might require changing for different datasets<a class="headerlink" href="#code-features-that-might-require-changing-for-different-datasets" title="Permalink to this headline">¶</a></h3>
-<p>Requires all wells to be in the same file format, LAS.</p>
-<p>The load_all_wells_in() function in load.py does a slight transformation to the UWI names as the UWI uses / in places and - in others. Please look at this function and your datasets to figure out if it applies to your data. You may need to modify this piece of code for your own purposes.</p>
-<p>There is an assumption that the picks text file includes a quality column. If there isn’t, fake one with everything as equally quality at value of</p>
 </div>
-<div class="section" id="demo-notebooks-to-examine">
-<h3>Demo notebooks to examine<a class="headerlink" href="#demo-notebooks-to-examine" title="Permalink to this headline">¶</a></h3>
-<ol class="arabic simple">
-<li><p>The notebook <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_firstSteps_modules_fetchdata_configuration_checkdata.ipynb">https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_firstSteps_modules_fetchdata_configuration_checkdata.ipynb</a> covers the initial steps of:</p></li>
-</ol>
+<div class="section" id="more-complicated-ways-to-run">
+<h1>More complicated ways to run<a class="headerlink" href="#more-complicated-ways-to-run" title="Permalink to this headline">¶</a></h1>
+<p>There are three ways to run the code all the way through at three different levels of abstraction.</p>
+<p>(1.) You can run one python script that does everything based on configuration. This is the all_runner.py used above.</p>
+<p>(2.) You can call each major step via a python file, examples of how to do that have _runner on the end, like load_runner.py or features_runner.py.</p>
+<p>(3.) You can also import functions from the python file for each step and call them from within your own code.</p>
+<p>If you want the most control, you can import the functions in the python files for each of those major steps and call those functions within your own code. This is method 3 above. This will let you more easily swap in and out new parts and interrogate itermediate results. Notebooks below give some examples on how to do this.</p>
+<p>Note: these jupyter notebooks are still in progress.</p>
+<p>1. The notebook <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_firstSteps_modules_fetchdata_configuration_checkdata.ipynb/">Example_firstSteps_modules_fetchdata_configuration_checkdata.ipynb</a>. covers:</p>
 <ul class="simple">
-<li><p>fetch_demo_data.py , to get the data into the data folder from the demo folder in the repository.</p></li>
-<li><p>configurationplusfiles.py, to instantiate the class objects that contain information on how to run the rest of the program as it applies to input files, output files, and general configuration.</p></li>
-<li><p>checkdata.py, to find out which wells have the tops and curves you need or the inverse to find out which curves you have if you want a certain number of wells in your data population.</p></li>
+<li><dl class="simple">
+<dt>fetch_demo_data.py</dt><dd><ul>
+<li><p>Gets the data into the data folder from the demo folder in the repository.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>configurationplusfiles.py</dt><dd><ul>
+<li><p>Instantiates the class objects that contain information on how to run the rest of the program as it applies to input files, output files, and general configuration.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>checkdata.py</dt><dd><ul>
+<li><p>Helps to find out which wells have the tops and curves you need or the inverse to find out which curves you have if you want a certain number of wells in your data population.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
 </ul>
 <ol class="arabic simple" start="2">
-<li><p>The notebook tbd</p></li>
+<li><p>The notebook TBD</p></li>
 </ol>
 <ul class="simple">
-<li><p>load.py</p></li>
-<li><p>split.py</p></li>
+<li><dl class="simple">
+<dt>load.py</dt><dd><ul>
+<li><p>Loads the data from wells identified in the checkdata.py step above.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>split.py</dt><dd><ul>
+<li><p>Splits the data from the load.py step into train and test groups.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
 </ul>
 <ol class="arabic simple" start="3">
-<li><p>The notebook tbd</p></li>
+<li><p>The notebook TBD</p></li>
 </ol>
 <ul class="simple">
-<li><p>wellsKNN.py</p></li>
+<li><dl class="simple">
+<dt>wellsKNN.py</dt><dd><ul>
+<li><p>Uses well location to identify wells next to one another up to X number of neighbors.</p></li>
 </ul>
-<ol class="arabic simple" start="4">
-<li><p>The notebook tbd</p></li>
-</ol>
-<ul class="simple">
-<li><p>features.py</p></li>
+</dd>
+</dl>
+</li>
 </ul>
-<ol class="arabic simple" start="5">
-<li><p>The notebook tbd</p></li>
-</ol>
+<p>4. The notebook <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_module_balance_v1.ipynb/">Example_module_balance_v1.ipynb</a>.  covers:</p>
 <ul class="simple">
-<li><p>balance.py</p></li>
+<li><dl class="simple">
+<dt>balance.py</dt><dd><ul>
+<li><p>balancing the populations of classes, or labels, associated with each depth point in each well for training, so there are roughly equal number of classes.</p></li>
 </ul>
-<ol class="arabic simple" start="6">
-<li><p>The notebook tbd</p></li>
-</ol>
-<ul class="simple">
-<li><p>trainclasses.py</p></li>
+</dd>
+</dl>
+</li>
 </ul>
-<ol class="arabic simple" start="7">
-<li><p>The notebook tbd</p></li>
-</ol>
+<p>5. The notebook <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_module_features_and_balance.ipynb/">Example_module_features_and_balance.ipynb</a>. covers:</p>
 <ul class="simple">
-<li><p>predictionclasses.py</p></li>
+<li><dl class="simple">
+<dt>features.py</dt><dd><ul>
+<li><p>creates features not already created in wellsKNN.py</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>balance.py</dt><dd><ul>
+<li><p>balancing the populations of classes, or labels, associated with each depth point in each well for training, so there are roughly equal number of classes.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>6. The notebook <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_module_trainclasses_v2.ipynb/">Example_module_trainclasses_v2.ipynb</a>.  covers:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>trainclasses.py</dt><dd><ul>
+<li><p>training the model</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>7. The notebook <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_module_predictionclasses_v1.ipynb/">Example_module_predictionclasses_v1.ipynb</a>.  covers:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>predictionclasses.py</dt><dd><ul>
+<li><p>making the top prediction</p></li>
+</ul>
+</dd>
+</dl>
+</li>
 </ul>
 </div>
-</div>
+<div class="section" id="if-you-use-your-own-dataset-some-code-features-you-might-need-to-change">
+<h1>If you use your own dataset, some code features you might need to change<a class="headerlink" href="#if-you-use-your-own-dataset-some-code-features-you-might-need-to-change" title="Permalink to this headline">¶</a></h1>
+<p>This code assumes all wells to be in the same file format, LAS.</p>
+<p>The load_all_wells_in() function in load.py does a slight transformation to the UWI names as the UWI uses / in places and - in others. Please look at this function and your datasets to figure out if it applies to your data. You may need to modify this piece of code for your own purposes.</p>
+<p>There is an assumption that the picks text file includes a quality column. If there isn’t, fake one with everything as equally quality at value of 1.</p>
 </div>
 
 
