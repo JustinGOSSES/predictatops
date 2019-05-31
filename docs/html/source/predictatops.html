@@ -176,7 +176,7 @@
 <dt id="predictatops.checkdata.CurvesAvailable">
 <em class="property">class </em><code class="descclassname">predictatops.checkdata.</code><code class="descname">CurvesAvailable</code><span class="sig-paren">(</span><em>input_data_obj</em>, <em>configuration_obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#CurvesAvailable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.CurvesAvailable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Class that uses the configuration class and data_inpunt class objects and additional 
+<p>Class that uses the configuration class and data_inpunt class objects and additional
 user input to find out the number of wells of those available that have the tops we want.</p>
 <dl class="method">
 <dt id="predictatops.checkdata.CurvesAvailable.countsOfCurves">
@@ -193,7 +193,7 @@ user input to find out the number of wells of those available that have the tops
 <dl class="method">
 <dt id="predictatops.checkdata.CurvesAvailable.findWellsWithCertainCurves">
 <code class="descname">findWellsWithCertainCurves</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#CurvesAvailable.findWellsWithCertainCurves"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.CurvesAvailable.findWellsWithCertainCurves" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function takes in an object with keys that are well names and values that are all curves in that well 
+<dd><p>Function takes in an object with keys that are well names and values that are all curves in that well
 and as the second argument an array of plentiful curves expected to be in every well
 Function returns an array of wells that have the specified curves in the second argument.</p>
 </dd></dl>
@@ -216,7 +216,7 @@ Function returns an array of wells that have the specified curves in the second 
 <dt id="predictatops.checkdata.TopsAvailable">
 <em class="property">class </em><code class="descclassname">predictatops.checkdata.</code><code class="descname">TopsAvailable</code><span class="sig-paren">(</span><em>input_data_obj</em>, <em>configuration_obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Class that uses the configuration class and data_inpunt class objects and additional 
+<p>Class that uses the configuration class and data_inpunt class objects and additional
 user input to find out the number of wells of those available that have the tops we want.</p>
 <dl class="method">
 <dt id="predictatops.checkdata.TopsAvailable.convertSiteIDListToUWIList">
@@ -289,7 +289,7 @@ user input to find out the number of wells of those available that have the tops
 <dl class="method">
 <dt id="predictatops.checkdata.TopsAvailable.take_out_wells_with_no_tops">
 <code class="descname">take_out_wells_with_no_tops</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.take_out_wells_with_no_tops"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.take_out_wells_with_no_tops" title="Permalink to this definition">¶</a></dt>
-<dd><p>function is defined to take in a picks_df and 
+<dd><p>function is defined to take in a picks_df and
 exclude any wells that have no picks or are flagged as very bad quality.
 This function assumes a data structure that is</p>
 </dd></dl>
@@ -327,13 +327,386 @@ Returns a list with the orginal and new curve names switched in the given curve 
 </div>
 <div class="section" id="module-predictatops.configurationplusfiles">
 <span id="predictatops-configurationplusfiles-module"></span><h2>predictatops.configurationplusfiles module<a class="headerlink" href="#module-predictatops.configurationplusfiles" title="Permalink to this headline">¶</a></h2>
+<p>The configurationplusfiles.py module sets up three objects from class functions.
+input_data() establishes where data is loaded from.
+configuration() establishes various configuration variables used in the rest of the code.
+output_data() establishes where data is written to.
+These are intended to be changed by the configurationplusfiles_runner.py module.</p>
 <dl class="class">
 <dt id="predictatops.configurationplusfiles.configuration">
 <em class="property">class </em><code class="descclassname">predictatops.configurationplusfiles.</code><code class="descname">configuration</code><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#configuration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.configuration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>class to keep configuration variables you might change between runs. 
-Types of information information stored in here would include paths and names of intermediate files, 
+<p>A class to keep configuration variables you might change between runs.
+Types of information information stored in here would include paths and names of intermediate files,
 so not initial input files which go in the input_data class, as well as which tops or curves were mandatory in well select.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>none</strong> (<em>none</em>) – None.</p>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.csv_of_well_names_wTopsCuves__name">
+<code class="descname">csv_of_well_names_wTopsCuves__name</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.csv_of_well_names_wTopsCuves__name" title="Permalink to this definition">¶</a></dt>
+<dd><p>csv_of_well_names_wTopsCuves__name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.csv_of_well_names_wTopCurves__path">
+<code class="descname">csv_of_well_names_wTopCurves__path</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.csv_of_well_names_wTopCurves__path" title="Permalink to this definition">¶</a></dt>
+<dd><p>csv_of_well_names_wTopsCuves__name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.must_have_curves_list">
+<code class="descname">must_have_curves_list</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.must_have_curves_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>An array of strings that are curve names like [‘ILD’, ‘NPHI’, ‘GR’, ‘DPHI’, ‘DEPT’]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.curve_windows_for_rolling_features">
+<code class="descname">curve_windows_for_rolling_features</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.curve_windows_for_rolling_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Array of integers like [5,7,11,21]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.must_have_tops__list">
+<code class="descname">must_have_tops__list</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.must_have_tops__list" title="Permalink to this definition">¶</a></dt>
+<dd><p>An array of tops list that could be integers or strings like [13000,14000]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.target_top">
+<code class="descname">target_top</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.target_top" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string or integer like 1300</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.top_under_target">
+<code class="descname">top_under_target</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.top_under_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string or interger that is a top name and is the name of a top under the top you want to predict such as 14000</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.top_name_col_in_picks_df">
+<code class="descname">top_name_col_in_picks_df</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.top_name_col_in_picks_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>The top name as it appears in the picks dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.siteID_col_in_picks_df">
+<code class="descname">siteID_col_in_picks_df</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.siteID_col_in_picks_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>The string for the siteID column in the picks dataframe like ‘SitID’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.UWI">
+<code class="descname">UWI</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.UWI" title="Permalink to this definition">¶</a></dt>
+<dd><p>The string for the UWI column like “UWI”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.DEPTH_col_in_featureCreation">
+<code class="descname">DEPTH_col_in_featureCreation</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.DEPTH_col_in_featureCreation" title="Permalink to this definition">¶</a></dt>
+<dd><p>The string for the depth column like “DEPT”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.HorID_name_col_in_picks_df">
+<code class="descname">HorID_name_col_in_picks_df</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.HorID_name_col_in_picks_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>The string for the horizon ID column like “HorID”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.quality_col_name_in_picks_df">
+<code class="descname">quality_col_name_in_picks_df</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.quality_col_name_in_picks_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>The string for the quality of the pick column like “Quality”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.picks_depth_col_in_picks_df">
+<code class="descname">picks_depth_col_in_picks_df</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.picks_depth_col_in_picks_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>The string for the pick column name like ‘Pick’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.col_topTarget_Depth_predBy_NN1thick">
+<code class="descname">col_topTarget_Depth_predBy_NN1thick</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.col_topTarget_Depth_predBy_NN1thick" title="Permalink to this definition">¶</a></dt>
+<dd><p>The string for the top target depth predicted by nearest neighbor thickess like ‘topTarget_Depth_predBy_NN1thick’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.quality_items_to_skip__list">
+<code class="descname">quality_items_to_skip__list</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.quality_items_to_skip__list" title="Permalink to this definition">¶</a></dt>
+<dd><p>The array of the integers for the quality of wells to optionally skip as not good quality picks. An example is [-1,0]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.test">
+<code class="descname">test</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Honestly forget what this is come back and find out but is should be “test0”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.pick_class_str">
+<code class="descname">pick_class_str</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.pick_class_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>String for the top taget pick prediction column like ‘TopTarget_Pick_pred’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.threshold_returnCurvesThatArePresentInThisManyWells">
+<code class="descname">threshold_returnCurvesThatArePresentInThisManyWells</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.threshold_returnCurvesThatArePresentInThisManyWells" title="Permalink to this definition">¶</a></dt>
+<dd><p>The integer for the number of wells a curve has to be present in to be kept for example 2000</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.max_numb_wells_to_load">
+<code class="descname">max_numb_wells_to_load</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.max_numb_wells_to_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Max number of wells to load out of all the wells in the directory with wells. This is used for when you’re testing. Example is 1000000</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.split_traintest_percent">
+<code class="descname">split_traintest_percent</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.split_traintest_percent" title="Permalink to this definition">¶</a></dt>
+<dd><p>The percent in 0 to 1 terms for train vs. split. You give the percent to keep. example is 0.8</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.kdtree_leaf">
+<code class="descname">kdtree_leaf</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.kdtree_leaf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Levels of kdtree? default is 2</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.kdtree_k">
+<code class="descname">kdtree_k</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.kdtree_k" title="Permalink to this definition">¶</a></dt>
+<dd><p>Integer for number of neighbors or K in k nearest neighbor code for finding nearby wells for each well. Default is 8</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.rebalanceClassZeroMultiplier">
+<code class="descname">rebalanceClassZeroMultiplier</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.rebalanceClassZeroMultiplier" title="Permalink to this definition">¶</a></dt>
+<dd><p>When rebalancing class zero. The number of instances of class zero is duplicated by this times. Default is 100</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.rebalanceClass95Multiplier">
+<code class="descname">rebalanceClass95Multiplier</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.rebalanceClass95Multiplier" title="Permalink to this definition">¶</a></dt>
+<dd><p>When rebalancing class zero. The number of instances of class 95 is duplicated by this times. Default is 40</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.NN1_topTarget_DEPTH">
+<code class="descname">NN1_topTarget_DEPTH</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.NN1_topTarget_DEPTH" title="Permalink to this definition">¶</a></dt>
+<dd><p>The string used in the column that holds the depth of the top in the first nearest neighbor training well. For example ‘NN1_topTarget_DEPTH’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.NN1_TopHelper_DEPTH">
+<code class="descname">NN1_TopHelper_DEPTH</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.NN1_TopHelper_DEPTH" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper depth for calculations for NN1_topTarget_DEPTH. Example is “NN1_TopHelper_DEPTH”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.trainOrTest">
+<code class="descname">trainOrTest</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.trainOrTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>String for column that holds string of either train or test. Example is ‘trainOrTest’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.colsToNotTurnToFloats">
+<code class="descname">colsToNotTurnToFloats</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.colsToNotTurnToFloats" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of columsn to not turn to floads during feature creation. Examples is [‘UWI’, ‘SitID’, ‘trainOrTest’,’Neighbors_Obj’]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.zonesAroundTops">
+<code class="descname">zonesAroundTops</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.zonesAroundTops" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object of class lables and depths around top to create those classes in. Example is {“100”:[0],”95”:[-0.5,0.5],”60”:[-5,0.5],”70”:[0.5,5],”0”:[]} #### NOTE: The code in createFeat_withinZoneOfKnownPick(df,config) function in features.py current ASSUMES only 5 zone labels</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.columns_to_not_trainOn_andNotCurves">
+<code class="descname">columns_to_not_trainOn_andNotCurves</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.columns_to_not_trainOn_andNotCurves" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of strings for names of columns to not train on and are not curves. Example is  [‘FromBotWell’,’FromTopWel’‘rowsToEdge’,’lat’,’lng’,  ‘SitID’,’TopHelper_HorID’,’TopTarget_HorID’,’TopHelper_DEPTH’,’diff_Top_Depth_Real_v_predBy_NN1thick’,’diff_TopTarget_DEPTH_v_rowDEPT’,’diff_TopHelper_DEPTH_v_rowDEPT’,’class_DistFrPick_TopHelper’,’NewWell’,’LastBitWell’,’TopWellDept’,’BotWellDept’,’WellThickness’,’rowsToEdge’,’closTopBotDist’,’closerToBotOrTop’,’Neighbors_Obj’]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.columns_to_not_trainOn_andAreCurves">
+<code class="descname">columns_to_not_trainOn_andAreCurves</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.columns_to_not_trainOn_andAreCurves" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of strings for columns to not train on that are curves. Example is  [‘RHOB’,’SP’,’CALI’,’COND’,’DELT’,’DENS’,’DPHI:1’,’DPHI:2’,’DT’,’GR:1’,’GR:2’,’IL’,’ILD:1’,’ILD:2’,’ILM’,’LITH’,’LLD’,’LLS’,’PHID’,’PHIN’,’RESD’,’RT’,’SFL’,’SFLU’,’SN’,’SNP’,’Sp’]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.configurationplusfiles.configuration.columns_to_use_as_labels">
+<code class="descname">columns_to_use_as_labels</code><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.columns_to_use_as_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of strings for columns to use as labels. Examples are= [‘class_DistFrPick_TopTarget’,’UWI’,’trainOrTest’,’TopTarget_DEPTH’]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="method">
 <dt id="predictatops.configurationplusfiles.configuration.get_must_have_curves">
 <code class="descname">get_must_have_curves</code><span class="sig-paren">(</span><em>must_have_curves_in_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#configuration.get_must_have_curves"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.configuration.get_must_have_curves" title="Permalink to this definition">¶</a></dt>
@@ -413,6 +786,17 @@ so not initial input files which go in the input_data class, as well as which to
 <em class="property">class </em><code class="descclassname">predictatops.configurationplusfiles.</code><code class="descname">input_data</code><span class="sig-paren">(</span><em>picks_file_path</em>, <em>picks_delimiter_str</em>, <em>path_to_logs_str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#input_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.input_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class object that holds paths and other information related to input data such as log files location, top files, well information files, etc.</p>
+<dl class="simple">
+<dt>Parameters</dt><dd><dl class="simple">
+<dt>picks_file_path: str</dt><dd><p>A string for the file path to the file with all the pick names and depths.</p>
+</dd>
+<dt>picks_delimiter_str: str</dt><dd><p>The delimiter of the file that has all the picks.</p>
+</dd>
+<dt>path_to_logs_str: str</dt><dd><p>The path to the directory with all the well logs.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <dl class="method">
 <dt id="predictatops.configurationplusfiles.input_data.load_gis_file">
 <code class="descname">load_gis_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/configurationplusfiles.html#input_data.load_gis_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.configurationplusfiles.input_data.load_gis_file" title="Permalink to this definition">¶</a></dt>
@@ -466,7 +850,7 @@ so not initial input files which go in the input_data class, as well as which to
 <dl class="function">
 <dt id="predictatops.features.convertAllColButGivenToFloat">
 <code class="descclassname">predictatops.features.</code><code class="descname">convertAllColButGivenToFloat</code><span class="sig-paren">(</span><em>config</em>, <em>df_all_wells_wKNN</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#convertAllColButGivenToFloat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.convertAllColButGivenToFloat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes in 
+<dd><p>Takes in
 Returns</p>
 </dd></dl>
 
@@ -490,7 +874,7 @@ Returns the input dataframe with additional column(s)
 <dl class="function">
 <dt id="predictatops.features.createFeat_withinZoneOfKnownPick">
 <code class="descclassname">predictatops.features.</code><code class="descname">createFeat_withinZoneOfKnownPick</code><span class="sig-paren">(</span><em>df</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#createFeat_withinZoneOfKnownPick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.createFeat_withinZoneOfKnownPick" title="Permalink to this definition">¶</a></dt>
-<dd><p>Input is 3 parts. 
+<dd><p>Input is 3 parts.
 First part is: dataframe with tops &amp; curve data for feature creation after wellsKNN step.
 Second part is: A dict consisting of keys that are the labels for each zone values which are a list with two items, the min and max for that zone.
 For example: {100:[0],95:[-0.5,0.5],60:[-5.0.5],70:[0.5,&lt;5],0:[]}
@@ -514,38 +898,38 @@ NOTE: The code in createFeat_withinZoneOfKnownPick(df,config) function in featur
 <dl class="function">
 <dt id="predictatops.features.getMainDFsavedInStep">
 <code class="descclassname">predictatops.features.</code><code class="descname">getMainDFsavedInStep</code><span class="sig-paren">(</span><em>path_to_results</em>, <em>path_to_directory</em>, <em>file_name</em>, <em>ending</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#getMainDFsavedInStep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.getMainDFsavedInStep" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes in 
+<dd><p>Takes in
 Returns</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="predictatops.features.get_split_curve_results">
 <code class="descclassname">predictatops.features.</code><code class="descname">get_split_curve_results</code><span class="sig-paren">(</span><em>output_data_inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#get_split_curve_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.get_split_curve_results" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes in 
+<dd><p>Takes in
 Returns</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="predictatops.features.get_wellsKNN_results">
 <code class="descclassname">predictatops.features.</code><code class="descname">get_wellsKNN_results</code><span class="sig-paren">(</span><em>output_data_inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#get_wellsKNN_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.get_wellsKNN_results" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes in 
+<dd><p>Takes in
 Returns</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="predictatops.features.load_prev_results_at_path">
 <code class="descclassname">predictatops.features.</code><code class="descname">load_prev_results_at_path</code><span class="sig-paren">(</span><em>full_path_to_results_file</em>, <em>key='df'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#load_prev_results_at_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.load_prev_results_at_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes in 
+<dd><p>Takes in
 Returns</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="predictatops.features.markingEdgeOfWells">
 <code class="descclassname">predictatops.features.</code><code class="descname">markingEdgeOfWells</code><span class="sig-paren">(</span><em>df</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#markingEdgeOfWells"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.markingEdgeOfWells" title="Permalink to this definition">¶</a></dt>
-<dd><p>#### The difficult thing about creating features based on windows within a well when you have multiple wells stacked 
+<dd><p>#### The difficult thing about creating features based on windows within a well when you have multiple wells stacked
 #### in a dataframe is that sometimes that window from one well goes into the next well.
-#### To get around that, we’re going create a column that says the distance from the top of the well and another 
-#### column that says the distance form the bottom of the well. When a row’s distance from top or bottom is greater 
+#### To get around that, we’re going create a column that says the distance from the top of the well and another
+#### column that says the distance form the bottom of the well. When a row’s distance from top or bottom is greater
 #### than 1/2 the max window size, we’ll just use proceed as normal. When the distance between that row’s depth and
 #### top or bottom is less than 1/2 the max window size, we’ll</p>
 </dd></dl>
@@ -553,7 +937,7 @@ Returns</p>
 <dl class="function">
 <dt id="predictatops.features.mergeCurvesAndTopsDF">
 <code class="descclassname">predictatops.features.</code><code class="descname">mergeCurvesAndTopsDF</code><span class="sig-paren">(</span><em>wells_df_from_split_curveData</em>, <em>wells_df_from_wellsKNN</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/features.html#mergeCurvesAndTopsDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.features.mergeCurvesAndTopsDF" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes in 
+<dd><p>Takes in
 Returns</p>
 </dd></dl>
 
@@ -635,21 +1019,21 @@ Returns</p>
 <dl class="function">
 <dt id="predictatops.main.getMainDFsavedInStep">
 <code class="descclassname">predictatops.main.</code><code class="descname">getMainDFsavedInStep</code><span class="sig-paren">(</span><em>path_to_results</em>, <em>path_to_directory</em>, <em>file_name</em>, <em>ending</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/main.html#getMainDFsavedInStep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.main.getMainDFsavedInStep" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes in 
+<dd><p>Takes in
 Returns</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="predictatops.main.get_df_results_from_step_X">
 <code class="descclassname">predictatops.main.</code><code class="descname">get_df_results_from_step_X</code><span class="sig-paren">(</span><em>output_data_inst</em>, <em>directory</em>, <em>filename</em>, <em>key='df'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/main.html#get_df_results_from_step_X"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.main.get_df_results_from_step_X" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes in 
+<dd><p>Takes in
 Returns</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="predictatops.main.load_prev_results_at_path">
 <code class="descclassname">predictatops.main.</code><code class="descname">load_prev_results_at_path</code><span class="sig-paren">(</span><em>full_path_to_results_file</em>, <em>key='df'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/main.html#load_prev_results_at_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.main.load_prev_results_at_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes in 
+<dd><p>Takes in
 Returns</p>
 </dd></dl>
 
@@ -724,7 +1108,7 @@ Returns</p>
 <dt>Function returns:</dt><dd><p>A column for predicted dataframe with calculated single prediction depth pick based on the median row technique
 A column for predicted dataframe with calculated single prediction depth pick based on rolling means of classes predicted for each row.</p>
 </dd>
-<dt>THESE BELOW ARE NOTE YET IMPLIMENTED!    </dt><dd><p>A new dataframe that is just one row per well and includes as col of UWIs, known picks, predicted picks, and difference
+<dt>THESE BELOW ARE NOTE YET IMPLIMENTED!</dt><dd><p>A new dataframe that is just one row per well and includes as col of UWIs, known picks, predicted picks, and difference
 A new col in the new df that has high and low error by some metric?
 A score of mean abosolute error across all wells in the given dataframe 1.</p>
 </dd>
@@ -760,8 +1144,8 @@ A score of mean abosolute error across all wells in the given dataframe 1.</p>
 <dl class="method">
 <dt id="predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.predict_from_model">
 <code class="descname">predict_from_model</code><span class="sig-paren">(</span><em>model</em>, <em>df_X_toPredict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#InputDistClassPrediction_to_BestDepthForTop.predict_from_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.predict_from_model" title="Permalink to this definition">¶</a></dt>
-<dd><p>The predict_from_model function takes as argument a model that is already trained on training data, in the demo case a 
-scikit-learn XGBoost model and the dataframe of the columns to predict. From this, it fills in 
+<dd><p>The predict_from_model function takes as argument a model that is already trained on training data, in the demo case a
+scikit-learn XGBoost model and the dataframe of the columns to predict. From this, it fills in
 the self.result_df_from_prediction attribute and returns nothing.</p>
 </dd></dl>
 
@@ -801,32 +1185,37 @@ calculates accuracy on a per well basis after doing some rolling mean analysis o
 <code class="descname">mean_absolute_error</code><span class="sig-paren">(</span><em>y_pred</em>, <em>sample_weight=None</em>, <em>multioutput='uniform_average'</em><span class="sig-paren">)</span><a class="headerlink" href="#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.mean_absolute_error" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mean absolute error regression loss</p>
 <p>Read more in the <span class="xref std std-ref">User Guide</span>.</p>
-<dl>
-<dt>y_true<span class="classifier">array-like of shape = (n_samples) or (n_samples, n_outputs)</span></dt><dd><p>Ground truth (correct) target values.</p>
-</dd>
-<dt>y_pred<span class="classifier">array-like of shape = (n_samples) or (n_samples, n_outputs)</span></dt><dd><p>Estimated target values.</p>
-</dd>
-<dt>sample_weight<span class="classifier">array-like of shape = (n_samples), optional</span></dt><dd><p>Sample weights.</p>
-</dd>
-<dt>multioutput<span class="classifier">string in [‘raw_values’, ‘uniform_average’]</span></dt><dd><p>or array-like of shape (n_outputs)
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_true</strong> (<em>array-like of shape =</em><em> (</em><em>n_samples</em><em>) or </em><em>(</em><em>n_samples</em><em>, </em><em>n_outputs</em><em>)</em>) – Ground truth (correct) target values.</p></li>
+<li><p><strong>y_pred</strong> (<em>array-like of shape =</em><em> (</em><em>n_samples</em><em>) or </em><em>(</em><em>n_samples</em><em>, </em><em>n_outputs</em><em>)</em>) – Estimated target values.</p></li>
+<li><p><strong>sample_weight</strong> (<em>array-like of shape =</em><em> (</em><em>n_samples</em><em>)</em><em>, </em><em>optional</em>) – Sample weights.</p></li>
+<li><p><strong>multioutput</strong> (<em>string in</em><em> [</em><em>'raw_values'</em><em>, </em><em>'uniform_average'</em><em>]</em>) – <p>or array-like of shape (n_outputs)
 Defines aggregating of multiple output values.
 Array-like value defines weights used to average errors.</p>
 <dl class="simple">
-<dt>‘raw_values’ :</dt><dd><p>Returns a full set of errors in case of multioutput input.</p>
+<dt>’raw_values’ :</dt><dd><p>Returns a full set of errors in case of multioutput input.</p>
 </dd>
-<dt>‘uniform_average’ :</dt><dd><p>Errors of all outputs are averaged with uniform weight.</p>
-</dd>
-</dl>
+<dt>’uniform_average’ :</dt><dd><p>Errors of all outputs are averaged with uniform weight.</p>
 </dd>
 </dl>
-<dl>
-<dt>loss<span class="classifier">float or ndarray of floats</span></dt><dd><p>If multioutput is ‘raw_values’, then mean absolute error is returned
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p><strong>loss</strong> – If multioutput is ‘raw_values’, then mean absolute error is returned
 for each output separately.
 If multioutput is ‘uniform_average’ or an ndarray of weights, then the
 weighted average of all output errors is returned.</p>
 <p>MAE output is non-negative floating point. The best value is 0.0.</p>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float or ndarray of floats</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">mean_absolute_error</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
@@ -886,13 +1275,13 @@ weighted average of all output errors is returned.</p>
 <em class="property">class </em><code class="descclassname">predictatops.predictionclasses.</code><code class="descname">class_accuracy</code><span class="sig-paren">(</span><em>ML</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#class_accuracy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.class_accuracy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class holds several functions for calculating accuracy of the class-identification model
-It takes in as the initiation argument, an instance of the ML_obj_class, which contains all the 
+It takes in as the initiation argument, an instance of the ML_obj_class, which contains all the
 necessary data already processed with features created and ready to do for the machine-learning task.
 It initiates on creation a variety of class instance attributes that mirror those created in the ML_obj_class class.
-There are 5 functions. The help function will print some explanitory text. 
+There are 5 functions. The help function will print some explanitory text.
 The rest proceed to predict a dataframe from a trained model, reformat some of the input data so
 it can be combined, calculate accuracy, and a final function that runs the last three if you don’t want to
-run them individually. 
+run them individually.
 The last two functions will return an accuracy nubmer as a percentage of class rows or instances the model predicted corrected.</p>
 <dl class="method">
 <dt id="predictatops.predictionclasses.class_accuracy.accuracy_calc">
@@ -912,8 +1301,8 @@ The last two functions will return an accuracy nubmer as a percentage of class r
 <dl class="method">
 <dt id="predictatops.predictionclasses.class_accuracy.predict_from_model">
 <code class="descname">predict_from_model</code><span class="sig-paren">(</span><em>model</em>, <em>df_X_toPredict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#class_accuracy.predict_from_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.class_accuracy.predict_from_model" title="Permalink to this definition">¶</a></dt>
-<dd><p>The predict_from_model function takes as argument a model that is already trained on training data, in the demo case a 
-scikit-learn XGBoost model and the dataframe of the columns to predict. From this, it fills in 
+<dd><p>The predict_from_model function takes as argument a model that is already trained on training data, in the demo case a
+scikit-learn XGBoost model and the dataframe of the columns to predict. From this, it fills in
 the self.result_df_from_prediction attribute and returns nothing.</p>
 </dd></dl>
 
@@ -932,8 +1321,8 @@ the self.result_df_from_prediction attribute and returns nothing.</p>
 <dl class="function">
 <dt id="predictatops.predictionclasses.saveRebalanceResultsAsHDF">
 <code class="descclassname">predictatops.predictionclasses.</code><code class="descname">saveRebalanceResultsAsHDF</code><span class="sig-paren">(</span><em>df_testPlusRebalTrain_featWithHighCount</em>, <em>train_X</em>, <em>train_y</em>, <em>test_X</em>, <em>test_y</em>, <em>train_index</em>, <em>test_index</em>, <em>output_data_inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/predictionclasses.html#saveRebalanceResultsAsHDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.predictionclasses.saveRebalanceResultsAsHDF" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes in 
-Saves 
+<dd><p>Takes in
+Saves
 Returns</p>
 </dd></dl>
 
@@ -989,7 +1378,7 @@ Returns</p>
 <dl class="method">
 <dt id="predictatops.trainclasses.ML_obj_class.init_XGBoost_withSettings">
 <code class="descname">init_XGBoost_withSettings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/trainclasses.html#ML_obj_class.init_XGBoost_withSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.trainclasses.ML_obj_class.init_XGBoost_withSettings" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes in 
+<dd><p>Takes in
 Returns</p>
 </dd></dl>
 
@@ -1009,9 +1398,9 @@ Returns</p>
 <dl class="function">
 <dt id="predictatops.trainclasses.saveTrainClassesResultsAsPickle">
 <code class="descclassname">predictatops.trainclasses.</code><code class="descname">saveTrainClassesResultsAsPickle</code><span class="sig-paren">(</span><em>model</em>, <em>MLinstance</em>, <em>output_data_inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/trainclasses.html#saveTrainClassesResultsAsPickle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.trainclasses.saveTrainClassesResultsAsPickle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes in 
-Saves 
-Returns 
+<dd><p>Takes in
+Saves
+Returns
 NOTE: This pickle may have problems loading properly if you switch OS or version of Python!!!</p>
 </dd></dl>
 

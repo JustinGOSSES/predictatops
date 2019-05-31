@@ -156,6 +156,15 @@
             
   <h1>Source code for predictatops.configurationplusfiles</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">The configurationplusfiles.py module sets up three objects from class functions. </span>
+<span class="sd">input_data() establishes where data is loaded from.</span>
+<span class="sd">configuration() establishes various configuration variables used in the rest of the code.</span>
+<span class="sd">output_data() establishes where data is written to. </span>
+<span class="sd">These are intended to be changed by the configurationplusfiles_runner.py module.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1">##### import statements</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -177,7 +186,19 @@
 
 <span class="c1">##### Classes</span>
 <div class="viewcode-block" id="input_data"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.input_data">[docs]</a><span class="k">class</span> <span class="nc">input_data</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;A class object that holds paths and other information related to input data such as log files location, top files, well information files, etc.&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class object that holds paths and other information related to input data such as log files location, top files, well information files, etc.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        picks_file_path: str</span>
+<span class="sd">            A string for the file path to the file with all the pick names and depths.</span>
+<span class="sd">        picks_delimiter_str: str</span>
+<span class="sd">            The delimiter of the file that has all the picks.</span>
+<span class="sd">        path_to_logs_str: str</span>
+<span class="sd">            The path to the directory with all the well logs.</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">picks_file_path</span><span class="p">,</span> <span class="n">picks_delimiter_str</span><span class="p">,</span><span class="n">path_to_logs_str</span><span class="p">):</span>
         <span class="c1">#### Default initiation = (&#39;../../../SPE_006_originalData/OilSandsDB/PICKS.TXT&#39;,&#39;\t&#39;,&#39;../../../SPE_006_originalData/OilSandsDB/Logs/*.LAS&#39;)</span>
         <span class="c1">#### Only things that are mandatory on initiation are below</span>
@@ -230,9 +251,85 @@
 
 <div class="viewcode-block" id="configuration"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration">[docs]</a><span class="k">class</span> <span class="nc">configuration</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    class to keep configuration variables you might change between runs. </span>
+<span class="sd">    A class to keep configuration variables you might change between runs. </span>
 <span class="sd">    Types of information information stored in here would include paths and names of intermediate files, </span>
 <span class="sd">    so not initial input files which go in the input_data class, as well as which tops or curves were mandatory in well select.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    none:none</span>
+<span class="sd">        None.</span>
+<span class="sd">       </span>
+<span class="sd">       </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    csv_of_well_names_wTopsCuves__name : str</span>
+<span class="sd">        csv_of_well_names_wTopsCuves__name</span>
+<span class="sd">    csv_of_well_names_wTopCurves__path : str</span>
+<span class="sd">        csv_of_well_names_wTopsCuves__name</span>
+<span class="sd">    must_have_curves_list : list</span>
+<span class="sd">        An array of strings that are curve names like [&#39;ILD&#39;, &#39;NPHI&#39;, &#39;GR&#39;, &#39;DPHI&#39;, &#39;DEPT&#39;]</span>
+<span class="sd">    curve_windows_for_rolling_features : list</span>
+<span class="sd">        Array of integers like [5,7,11,21]</span>
+<span class="sd">    must_have_tops__list : list</span>
+<span class="sd">        An array of tops list that could be integers or strings like [13000,14000]</span>
+<span class="sd">    target_top : str</span>
+<span class="sd">        A string or integer like 1300</span>
+<span class="sd">    top_under_target : str</span>
+<span class="sd">        A string or interger that is a top name and is the name of a top under the top you want to predict such as 14000</span>
+<span class="sd">    top_name_col_in_picks_df : str</span>
+<span class="sd">        The top name as it appears in the picks dataframe </span>
+<span class="sd">    siteID_col_in_picks_df : str</span>
+<span class="sd">        The string for the siteID column in the picks dataframe like &#39;SitID&#39;</span>
+<span class="sd">    UWI : str</span>
+<span class="sd">        The string for the UWI column like &quot;UWI&quot;</span>
+<span class="sd">    DEPTH_col_in_featureCreation : str</span>
+<span class="sd">        The string for the depth column like &quot;DEPT&quot;</span>
+<span class="sd">    HorID_name_col_in_picks_df : str</span>
+<span class="sd">         The string for the horizon ID column like &quot;HorID&quot;</span>
+<span class="sd">    quality_col_name_in_picks_df : str</span>
+<span class="sd">        The string for the quality of the pick column like &quot;Quality&quot;</span>
+<span class="sd">    picks_depth_col_in_picks_df : str </span>
+<span class="sd">        The string for the pick column name like &#39;Pick&#39;</span>
+<span class="sd">    col_topTarget_Depth_predBy_NN1thick : str</span>
+<span class="sd">        The string for the top target depth predicted by nearest neighbor thickess like &#39;topTarget_Depth_predBy_NN1thick&#39;</span>
+<span class="sd">    quality_items_to_skip__list : str</span>
+<span class="sd">        The array of the integers for the quality of wells to optionally skip as not good quality picks. An example is [-1,0]</span>
+<span class="sd">    test : str</span>
+<span class="sd">        Honestly forget what this is come back and find out but is should be &quot;test0&quot;</span>
+<span class="sd">    pick_class_str : str</span>
+<span class="sd">        String for the top taget pick prediction column like &#39;TopTarget_Pick_pred&#39;</span>
+<span class="sd">    threshold_returnCurvesThatArePresentInThisManyWells : int</span>
+<span class="sd">        The integer for the number of wells a curve has to be present in to be kept for example 2000</span>
+<span class="sd">    max_numb_wells_to_load : int</span>
+<span class="sd">        Max number of wells to load out of all the wells in the directory with wells. This is used for when you&#39;re testing. Example is 1000000</span>
+<span class="sd">    split_traintest_percent : float</span>
+<span class="sd">        The percent in 0 to 1 terms for train vs. split. You give the percent to keep. example is 0.8</span>
+<span class="sd">    kdtree_leaf : int</span>
+<span class="sd">        Levels of kdtree? default is 2</span>
+<span class="sd">    kdtree_k : int</span>
+<span class="sd">        Integer for number of neighbors or K in k nearest neighbor code for finding nearby wells for each well. Default is 8</span>
+<span class="sd">    rebalanceClassZeroMultiplier : int</span>
+<span class="sd">        When rebalancing class zero. The number of instances of class zero is duplicated by this times. Default is 100</span>
+<span class="sd">    rebalanceClass95Multiplier : int</span>
+<span class="sd">        When rebalancing class zero. The number of instances of class 95 is duplicated by this times. Default is 40</span>
+<span class="sd">    NN1_topTarget_DEPTH : str</span>
+<span class="sd">        The string used in the column that holds the depth of the top in the first nearest neighbor training well. For example &#39;NN1_topTarget_DEPTH&#39;</span>
+<span class="sd">    NN1_TopHelper_DEPTH : str</span>
+<span class="sd">        Helper depth for calculations for NN1_topTarget_DEPTH. Example is &quot;NN1_TopHelper_DEPTH&quot;</span>
+<span class="sd">    trainOrTest : str</span>
+<span class="sd">        String for column that holds string of either train or test. Example is &#39;trainOrTest&#39;</span>
+<span class="sd">    colsToNotTurnToFloats : list</span>
+<span class="sd">        List of columsn to not turn to floads during feature creation. Examples is [&#39;UWI&#39;, &#39;SitID&#39;, &#39;trainOrTest&#39;,&#39;Neighbors_Obj&#39;]</span>
+<span class="sd">    zonesAroundTops : object</span>
+<span class="sd">        An object of class lables and depths around top to create those classes in. Example is {&quot;100&quot;:[0],&quot;95&quot;:[-0.5,0.5],&quot;60&quot;:[-5,0.5],&quot;70&quot;:[0.5,5],&quot;0&quot;:[]} #### NOTE: The code in createFeat_withinZoneOfKnownPick(df,config) function in features.py current ASSUMES only 5 zone labels</span>
+<span class="sd">    columns_to_not_trainOn_andNotCurves : list</span>
+<span class="sd">        List of strings for names of columns to not train on and are not curves. Example is  [&#39;FromBotWell&#39;,&#39;FromTopWel&#39;&#39;rowsToEdge&#39;,&#39;lat&#39;,&#39;lng&#39;,  &#39;SitID&#39;,&#39;TopHelper_HorID&#39;,&#39;TopTarget_HorID&#39;,&#39;TopHelper_DEPTH&#39;,&#39;diff_Top_Depth_Real_v_predBy_NN1thick&#39;,&#39;diff_TopTarget_DEPTH_v_rowDEPT&#39;,&#39;diff_TopHelper_DEPTH_v_rowDEPT&#39;,&#39;class_DistFrPick_TopHelper&#39;,&#39;NewWell&#39;,&#39;LastBitWell&#39;,&#39;TopWellDept&#39;,&#39;BotWellDept&#39;,&#39;WellThickness&#39;,&#39;rowsToEdge&#39;,&#39;closTopBotDist&#39;,&#39;closerToBotOrTop&#39;,&#39;Neighbors_Obj&#39;]</span>
+<span class="sd">    columns_to_not_trainOn_andAreCurves : list</span>
+<span class="sd">        list of strings for columns to not train on that are curves. Example is  [&#39;RHOB&#39;,&#39;SP&#39;,&#39;CALI&#39;,&#39;COND&#39;,&#39;DELT&#39;,&#39;DENS&#39;,&#39;DPHI:1&#39;,&#39;DPHI:2&#39;,&#39;DT&#39;,&#39;GR:1&#39;,&#39;GR:2&#39;,&#39;IL&#39;,&#39;ILD:1&#39;,&#39;ILD:2&#39;,&#39;ILM&#39;,&#39;LITH&#39;,&#39;LLD&#39;,&#39;LLS&#39;,&#39;PHID&#39;,&#39;PHIN&#39;,&#39;RESD&#39;,&#39;RT&#39;,&#39;SFL&#39;,&#39;SFLU&#39;,&#39;SN&#39;,&#39;SNP&#39;,&#39;Sp&#39;]</span>
+<span class="sd">    columns_to_use_as_labels : list</span>
+<span class="sd">        List of strings for columns to use as labels. Examples are= [&#39;class_DistFrPick_TopTarget&#39;,&#39;UWI&#39;,&#39;trainOrTest&#39;,&#39;TopTarget_DEPTH&#39;]</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1">#### intermediate files and paths</span>
