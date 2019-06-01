@@ -251,16 +251,19 @@
 
 <div class="viewcode-block" id="configuration"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration">[docs]</a><span class="k">class</span> <span class="nc">configuration</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A class to keep configuration variables you might change between runs. </span>
-<span class="sd">    Types of information information stored in here would include paths and names of intermediate files, </span>
-<span class="sd">    so not initial input files which go in the input_data class, as well as which tops or curves were mandatory in well select.</span>
+<span class="sd">    A class to keep configuration variables you might change between runs. That is why it has a large number of attributes listed below.</span>
+
+<span class="sd">    Types of information information stored in here would mandetory curves or mandatory tops, column names, name of the top you&#39;re trying to predict, etc.</span>
+<span class="sd">    The object created by this class is used throughout Predictatops, so many modules reimport it. </span>
+
+<span class="sd">    Be careful to not change something in one module close your code, start up later working with the next module and except your changes to persis unless you saved them or wrote them into the configurationplusfiles_runner.py file.</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    none:none</span>
 <span class="sd">        None.</span>
 <span class="sd">       </span>
-<span class="sd">       </span>
+
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    csv_of_well_names_wTopsCuves__name : str</span>
@@ -428,7 +431,63 @@
 
 <div class="viewcode-block" id="output_data"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.output_data">[docs]</a><span class="k">class</span> <span class="nc">output_data</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A class to keep information related to where output files are saved and naming conventions</span>
+<span class="sd">    A class to keep information related to where output files are saved and naming conventions. </span>
+<span class="sd">    </span>
+<span class="sd">    This class can also makes all the directories for intermediate result files via its make_all_directories() function.</span>
+<span class="sd">    </span>
+<span class="sd">    Types of information information stored in here would all the intermediate output file paths as you run different functions and modules of Predictatops.</span>
+<span class="sd">    </span>
+<span class="sd">    The object created by this class is used throughout Predictatops, so many modules reimport it. </span>
+<span class="sd">    </span>
+<span class="sd">    Be careful to not change something in one module close your code, start up later working with the next module and except your changes to persis unless you saved them or wrote them into the configurationplusfiles_runner.py file.</span>
+<span class="sd">    </span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    none:none</span>
+<span class="sd">        None.</span>
+<span class="sd">       </span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    default_results_file_format : str = &quot;.h5&quot;</span>
+<span class="sd">        A base path for all results. Example is &#39;../results/&#39;</span>
+<span class="sd">    path_checkData : str</span>
+<span class="sd">        A path string for the checkData directory. Example is &#39;checkData&#39;</span>
+<span class="sd">    path_load : str</span>
+<span class="sd">        A path string for the load directory. Example is &#39;load&#39;</span>
+<span class="sd">    path_split : str</span>
+<span class="sd">        A path string for the split directory. Example is &#39;split&#39;</span>
+<span class="sd">    path_wellsKNN : str</span>
+<span class="sd">        A path string for the wellsKNN directory. Example is &#39;wellsKNN&#39;</span>
+<span class="sd">    path_features : str</span>
+<span class="sd">        A path string for the features directory. Example is &#39;features&#39;</span>
+<span class="sd">    path_balance : str</span>
+<span class="sd">        A path string for the balance directory. Example is &#39;balance&#39;</span>
+<span class="sd">    path_trainclasses : str</span>
+<span class="sd">        A path string for the trainclasses directory. Example is &#39;trainclasses&#39;</span>
+<span class="sd">    path_prediction :str</span>
+<span class="sd">        A path string for the prediction directory. Example is &#39;prediction&#39;</span>
+<span class="sd">    path_evaluate : str</span>
+<span class="sd">        A path string for the evaluation directory. Example is &#39;evaluate&#39;</span>
+<span class="sd">    path_map : str</span>
+<span class="sd">        A path string for the map directory. Example is &#39;map&#39;</span>
+<span class="sd">    path_plot : str</span>
+<span class="sd">        A path string for the plot directory. Example is &#39;plot</span>
+<span class="sd">    loaded_results_wells_df : str</span>
+<span class="sd">        A path string for the loaded wells with top curves dataframe. Example is &quot;loaded_wells_wTopsCurves&quot;</span>
+<span class="sd">    split_results_wells_df : str</span>
+<span class="sd">        A path string for the loaded wells with top curves and splited dataframe. Example is &quot;wells_wTopsCurvesSplits&quot;</span>
+<span class="sd">    wellsKNN_results_wells_df : str</span>
+<span class="sd">        A path string for the loaded wells with top curves splitted and with KNN features dataframe. Example is &quot;wells_wTopsCurvesSplitsKNN&quot;</span>
+<span class="sd">    features_results_wells_df : str</span>
+<span class="sd">        A path string for the loaded wells with top curves splitted with KNN features and main features from features.py module dataframe. Example is &quot;wells_wTopsCurvesSplitsKNNFeatures&quot;</span>
+<span class="sd">    balance_results_wells_df : str</span>
+<span class="sd">        A path string for the loaded wells with top curves splitted and with KNN features and features from features.py and rebalanced classes dataframe. Example is &quot;wells_wTopsCurvesSplitsKNNFeaturesBalance&quot;</span>
+<span class="sd">    trainclasses_results_model : str</span>
+<span class="sd">        A path string for the trained model. Example is &quot;model_trainclasses_wTopsCurvesSplitsKNNFeaturesBalance&quot;</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1">#### paths to directories to store itermediate and final results</span>
@@ -453,6 +512,22 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">trainclasses_results_model</span> <span class="o">=</span> <span class="s2">&quot;model_trainclasses_wTopsCurvesSplitsKNNFeaturesBalance&quot;</span>
     
 <div class="viewcode-block" id="output_data.make_all_directories"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.output_data.make_all_directories">[docs]</a>    <span class="k">def</span> <span class="nf">make_all_directories</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A function that makes all the directories defined in the attributes of the output_data() class init function.</span>
+<span class="sd">        Examples of directories made include: [self.path_checkData,self.path_load,self.path_split,self.path_wellsKNN,self.path_features,</span>
+<span class="sd">        self.path_balance,self.path_trainclasses,self.path_prediction,self.path_evaluate,self.path_map]</span>
+<span class="sd">        </span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        none:none</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        none: none</span>
+<span class="sd">            The function does not return anything though it does print all the directories it creates, whether they already exist, and the base results directory created by running this function.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;making base folder for results in:&quot;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path_for_all_results</span><span class="p">)</span>
         <span class="n">list_of_sub_directories</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">path_checkData</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">path_load</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">path_split</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">path_wellsKNN</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">path_features</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">path_balance</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">path_trainclasses</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">path_prediction</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">path_evaluate</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">path_map</span><span class="p">]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path_for_all_results</span><span class="p">):</span>
