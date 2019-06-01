@@ -218,10 +218,92 @@ Function returns an array of wells that have the specified curves in the second 
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class that uses the configuration class and data_inpunt class objects and additional
 user input to find out the number of wells of those available that have the tops we want.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_data_obj</strong> (<em>object</em>) – An object instantiated from the input class in configurationplusfile.py that contains attributes we’ll call in this function.</p></li>
+<li><p><strong>configuration_obj</strong> (<em>object</em>) – An object instantiated from the config class in configurationplusfile.py that contains attributes we’ll call in this function.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="predictatops.checkdata.TopsAvailable.input">
+<code class="descname">input</code><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Example is input_data_obj imported from configurationplusfiles.py</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.checkdata.TopsAvailable.config">
+<code class="descname">config</code><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Example is configuration_obj imported from configurationplusfiles.py</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.checkdata.TopsAvailable.picks_df_noNullPicks">
+<code class="descname">picks_df_noNullPicks</code><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.picks_df_noNullPicks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default is “nothing here yet, run take_out_wells_with_no_tops or set_picks_df_noNullPicks”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.checkdata.TopsAvailable.wells_wAny_tops__list">
+<code class="descname">wells_wAny_tops__list</code><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.wells_wAny_tops__list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default is “nothing here yet”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.checkdata.TopsAvailable.wells_with_all_given_tops">
+<code class="descname">wells_with_all_given_tops</code><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.wells_with_all_given_tops" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default is None. It will be populated in function below within this class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="predictatops.checkdata.TopsAvailable.new_wells_with_all_given_tops">
+<code class="descname">new_wells_with_all_given_tops</code><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.new_wells_with_all_given_tops" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default is None. It will be populated by convertSiteIDListToUWIList() function in this class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>none</strong> – This class contains various functions that returns things but it itself does not return anything.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>none</p>
+</dd>
+</dl>
 <dl class="method">
 <dt id="predictatops.checkdata.TopsAvailable.convertSiteIDListToUWIList">
 <code class="descname">convertSiteIDListToUWIList</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.convertSiteIDListToUWIList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.convertSiteIDListToUWIList" title="Permalink to this definition">¶</a></dt>
-<dd><p>doc string goes here</p>
+<dd><p>Converts the list of wells by to list of wells by UWI. May not work well if your data is structured differently, so look at the actual code.</p>
 </dd></dl>
 
 <dl class="method">
@@ -241,49 +323,51 @@ user input to find out the number of wells of those available that have the tops
 <dl class="method">
 <dt id="predictatops.checkdata.TopsAvailable.find_unique_tops_list">
 <code class="descname">find_unique_tops_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.find_unique_tops_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.find_unique_tops_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>doc string goes here</p>
+<dd><p>Takes the input and config objects used as parameters to intiate this class and
+Returns a list of available tops across all the wells.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="predictatops.checkdata.TopsAvailable.get_df_of_top_counts_in_picks_df">
 <code class="descname">get_df_of_top_counts_in_picks_df</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.get_df_of_top_counts_in_picks_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.get_df_of_top_counts_in_picks_df" title="Permalink to this definition">¶</a></dt>
-<dd><p>doc string goes here</p>
+<dd><p>Uses class attributes already established to return a dataframe of how many non-zero and non-null picks exist for each top name.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="predictatops.checkdata.TopsAvailable.get_df_wells_with_any_top">
 <code class="descname">get_df_wells_with_any_top</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.get_df_wells_with_any_top"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.get_df_wells_with_any_top" title="Permalink to this definition">¶</a></dt>
-<dd><p>doc string goes here</p>
+<dd><p>Returns dataframe of wells with any sort of pick</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="predictatops.checkdata.TopsAvailable.get_must_have_tops">
 <code class="descname">get_must_have_tops</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.get_must_have_tops"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.get_must_have_tops" title="Permalink to this definition">¶</a></dt>
-<dd><p>doc string goes here</p>
+<dd><p>Uses the must have tops defined in the config object provided on intiation of this class object and returns the must have tops in the config object.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="predictatops.checkdata.TopsAvailable.get_number_wells_with_any_top">
 <code class="descname">get_number_wells_with_any_top</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.get_number_wells_with_any_top"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.get_number_wells_with_any_top" title="Permalink to this definition">¶</a></dt>
-<dd><p>doc string goes here</p>
+<dd><p>Returns the total number of wells with any sort of pick</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="predictatops.checkdata.TopsAvailable.get_picks_df_noNullPicks">
 <code class="descname">get_picks_df_noNullPicks</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.get_picks_df_noNullPicks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.get_picks_df_noNullPicks" title="Permalink to this definition">¶</a></dt>
-<dd><p>doc string goes here</p>
+<dd><p>Function that returns self.picks_df_noNullPicks. The picks dataframe with null pick rows removed.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="predictatops.checkdata.TopsAvailable.run_all">
 <code class="descname">run_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.run_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.run_all" title="Permalink to this definition">¶</a></dt>
-<dd><p>doc string goes here</p>
+<dd><p>Runs all the functions in this class at once with default values from config object inputted at class object initiation.
+Returns list of wells_with_all_given_tops_by_uwi</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="predictatops.checkdata.TopsAvailable.set_picks_df_noNullPicks">
 <code class="descname">set_picks_df_noNullPicks</code><span class="sig-paren">(</span><em>picks_df_noNullPicks</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.set_picks_df_noNullPicks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.set_picks_df_noNullPicks" title="Permalink to this definition">¶</a></dt>
-<dd><p>doc string goes here</p>
+<dd><p>Sets the self.picks_df_noNullPicks given picks_df_noNullPicks after making sure the input argument is a dataframe type.</p>
 </dd></dl>
 
 <dl class="method">
@@ -291,7 +375,8 @@ user input to find out the number of wells of those available that have the tops
 <code class="descname">take_out_wells_with_no_tops</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/checkdata.html#TopsAvailable.take_out_wells_with_no_tops"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.checkdata.TopsAvailable.take_out_wells_with_no_tops" title="Permalink to this definition">¶</a></dt>
 <dd><p>function is defined to take in a picks_df and
 exclude any wells that have no picks or are flagged as very bad quality.
-This function assumes a data structure that is</p>
+THIS FUNCTION ASSUMES SOME STRUCTURES THAT MIGHT NOT EXIST IN YOUR PROJECT
+It populates this class object’s attribute of self.picks_df_noNullPicks with noZeroPicks[noZeroPicks.Quality != -1] which should take out the rows with no picks.</p>
 </dd></dl>
 
 </dd></dl>

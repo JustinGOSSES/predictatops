@@ -183,9 +183,41 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class that uses the configuration class and data_inpunt class objects and additional </span>
 <span class="sd">    user input to find out the number of wells of those available that have the tops we want.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    input_data_obj:object</span>
+<span class="sd">         An object instantiated from the input class in configurationplusfile.py that contains attributes we&#39;ll call in this function.</span>
+<span class="sd">    configuration_obj:object</span>
+<span class="sd">         An object instantiated from the config class in configurationplusfile.py that contains attributes we&#39;ll call in this function.</span>
+
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    input : object</span>
+<span class="sd">        Example is input_data_obj imported from configurationplusfiles.py </span>
+<span class="sd">    config : object</span>
+<span class="sd">        Example is configuration_obj imported from configurationplusfiles.py  </span>
+<span class="sd">    picks_df_noNullPicks : dataframe</span>
+<span class="sd">        Default is &quot;nothing here yet, run take_out_wells_with_no_tops or set_picks_df_noNullPicks&quot;</span>
+<span class="sd">    wells_wAny_tops__list : dataframe</span>
+<span class="sd">        Default is &quot;nothing here yet&quot;</span>
+<span class="sd">    wells_with_all_given_tops : dataframe</span>
+<span class="sd">        Default is None. It will be populated in function below within this class</span>
+<span class="sd">    new_wells_with_all_given_tops : list</span>
+<span class="sd">        Default is None. It will be populated by convertSiteIDListToUWIList() function in this class.</span>
+
+<span class="sd">    Return</span>
+<span class="sd">    ------</span>
+<span class="sd">    none: none</span>
+<span class="sd">        This class contains various functions that returns things but it itself does not return anything.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">input_data_obj</span><span class="p">,</span><span class="n">configuration_obj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initiates this class with two inputs, input_data_obj &amp; configuration_obj.</span>
+<span class="sd">        Several other attributes are initially None or strings like &quot;nothing here yet&quot; that are later populated by the functions below.      </span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1">#### intermediate files and paths</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="n">input_data_obj</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">configuration_obj</span>
@@ -197,13 +229,18 @@
         
         
 <div class="viewcode-block" id="TopsAvailable.find_unique_tops_list"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.find_unique_tops_list">[docs]</a>    <span class="k">def</span> <span class="nf">find_unique_tops_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Takes the input and config objects used as parameters to intiate this class and </span>
+<span class="sd">        Returns a list of available tops across all the wells.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">unique_tops_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">picks_df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get_top_name_col_in_picks_df</span><span class="p">()]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;: unique_tops_list&quot;</span><span class="p">,</span><span class="n">unique_tops_list</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">unique_tops_list</span></div>
         
 <div class="viewcode-block" id="TopsAvailable.get_must_have_tops"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.get_must_have_tops">[docs]</a>    <span class="k">def</span> <span class="nf">get_must_have_tops</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Uses the must have tops defined in the config object provided on intiation of this class object and returns the must have tops in the config object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get_must_have_tops__list</span><span class="p">()</span></div>
         <span class="c1">#print(&quot;must have top list is: &quot;,must_have_curves_in_list)</span>
         
@@ -211,7 +248,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        function is defined to take in a picks_df and </span>
 <span class="sd">        exclude any wells that have no picks or are flagged as very bad quality.</span>
-<span class="sd">        This function assumes a data structure that is</span>
+<span class="sd">        THIS FUNCTION ASSUMES SOME STRUCTURES THAT MIGHT NOT EXIST IN YOUR PROJECT</span>
+<span class="sd">        It populates this class object&#39;s attribute of self.picks_df_noNullPicks with noZeroPicks[noZeroPicks.Quality != -1] which should take out the rows with no picks.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1">#### THIS FUNCTION ASSUMES SOME STRUCTURES THAT MIGHT NOT EXIST IN YOUR PROJECT</span>
         <span class="c1">#### YOU MAY HAVE TO DO THIS A DIFFERENT WAY</span>
@@ -223,13 +261,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">picks_df_noNullPicks</span> <span class="o">=</span> <span class="n">noNullPicks</span></div>
         
 <div class="viewcode-block" id="TopsAvailable.get_picks_df_noNullPicks"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.get_picks_df_noNullPicks">[docs]</a>    <span class="k">def</span> <span class="nf">get_picks_df_noNullPicks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function that returns self.picks_df_noNullPicks. The picks dataframe with null pick rows removed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">picks_df_noNullPicks</span></div>
 
     
  <span class="c1">#### THIS ONE NEEDS EDITING AS IT REQUIRES ARGUMENTS THAT MAY NOT BE NEEDED LIKE THIS????????   </span>
 <div class="viewcode-block" id="TopsAvailable.set_picks_df_noNullPicks"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.set_picks_df_noNullPicks">[docs]</a>    <span class="k">def</span> <span class="nf">set_picks_df_noNullPicks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">picks_df_noNullPicks</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the self.picks_df_noNullPicks given picks_df_noNullPicks after making sure the input argument is a dataframe type.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">picks_df_noNullPicks</span><span class="p">))</span> <span class="o">==</span> <span class="s2">&quot;&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">picks_df_noNullPicks</span> <span class="o">=</span> <span class="n">picks_df_noNullPicks</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;set picks_df_noNullPicks attribute as &quot;</span><span class="p">,</span><span class="n">picks_df_noNullPicks</span><span class="p">)</span>
@@ -237,19 +279,19 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Argument picks_df_noNullPicks should be type dataframe&quot;</span><span class="p">)</span></div>
             
 <div class="viewcode-block" id="TopsAvailable.get_df_of_top_counts_in_picks_df"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.get_df_of_top_counts_in_picks_df">[docs]</a>    <span class="k">def</span> <span class="nf">get_df_of_top_counts_in_picks_df</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Uses class attributes already established to return a dataframe of how many non-zero and non-null picks exist for each top name.&quot;&quot;&quot;</span>
         <span class="c1">#### produces dataframe of horID and counts of non-zero,non-null picks</span>
         <span class="n">pick_counts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">picks_df_noNullPicks</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get_top_name_col_in_picks_df</span><span class="p">())[</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">siteID_col_in_picks_df</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">pick_counts</span></div>
     
 <div class="viewcode-block" id="TopsAvailable.get_df_wells_with_any_top"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.get_df_wells_with_any_top">[docs]</a>    <span class="k">def</span> <span class="nf">get_df_wells_with_any_top</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Returns dataframe of wells with any sort of pick&quot;&quot;&quot;</span>
         <span class="c1">#### The total number of wells with any sort of pick is:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">wells_wAny_tops__list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">picks_df_noNullPicks</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">siteID_col_in_picks_df</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wells_wAny_tops__list</span></div>
     
 <div class="viewcode-block" id="TopsAvailable.get_number_wells_with_any_top"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.get_number_wells_with_any_top">[docs]</a>    <span class="k">def</span> <span class="nf">get_number_wells_with_any_top</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Returns the total number of wells with any sort of pick&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wells_wAny_tops__list</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">get_df_wells_with_any_top</span><span class="p">()</span>
             <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wells_wAny_tops__list</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
@@ -326,7 +368,9 @@
             <span class="c1">#list_of_wells_with_tops =list(set(list_of_wells_with_tops[0]).intersection(list_of_wells_with_tops[1]))</span>
         
 <div class="viewcode-block" id="TopsAvailable.convertSiteIDListToUWIList"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.convertSiteIDListToUWIList">[docs]</a>    <span class="k">def</span> <span class="nf">convertSiteIDListToUWIList</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts the list of wells by to list of wells by UWI. May not work well if your data is structured differently, so look at the actual code.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">wells_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">wells</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">load_wells_file</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
@@ -349,7 +393,10 @@
         <span class="k">return</span> <span class="n">new_wells_with_all_given_tops</span></div>
 
 <div class="viewcode-block" id="TopsAvailable.run_all"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.checkdata.TopsAvailable.run_all">[docs]</a>    <span class="k">def</span> <span class="nf">run_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Runs all the functions in this class at once with default values from config object inputted at class object initiation.</span>
+<span class="sd">        Returns list of wells_with_all_given_tops_by_uwi</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">unique_tops</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_unique_tops_list</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The list of unique tops is: &quot;</span><span class="p">,</span><span class="n">unique_tops</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The list of required tops from the configuration object that was used as an argument are: &quot;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">get_must_have_tops</span><span class="p">())</span>
