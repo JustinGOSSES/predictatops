@@ -1,4 +1,13 @@
 # -*- coding: utf-8 -*-
+"""
+
+The configurationplusfiles.py module sets up three objects from class functions. 
+input_data() establishes where data is loaded from.
+configuration() establishes various configuration variables used in the rest of the code.
+output_data() establishes where data is written to. 
+These are intended to be changed by the configurationplusfiles_runner.py module.
+
+"""
 
 ##### import statements
 import pandas as pd
@@ -20,7 +29,19 @@ import os
 
 ##### Classes
 class input_data():
-    """A class object that holds paths and other information related to input data such as log files location, top files, well information files, etc."""
+    """
+    A class object that holds paths and other information related to input data such as log files location, top files, well information files, etc.
+    
+    Parameters
+        ----------
+        picks_file_path: str
+            A string for the file path to the file with all the pick names and depths.
+        picks_delimiter_str: str
+            The delimiter of the file that has all the picks.
+        path_to_logs_str: str
+            The path to the directory with all the well logs.
+    
+    """
     def __init__(self, picks_file_path, picks_delimiter_str,path_to_logs_str):
         #### Default initiation = ('../../../SPE_006_originalData/OilSandsDB/PICKS.TXT','\t','../../../SPE_006_originalData/OilSandsDB/Logs/*.LAS')
         #### Only things that are mandatory on initiation are below
@@ -73,9 +94,88 @@ class input_data():
 
 class configuration():
     """
-    class to keep configuration variables you might change between runs. 
-    Types of information information stored in here would include paths and names of intermediate files, 
-    so not initial input files which go in the input_data class, as well as which tops or curves were mandatory in well select.
+    A class to keep configuration variables you might change between runs. That is why it has a large number of attributes listed below.
+
+    Types of information information stored in here would mandetory curves or mandatory tops, column names, name of the top you're trying to predict, etc.
+    The object created by this class is used throughout Predictatops, so many modules reimport it. 
+
+    Be careful to not change something in one module close your code, start up later working with the next module and except your changes to persis unless you saved them or wrote them into the configurationplusfiles_runner.py file.
+    
+    Parameters
+    ----------
+    none:none
+        None.
+       
+
+    Attributes
+    ----------
+    csv_of_well_names_wTopsCuves__name : str
+        csv_of_well_names_wTopsCuves__name
+    csv_of_well_names_wTopCurves__path : str
+        csv_of_well_names_wTopsCuves__name
+    must_have_curves_list : list
+        An array of strings that are curve names like ['ILD', 'NPHI', 'GR', 'DPHI', 'DEPT']
+    curve_windows_for_rolling_features : list
+        Array of integers like [5,7,11,21]
+    must_have_tops__list : list
+        An array of tops list that could be integers or strings like [13000,14000]
+    target_top : str
+        A string or integer like 1300
+    top_under_target : str
+        A string or interger that is a top name and is the name of a top under the top you want to predict such as 14000
+    top_name_col_in_picks_df : str
+        The top name as it appears in the picks dataframe 
+    siteID_col_in_picks_df : str
+        The string for the siteID column in the picks dataframe like 'SitID'
+    UWI : str
+        The string for the UWI column like "UWI"
+    DEPTH_col_in_featureCreation : str
+        The string for the depth column like "DEPT"
+    HorID_name_col_in_picks_df : str
+         The string for the horizon ID column like "HorID"
+    quality_col_name_in_picks_df : str
+        The string for the quality of the pick column like "Quality"
+    picks_depth_col_in_picks_df : str 
+        The string for the pick column name like 'Pick'
+    col_topTarget_Depth_predBy_NN1thick : str
+        The string for the top target depth predicted by nearest neighbor thickess like 'topTarget_Depth_predBy_NN1thick'
+    quality_items_to_skip__list : str
+        The array of the integers for the quality of wells to optionally skip as not good quality picks. An example is [-1,0]
+    test : str
+        Honestly forget what this is come back and find out but is should be "test0"
+    pick_class_str : str
+        String for the top taget pick prediction column like 'TopTarget_Pick_pred'
+    threshold_returnCurvesThatArePresentInThisManyWells : int
+        The integer for the number of wells a curve has to be present in to be kept for example 2000
+    max_numb_wells_to_load : int
+        Max number of wells to load out of all the wells in the directory with wells. This is used for when you're testing. Example is 1000000
+    split_traintest_percent : float
+        The percent in 0 to 1 terms for train vs. split. You give the percent to keep. example is 0.8
+    kdtree_leaf : int
+        Levels of kdtree? default is 2
+    kdtree_k : int
+        Integer for number of neighbors or K in k nearest neighbor code for finding nearby wells for each well. Default is 8
+    rebalanceClassZeroMultiplier : int
+        When rebalancing class zero. The number of instances of class zero is duplicated by this times. Default is 100
+    rebalanceClass95Multiplier : int
+        When rebalancing class zero. The number of instances of class 95 is duplicated by this times. Default is 40
+    NN1_topTarget_DEPTH : str
+        The string used in the column that holds the depth of the top in the first nearest neighbor training well. For example 'NN1_topTarget_DEPTH'
+    NN1_TopHelper_DEPTH : str
+        Helper depth for calculations for NN1_topTarget_DEPTH. Example is "NN1_TopHelper_DEPTH"
+    trainOrTest : str
+        String for column that holds string of either train or test. Example is 'trainOrTest'
+    colsToNotTurnToFloats : list
+        List of columsn to not turn to floads during feature creation. Examples is ['UWI', 'SitID', 'trainOrTest','Neighbors_Obj']
+    zonesAroundTops : object
+        An object of class lables and depths around top to create those classes in. Example is {"100":[0],"95":[-0.5,0.5],"60":[-5,0.5],"70":[0.5,5],"0":[]} #### NOTE: The code in createFeat_withinZoneOfKnownPick(df,config) function in features.py current ASSUMES only 5 zone labels
+    columns_to_not_trainOn_andNotCurves : list
+        List of strings for names of columns to not train on and are not curves. Example is  ['FromBotWell','FromTopWel''rowsToEdge','lat','lng',  'SitID','TopHelper_HorID','TopTarget_HorID','TopHelper_DEPTH','diff_Top_Depth_Real_v_predBy_NN1thick','diff_TopTarget_DEPTH_v_rowDEPT','diff_TopHelper_DEPTH_v_rowDEPT','class_DistFrPick_TopHelper','NewWell','LastBitWell','TopWellDept','BotWellDept','WellThickness','rowsToEdge','closTopBotDist','closerToBotOrTop','Neighbors_Obj']
+    columns_to_not_trainOn_andAreCurves : list
+        list of strings for columns to not train on that are curves. Example is  ['RHOB','SP','CALI','COND','DELT','DENS','DPHI:1','DPHI:2','DT','GR:1','GR:2','IL','ILD:1','ILD:2','ILM','LITH','LLD','LLS','PHID','PHIN','RESD','RT','SFL','SFLU','SN','SNP','Sp']
+    columns_to_use_as_labels : list
+        List of strings for columns to use as labels. Examples are= ['class_DistFrPick_TopTarget','UWI','trainOrTest','TopTarget_DEPTH']
+
     """
     def __init__(self):
         #### intermediate files and paths
@@ -174,7 +274,63 @@ class configuration():
 
 class output_data():
     """
-    A class to keep information related to where output files are saved and naming conventions
+    A class to keep information related to where output files are saved and naming conventions. 
+    
+    This class can also makes all the directories for intermediate result files via its make_all_directories() function.
+    
+    Types of information information stored in here would all the intermediate output file paths as you run different functions and modules of Predictatops.
+    
+    The object created by this class is used throughout Predictatops, so many modules reimport it. 
+    
+    Be careful to not change something in one module close your code, start up later working with the next module and except your changes to persis unless you saved them or wrote them into the configurationplusfiles_runner.py file.
+    
+
+    Parameters
+    ----------
+    none:none
+        None.
+       
+
+    Attributes
+    ----------
+    default_results_file_format : str = ".h5"
+        A base path for all results. Example is '../results/'
+    path_checkData : str
+        A path string for the checkData directory. Example is 'checkData'
+    path_load : str
+        A path string for the load directory. Example is 'load'
+    path_split : str
+        A path string for the split directory. Example is 'split'
+    path_wellsKNN : str
+        A path string for the wellsKNN directory. Example is 'wellsKNN'
+    path_features : str
+        A path string for the features directory. Example is 'features'
+    path_balance : str
+        A path string for the balance directory. Example is 'balance'
+    path_trainclasses : str
+        A path string for the trainclasses directory. Example is 'trainclasses'
+    path_prediction :str
+        A path string for the prediction directory. Example is 'prediction'
+    path_evaluate : str
+        A path string for the evaluation directory. Example is 'evaluate'
+    path_map : str
+        A path string for the map directory. Example is 'map'
+    path_plot : str
+        A path string for the plot directory. Example is 'plot
+    loaded_results_wells_df : str
+        A path string for the loaded wells with top curves dataframe. Example is "loaded_wells_wTopsCurves"
+    split_results_wells_df : str
+        A path string for the loaded wells with top curves and splited dataframe. Example is "wells_wTopsCurvesSplits"
+    wellsKNN_results_wells_df : str
+        A path string for the loaded wells with top curves splitted and with KNN features dataframe. Example is "wells_wTopsCurvesSplitsKNN"
+    features_results_wells_df : str
+        A path string for the loaded wells with top curves splitted with KNN features and main features from features.py module dataframe. Example is "wells_wTopsCurvesSplitsKNNFeatures"
+    balance_results_wells_df : str
+        A path string for the loaded wells with top curves splitted and with KNN features and features from features.py and rebalanced classes dataframe. Example is "wells_wTopsCurvesSplitsKNNFeaturesBalance"
+    trainclasses_results_model : str
+        A path string for the trained model. Example is "model_trainclasses_wTopsCurvesSplitsKNNFeaturesBalance"
+    
+    
     """
     def __init__(self):
         #### paths to directories to store itermediate and final results
@@ -199,6 +355,22 @@ class output_data():
         self.trainclasses_results_model = "model_trainclasses_wTopsCurvesSplitsKNNFeaturesBalance"
     
     def make_all_directories(self):
+        """
+        A function that makes all the directories defined in the attributes of the output_data() class init function.
+        Examples of directories made include: [self.path_checkData,self.path_load,self.path_split,self.path_wellsKNN,self.path_features,
+        self.path_balance,self.path_trainclasses,self.path_prediction,self.path_evaluate,self.path_map]
+        
+
+        Parameters
+        ----------
+        none:none
+            None.
+
+        Return
+        ------
+        none: none
+            The function does not return anything though it does print all the directories it creates, whether they already exist, and the base results directory created by running this function.
+        """
         print("making base folder for results in:",self.base_path_for_all_results)
         list_of_sub_directories = [self.path_checkData,self.path_load,self.path_split,self.path_wellsKNN,self.path_features,self.path_balance,self.path_trainclasses,self.path_prediction,self.path_evaluate,self.path_map]
         if not os.path.exists(self.base_path_for_all_results):

@@ -20,7 +20,7 @@ print("head of picks df = ",input_data_inst.picks_df.head())
 output_data_inst =output_data()
 
 #### CHANGE base_path_for_all_results, was '../results'
-output_data_inst.base_path_for_all_results = '../results_YourName'
+output_data_inst.base_path_for_all_results = '../results_higherBlanceAndLowerWindows_20190517'
 
 output_data_inst.make_all_directories()
 

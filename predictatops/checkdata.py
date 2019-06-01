@@ -26,9 +26,41 @@ class TopsAvailable():
     """
     Class that uses the configuration class and data_inpunt class objects and additional 
     user input to find out the number of wells of those available that have the tops we want.
+
+    Parameters
+    ----------
+    input_data_obj:object
+         An object instantiated from the input class in configurationplusfile.py that contains attributes we'll call in this function.
+    configuration_obj:object
+         An object instantiated from the config class in configurationplusfile.py that contains attributes we'll call in this function.
+
+
+    Attributes
+    ----------
+    input : object
+        Example is input_data_obj imported from configurationplusfiles.py 
+    config : object
+        Example is configuration_obj imported from configurationplusfiles.py  
+    picks_df_noNullPicks : dataframe
+        Default is "nothing here yet, run take_out_wells_with_no_tops or set_picks_df_noNullPicks"
+    wells_wAny_tops__list : dataframe
+        Default is "nothing here yet"
+    wells_with_all_given_tops : dataframe
+        Default is None. It will be populated in function below within this class
+    new_wells_with_all_given_tops : list
+        Default is None. It will be populated by convertSiteIDListToUWIList() function in this class.
+
+    Return
+    ------
+    none: none
+        This class contains various functions that returns things but it itself does not return anything.
+
     """
     def __init__(self,input_data_obj,configuration_obj):
-        """doc string goes here"""
+        """
+        Initiates this class with two inputs, input_data_obj & configuration_obj.
+        Several other attributes are initially None or strings like "nothing here yet" that are later populated by the functions below.      
+        """
         #### intermediate files and paths
         self.input = input_data_obj
         self.config = configuration_obj
@@ -40,13 +72,18 @@ class TopsAvailable():
         
         
     def find_unique_tops_list(self):
-        """doc string goes here"""
+        """
+        Takes the input and config objects used as parameters to intiate this class and 
+        Returns a list of available tops across all the wells.
+        """
         unique_tops_list = self.input.picks_df[self.config.get_top_name_col_in_picks_df()].unique()
         print(": unique_tops_list",unique_tops_list)
         return unique_tops_list
         
     def get_must_have_tops(self):
-        """doc string goes here"""
+        """
+        Uses the must have tops defined in the config object provided on intiation of this class object and returns the must have tops in the config object.
+        """
         return self.config.get_must_have_tops__list()
         #print("must have top list is: ",must_have_curves_in_list)
         
@@ -54,7 +91,8 @@ class TopsAvailable():
         """
         function is defined to take in a picks_df and 
         exclude any wells that have no picks or are flagged as very bad quality.
-        This function assumes a data structure that is
+        THIS FUNCTION ASSUMES SOME STRUCTURES THAT MIGHT NOT EXIST IN YOUR PROJECT
+        It populates this class object's attribute of self.picks_df_noNullPicks with noZeroPicks[noZeroPicks.Quality != -1] which should take out the rows with no picks.
         """
         #### THIS FUNCTION ASSUMES SOME STRUCTURES THAT MIGHT NOT EXIST IN YOUR PROJECT
         #### YOU MAY HAVE TO DO THIS A DIFFERENT WAY
@@ -66,13 +104,17 @@ class TopsAvailable():
         self.picks_df_noNullPicks = noNullPicks
         
     def get_picks_df_noNullPicks(self):
-        """doc string goes here"""
+        """
+        Function that returns self.picks_df_noNullPicks. The picks dataframe with null pick rows removed.
+        """
         return self.picks_df_noNullPicks
 
     
  #### THIS ONE NEEDS EDITING AS IT REQUIRES ARGUMENTS THAT MAY NOT BE NEEDED LIKE THIS????????   
     def set_picks_df_noNullPicks(self,picks_df_noNullPicks):
-        """doc string goes here"""
+        """
+        Sets the self.picks_df_noNullPicks given picks_df_noNullPicks after making sure the input argument is a dataframe type.
+        """
         if(str(type(picks_df_noNullPicks)) == "<class 'pandas.core.frame.DataFrame'>"):
             self.picks_df_noNullPicks = picks_df_noNullPicks
             print("set picks_df_noNullPicks attribute as ",picks_df_noNullPicks)
@@ -80,19 +122,19 @@ class TopsAvailable():
             raise ValueError("Argument picks_df_noNullPicks should be type dataframe")
             
     def get_df_of_top_counts_in_picks_df(self):
-        """doc string goes here"""
+        """Uses class attributes already established to return a dataframe of how many non-zero and non-null picks exist for each top name."""
         #### produces dataframe of horID and counts of non-zero,non-null picks
         pick_counts = self.picks_df_noNullPicks.groupby(self.config.get_top_name_col_in_picks_df())[self.config.siteID_col_in_picks_df].count()
         return pick_counts
     
     def get_df_wells_with_any_top(self):
-        """doc string goes here"""
+        """Returns dataframe of wells with any sort of pick"""
         #### The total number of wells with any sort of pick is:
         self.wells_wAny_tops__list = self.picks_df_noNullPicks[self.config.siteID_col_in_picks_df].unique()
         return self.wells_wAny_tops__list
     
     def get_number_wells_with_any_top(self):
-        """doc string goes here"""
+        """Returns the total number of wells with any sort of pick"""
         if type(self.wells_wAny_tops__list) == str:
             self.get_df_wells_with_any_top()
             if type(self.wells_wAny_tops__list) == str:
@@ -169,7 +211,9 @@ class TopsAvailable():
             #list_of_wells_with_tops =list(set(list_of_wells_with_tops[0]).intersection(list_of_wells_with_tops[1]))
         
     def convertSiteIDListToUWIList(self):
-        """doc string goes here"""
+        """
+        Converts the list of wells by to list of wells by UWI. May not work well if your data is structured differently, so look at the actual code.
+        """
         if self.input.wells_df is not None:
             wells = self.input.load_wells_file()
         else:
@@ -192,7 +236,10 @@ class TopsAvailable():
         return new_wells_with_all_given_tops
 
     def run_all(self):
-        """doc string goes here"""
+        """
+        Runs all the functions in this class at once with default values from config object inputted at class object initiation.
+        Returns list of wells_with_all_given_tops_by_uwi
+        """
         unique_tops = self.find_unique_tops_list()
         print("The list of unique tops is: ",unique_tops)
         print("The list of required tops from the configuration object that was used as an argument are: ",self.get_must_have_tops())

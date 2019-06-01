@@ -1,7 +1,6 @@
 ##coding: utf-8 -*-
 
 ##### import statements #####
-
 import pooch
 import os
 
@@ -44,12 +43,24 @@ GOODBOY.load_registry("./registry.txt")
 
 
 # Define functions that your users can call to get back some sample data in memory
-def fetch_gravity_data():
+def fetch_mannville_data():
    """
-   Load some sample gravity data to use in your docs.
+   Loads all required Mannville Group data and metadata for demo data. 
+   Fetches the path to a file in the local storae. If it's not there, we'll
+   download it.
+
+   Parameters
+   ----------
+   none: none
+    It does not take any parameters but it assumes there is a registry.txt in the same directory that has in it the name hash and location of the file to load.
+
+
+   Returns
+   -------
+   ...: ellipses
+    Nothing but three dots which reads as ellipses in Python for now. It does write files to the directory given above in goodboy, which is created in fetch_demo_data.py by pooch.create()
    """
-   # Fetch the path to a file in the local storae. If it's not there, we'll
-   # download it.
+
    with open('registry.txt') as f:
        lines = f.readlines()
    for line in lines:
@@ -61,4 +72,5 @@ def fetch_gravity_data():
    data = ...
    return data
 
-fetch_gravity_data()
+
+fetch_mannville_data()
