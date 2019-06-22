@@ -20,7 +20,7 @@ The <b><a href="https://justingosses.github.io/predictatops/html/index.html">doc
 
 This code is the subject of an <b><a href="https://github.com/JustinGOSSES/predictatops/blob/master/AAPG_Abstract_2019ACE.md">abstract</a></b> submitted to the AAPG ACE convention in 2019. 
 
-The <b><a href="https://github.com/JustinGOSSES/predictatops/blob/master/docs/ACE2019_Gosses_theme8_StratigraphicTopML_201905018_submitted.pdf">slides</a><b> I presented at AAPG ACE 2019 are available in PDF form. They give an introduction to the theory and thought process behind Predictatops.
+The <b><a href="https://github.com/JustinGOSSES/predictatops/blob/master/docs/ACE2019_Gosses_theme8_StratigraphicTopML_201905018_submitted.pdf">slides</a></b> I presented at AAPG ACE 2019 are available in PDF form. They give an introduction to the theory and thought process behind Predictatops.
 
 Development was in this repo: <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon">MannvilleGroup_Strat_Hackathon</a> but is now moving here as the code gets cleaned and modulized. This project is under active development. A few portions of the code still only exist on MannvilleGroup_Strat_Hackathon repo at this time. This is a nights and weekend side project, but will continue to be developed by the main developer.
 
