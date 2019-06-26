@@ -95,10 +95,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#docs">Docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#previous-development">Previous Development</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#philosophy">Philosophy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#datasets">Datasets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#architecture-and-abstraction">Architecture and Abstraction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#credits">Credits</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
@@ -181,14 +181,12 @@
 <div class="section" id="code-for-stratigraphic-pick-prediction-via-supervised-machine-learning">
 <h3>Code for stratigraphic pick prediction via supervised machine-learning<a class="headerlink" href="#code-for-stratigraphic-pick-prediction-via-supervised-machine-learning" title="Permalink to this headline">¶</a></h3>
 <a class="reference internal image-reference" href="_images/Yale-Peabody-Triceratops-004Trp.png"><img alt="_images/Yale-Peabody-Triceratops-004Trp.png" src="_images/Yale-Peabody-Triceratops-004Trp.png" style="width: 512pt;" /></a>
-<p><a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/LICENSE/">MIT License</a>.</p>
+<a class="reference external image-reference" href="https://github.com/JustinGOSSES/predictatops/blob/master/LICENSE/"><img alt="MIT License" src="https://img.shields.io/badge/License-MIT-green.svg" /></a>
+<a class="reference external image-reference" href="https://zenodo.org/badge/latestdoi/151658252"><img alt="DOI" src="https://zenodo.org/badge/151658252.svg" /></a>
 <p>This repository has a <a class="reference external" href="https://zenodo.org/record/2642860">https://zenodo.org/record/2642860</a> but be aware the repository on github is ahead of the DOI’d version.</p>
-<p>This code is the subject of an <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/AAPG_Abstract_2019ACE.md/">abstract</a>. for a <a class="reference external" href="https://www.abstractsonline.com/pp8/#!/6795/presentation/3405/">talk</a>. that will be given at AAPG ACE 2019.</p>
-<p>Development was in <a class="reference external" href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon.html/">this repo, MannvilleGroup_Strat_Hackathon</a>. but is now moving here as the code gets cleaned and modulized. This project is under active development. A few portions of the code still only exist on MannvilleGroup_Strat_Hackathon repo at this time. This is a nights and weekend side project, but will continue to be developed by the main developer.</p>
 <p>[these are in progress]</p>
 <a class="reference external image-reference" href="https://pypi.python.org/pypi/predictatops"><img alt="PyPi Status" src="https://img.shields.io/pypi/v/predictatops.svg" /></a>
 <a class="reference external image-reference" href="https://travis-ci.org/JustinGOSSES/predictatops"><img alt="Travis Status" src="https://img.shields.io/travis/JustinGOSSES/predictatops.svg" /></a>
-<a class="reference external image-reference" href="https://predictatops.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation Status" src="https://readthedocs.org/projects/predictatops/badge/?version=latest" /></a>
 <a class="reference external image-reference" href="https://pyup.io/repos/github/JustinGOSSES/predictatops/"><img alt="Updates" src="https://pyup.io/repos/github/JustinGOSSES/predictatops/shield.svg" /></a>
 </div>
 </div>
@@ -196,8 +194,14 @@
 <h2>Docs<a class="headerlink" href="#docs" title="Permalink to this headline">¶</a></h2>
 <p>Can be found <a class="reference external" href="https://justingosses.github.io/predictatops/html/index.html/">here</a>..</p>
 </div>
+<div class="section" id="previous-development">
+<h2>Previous Development<a class="headerlink" href="#previous-development" title="Permalink to this headline">¶</a></h2>
+<p>Development was in <a class="reference external" href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon.html/">this repo, MannvilleGroup_Strat_Hackathon</a>. but is now moved here in a cleaner and modulized format. This project is under active development. This is a nights and weekend side project, but will continue to be developed. Pull requests welcome!</p>
+</div>
 <div class="section" id="philosophy">
 <h2>Philosophy<a class="headerlink" href="#philosophy" title="Permalink to this headline">¶</a></h2>
+<p>This code is the subject of an <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/AAPG_Abstract_2019ACE.md/">abstract</a> submitted to the AAPG ACE convention in 2019.</p>
+<p>The <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/docs/ACE2019_Gosses_theme8_StratigraphicTopML_201905018_submitted.pdf/">slides</a>  presented at AAPG ACE 2019 are available in PDF form. They give an introduction to the theory and thought process behind Predictatops.</p>
 <p>In human-generated stratigraphic correlations there is often talk of lithostratigraphy vs. chronostratigraphy. We propose there is a weak analogy between lithostratigraphy and chronostratigraphy and different methods of computer assisted stratigraphy.</p>
 <p>Historically, many papers that attempted to use code to correlate well logs either assumed there was a mathematical or pattern basis for stratigraphic surfaces that can be teased out of individual logs or one could measured differences in curve patterns between neighboring wells. These workflows share some characteristics with lithostratigraphy in terms of their reliance of matching curve shapes and assumption that changes in lithology are equivelant to stratigraphy, at least at distances equal or greater than well to well distances.</p>
 <p>In contrast, chronostratigraphy assumes lithology can equate to facies belts that can fluctuate gradually in space over time resulting in two wells having similar lithology patterns in different time packages. Traditional chronostratigraphy relies on models of how facies belts should change in space when not otherwise constrained by biostratigraphy, chemostratigraphy, or radiometric dating.</p>
@@ -298,10 +302,6 @@ Mandetory ones will have (m). Option ones denoted by a (o).</p>
 <li><p><strong>Results</strong> = Intermediate and final results will be written by default to directories and files inside this directory as established in the output function of configurationplusfiles.py.</p></li>
 <li><p><strong>Tests</strong> = Place to put code the runs tests.</p></li>
 </ul>
-</div>
-<div class="section" id="credits">
-<h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
-<p>Please see credits in the docs <a class="reference external" href="https://justingosses.github.io/predictatops/html/authors.html">here</a>.</p>
 </div>
 </div>
 

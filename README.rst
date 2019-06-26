@@ -10,19 +10,16 @@ Code for stratigraphic pick prediction via supervised machine-learning
 .. image:: Yale-Peabody-Triceratops-004Trp.png
    :width: 512pt
 
-`MIT License
-<https://github.com/JustinGOSSES/predictatops/blob/master/LICENSE/>`_.
+.. image:: https://img.shields.io/badge/License-MIT-green.svg
+   :target: https://github.com/JustinGOSSES/predictatops/blob/master/LICENSE/
+   :alt: MIT License
 
+
+.. image:: https://zenodo.org/badge/151658252.svg
+        :target: https://zenodo.org/badge/latestdoi/151658252
+        :alt: DOI
 
 This repository has a https://zenodo.org/record/2642860 but be aware the repository on github is ahead of the DOI'd version.
-
-This code is the subject of an `abstract
-<https://github.com/JustinGOSSES/predictatops/blob/master/AAPG_Abstract_2019ACE.md
-/>`_. for a `talk
-<https://www.abstractsonline.com/pp8/#!/6795/presentation/3405/>`_. that will be given at AAPG ACE 2019. 
-
-Development was in `this repo, MannvilleGroup_Strat_Hackathon
-<https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon.html/>`_. but is now moving here as the code gets cleaned and modulized. This project is under active development. A few portions of the code still only exist on MannvilleGroup_Strat_Hackathon repo at this time. This is a nights and weekend side project, but will continue to be developed by the main developer.
 
 
 [these are in progress]
@@ -35,10 +32,6 @@ Development was in `this repo, MannvilleGroup_Strat_Hackathon
         :target: https://travis-ci.org/JustinGOSSES/predictatops
         :alt: Travis Status
 
-.. image:: https://readthedocs.org/projects/predictatops/badge/?version=latest
-        :target: https://predictatops.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
-
 .. image:: https://pyup.io/repos/github/JustinGOSSES/predictatops/shield.svg
      :target: https://pyup.io/repos/github/JustinGOSSES/predictatops/
      :alt: Updates
@@ -50,9 +43,23 @@ Can be found `here
 <https://justingosses.github.io/predictatops/html/index.html/>`_..
 
 
+====================
+Previous Development
+====================
+
+Development was in `this repo, MannvilleGroup_Strat_Hackathon
+<https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon.html/>`_. but is now moved here in a cleaner and modulized format. This project is under active development. This is a nights and weekend side project, but will continue to be developed. Pull requests welcome!
+
 ==============
 Philosophy
 ==============
+
+
+This code is the subject of an `abstract
+<https://github.com/JustinGOSSES/predictatops/blob/master/AAPG_Abstract_2019ACE.md/>`_ submitted to the AAPG ACE convention in 2019.
+
+The `slides
+<https://github.com/JustinGOSSES/predictatops/blob/master/docs/ACE2019_Gosses_theme8_StratigraphicTopML_201905018_submitted.pdf/>`_  presented at AAPG ACE 2019 are available in PDF form. They give an introduction to the theory and thought process behind Predictatops.
 
 In human-generated stratigraphic correlations there is often talk of lithostratigraphy vs. chronostratigraphy. We propose there is a weak analogy between lithostratigraphy and chronostratigraphy and different methods of computer assisted stratigraphy. 
 
@@ -134,10 +141,4 @@ Folder Structures
 - **Results** = Intermediate and final results will be written by default to directories and files inside this directory as established in the output function of configurationplusfiles.py.
 - **Tests** = Place to put code the runs tests.
 
-==============
-Credits
-==============
-
-Please see credits in the docs `here 
-<https://justingosses.github.io/predictatops/html/authors.html>`_.
 
