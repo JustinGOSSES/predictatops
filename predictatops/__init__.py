@@ -3,9 +3,8 @@
 """Top-level package for predictatops."""
 
 __author__ = """Justin Gosses"""
-__email__ = 'jgosses82@gmail.com'
-__version__ = '0.0.3'
-
+__email__ = "jgosses82@gmail.com"
+__version__ = "0.0.3"
 
 
 print("run from __init__.py in source folder for this package")
@@ -32,4 +31,3 @@ print("run from __init__.py in source folder for this package")
 # import predictionclasses_runner
 # import plot
 # import plot_runner
-

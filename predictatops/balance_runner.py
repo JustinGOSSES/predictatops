@@ -54,11 +54,12 @@ from configurationplusfiles_runner import input_data_inst, config, output_data_i
 # pd.options.display.max_colwidth = 100000
 
 
-
 ################# LOAD DATA RESULTS FROM FEATURE CREATION STEP PREVIOUSLY ##############
 features_df_results = get_features_df_results(output_data_inst)
 
-df_all_Col_train_noRebalance, df_all_Col_test = takeInDFandSplitIntoTrainTestDF(features_df_results,config)
+df_all_Col_train_noRebalance, df_all_Col_test = takeInDFandSplitIntoTrainTestDF(
+    features_df_results, config
+)
 
 
 ##### Rebalance class, aka label, populations to deal with lopsided class populations
@@ -68,29 +69,41 @@ df_all_Col_train_noRebalance, df_all_Col_test = takeInDFandSplitIntoTrainTestDF(
 
 class_array_NearPick = getListOfKeysForZonesObj(config)
 
-test_df_return = countRowsByClassOfNearPickOrNot(df_all_Col_test,class_array_NearPick,2,0)
+test_df_return = countRowsByClassOfNearPickOrNot(
+    df_all_Col_test, class_array_NearPick, 2, 0
+)
 
 #### prints some info for checking the populations of the classes
-df_all_Col_preSplit_wTrainTest_ClassBalanced = dropsRowsWithMatchClassAndDeptRemainderIsZero(df_all_Col_train_noRebalance,'class_DistFrPick_TopTarget',7,0)
+df_all_Col_preSplit_wTrainTest_ClassBalanced = dropsRowsWithMatchClassAndDeptRemainderIsZero(
+    df_all_Col_train_noRebalance, "class_DistFrPick_TopTarget", 7, 0
+)
 
 #### prints some info for checking the populations of the classes
 df_all_Col_preSplit_wTrainTest_ClassBalanced.info()
 
 #### now we duplicate some rows for the class that wasn't well populated.
 ## df_all_Col_preSplit_wTrainTest_ClassBalanced2 = addsRowsToBalanceClasses(df_all_Col_preSplit_wTrainTest_ClassBalanced,50,10)
-df_all_Col_preSplit_wTrainTest_ClassBalanced2 = addsRowsToBalanceClasses(df_all_Col_preSplit_wTrainTest_ClassBalanced,config.rebalanceClassZeroMultiplier ,config.rebalanceClass95Multiplier)
+df_all_Col_preSplit_wTrainTest_ClassBalanced2 = addsRowsToBalanceClasses(
+    df_all_Col_preSplit_wTrainTest_ClassBalanced,
+    config.rebalanceClassZeroMultiplier,
+    config.rebalanceClass95Multiplier,
+)
 
 #### Prints some status on : findNumberOfEachClass
-findNumberOfEachClass(df_all_Col_preSplit_wTrainTest_ClassBalanced2,'class_DistFrPick_TopTarget')
+findNumberOfEachClass(
+    df_all_Col_preSplit_wTrainTest_ClassBalanced2, "class_DistFrPick_TopTarget"
+)
 print(len(df_all_Col_preSplit_wTrainTest_ClassBalanced2))
 
 print(df_all_Col_preSplit_wTrainTest_ClassBalanced2.info())
 
-df_all_Col_preSplit_wTrainTest_ClassBalanced = df_all_Col_preSplit_wTrainTest_ClassBalanced2
+df_all_Col_preSplit_wTrainTest_ClassBalanced = (
+    df_all_Col_preSplit_wTrainTest_ClassBalanced2
+)
 
 #### printing a list of all the columns that we will use further down.
 col_list = list(df_all_Col_preSplit_wTrainTest_ClassBalanced.columns)
-print("col_list in module balance_runner.py",col_list)
+print("col_list in module balance_runner.py", col_list)
 
 
 #### We'll now exclude two lists of columns before going further! ##############3
@@ -101,25 +114,39 @@ columns_to_not_trainOn_andAreCurves = config.columns_to_not_trainOn_andAreCurves
 
 ############ Next few lines to combine the two lists above and take those columns out of dataframe ###########
 
-training_feats_w_lowCount  = config.columns_to_not_trainOn_andAreCurves
+training_feats_w_lowCount = config.columns_to_not_trainOn_andAreCurves
 takeOutColumnsNotCurvesList = config.columns_to_not_trainOn_andNotCurves
 
-df_train_featWithHighCount = takeOutColNotNeededInTrainingDF(df_all_Col_preSplit_wTrainTest_ClassBalanced,col_list,training_feats_w_lowCount,takeOutColumnsNotCurvesList)
+df_train_featWithHighCount = takeOutColNotNeededInTrainingDF(
+    df_all_Col_preSplit_wTrainTest_ClassBalanced,
+    col_list,
+    training_feats_w_lowCount,
+    takeOutColumnsNotCurvesList,
+)
 
 
-print("list(df_train_featWithHighCount.columns) - Are these columns we want to continue having for training?",list(df_train_featWithHighCount.columns))
-print("len(df_train_featWithHighCount.columns)",len(df_train_featWithHighCount.columns))
+print(
+    "list(df_train_featWithHighCount.columns) - Are these columns we want to continue having for training?",
+    list(df_train_featWithHighCount.columns),
+)
+print(
+    "len(df_train_featWithHighCount.columns)", len(df_train_featWithHighCount.columns)
+)
 
 ## df_train_featWithHighCount.describe()
 
 used_features = list(df_train_featWithHighCount.columns)
 
-########### Now let's take out those same columns in the test only dataframe ########### 
+########### Now let's take out those same columns in the test only dataframe ###########
 
-df_test_featWithHighCount = takeOutColNotNeededInTrainingDF(df_all_Col_test,col_list,training_feats_w_lowCount,takeOutColumnsNotCurvesList)
+df_test_featWithHighCount = takeOutColNotNeededInTrainingDF(
+    df_all_Col_test, col_list, training_feats_w_lowCount, takeOutColumnsNotCurvesList
+)
 
 ########### Now let's combine the rebalanced train df with the unrebalanced test df to make a df we will then split into 4 pieces: train-data, train-labels, test-data,test-lables ##########
-df_testPlusRebalTrain_featWithHighCount = combineRebalancedTrainDFWithUnrebalancedTestDF(df_train_featWithHighCount,df_test_featWithHighCount)
+df_testPlusRebalTrain_featWithHighCount = combineRebalancedTrainDFWithUnrebalancedTestDF(
+    df_train_featWithHighCount, df_test_featWithHighCount
+)
 
 
 ######## Identify which columns to use as labels ########
@@ -132,8 +159,10 @@ df_testPlusRebalTrain_featWithHighCount = combineRebalancedTrainDFWithUnrebalanc
 
 # The function used to make these classes or lables as column was: df_all_wells_wKNN_DEPTHtoDEPT['cat_isTopMcMrNearby_known']=df_all_wells_wKNN_DEPTHtoDEPT['diff_TMcM_Pick_v_DEPT'].apply(lambda x: 100 if x==0 else ( 95 if (-0.5 < x and x <0.5) else 60 if (-5 < x and x <5) else 0))
 
-df_testPlusRebalTrain_featWithHighCount['class_DistFrPick_TopTarget'].unique()
-labels = df_testPlusRebalTrain_featWithHighCount[['class_DistFrPick_TopTarget','UWI','trainOrTest','TopTarget_DEPTH']]
+df_testPlusRebalTrain_featWithHighCount["class_DistFrPick_TopTarget"].unique()
+labels = df_testPlusRebalTrain_featWithHighCount[
+    ["class_DistFrPick_TopTarget", "UWI", "trainOrTest", "TopTarget_DEPTH"]
+]
 
 labels.head()
 
@@ -142,14 +171,14 @@ labels.tail()
 len(labels)
 
 
-#df_testPlusRebalTrain_featWithHighCount['class_DistFrPick_TopTarget'].unique()
+# df_testPlusRebalTrain_featWithHighCount['class_DistFrPick_TopTarget'].unique()
 
-#columns_to_use_as_labels = config.columns_to_use_as_labels  ##### ['class_DistFrPick_TopTarget','UWI','trainOrTest','TopTarget_DEPTH']
+# columns_to_use_as_labels = config.columns_to_use_as_labels  ##### ['class_DistFrPick_TopTarget','UWI','trainOrTest','TopTarget_DEPTH']
 
 ##### Get dataframe of just the labels!  ###########
-#labels = df_testPlusRebalTrain_featWithHighCount[columns_to_use_as_labels]
+# labels = df_testPlusRebalTrain_featWithHighCount[columns_to_use_as_labels]
 
-labels = makeDFofJustLabels(df_testPlusRebalTrain_featWithHighCount,config)
+labels = makeDFofJustLabels(df_testPlusRebalTrain_featWithHighCount, config)
 
 
 ##############     Now separate into 4 dataframes =    ###########
@@ -158,10 +187,21 @@ labels = makeDFofJustLabels(df_testPlusRebalTrain_featWithHighCount,config)
 # test_labels
 # test_feat
 
-df_testPlusRebalTrain_featWithHighCount, train_X, train_y, test_X, test_y, train_index, test_index = make4separateDF(labels,df_testPlusRebalTrain_featWithHighCount,config)
+df_testPlusRebalTrain_featWithHighCount, train_X, train_y, test_X, test_y, train_index, test_index = make4separateDF(
+    labels, df_testPlusRebalTrain_featWithHighCount, config
+)
 
 # Then take off UWI and TrainTest col <= check that this was done??????
 
 
 #### Save Results to Locatino Established in : output_data_inst
-saveRebalanceResultsAsHDF(df_testPlusRebalTrain_featWithHighCount, train_X, train_y, test_X, test_y, train_index, test_index, output_data_inst)
+saveRebalanceResultsAsHDF(
+    df_testPlusRebalTrain_featWithHighCount,
+    train_X,
+    train_y,
+    test_X,
+    test_y,
+    train_index,
+    test_index,
+    output_data_inst,
+)
