@@ -163,87 +163,89 @@
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
 
-
-
 <span class="c1">########## imports ########</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">folium</span>
-<span class="c1">#print(folium.__version__)</span>
+
+<span class="c1"># print(folium.__version__)</span>
 <span class="kn">import</span> <span class="nn">branca.colormap</span> <span class="k">as</span> <span class="nn">cm</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">math</span>
-<span class="c1">#env = %env</span>
-<span class="c1">#pd.set_option(&#39;display.max_rows&#39;, 2000)</span>
+
+<span class="c1"># env = %env</span>
+<span class="c1"># pd.set_option(&#39;display.max_rows&#39;, 2000)</span>
 
 <span class="n">center2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">54.840471</span><span class="p">,</span> <span class="o">-</span><span class="mf">110.269399</span><span class="p">]</span>
 <span class="n">zoom2</span> <span class="o">=</span> <span class="mi">6</span>
 
 
 <span class="n">linear2</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">LinearColormap</span><span class="p">(</span>
-    <span class="p">[</span><span class="s1">&#39;#edf8b1&#39;</span><span class="p">,</span><span class="s1">&#39;#7fcdbb&#39;</span><span class="p">,</span><span class="s1">&#39;#2c7fb8&#39;</span><span class="p">,</span><span class="s1">&#39;#273891&#39;</span><span class="p">],</span>
-    <span class="n">vmin</span><span class="o">=-</span><span class="mi">100</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">75</span>
+    <span class="p">[</span><span class="s2">&quot;#edf8b1&quot;</span><span class="p">,</span> <span class="s2">&quot;#7fcdbb&quot;</span><span class="p">,</span> <span class="s2">&quot;#2c7fb8&quot;</span><span class="p">,</span> <span class="s2">&quot;#273891&quot;</span><span class="p">],</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">100</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">75</span>
 <span class="p">)</span>
 
 
-
 <div class="viewcode-block" id="depth_color"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.map.depth_color">[docs]</a><span class="k">def</span> <span class="nf">depth_color</span><span class="p">(</span><span class="n">depth</span><span class="p">):</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">depth</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">depth</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; math.isnan(depth) =&gt; &quot;</span><span class="p">,</span> <span class="n">depth</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s1">&#39;blue&#39;</span>
+        <span class="k">return</span> <span class="s2">&quot;blue&quot;</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">depth</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">depth</span> <span class="o">&gt;=</span> <span class="mi">50</span><span class="p">:</span>
-            <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#3182bd&#39;</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;#3182bd&quot;</span>
         <span class="k">elif</span> <span class="n">depth</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="ow">and</span> <span class="n">depth</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
-            <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#9ecae1&#39;</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;#9ecae1&quot;</span>
         <span class="k">elif</span> <span class="n">depth</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">10</span> <span class="ow">and</span> <span class="n">depth</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
-            <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span>
         <span class="k">elif</span> <span class="n">depth</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">50</span> <span class="ow">and</span> <span class="n">depth</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">10</span><span class="p">:</span>
-            <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#ffeda0&#39;</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;#ffeda0&quot;</span>
         <span class="k">elif</span> <span class="n">depth</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">150</span> <span class="ow">and</span> <span class="n">depth</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">50</span><span class="p">:</span>
-            <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#feb24c&#39;</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;#feb24c&quot;</span>
         <span class="k">elif</span> <span class="n">depth</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">300</span> <span class="ow">and</span> <span class="n">depth</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">150</span><span class="p">:</span>
-            <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#f03b20&#39;</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;#f03b20&quot;</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span>
     <span class="k">return</span> <span class="n">color</span></div>
 
 
-
-<div class="viewcode-block" id="depth_color3"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.map.depth_color3">[docs]</a><span class="k">def</span> <span class="nf">depth_color3</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span><span class="n">colorMap</span><span class="p">):</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">depth</span><span class="p">)):</span>
+<div class="viewcode-block" id="depth_color3"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.map.depth_color3">[docs]</a><span class="k">def</span> <span class="nf">depth_color3</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">colorMap</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">depth</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;!!!!!!!!!!!!!!!!!!!!  &#39; &#39;  or nan is in depth =&gt; &quot;</span><span class="p">,</span> <span class="n">depth</span><span class="p">)</span>
-        <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#000000&#39;</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;#000000&quot;</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">depth</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;depth in colormap 3&quot;</span><span class="p">,</span><span class="n">depth</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;depth in colormap 3&quot;</span><span class="p">,</span> <span class="n">depth</span><span class="p">)</span>
         <span class="n">color</span> <span class="o">=</span> <span class="n">colorMap</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
-        
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;color = &quot;</span><span class="p">,</span><span class="n">color</span><span class="p">)</span>    
-    <span class="k">return</span> <span class="n">color</span></div>
 
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;color = &quot;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">color</span></div>
 
 
 <div class="viewcode-block" id="makeMap_1"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.map.makeMap_1">[docs]</a><span class="k">def</span> <span class="nf">makeMap_1</span><span class="p">(</span><span class="n">no_zeros_df</span><span class="p">):</span>
-    <span class="n">m5</span> <span class="o">=</span> <span class="n">folium</span><span class="o">.</span><span class="n">Map</span><span class="p">(</span><span class="n">center2</span><span class="p">,</span> <span class="n">tiles</span><span class="o">=</span><span class="s1">&#39;Stamen Toner&#39;</span><span class="p">,</span> <span class="n">zoom_start</span><span class="o">=</span><span class="n">zoom2</span><span class="p">)</span>
+    <span class="n">m5</span> <span class="o">=</span> <span class="n">folium</span><span class="o">.</span><span class="n">Map</span><span class="p">(</span><span class="n">center2</span><span class="p">,</span> <span class="n">tiles</span><span class="o">=</span><span class="s2">&quot;Stamen Toner&quot;</span><span class="p">,</span> <span class="n">zoom_start</span><span class="o">=</span><span class="n">zoom2</span><span class="p">)</span>
     <span class="n">list_df_for_map</span> <span class="o">=</span> <span class="n">no_zeros_df</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
     <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">list_df_for_map</span><span class="p">[</span><span class="mi">0</span><span class="p">:]:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;location = &quot;</span><span class="p">,</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span><span class="s2">&quot; and depth is&quot;</span><span class="p">,</span><span class="n">row</span><span class="p">[</span><span class="mi">12</span><span class="p">:</span><span class="mi">13</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot; and UWI is &quot;</span><span class="p">,</span><span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;location = &quot;</span><span class="p">,</span>
+            <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span>
+            <span class="s2">&quot; and depth is&quot;</span><span class="p">,</span>
+            <span class="n">row</span><span class="p">[</span><span class="mi">12</span><span class="p">:</span><span class="mi">13</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+            <span class="s2">&quot; and UWI is &quot;</span><span class="p">,</span>
+            <span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+        <span class="p">)</span>
         <span class="n">folium</span><span class="o">.</span><span class="n">CircleMarker</span><span class="p">(</span>
-        <span class="n">location</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span>
-        <span class="n">radius</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-        <span class="n">color</span><span class="o">=</span><span class="n">depth_color</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">13</span><span class="p">:</span><span class="mi">14</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span>
-        <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="c1">#     popup=folium.Popup(str(row[9:10][0])+ &quot; &amp; depth Top McMurray=&quot;, parse_html=True)    </span>
-    <span class="c1">#     popup=folium.Popup(str(row[9:10][0]+ &quot;, depth Top McMurray=&quot;+str(row[15:16][0])), parse_html=True)</span>
+            <span class="n">location</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span>
+            <span class="n">radius</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">depth_color</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">13</span><span class="p">:</span><span class="mi">14</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span>
+            <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="c1">#     popup=folium.Popup(str(row[9:10][0])+ &quot; &amp; depth Top McMurray=&quot;, parse_html=True)</span>
+            <span class="c1">#     popup=folium.Popup(str(row[9:10][0]+ &quot;, depth Top McMurray=&quot;+str(row[15:16][0])), parse_html=True)</span>
         <span class="p">)</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="n">m5</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">m5</span></div>
 
 
-
 <div class="viewcode-block" id="saveFoliumMap"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.map.saveFoliumMap">[docs]</a><span class="k">def</span> <span class="nf">saveFoliumMap</span><span class="p">(</span><span class="n">map_m5</span><span class="p">):</span>
-    <span class="n">map_m5</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;MM_Top_Depth_Real_v_predBy_NN1thick_v2.html&#39;</span><span class="p">))</span></div>
+    <span class="n">map_m5</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;MM_Top_Depth_Real_v_predBy_NN1thick_v2.html&quot;</span><span class="p">))</span></div>
 </pre></div>
 
            </div>

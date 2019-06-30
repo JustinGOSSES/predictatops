@@ -166,6 +166,7 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
+
 <span class="c1"># import matplotlib.pyplot as plt</span>
 <span class="c1"># %matplotlib inline</span>
 <span class="kn">import</span> <span class="nn">welly</span>
@@ -173,6 +174,7 @@
 <span class="kn">import</span> <span class="nn">lasio</span>
 <span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">math</span>
+
 <span class="c1">#### Dask is used here to slightly improve speed of loading. This needs further refined to work well but kept in for now.</span>
 <span class="kn">import</span> <span class="nn">dask</span>
 <span class="kn">import</span> <span class="nn">dask.dataframe</span> <span class="k">as</span> <span class="nn">dd</span>
@@ -181,7 +183,6 @@
 <span class="kn">from</span> <span class="nn">dask</span> <span class="k">import</span> <span class="n">compute</span>
 <span class="kn">import</span> <span class="nn">dask.dataframe</span> <span class="k">as</span> <span class="nn">dd</span>
 <span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="k">import</span> <span class="n">Client</span>
-
 
 
 <span class="c1">##### Classes #####</span>
@@ -195,68 +196,80 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">formatted_well_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">eachW</span> <span class="ow">in</span> <span class="n">well_list</span><span class="p">:</span>
-        <span class="n">formatted_well_list</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;UWI_file&quot;</span><span class="p">:</span><span class="n">eachW</span><span class="p">})</span>
+        <span class="n">formatted_well_list</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;UWI_file&quot;</span><span class="p">:</span> <span class="n">eachW</span><span class="p">})</span>
     <span class="n">wells_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">formatted_well_list</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">wells_df</span></div>
 
 
-<div class="viewcode-block" id="find_number_well_files_in_a_folder"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.load.find_number_well_files_in_a_folder">[docs]</a><span class="k">def</span> <span class="nf">find_number_well_files_in_a_folder</span><span class="p">(</span><span class="n">path_to_wells</span><span class="p">,</span><span class="n">file_ending</span><span class="p">):</span>
+<div class="viewcode-block" id="find_number_well_files_in_a_folder"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.load.find_number_well_files_in_a_folder">[docs]</a><span class="k">def</span> <span class="nf">find_number_well_files_in_a_folder</span><span class="p">(</span><span class="n">path_to_wells</span><span class="p">,</span> <span class="n">file_ending</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Takes in: a path to a directory and a file ending we&#39;re searching for</span>
 <span class="sd">    Returns: the number  of files in that directory withe that file ending</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">path_to_all_wells</span> <span class="o">=</span> <span class="n">path_to_wells</span><span class="o">+</span><span class="s2">&quot;*&quot;</span><span class="o">+</span><span class="n">file_ending</span>
+    <span class="n">path_to_all_wells</span> <span class="o">=</span> <span class="n">path_to_wells</span> <span class="o">+</span> <span class="s2">&quot;*&quot;</span> <span class="o">+</span> <span class="n">file_ending</span>
     <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">path_to_all_wells</span><span class="p">):</span>
         <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="n">count</span></div>
 
-<div class="viewcode-block" id="load_all_wells_in"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.load.load_all_wells_in">[docs]</a><span class="k">def</span> <span class="nf">load_all_wells_in</span><span class="p">(</span><span class="n">wells_df</span><span class="p">,</span><span class="n">max_numb_wells</span><span class="p">,</span><span class="n">path_to_wells</span><span class="p">,</span><span class="n">file_ending</span><span class="p">):</span>
+
+<div class="viewcode-block" id="load_all_wells_in"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.load.load_all_wells_in">[docs]</a><span class="k">def</span> <span class="nf">load_all_wells_in</span><span class="p">(</span><span class="n">wells_df</span><span class="p">,</span> <span class="n">max_numb_wells</span><span class="p">,</span> <span class="n">path_to_wells</span><span class="p">,</span> <span class="n">file_ending</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Takes in: a dataframe of well names called wells_df, the max number of wells if we&#39;re doing testing and don&#39;t want to bother with all the wells, path to directory with well files, and file ending for well files, like .LAS.</span>
 <span class="sd">    Returns: A list with two dicts. One of successfully imported wells, the other with wells that failed to import for various reasons. This then further processed by turn_dict_of_well_dfs_to_single_df() in the next step.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1">#### NOTE: limiting wells being read-in to a max number of wells here !!!!!!!!!!!!!!!!</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;note: the loadAndNoFeatures function in load.py does a data transformation to the UWI that may not be applicable to your dataset!&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;note: the loadAndNoFeatures function in load.py does a data transformation to the UWI that may not be applicable to your dataset!&quot;</span>
+    <span class="p">)</span>
     <span class="c1"># print(&quot;example well UWI&quot;,wells_df[&quot;UWI_file&quot;][0])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;example ,wells_df&quot;</span><span class="p">,</span><span class="n">wells_df</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;example ,wells_df&quot;</span><span class="p">,</span> <span class="n">wells_df</span><span class="p">)</span>
     <span class="n">count_limit</span> <span class="o">=</span> <span class="n">max_numb_wells</span>
-    <span class="n">count</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">list_of_failed_wells</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="c1">### dictionary that holds every well as key:value or &quot;UWI&quot;:df pair</span>
-    <span class="n">df_w_dict</span> <span class="o">=</span><span class="p">{}</span>
+    <span class="n">df_w_dict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">number_of_las</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">path_to_wells</span><span class="o">+</span><span class="s2">&quot;*&quot;</span><span class="o">+</span><span class="n">file_ending</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">path_to_wells</span> <span class="o">+</span> <span class="s2">&quot;*&quot;</span> <span class="o">+</span> <span class="n">file_ending</span><span class="p">):</span>
         <span class="n">number_of_las</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">count</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="n">count_limit</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hit limit of count below file for loop, count is =&quot;</span><span class="p">,</span><span class="n">count</span><span class="p">)</span>
-            <span class="n">answer</span> <span class="o">=</span> <span class="p">[</span><span class="n">df_w_dict</span><span class="p">,</span><span class="n">list_of_failed_wells</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hit limit of count below file for loop, count is =&quot;</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
+            <span class="n">answer</span> <span class="o">=</span> <span class="p">[</span><span class="n">df_w_dict</span><span class="p">,</span> <span class="n">list_of_failed_wells</span><span class="p">]</span>
             <span class="k">return</span> <span class="n">answer</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1">#### Load each well as a pandas dataframe using LASIO, delay compute for parallalism using dask delayed</span>
-            <span class="c1">#l_df = delayed(lasio.read)(file).df()</span>
+            <span class="c1"># l_df = delayed(lasio.read)(file).df()</span>
             <span class="n">l_df</span> <span class="o">=</span> <span class="n">lasio</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
             <span class="c1"># str_uwi= file[-23:-4].replace(&quot;-&quot;, &quot;/&quot;,1)[:17]+file[-6:-4].replace(&quot;-&quot;, &quot;/&quot;,1)</span>
-            <span class="n">file</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">path_to_wells</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="n">str_uwi</span> <span class="o">=</span> <span class="n">file</span><span class="p">[</span><span class="o">-</span><span class="mi">23</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">][:</span><span class="mi">17</span><span class="p">]</span><span class="o">+</span><span class="n">file</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="o">+</span><span class="n">file_ending</span>
-            
-            <span class="nb">print</span><span class="p">(</span><span class="n">str_uwi</span><span class="p">,</span> <span class="s2">&quot;is str_uwi and &quot;</span><span class="p">,</span><span class="n">wells_df</span><span class="o">.</span><span class="n">wells</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;is a wells_df.UWI_file[0]&quot;</span><span class="p">)</span>
-            <span class="c1">#if str(str_uwi) isin wells_df.wells:</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">path_to_wells</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">str_uwi</span> <span class="o">=</span> <span class="n">file</span><span class="p">[</span><span class="o">-</span><span class="mi">23</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">][:</span><span class="mi">17</span><span class="p">]</span> <span class="o">+</span> <span class="n">file</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="n">file_ending</span>
+
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="n">str_uwi</span><span class="p">,</span>
+                <span class="s2">&quot;is str_uwi and &quot;</span><span class="p">,</span>
+                <span class="n">wells_df</span><span class="o">.</span><span class="n">wells</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="s2">&quot;is a wells_df.UWI_file[0]&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="c1"># if str(str_uwi) isin wells_df.wells:</span>
             <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">wells_df</span><span class="o">.</span><span class="n">wells</span> <span class="o">==</span> <span class="n">str_uwi</span><span class="p">):</span>
                 <span class="n">l_df</span> <span class="o">=</span> <span class="n">l_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-                <span class="n">df_w_dict</span><span class="p">[</span><span class="n">str_uwi</span><span class="p">]</span><span class="o">=</span> <span class="n">l_df</span>
+                <span class="n">df_w_dict</span><span class="p">[</span><span class="n">str_uwi</span><span class="p">]</span> <span class="o">=</span> <span class="n">l_df</span>
             <span class="k">else</span><span class="p">:</span>
-                
-                <span class="n">list_of_failed_wells</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">str_uwi</span><span class="p">)</span>
-                <span class="c1">#print(&quot;could not find UWI match for the well, and well is &quot;,str_uwi,file)            </span>
-    <span class="c1">#l_df = l_df.compute()</span>
-    <span class="n">answer</span> <span class="o">=</span> <span class="p">[</span><span class="n">df_w_dict</span><span class="p">,</span><span class="n">list_of_failed_wells</span><span class="p">]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;number of las files=&quot;</span><span class="p">,</span><span class="n">number_of_las</span><span class="p">,</span><span class="s2">&quot; and number of count=&quot;</span><span class="p">,</span><span class="n">count</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;number of read wells&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">df_w_dict</span><span class="p">),</span><span class="s2">&quot; number of wells not read as they don&#39;t have needed tops or curves or could not be read is &quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">list_of_failed_wells</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">answer</span></div>
 
+                <span class="n">list_of_failed_wells</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">str_uwi</span><span class="p">)</span>
+                <span class="c1"># print(&quot;could not find UWI match for the well, and well is &quot;,str_uwi,file)</span>
+    <span class="c1"># l_df = l_df.compute()</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="p">[</span><span class="n">df_w_dict</span><span class="p">,</span> <span class="n">list_of_failed_wells</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;number of las files=&quot;</span><span class="p">,</span> <span class="n">number_of_las</span><span class="p">,</span> <span class="s2">&quot; and number of count=&quot;</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;number of read wells&quot;</span><span class="p">,</span>
+        <span class="nb">len</span><span class="p">(</span><span class="n">df_w_dict</span><span class="p">),</span>
+        <span class="s2">&quot; number of wells not read as they don&#39;t have needed tops or curves or could not be read is &quot;</span><span class="p">,</span>
+        <span class="nb">len</span><span class="p">(</span><span class="n">list_of_failed_wells</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">answer</span></div>
 
 
 <div class="viewcode-block" id="turn_dict_of_well_dfs_to_single_df"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.load.turn_dict_of_well_dfs_to_single_df">[docs]</a><span class="k">def</span> <span class="nf">turn_dict_of_well_dfs_to_single_df</span><span class="p">(</span><span class="n">dictOfWellDf</span><span class="p">):</span>
@@ -273,7 +286,7 @@
     <span class="c1"># go through each item in values and add to a list</span>
     <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
-        <span class="n">each</span><span class="p">[</span><span class="s1">&#39;UWI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="n">count</span><span class="p">]</span>
+        <span class="n">each</span><span class="p">[</span><span class="s2">&quot;UWI&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="n">count</span><span class="p">]</span>
         <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="n">list_of_df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
     <span class="c1"># concat the list into a single dataframe</span>

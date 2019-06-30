@@ -176,6 +176,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
 <span class="c1">#%matplotlib inline</span>
 <span class="kn">import</span> <span class="nn">welly</span>
 <span class="kn">from</span> <span class="nn">welly</span> <span class="k">import</span> <span class="n">Well</span>
@@ -190,7 +191,7 @@
 
 
 <span class="c1">##### Classes</span>
-<div class="viewcode-block" id="input_data"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.input_data">[docs]</a><span class="k">class</span> <span class="nc">input_data</span><span class="p">():</span>
+<div class="viewcode-block" id="input_data"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.input_data">[docs]</a><span class="k">class</span> <span class="nc">input_data</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class object that holds paths and other information related to input data such as log files location, top files, well information files, etc.</span>
 <span class="sd">    </span>
@@ -204,57 +205,66 @@
 <span class="sd">            The path to the directory with all the well logs.</span>
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">picks_file_path</span><span class="p">,</span> <span class="n">picks_delimiter_str</span><span class="p">,</span><span class="n">path_to_logs_str</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">picks_file_path</span><span class="p">,</span> <span class="n">picks_delimiter_str</span><span class="p">,</span> <span class="n">path_to_logs_str</span><span class="p">):</span>
         <span class="c1">#### Default initiation = (&#39;../../../SPE_006_originalData/OilSandsDB/PICKS.TXT&#39;,&#39;\t&#39;,&#39;../../../SPE_006_originalData/OilSandsDB/Logs/*.LAS&#39;)</span>
         <span class="c1">#### Only things that are mandatory on initiation are below</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_directory</span> <span class="o">=</span> <span class="s1">&#39;../data/Mannville_input_data/v0.0.0-alpha/&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">picks_file_path</span> <span class="o">=</span> <span class="n">picks_file_path</span> <span class="c1">#### example = &#39;../../../SPE_006_originalData/OilSandsDB/PICKS.TXT&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_directory</span> <span class="o">=</span> <span class="s2">&quot;../data/Mannville_input_data/v0.0.0-alpha/&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">picks_file_path</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">picks_file_path</span>
+        <span class="p">)</span>  <span class="c1">#### example = &#39;../../../SPE_006_originalData/OilSandsDB/PICKS.TXT&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">picks_delimiter_str</span> <span class="o">=</span> <span class="n">picks_delimiter_str</span>  <span class="c1">#### example = &#39;\t&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">picks_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">picks_file_path</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="n">picks_delimiter_str</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">picks_dic</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_directory</span><span class="o">+</span><span class="s1">&#39;OilSandsDB/PICKS.TXT&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">picks_dic_file_path_delimiter</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logs_path_to_folder</span> <span class="o">=</span> <span class="n">path_to_logs_str</span> <span class="c1">#### example = &#39;../../../SPE_006_originalData/OilSandsDB/Logs/*.LAS&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">picks_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">picks_file_path</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="n">picks_delimiter_str</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">picks_dic</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_directory</span> <span class="o">+</span> <span class="s2">&quot;OilSandsDB/PICKS.TXT&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">picks_dic_file_path_delimiter</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logs_path_to_folder</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">path_to_logs_str</span>
+        <span class="p">)</span>  <span class="c1">#### example = &#39;../../../SPE_006_originalData/OilSandsDB/Logs/*.LAS&#39;</span>
         <span class="c1">#### non-mandatory attributes, defaults should work for the example dataset. Can be changed with set functions below</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">wells_file_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_directory</span><span class="o">+</span><span class="s1">&#39;OilSandsDB/WELLS.TXT&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">wells_file_path_delimiter</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wells_file_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_directory</span> <span class="o">+</span> <span class="s2">&quot;OilSandsDB/WELLS.TXT&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wells_file_path_delimiter</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">gis_file_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_directory</span><span class="o">+</span><span class="s1">&#39;well_lat_lng.csv&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gis_file_path_delimiter</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gis_file_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_directory</span> <span class="o">+</span> <span class="s2">&quot;well_lat_lng.csv&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gis_file_path_delimiter</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gis_lat_col</span> <span class="o">=</span> <span class="s2">&quot;lat&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gis_long_col</span> <span class="o">=</span> <span class="s2">&quot;lng&quot;</span>
-        <span class="c1">#wells_wTopsCuves_toLoad = &#39;WellNamesWithGivenTopsCurves_defaultFileName.pkl&#39;</span>
+        <span class="c1"># wells_wTopsCuves_toLoad = &#39;WellNamesWithGivenTopsCurves_defaultFileName.pkl&#39;</span>
         <span class="c1">#### for logs</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">las_folder_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_directory</span><span class="o">+</span><span class="s1">&#39;OilSandsDB/Logs/&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">well_format</span> <span class="o">=</span> <span class="s1">&#39;.LAS&#39;</span>
-        <span class="c1">#### Technically optional but often used. </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">las_folder_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_directory</span> <span class="o">+</span> <span class="s2">&quot;OilSandsDB/Logs/&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">well_format</span> <span class="o">=</span> <span class="s2">&quot;.LAS&quot;</span>
+        <span class="c1">#### Technically optional but often used.</span>
         <span class="c1">#### GIS file is mandatory if you want to use information from nearby wells or well&#39;s general location.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">wells_df</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gis_df</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="input_data.load_wells_file"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.input_data.load_wells_file">[docs]</a>    <span class="k">def</span> <span class="nf">load_wells_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; load wells file into pandas dataframe &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">wells_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wells_file_path</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wells_file_path_delimiter</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wells_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wells_file_path</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wells_file_path_delimiter</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wells_df</span></div>
-    
+
 <div class="viewcode-block" id="input_data.load_gis_file"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.input_data.load_gis_file">[docs]</a>    <span class="k">def</span> <span class="nf">load_gis_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; load wells file into pandas dataframe &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gis_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gis_file_path</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gis_file_path_delimiter</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gis_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gis_file_path</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gis_file_path_delimiter</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gis_df</span></div>
-        
-<div class="viewcode-block" id="input_data.set_wells_file_path"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.input_data.set_wells_file_path">[docs]</a>    <span class="k">def</span> <span class="nf">set_wells_file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">wells_file_path_str</span><span class="p">,</span><span class="n">wells_file_delimiter</span><span class="p">):</span>
+
+<div class="viewcode-block" id="input_data.set_wells_file_path"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.input_data.set_wells_file_path">[docs]</a>    <span class="k">def</span> <span class="nf">set_wells_file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wells_file_path_str</span><span class="p">,</span> <span class="n">wells_file_delimiter</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; set wells file path as attribute of object and returns wells data frame using load_well_file. Can be txt, tsv, or csv&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">wells_file_path</span> <span class="o">=</span> <span class="n">wells_file_path_str</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">wells_file_path_delimiter</span> <span class="o">=</span> <span class="n">wells_file_delimiter</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_wells_file</span><span class="p">()</span></div>
-    
-<div class="viewcode-block" id="input_data.set_gis_file_path"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.input_data.set_gis_file_path">[docs]</a>    <span class="k">def</span> <span class="nf">set_gis_file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">gis_file_path_str</span><span class="p">,</span><span class="n">gis_file_path_delimiter</span><span class="p">):</span>
+
+<div class="viewcode-block" id="input_data.set_gis_file_path"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.input_data.set_gis_file_path">[docs]</a>    <span class="k">def</span> <span class="nf">set_gis_file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gis_file_path_str</span><span class="p">,</span> <span class="n">gis_file_path_delimiter</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; set wells file path as attribute of object and returns wells data frame using load_well_file. Can be txt, tsv, or csv&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gis_file_path</span> <span class="o">=</span> <span class="n">gis_file_path_str</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gis_file_path_delimiter</span> <span class="o">=</span> <span class="n">gis_file_path_delimiter</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_gis_file</span><span class="p">()</span></div></div>
 
 
-<div class="viewcode-block" id="configuration"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration">[docs]</a><span class="k">class</span> <span class="nc">configuration</span><span class="p">():</span>
+<div class="viewcode-block" id="configuration"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration">[docs]</a><span class="k">class</span> <span class="nc">configuration</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class to keep configuration variables you might change between runs. That is why it has a large number of attributes listed below.</span>
 
@@ -339,28 +349,29 @@
 <span class="sd">        List of strings for columns to use as labels. Examples are= [&#39;class_DistFrPick_TopTarget&#39;,&#39;UWI&#39;,&#39;trainOrTest&#39;,&#39;TopTarget_DEPTH&#39;]</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1">#### intermediate files and paths</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">csv_of_well_names_wTopsCuves__name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">csv_of_well_names_wTopCurves__path</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">csv_of_well_names_wTopsCuves__name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">csv_of_well_names_wTopCurves__path</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span>
         <span class="c1">#### Choices</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">must_have_curves_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span> <span class="c1"># [&#39;ILD&#39;, &#39;NPHI&#39;, &#39;GR&#39;, &#39;DPHI&#39;, &#39;DEPT&#39;]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">curve_windows_for_rolling_features</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">21</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">must_have_tops__list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">13000</span><span class="p">,</span><span class="mi">14000</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">must_have_curves_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">]</span>  <span class="c1"># [&#39;ILD&#39;, &#39;NPHI&#39;, &#39;GR&#39;, &#39;DPHI&#39;, &#39;DEPT&#39;]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">curve_windows_for_rolling_features</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">21</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">must_have_tops__list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">13000</span><span class="p">,</span> <span class="mi">14000</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">target_top</span> <span class="o">=</span> <span class="mi">13000</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">top_under_target</span> <span class="o">=</span> <span class="mi">14000</span>
         <span class="c1">#### Column string names</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">top_name_col_in_picks_df</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> 
-        <span class="bp">self</span><span class="o">.</span><span class="n">siteID_col_in_picks_df</span> <span class="o">=</span> <span class="s1">&#39;SitID&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">top_name_col_in_picks_df</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">siteID_col_in_picks_df</span> <span class="o">=</span> <span class="s2">&quot;SitID&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">UWI</span> <span class="o">=</span> <span class="s2">&quot;UWI&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">DEPTH_col_in_featureCreation</span> <span class="o">=</span> <span class="s2">&quot;DEPT&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">HorID_name_col_in_picks_df</span> <span class="o">=</span> <span class="s2">&quot;HorID&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">quality_col_name_in_picks_df</span> <span class="o">=</span> <span class="s2">&quot;Quality&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">picks_depth_col_in_picks_df</span> <span class="o">=</span> <span class="s1">&#39;Pick&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">col_topTarget_Depth_predBy_NN1thick</span> <span class="o">=</span> <span class="s1">&#39;topTarget_Depth_predBy_NN1thick&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">quality_items_to_skip__list</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">picks_depth_col_in_picks_df</span> <span class="o">=</span> <span class="s2">&quot;Pick&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">col_topTarget_Depth_predBy_NN1thick</span> <span class="o">=</span> <span class="s2">&quot;topTarget_Depth_predBy_NN1thick&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quality_items_to_skip__list</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test</span> <span class="o">=</span> <span class="s2">&quot;test0&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pick_class_str</span> <span class="o">=</span> <span class="s1">&#39;TopTarget_Pick_pred&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pick_class_str</span> <span class="o">=</span> <span class="s2">&quot;TopTarget_Pick_pred&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">threshold_returnCurvesThatArePresentInThisManyWells</span> <span class="o">=</span> <span class="mi">2000</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_numb_wells_to_load</span> <span class="o">=</span> <span class="mi">1000000</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">split_traintest_percent</span> <span class="o">=</span> <span class="mf">0.8</span>
@@ -368,73 +379,134 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">kdtree_k</span> <span class="o">=</span> <span class="mi">8</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rebalanceClassZeroMultiplier</span> <span class="o">=</span> <span class="mi">100</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rebalanceClass95Multiplier</span> <span class="o">=</span> <span class="mi">40</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">NN1_topTarget_DEPTH</span> <span class="o">=</span> <span class="s1">&#39;NN1_topTarget_DEPTH&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">NN1_topTarget_DEPTH</span> <span class="o">=</span> <span class="s2">&quot;NN1_topTarget_DEPTH&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">NN1_TopHelper_DEPTH</span> <span class="o">=</span> <span class="s2">&quot;NN1_TopHelper_DEPTH&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">trainOrTest</span> <span class="o">=</span> <span class="s1">&#39;trainOrTest&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">colsToNotTurnToFloats</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;UWI&#39;</span><span class="p">,</span> <span class="s1">&#39;SitID&#39;</span><span class="p">,</span> <span class="s1">&#39;trainOrTest&#39;</span><span class="p">,</span><span class="s1">&#39;Neighbors_Obj&#39;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">zonesAroundTops</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;100&quot;</span><span class="p">:[</span><span class="mi">0</span><span class="p">],</span><span class="s2">&quot;95&quot;</span><span class="p">:[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],</span><span class="s2">&quot;60&quot;</span><span class="p">:[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],</span><span class="s2">&quot;70&quot;</span><span class="p">:[</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span><span class="s2">&quot;0&quot;</span><span class="p">:[]}</span> <span class="c1">#### NOTE: The code in createFeat_withinZoneOfKnownPick(df,config) function in features.py current ASSUMES only 5 zone labels</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">columns_to_not_trainOn_andNotCurves</span> <span class="o">=</span>  <span class="p">[</span><span class="s1">&#39;FromBotWell&#39;</span><span class="p">,</span><span class="s1">&#39;FromTopWel&#39;&#39;rowsToEdge&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lng&#39;</span><span class="p">,</span>  <span class="s1">&#39;SitID&#39;</span><span class="p">,</span><span class="s1">&#39;TopHelper_HorID&#39;</span><span class="p">,</span><span class="s1">&#39;TopTarget_HorID&#39;</span><span class="p">,</span><span class="s1">&#39;TopHelper_DEPTH&#39;</span><span class="p">,</span><span class="s1">&#39;diff_Top_Depth_Real_v_predBy_NN1thick&#39;</span><span class="p">,</span><span class="s1">&#39;diff_TopTarget_DEPTH_v_rowDEPT&#39;</span><span class="p">,</span><span class="s1">&#39;diff_TopHelper_DEPTH_v_rowDEPT&#39;</span><span class="p">,</span><span class="s1">&#39;class_DistFrPick_TopHelper&#39;</span><span class="p">,</span><span class="s1">&#39;NewWell&#39;</span><span class="p">,</span><span class="s1">&#39;LastBitWell&#39;</span><span class="p">,</span><span class="s1">&#39;TopWellDept&#39;</span><span class="p">,</span><span class="s1">&#39;BotWellDept&#39;</span><span class="p">,</span><span class="s1">&#39;WellThickness&#39;</span><span class="p">,</span><span class="s1">&#39;rowsToEdge&#39;</span><span class="p">,</span><span class="s1">&#39;closTopBotDist&#39;</span><span class="p">,</span><span class="s1">&#39;closerToBotOrTop&#39;</span><span class="p">,</span><span class="s1">&#39;Neighbors_Obj&#39;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">columns_to_not_trainOn_andAreCurves</span> <span class="o">=</span>  <span class="p">[</span><span class="s1">&#39;RHOB&#39;</span><span class="p">,</span><span class="s1">&#39;SP&#39;</span><span class="p">,</span><span class="s1">&#39;CALI&#39;</span><span class="p">,</span><span class="s1">&#39;COND&#39;</span><span class="p">,</span><span class="s1">&#39;DELT&#39;</span><span class="p">,</span><span class="s1">&#39;DENS&#39;</span><span class="p">,</span><span class="s1">&#39;DPHI:1&#39;</span><span class="p">,</span><span class="s1">&#39;DPHI:2&#39;</span><span class="p">,</span><span class="s1">&#39;DT&#39;</span><span class="p">,</span><span class="s1">&#39;GR:1&#39;</span><span class="p">,</span><span class="s1">&#39;GR:2&#39;</span><span class="p">,</span><span class="s1">&#39;IL&#39;</span><span class="p">,</span><span class="s1">&#39;ILD:1&#39;</span><span class="p">,</span><span class="s1">&#39;ILD:2&#39;</span><span class="p">,</span><span class="s1">&#39;ILM&#39;</span><span class="p">,</span><span class="s1">&#39;LITH&#39;</span><span class="p">,</span><span class="s1">&#39;LLD&#39;</span><span class="p">,</span><span class="s1">&#39;LLS&#39;</span><span class="p">,</span><span class="s1">&#39;PHID&#39;</span><span class="p">,</span><span class="s1">&#39;PHIN&#39;</span><span class="p">,</span><span class="s1">&#39;RESD&#39;</span><span class="p">,</span><span class="s1">&#39;RT&#39;</span><span class="p">,</span><span class="s1">&#39;SFL&#39;</span><span class="p">,</span><span class="s1">&#39;SFLU&#39;</span><span class="p">,</span><span class="s1">&#39;SN&#39;</span><span class="p">,</span><span class="s1">&#39;SNP&#39;</span><span class="p">,</span><span class="s1">&#39;Sp&#39;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">columns_to_use_as_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;class_DistFrPick_TopTarget&#39;</span><span class="p">,</span><span class="s1">&#39;UWI&#39;</span><span class="p">,</span><span class="s1">&#39;trainOrTest&#39;</span><span class="p">,</span><span class="s1">&#39;TopTarget_DEPTH&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trainOrTest</span> <span class="o">=</span> <span class="s2">&quot;trainOrTest&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">colsToNotTurnToFloats</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;UWI&quot;</span><span class="p">,</span> <span class="s2">&quot;SitID&quot;</span><span class="p">,</span> <span class="s2">&quot;trainOrTest&quot;</span><span class="p">,</span> <span class="s2">&quot;Neighbors_Obj&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zonesAroundTops</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;100&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="s2">&quot;95&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
+            <span class="s2">&quot;60&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
+            <span class="s2">&quot;70&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+            <span class="s2">&quot;0&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="p">}</span>  <span class="c1">#### NOTE: The code in createFeat_withinZoneOfKnownPick(df,config) function in features.py current ASSUMES only 5 zone labels</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columns_to_not_trainOn_andNotCurves</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;FromBotWell&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;FromTopWel&quot;</span> <span class="s2">&quot;rowsToEdge&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;lat&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;lng&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;SitID&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;TopHelper_HorID&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;TopTarget_HorID&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;TopHelper_DEPTH&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;diff_Top_Depth_Real_v_predBy_NN1thick&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;diff_TopTarget_DEPTH_v_rowDEPT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;diff_TopHelper_DEPTH_v_rowDEPT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;class_DistFrPick_TopHelper&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;NewWell&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;LastBitWell&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;TopWellDept&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;BotWellDept&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;WellThickness&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;rowsToEdge&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;closTopBotDist&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;closerToBotOrTop&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Neighbors_Obj&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columns_to_not_trainOn_andAreCurves</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;RHOB&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;SP&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;CALI&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;COND&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;DELT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;DENS&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;DPHI:1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;DPHI:2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;DT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;GR:1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;GR:2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;IL&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ILD:1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ILD:2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ILM&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;LITH&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;LLD&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;LLS&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;PHID&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;PHIN&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;RESD&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;RT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;SFL&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;SFLU&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;SN&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;SNP&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Sp&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columns_to_use_as_labels</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;class_DistFrPick_TopTarget&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;UWI&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;trainOrTest&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;TopTarget_DEPTH&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
         <span class="c1"># self.results_path = &quot;../results&quot;</span>
         <span class="c1"># self.availableData_path = &quot;availableData&quot;</span>
-    
+
     <span class="c1">#### only keep wells that have these curves</span>
-<div class="viewcode-block" id="configuration.set_must_have_curves"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.set_must_have_curves">[docs]</a>    <span class="k">def</span> <span class="nf">set_must_have_curves</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">must_have_curves_in_list</span><span class="p">):</span>
+<div class="viewcode-block" id="configuration.set_must_have_curves"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.set_must_have_curves">[docs]</a>    <span class="k">def</span> <span class="nf">set_must_have_curves</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">must_have_curves_in_list</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">must_have_curves_list</span> <span class="o">=</span> <span class="n">must_have_curves_in_list</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;must have curve list is: &quot;</span><span class="p">,</span><span class="n">must_have_curves_in_list</span><span class="p">)</span></div>
-        
-<div class="viewcode-block" id="configuration.get_must_have_curves"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.get_must_have_curves">[docs]</a>    <span class="k">def</span> <span class="nf">get_must_have_curves</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">must_have_curves_in_list</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;must have curve list is: &quot;</span><span class="p">,</span> <span class="n">must_have_curves_in_list</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="configuration.get_must_have_curves"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.get_must_have_curves">[docs]</a>    <span class="k">def</span> <span class="nf">get_must_have_curves</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">must_have_curves_in_list</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">must_have_curves_list</span></div>
-    
-    <span class="c1">#### only keep wells that have these tops </span>
-<div class="viewcode-block" id="configuration.set_must_have_tops__list"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.set_must_have_tops__list">[docs]</a>    <span class="k">def</span> <span class="nf">set_must_have_tops__list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">must_have_tops__list</span><span class="p">):</span>
-         <span class="c1">#[13000,14000]</span>
+
+    <span class="c1">#### only keep wells that have these tops</span>
+<div class="viewcode-block" id="configuration.set_must_have_tops__list"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.set_must_have_tops__list">[docs]</a>    <span class="k">def</span> <span class="nf">set_must_have_tops__list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">must_have_tops__list</span><span class="p">):</span>
+        <span class="c1"># [13000,14000]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">must_have_tops__list</span> <span class="o">=</span> <span class="n">must_have_tops__list</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;set must_have_tops_list as: &quot;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">must_have_tops__list</span><span class="p">)</span></div>
-    
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;set must_have_tops_list as: &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">must_have_tops__list</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="configuration.get_must_have_tops__list"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.get_must_have_tops__list">[docs]</a>    <span class="k">def</span> <span class="nf">get_must_have_tops__list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-         <span class="c1">#[13000,14000]</span>
+        <span class="c1"># [13000,14000]</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">must_have_tops__list</span></div>
-    
-<div class="viewcode-block" id="configuration.set_quality_items_to_skip__list"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.set_quality_items_to_skip__list">[docs]</a>    <span class="k">def</span> <span class="nf">set_quality_items_to_skip__list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">quality_items_to_skip__list</span><span class="p">):</span>
+
+<div class="viewcode-block" id="configuration.set_quality_items_to_skip__list"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.set_quality_items_to_skip__list">[docs]</a>    <span class="k">def</span> <span class="nf">set_quality_items_to_skip__list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quality_items_to_skip__list</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">quality_items_to_skip__list</span> <span class="o">=</span> <span class="n">quality_items_to_skip__list</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;set quality_items_to_skip__list as: &quot;</span><span class="p">,</span><span class="n">quality_items_to_skip__list</span><span class="p">)</span></div>
-        
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;set quality_items_to_skip__list as: &quot;</span><span class="p">,</span> <span class="n">quality_items_to_skip__list</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="configuration.get_quality_items_to_skip__list"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.get_quality_items_to_skip__list">[docs]</a>    <span class="k">def</span> <span class="nf">get_quality_items_to_skip__list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality_items_to_skip__list</span></div>
-      
-        
+
     <span class="c1">#### column names in picks_df</span>
-<div class="viewcode-block" id="configuration.set_top_name_col_in_picks_df"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.set_top_name_col_in_picks_df">[docs]</a>    <span class="k">def</span> <span class="nf">set_top_name_col_in_picks_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">top_name_col_in_picks_df__str</span><span class="p">):</span>
+<div class="viewcode-block" id="configuration.set_top_name_col_in_picks_df"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.set_top_name_col_in_picks_df">[docs]</a>    <span class="k">def</span> <span class="nf">set_top_name_col_in_picks_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top_name_col_in_picks_df__str</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">top_name_col_in_picks_df</span> <span class="o">=</span> <span class="n">top_name_col_in_picks_df__str</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; set self.top_name_col_in_picks_df as: &quot;</span><span class="p">,</span><span class="n">top_name_col_in_picks_df__str</span><span class="p">)</span></div>
-        
-<div class="viewcode-block" id="configuration.set_siteID_col_in_picks_df"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.set_siteID_col_in_picks_df">[docs]</a>    <span class="k">def</span> <span class="nf">set_siteID_col_in_picks_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">sitID__str</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; set self.top_name_col_in_picks_df as: &quot;</span><span class="p">,</span> <span class="n">top_name_col_in_picks_df__str</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="configuration.set_siteID_col_in_picks_df"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.set_siteID_col_in_picks_df">[docs]</a>    <span class="k">def</span> <span class="nf">set_siteID_col_in_picks_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sitID__str</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">siteID_col_in_picks_df</span> <span class="o">=</span> <span class="n">sitID__str</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; set siteID_col_in_picks_df as: &quot;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">siteID_col_in_picks_df</span><span class="p">)</span></div>
-    
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; set siteID_col_in_picks_df as: &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">siteID_col_in_picks_df</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="configuration.get_siteID_col_in_picks_df"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.get_siteID_col_in_picks_df">[docs]</a>    <span class="k">def</span> <span class="nf">get_siteID_col_in_picks_df</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">siteID_col_in_picks_df</span></div>
-    
+
 <div class="viewcode-block" id="configuration.get_top_name_col_in_picks_df"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.get_top_name_col_in_picks_df">[docs]</a>    <span class="k">def</span> <span class="nf">get_top_name_col_in_picks_df</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_name_col_in_picks_df</span></div>
-    
-<div class="viewcode-block" id="configuration.set_quality_col_name_in_picks_df"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.set_quality_col_name_in_picks_df">[docs]</a>    <span class="k">def</span> <span class="nf">set_quality_col_name_in_picks_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">Quality__str</span><span class="p">):</span>
+
+<div class="viewcode-block" id="configuration.set_quality_col_name_in_picks_df"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.set_quality_col_name_in_picks_df">[docs]</a>    <span class="k">def</span> <span class="nf">set_quality_col_name_in_picks_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Quality__str</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">quality_col_name_in_picks_df</span> <span class="o">=</span> <span class="n">Quality__str</span></div>
-        
+
 <div class="viewcode-block" id="configuration.get_quality_col_name_in_picks_df"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.get_quality_col_name_in_picks_df">[docs]</a>    <span class="k">def</span> <span class="nf">get_quality_col_name_in_picks_df</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality_col_name_in_picks_df</span></div>
-    
-<div class="viewcode-block" id="configuration.set_picks_depth_col_in_picks_df"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.set_picks_depth_col_in_picks_df">[docs]</a>    <span class="k">def</span> <span class="nf">set_picks_depth_col_in_picks_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">picks_depth_col_in_picks_df</span><span class="p">):</span>
+
+<div class="viewcode-block" id="configuration.set_picks_depth_col_in_picks_df"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.set_picks_depth_col_in_picks_df">[docs]</a>    <span class="k">def</span> <span class="nf">set_picks_depth_col_in_picks_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">picks_depth_col_in_picks_df</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">picks_depth_col_in_picks_df</span> <span class="o">=</span> <span class="n">picks_depth_col_in_picks_df</span></div>
-        
+
 <div class="viewcode-block" id="configuration.get_picks_depth_col_in_picks_df"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.configuration.get_picks_depth_col_in_picks_df">[docs]</a>    <span class="k">def</span> <span class="nf">get_picks_depth_col_in_picks_df</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">picks_depth_col_in_picks_df</span></div></div>
 
-<div class="viewcode-block" id="output_data"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.output_data">[docs]</a><span class="k">class</span> <span class="nc">output_data</span><span class="p">():</span>
+
+<div class="viewcode-block" id="output_data"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.output_data">[docs]</a><span class="k">class</span> <span class="nc">output_data</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class to keep information related to where output files are saved and naming conventions. </span>
 <span class="sd">    </span>
@@ -494,28 +566,31 @@
 <span class="sd">    </span>
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1">#### paths to directories to store itermediate and final results</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">default_results_file_format</span> <span class="o">=</span> <span class="s2">&quot;.h5&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">base_path_for_all_results</span><span class="o">=</span> <span class="s1">&#39;../results/&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">path_checkData</span> <span class="o">=</span> <span class="s1">&#39;checkData&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">path_load</span> <span class="o">=</span> <span class="s1">&#39;load&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">path_split</span> <span class="o">=</span> <span class="s1">&#39;split&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">path_wellsKNN</span> <span class="o">=</span> <span class="s1">&#39;wellsKNN&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">path_features</span> <span class="o">=</span> <span class="s1">&#39;features&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">path_balance</span> <span class="o">=</span> <span class="s1">&#39;balance&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">path_trainclasses</span> <span class="o">=</span> <span class="s1">&#39;trainclasses&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">path_prediction</span> <span class="o">=</span> <span class="s1">&#39;prediction&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">path_evaluate</span> <span class="o">=</span> <span class="s1">&#39;evaluate&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">path_map</span> <span class="o">=</span> <span class="s1">&#39;map&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_path_for_all_results</span> <span class="o">=</span> <span class="s2">&quot;../results/&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_checkData</span> <span class="o">=</span> <span class="s2">&quot;checkData&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_load</span> <span class="o">=</span> <span class="s2">&quot;load&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_split</span> <span class="o">=</span> <span class="s2">&quot;split&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_wellsKNN</span> <span class="o">=</span> <span class="s2">&quot;wellsKNN&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_features</span> <span class="o">=</span> <span class="s2">&quot;features&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_balance</span> <span class="o">=</span> <span class="s2">&quot;balance&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_trainclasses</span> <span class="o">=</span> <span class="s2">&quot;trainclasses&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_prediction</span> <span class="o">=</span> <span class="s2">&quot;prediction&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_evaluate</span> <span class="o">=</span> <span class="s2">&quot;evaluate&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_map</span> <span class="o">=</span> <span class="s2">&quot;map&quot;</span>
         <span class="c1">#### IF YOU ADD ANOTHER DIRECTORY TO THE ONES ABOVE, ADD IT TO THE LIST IN make_all_directories(self) FUNCTION !!! ####</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">loaded_results_wells_df</span> <span class="o">=</span> <span class="s2">&quot;loaded_wells_wTopsCurves&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">split_results_wells_df</span> <span class="o">=</span> <span class="s2">&quot;wells_wTopsCurvesSplits&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">wellsKNN_results_wells_df</span> <span class="o">=</span> <span class="s2">&quot;wells_wTopsCurvesSplitsKNN&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">features_results_wells_df</span> <span class="o">=</span> <span class="s2">&quot;wells_wTopsCurvesSplitsKNNFeatures&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">balance_results_wells_df</span> <span class="o">=</span> <span class="s2">&quot;wells_wTopsCurvesSplitsKNNFeaturesBalance&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">trainclasses_results_model</span> <span class="o">=</span> <span class="s2">&quot;model_trainclasses_wTopsCurvesSplitsKNNFeaturesBalance&quot;</span>
-    
+        <span class="bp">self</span><span class="o">.</span><span class="n">trainclasses_results_model</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;model_trainclasses_wTopsCurvesSplitsKNNFeaturesBalance&quot;</span>
+        <span class="p">)</span>
+
 <div class="viewcode-block" id="output_data.make_all_directories"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.configurationplusfiles.output_data.make_all_directories">[docs]</a>    <span class="k">def</span> <span class="nf">make_all_directories</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A function that makes all the directories defined in the attributes of the output_data() class init function.</span>
@@ -533,31 +608,52 @@
 <span class="sd">        none: none</span>
 <span class="sd">            The function does not return anything though it does print all the directories it creates, whether they already exist, and the base results directory created by running this function.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;making base folder for results in:&quot;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path_for_all_results</span><span class="p">)</span>
-        <span class="n">list_of_sub_directories</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">path_checkData</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">path_load</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">path_split</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">path_wellsKNN</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">path_features</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">path_balance</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">path_trainclasses</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">path_prediction</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">path_evaluate</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">path_map</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;making base folder for results in:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_path_for_all_results</span><span class="p">)</span>
+        <span class="n">list_of_sub_directories</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_checkData</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_load</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_split</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_wellsKNN</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_features</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_balance</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_trainclasses</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_prediction</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_evaluate</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_map</span><span class="p">,</span>
+        <span class="p">]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path_for_all_results</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path_for_all_results</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path_for_all_results</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">errno</span> <span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">errno</span><span class="p">)</span>
                 <span class="c1"># if e.errno != errno.EEXIST:</span>
                 <span class="c1">#     raise</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;base_path directory already exists,&quot;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path_for_all_results</span><span class="p">,</span><span class="s2">&quot; so not creating it again. This may or may not be what you intended, so just flagging it.&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;base_path directory already exists,&quot;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">base_path_for_all_results</span><span class="p">,</span>
+                <span class="s2">&quot; so not creating it again. This may or may not be what you intended, so just flagging it.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="k">for</span> <span class="n">sub_dir</span> <span class="ow">in</span> <span class="n">list_of_sub_directories</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path_for_all_results</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">sub_dir</span><span class="p">):</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path_for_all_results</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">sub_dir</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path_for_all_results</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">sub_dir</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path_for_all_results</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">sub_dir</span><span class="p">)</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path_for_all_results</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">sub_dir</span><span class="p">)</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path_for_all_results</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">sub_dir</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">errno</span><span class="p">)</span>
                     <span class="c1"># if e.errno != errno.EEXIST:</span>
                     <span class="c1">#     raise</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;directory &quot;</span><span class="p">,</span><span class="n">sub_dir</span><span class="p">,</span><span class="s2">&quot; already exists so not making it again in make_all_directories function of configurationplusfiles.py&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;made directories for each step in the process. They should be in : &quot;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path_for_all_results</span><span class="p">)</span></div></div>
-
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;directory &quot;</span><span class="p">,</span>
+                    <span class="n">sub_dir</span><span class="p">,</span>
+                    <span class="s2">&quot; already exists so not making it again in make_all_directories function of configurationplusfiles.py&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;made directories for each step in the process. They should be in : &quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">base_path_for_all_results</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
 </pre></div>
 
            </div>

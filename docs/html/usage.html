@@ -228,7 +228,19 @@ This method of running assumes you’re using all the default input, configurati
 <p>(3.) You can also import functions from the python file for each step and call them from within your own code.</p>
 <p>If you want the most control, you can import the functions in the python files for each of those major steps and call those functions within your own code. This is method 3 above. This will let you more easily swap in and out new parts and interrogate itermediate results. Notebooks below give some examples on how to do this.</p>
 <p>Note: these jupyter notebooks are still in progress.</p>
-<p>1. The notebook <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_firstSteps_modules_fetchdata_configuration_checkdata.ipynb/">Example_firstSteps_modules_fetchdata_configuration_checkdata.ipynb</a>. covers:</p>
+<p>0. The notebook <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_Every_Step_Via_HighLevel_Runner_Scripts_v1.ipynb">Example_Every_Step_Via_HighLevel_Runner_Scripts_v1.ipynb</a>. covers:
+Running the high-level runner modules for each step one by one. This does the whole pipeline from data load, data evaluation, data processing, feature creation, model training, to prediction.
+- fetch_demo_data.py
+- configurationplusfiles_runner.py
+- checkdata_runner.py
+- load_runner.py
+- split_runner.py
+- wellsKNN_runner.py
+- features_runner.py
+- balance_runner.py
+- trainclasses_runner.py
+- predictionclasses_runner.py</p>
+<p>1. The notebook <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_firstSteps_modules_fetchdata_configuration_checkdata.ipynb/">Example_firstSteps_modules_fetchdata_configuration_checkdata.ipynb</a>. Covers the initial data load, data evaluation, and configuration. Specifically it covers the modules:</p>
 <ul class="simple">
 <li><dl class="simple">
 <dt>fetch_demo_data.py</dt><dd><ul>

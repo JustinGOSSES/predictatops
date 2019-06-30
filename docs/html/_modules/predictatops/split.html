@@ -166,21 +166,23 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">import</span> <span class="nn">random</span> 
+<span class="kn">import</span> <span class="nn">random</span>
 
 
-
-<div class="viewcode-block" id="split_train_test"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.split.split_train_test">[docs]</a><span class="k">def</span> <span class="nf">split_train_test</span><span class="p">(</span><span class="n">df_all_Col_preSplit</span><span class="p">,</span><span class="n">split_variable</span><span class="p">,</span><span class="n">uwi_column_str</span><span class="p">):</span>
+<div class="viewcode-block" id="split_train_test"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.split.split_train_test">[docs]</a><span class="k">def</span> <span class="nf">split_train_test</span><span class="p">(</span><span class="n">df_all_Col_preSplit</span><span class="p">,</span> <span class="n">split_variable</span><span class="p">,</span> <span class="n">uwi_column_str</span><span class="p">):</span>
     <span class="n">UWIs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df_all_Col_preSplit</span><span class="p">[</span><span class="n">uwi_column_str</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
-    <span class="n">numberOfTrainingWells</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">UWIs</span><span class="p">)</span><span class="o">*</span><span class="n">split_variable</span><span class="p">)</span>
+    <span class="n">numberOfTrainingWells</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">UWIs</span><span class="p">)</span> <span class="o">*</span> <span class="n">split_variable</span><span class="p">)</span>
     <span class="n">UWIs_training</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">UWIs</span><span class="p">,</span> <span class="n">numberOfTrainingWells</span><span class="p">)</span>
     <span class="n">UWIs_test</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">UWIs</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">UWIs_training</span><span class="p">]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">UWIs_training</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">UWIs_test</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">UWIs_training</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">UWIs_test</span><span class="p">))</span>
     <span class="n">df_all_Col_preSplit_wTrainTest</span> <span class="o">=</span> <span class="n">df_all_Col_preSplit</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">df_all_Col_preSplit_wTrainTest</span><span class="p">[</span><span class="s1">&#39;trainOrTest&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df_all_Col_preSplit_wTrainTest</span><span class="p">[</span><span class="n">uwi_column_str</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">UWIs_training</span><span class="p">),</span> <span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">)</span>
+    <span class="n">df_all_Col_preSplit_wTrainTest</span><span class="p">[</span><span class="s2">&quot;trainOrTest&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+        <span class="n">df_all_Col_preSplit_wTrainTest</span><span class="p">[</span><span class="n">uwi_column_str</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">UWIs_training</span><span class="p">),</span>
+        <span class="s2">&quot;train&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;test&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">df_all_Col_preSplit_wTrainTest</span></div>
-
 </pre></div>
 
            </div>

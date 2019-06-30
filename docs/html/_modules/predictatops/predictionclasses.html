@@ -167,6 +167,7 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
+
 <span class="c1"># import matplotlib.pyplot as plt</span>
 <span class="c1"># %matplotlib inline</span>
 <span class="kn">import</span> <span class="nn">welly</span>
@@ -189,30 +190,38 @@
 <span class="kn">import</span> <span class="nn">multiprocessing</span>
 
 <span class="kn">from</span> <span class="nn">main</span> <span class="k">import</span> <span class="n">getJobLibPickleResults</span>
+
 <span class="c1">#### Adding this bit to silence an error that was causing the notebook to have a dead kernal</span>
 <span class="c1">#### This is an unsafe solution but couldn&#39;t get any  of the &quot;right solutions&quot; to work!</span>
 <span class="c1">#### Ended up using this = https://www.kaggle.com/c/bosch-production-line-performance/discussion/25082</span>
 <span class="c1">#### Other solutions = https://github.com/dmlc/xgboost/issues/1715 but the solution here didn&#39;t seem to work for me?</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="c1">#os.environ[&#39;KMP_DUPLICATE_LIB_OK&#39;]=&#39;True&#39;</span>
+
+<span class="c1"># os.environ[&#39;KMP_DUPLICATE_LIB_OK&#39;]=&#39;True&#39;</span>
 
 <span class="c1">###### Set environment variable to get around weird conda clang error that causes notebook kernal to die. ########</span>
 <span class="c1">###### Error was: OMP: Error #15: Initializing libomp.dylib, but found libiomp5.dylib already initialized.</span>
 <span class="c1">###### OMP: Hint This means that multiple copies of the OpenMP runtime have been linked into the program. That is dangerous, since it can degrade performance or cause incorrect results. The best thing to do is to ensure that only a single OpenMP runtime is linked into the process, e.g. by avoiding static linking of the OpenMP runtime in any library. As an unsafe, unsupported, undocumented workaround you can set the environment variable KMP_DUPLICATE_LIB_OK=TRUE to allow the program to continue to execute, but that may cause crashes or silently produce incorrect results. For more information, please see http://openmp.llvm.org/</span>
 <span class="c1">###### Abort trap: 6</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;KMP_DUPLICATE_LIB_OK&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;True&#39;</span>
 
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;KMP_DUPLICATE_LIB_OK&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;True&quot;</span>
 
 
 <span class="c1">################## Class Prediction Results for training dataframe for X #############</span>
 <div class="viewcode-block" id="loadMLinstanceAndModel"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.loadMLinstanceAndModel">[docs]</a><span class="k">def</span> <span class="nf">loadMLinstanceAndModel</span><span class="p">(</span><span class="n">output_data_inst</span><span class="p">):</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">getJobLibPickleResults</span><span class="p">(</span><span class="n">output_data_inst</span><span class="p">,</span><span class="n">output_data_inst</span><span class="o">.</span><span class="n">path_trainclasses</span><span class="p">,</span><span class="s2">&quot;trainclasses_model.pkl&quot;</span><span class="p">)</span>
-    <span class="n">ML1</span> <span class="o">=</span> <span class="n">getJobLibPickleResults</span><span class="p">(</span><span class="n">output_data_inst</span><span class="p">,</span><span class="n">output_data_inst</span><span class="o">.</span><span class="n">path_trainclasses</span><span class="p">,</span><span class="s2">&quot;trainclasses_ML1_instance.pkl&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">model</span><span class="p">,</span><span class="n">ML1</span></div>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">getJobLibPickleResults</span><span class="p">(</span>
+        <span class="n">output_data_inst</span><span class="p">,</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">path_trainclasses</span><span class="p">,</span> <span class="s2">&quot;trainclasses_model.pkl&quot;</span>
+    <span class="p">)</span>
+    <span class="n">ML1</span> <span class="o">=</span> <span class="n">getJobLibPickleResults</span><span class="p">(</span>
+        <span class="n">output_data_inst</span><span class="p">,</span>
+        <span class="n">output_data_inst</span><span class="o">.</span><span class="n">path_trainclasses</span><span class="p">,</span>
+        <span class="s2">&quot;trainclasses_ML1_instance.pkl&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">ML1</span></div>
 
 
-<div class="viewcode-block" id="class_accuracy"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.class_accuracy">[docs]</a><span class="k">class</span> <span class="nc">class_accuracy</span><span class="p">():</span>
+<div class="viewcode-block" id="class_accuracy"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.class_accuracy">[docs]</a><span class="k">class</span> <span class="nc">class_accuracy</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class holds several functions for calculating accuracy of the class-identification model</span>
 <span class="sd">    It takes in as the initiation argument, an instance of the ML_obj_class, which contains all the </span>
@@ -225,12 +234,13 @@
 <span class="sd">    The last two functions will return an accuracy nubmer as a percentage of class rows or instances the model predicted corrected.</span>
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ML</span><span class="p">):</span>
         <span class="c1"># self.knn_dir = ML.knn_dir</span>
         <span class="c1"># self.load_dir = ML.load_dir</span>
         <span class="c1"># self.features_dir = ML.features_dir</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">machine_learning_dir</span> <span class="o">=</span> <span class="n">ML</span><span class="o">.</span><span class="n">machine_learning_dir</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">h5_to_load</span> <span class="o">=</span> <span class="n">ML</span><span class="o">.</span><span class="n">h5_to_load</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">h5_to_load</span> <span class="o">=</span> <span class="n">ML</span><span class="o">.</span><span class="n">h5_to_load</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">train_X</span> <span class="o">=</span> <span class="n">ML</span><span class="o">.</span><span class="n">train_X</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">train_y</span> <span class="o">=</span> <span class="n">ML</span><span class="o">.</span><span class="n">train_y</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_X</span> <span class="o">=</span> <span class="n">ML</span><span class="o">.</span><span class="n">test_X</span>
@@ -239,11 +249,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">test_index</span> <span class="o">=</span> <span class="n">ML</span><span class="o">.</span><span class="n">test_index</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">preSplitpreBal</span> <span class="o">=</span> <span class="n">ML</span><span class="o">.</span><span class="n">preSplitpreBal</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">result_df_from_prediction</span> <span class="o">=</span> <span class="kc">None</span>
-    
+
 <div class="viewcode-block" id="class_accuracy.help"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.class_accuracy.help">[docs]</a>    <span class="k">def</span> <span class="nf">help</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; eventually there will some sort of help printed here to explain this function more and how it is envisioned you wil run it. In other words, step 1, step 2, etc.&quot;</span><span class="p">)</span></div>
-        
-<div class="viewcode-block" id="class_accuracy.predict_from_model"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.class_accuracy.predict_from_model">[docs]</a>    <span class="k">def</span> <span class="nf">predict_from_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">model</span><span class="p">,</span><span class="n">df_X_toPredict</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot; eventually there will some sort of help printed here to explain this function more and how it is envisioned you wil run it. In other words, step 1, step 2, etc.&quot;</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="class_accuracy.predict_from_model"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.class_accuracy.predict_from_model">[docs]</a>    <span class="k">def</span> <span class="nf">predict_from_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">df_X_toPredict</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The predict_from_model function takes as argument a model that is already trained on training data, in the demo case a </span>
 <span class="sd">        scikit-learn XGBoost model and the dataframe of the columns to predict. From this, it fills in </span>
@@ -251,26 +263,42 @@
 <span class="sd">    </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">result_df_from_prediction</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_X_toPredict</span><span class="p">)</span></div>
-        
-<div class="viewcode-block" id="class_accuracy.first_Reformat"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.class_accuracy.first_Reformat">[docs]</a>    <span class="k">def</span> <span class="nf">first_Reformat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">train_y</span><span class="p">,</span><span class="n">TopTarget_Pick_pred</span><span class="p">):</span>
+
+<div class="viewcode-block" id="class_accuracy.first_Reformat"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.class_accuracy.first_Reformat">[docs]</a>    <span class="k">def</span> <span class="nf">first_Reformat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">TopTarget_Pick_pred</span><span class="p">):</span>
         <span class="n">train_y_indexValues</span> <span class="o">=</span> <span class="n">train_y</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
-        <span class="n">df_result_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">result_df_from_prediction</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">train_y_indexValues</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">TopTarget_Pick_pred</span><span class="p">])</span>
+        <span class="n">df_result_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">result_df_from_prediction</span><span class="p">,</span>
+            <span class="n">index</span><span class="o">=</span><span class="n">train_y_indexValues</span><span class="p">,</span>
+            <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">TopTarget_Pick_pred</span><span class="p">],</span>
+        <span class="p">)</span>
         <span class="n">df_results_train_</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">train_y</span><span class="p">,</span> <span class="n">df_result_train</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">df_results_train_</span></div>
-    
-<div class="viewcode-block" id="class_accuracy.accuracy_calc"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.class_accuracy.accuracy_calc">[docs]</a>    <span class="k">def</span> <span class="nf">accuracy_calc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">train_y</span><span class="p">,</span><span class="n">TopTarget_Pick_pred</span><span class="p">,</span><span class="n">class_DistFrPick_TopTarget</span><span class="p">):</span>
-        <span class="n">df_results_train_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_Reformat</span><span class="p">(</span><span class="n">train_y</span><span class="p">,</span><span class="n">TopTarget_Pick_pred</span><span class="p">)</span>
-        <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">df_results_train_</span><span class="p">[</span><span class="n">class_DistFrPick_TopTarget</span><span class="p">],</span> <span class="n">df_results_train_</span><span class="p">[</span><span class="n">TopTarget_Pick_pred</span><span class="p">])</span>
-        <span class="k">return</span>  <span class="n">accuracy</span></div>
-    
-<div class="viewcode-block" id="class_accuracy.run_all"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.class_accuracy.run_all">[docs]</a>    <span class="k">def</span> <span class="nf">run_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">model</span><span class="p">,</span><span class="n">df_X_toPredict</span><span class="p">,</span><span class="n">train_y</span><span class="p">,</span><span class="n">TopTarget_Pick_pred</span><span class="p">,</span><span class="n">class_DistFrPick_TopTarget</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">predict_from_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">df_X_toPredict</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">accuracy_calc</span><span class="p">(</span><span class="n">train_y</span><span class="p">,</span><span class="n">TopTarget_Pick_pred</span><span class="p">,</span><span class="n">class_DistFrPick_TopTarget</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="class_accuracy.accuracy_calc"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.class_accuracy.accuracy_calc">[docs]</a>    <span class="k">def</span> <span class="nf">accuracy_calc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">TopTarget_Pick_pred</span><span class="p">,</span> <span class="n">class_DistFrPick_TopTarget</span><span class="p">):</span>
+        <span class="n">df_results_train_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_Reformat</span><span class="p">(</span><span class="n">train_y</span><span class="p">,</span> <span class="n">TopTarget_Pick_pred</span><span class="p">)</span>
+        <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span>
+            <span class="n">df_results_train_</span><span class="p">[</span><span class="n">class_DistFrPick_TopTarget</span><span class="p">],</span>
+            <span class="n">df_results_train_</span><span class="p">[</span><span class="n">TopTarget_Pick_pred</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">accuracy</span></div>
+
+<div class="viewcode-block" id="class_accuracy.run_all"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.class_accuracy.run_all">[docs]</a>    <span class="k">def</span> <span class="nf">run_all</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">,</span>
+        <span class="n">df_X_toPredict</span><span class="p">,</span>
+        <span class="n">train_y</span><span class="p">,</span>
+        <span class="n">TopTarget_Pick_pred</span><span class="p">,</span>
+        <span class="n">class_DistFrPick_TopTarget</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">predict_from_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">df_X_toPredict</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">accuracy_calc</span><span class="p">(</span>
+            <span class="n">train_y</span><span class="p">,</span> <span class="n">TopTarget_Pick_pred</span><span class="p">,</span> <span class="n">class_DistFrPick_TopTarget</span>
+        <span class="p">)</span></div></div>
 
 
 <span class="c1">#### Example of use of function above:</span>
 <span class="c1">##### Creating a class_accuracy instance with the already established ML1 variable for an isntance of the ML_obj_class</span>
-<span class="c1">#ac = class_accuracy(ML1)</span>
+<span class="c1"># ac = class_accuracy(ML1)</span>
 
 <span class="c1">################## Class Prediction Results for training dataframe for X #############</span>
 
@@ -279,7 +307,7 @@
 
 <span class="c1">################## First with training data #############</span>
 
-<span class="c1">#### Running the accuracy calculation using the model trained on training data against training data. </span>
+<span class="c1">#### Running the accuracy calculation using the model trained on training data against training data.</span>
 <span class="c1">#### Testing how well the model predicts the class of each point, with class being categorized distance from actual pick.</span>
 <span class="c1"># accuracy = ac.run_all(model,ac.train_X,ac.train_y,&#39;TopTarget_Pick_pred&#39;,&#39;class_DistFrPick_TopTarget&#39;)</span>
 
@@ -287,7 +315,7 @@
 
 <span class="c1">################## Then with test data ###############</span>
 
-<span class="c1">#### Running the accuracy calculation using the model trained on training data against TEST data. </span>
+<span class="c1">#### Running the accuracy calculation using the model trained on training data against TEST data.</span>
 <span class="c1">#### Testing how well the model predicts the class of each point, with class being categorized distance from actual pick.</span>
 <span class="c1"># accuracy = ac.run_all(model,ac.test_X,ac.test_y,&#39;TopTarget_Pick_pred&#39;,&#39;class_DistFrPick_TopTarget&#39;)</span>
 
@@ -309,35 +337,36 @@
 <span class="c1">########  In the future, it would be nice to calculate error bars as well!!!!!    ##########</span>
 
 
-<span class="c1">##################### The next part will attempt to go from classifiers of  ##################### </span>
-<span class="c1">#####################  (at, near, or far away from the pick in each well) to a single depth prediction for the pick in each well ###################### </span>
-<span class="c1">#####################  Class for calculating accuracy of single pick prediction in each well vs. #####################  </span>
-<span class="c1">######################  known pick based on rolling average &amp; median ranking of depths with distance class #####################  </span>
-<span class="c1">#####################  predictions of being close to pick. #####################  </span>
+<span class="c1">##################### The next part will attempt to go from classifiers of  #####################</span>
+<span class="c1">#####################  (at, near, or far away from the pick in each well) to a single depth prediction for the pick in each well ######################</span>
+<span class="c1">#####################  Class for calculating accuracy of single pick prediction in each well vs. #####################</span>
+<span class="c1">######################  known pick based on rolling average &amp; median ranking of depths with distance class #####################</span>
+<span class="c1">#####################  predictions of being close to pick. #####################</span>
 
 
-
-
-<div class="viewcode-block" id="InputDistClassPrediction_to_BestDepthForTop"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop">[docs]</a><span class="k">class</span> <span class="nc">InputDistClassPrediction_to_BestDepthForTop</span><span class="p">():</span>
+<div class="viewcode-block" id="InputDistClassPrediction_to_BestDepthForTop"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop">[docs]</a><span class="k">class</span> <span class="nc">InputDistClassPrediction_to_BestDepthForTop</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Explain theyself</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">output_data_inst</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_data_inst</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">result_df_dist_class_prediction</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">concat_modelResults_w_indexValues</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">df_results_trainOrtest_wIndex</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">MLobj</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">result_df_dist_class_prediction</span> <span class="o">=</span> <span class="kc">None</span>
-    
+
 <div class="viewcode-block" id="InputDistClassPrediction_to_BestDepthForTop.help"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.help">[docs]</a>    <span class="k">def</span> <span class="nf">help</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; eventually there will some sort of help printed here to explain this function more and how it is envisioned you wil run it. In other words, step 1, step 2, etc.&quot;</span><span class="p">)</span></div>
-    
-<div class="viewcode-block" id="InputDistClassPrediction_to_BestDepthForTop.load_MLobj"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.load_MLobj">[docs]</a>    <span class="k">def</span> <span class="nf">load_MLobj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">MLobj</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot; eventually there will some sort of help printed here to explain this function more and how it is envisioned you wil run it. In other words, step 1, step 2, etc.&quot;</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="InputDistClassPrediction_to_BestDepthForTop.load_MLobj"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.load_MLobj">[docs]</a>    <span class="k">def</span> <span class="nf">load_MLobj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MLobj</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">MLobj</span> <span class="o">=</span> <span class="n">MLobj</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;loaded model into object instance&quot;</span><span class="p">)</span></div>
-        
-<div class="viewcode-block" id="InputDistClassPrediction_to_BestDepthForTop.predict_from_model"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.predict_from_model">[docs]</a>    <span class="k">def</span> <span class="nf">predict_from_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">model</span><span class="p">,</span><span class="n">df_X_toPredict</span><span class="p">):</span>
+
+<div class="viewcode-block" id="InputDistClassPrediction_to_BestDepthForTop.predict_from_model"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.predict_from_model">[docs]</a>    <span class="k">def</span> <span class="nf">predict_from_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">df_X_toPredict</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The predict_from_model function takes as argument a model that is already trained on training data, in the demo case a </span>
 <span class="sd">        scikit-learn XGBoost model and the dataframe of the columns to predict. From this, it fills in </span>
@@ -346,25 +375,30 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">result_df_dist_class_prediction</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_X_toPredict</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">result_df_dist_class_prediction</span><span class="p">)</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;this function didn&#39;t work, self.distClassDF_wRollingCols_training is not populated with anything but None&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;this function didn&#39;t work, self.distClassDF_wRollingCols_training is not populated with anything but None&quot;</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ran predict_from_model() which runs inside self.result_df_dist_class_prediction = model.predict(df_X_toPredict) access the results by appending .result_df_dist_class_prediction to the class instance&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;ran predict_from_model() which runs inside self.result_df_dist_class_prediction = model.predict(df_X_toPredict) access the results by appending .result_df_dist_class_prediction to the class instance&quot;</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_df_dist_class_prediction</span></div>
 
-        
-<div class="viewcode-block" id="InputDistClassPrediction_to_BestDepthForTop.load_dist_class_pred_df"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.load_dist_class_pred_df">[docs]</a>    <span class="k">def</span> <span class="nf">load_dist_class_pred_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dist_class_pred_df</span><span class="p">):</span>
+<div class="viewcode-block" id="InputDistClassPrediction_to_BestDepthForTop.load_dist_class_pred_df"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.load_dist_class_pred_df">[docs]</a>    <span class="k">def</span> <span class="nf">load_dist_class_pred_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dist_class_pred_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        explain theyself</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-<span class="c1">#         if self.result_df_dist_class_prediction == None:</span>
+        <span class="c1">#         if self.result_df_dist_class_prediction == None:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">result_df_dist_class_prediction</span> <span class="o">=</span> <span class="n">dist_class_pred_df</span></div>
-<span class="c1">#         else:</span>
-<span class="c1">#             print(&quot;trying to replace earlier result_df_dist_class_prediction&quot;)</span>
-        
-    
-<div class="viewcode-block" id="InputDistClassPrediction_to_BestDepthForTop.concat_modelResultsNDArray_w_indexValues"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.concat_modelResultsNDArray_w_indexValues">[docs]</a>    <span class="k">def</span> <span class="nf">concat_modelResultsNDArray_w_indexValues</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">distClassModel_resultsNDArry</span><span class="p">,</span><span class="n">train_or_test</span><span class="p">,</span><span class="n">col_name_prediction</span><span class="p">):</span>
+
+    <span class="c1">#         else:</span>
+    <span class="c1">#             print(&quot;trying to replace earlier result_df_dist_class_prediction&quot;)</span>
+
+<div class="viewcode-block" id="InputDistClassPrediction_to_BestDepthForTop.concat_modelResultsNDArray_w_indexValues"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.concat_modelResultsNDArray_w_indexValues">[docs]</a>    <span class="k">def</span> <span class="nf">concat_modelResultsNDArray_w_indexValues</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">distClassModel_resultsNDArry</span><span class="p">,</span> <span class="n">train_or_test</span><span class="p">,</span> <span class="n">col_name_prediction</span>
+    <span class="p">):</span>
         <span class="c1">#### self,self.result_df_dist_class_prediction,&quot;test&quot;,vs.pick_class_str</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">train_or_test</span> <span class="o">==</span> <span class="s1">&#39;train&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">train_or_test</span> <span class="o">==</span> <span class="s2">&quot;train&quot;</span><span class="p">:</span>
             <span class="n">y_indexValues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MLobj</span><span class="o">.</span><span class="n">train_y</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
             <span class="n">train_or_test_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MLobj</span><span class="o">.</span><span class="n">train_y</span>
         <span class="k">else</span><span class="p">:</span>
@@ -373,33 +407,52 @@
         <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">distClassModel_resultsNDArry</span><span class="p">))</span>
         <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">y_indexValues</span><span class="p">))</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">distClassModel_resultsNDArry</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_indexValues</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Two input arguments length does not match. This invalidates an assumption of this function&quot;</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;length of distClassModel_resultsNDArry is &quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">distClassModel_resultsNDArry</span><span class="p">),</span><span class="s2">&quot; and length of y_indexValues&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">y_indexValues</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;Two input arguments length does not match. This invalidates an assumption of this function&quot;</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;length of distClassModel_resultsNDArry is &quot;</span><span class="p">,</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">distClassModel_resultsNDArry</span><span class="p">),</span>
+                <span class="s2">&quot; and length of y_indexValues&quot;</span><span class="p">,</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">y_indexValues</span><span class="p">),</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1">#y_indexValues = train_or_test_y.index.values</span>
+            <span class="c1"># y_indexValues = train_or_test_y.index.values</span>
             <span class="c1"># df_result = pd.DataFrame(result_test, index=test_y_indexValues, columns=[&#39;TopTarget_Pick_pred&#39;])</span>
-            <span class="n">df_result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">distClassModel_resultsNDArry</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">y_indexValues</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">col_name_prediction</span><span class="p">])</span>
-            <span class="n">df_results_test_</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">train_or_test_y</span><span class="p">,</span><span class="n">df_result</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">df_result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="n">distClassModel_resultsNDArry</span><span class="p">,</span>
+                <span class="n">index</span><span class="o">=</span><span class="n">y_indexValues</span><span class="p">,</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">col_name_prediction</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="n">df_results_test_</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">train_or_test_y</span><span class="p">,</span> <span class="n">df_result</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">concat_modelResults_w_indexValues</span> <span class="o">=</span> <span class="n">df_results_test_</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">concat_modelResults_w_indexValues</span></div>
-            
-<div class="viewcode-block" id="InputDistClassPrediction_to_BestDepthForTop.concat_step2"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.concat_step2">[docs]</a>    <span class="k">def</span> <span class="nf">concat_step2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">MLobj</span><span class="p">,</span><span class="n">train_or_test</span><span class="p">,</span><span class="n">cols_to_keep_list</span><span class="p">):</span>
+
+<div class="viewcode-block" id="InputDistClassPrediction_to_BestDepthForTop.concat_step2"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.concat_step2">[docs]</a>    <span class="k">def</span> <span class="nf">concat_step2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MLobj</span><span class="p">,</span> <span class="n">train_or_test</span><span class="p">,</span> <span class="n">cols_to_keep_list</span><span class="p">):</span>
         <span class="c1">#### cols_to_keep_list = [&#39;DEPT&#39;,&quot;NN1_TopHelper_DEPTH&quot;,&quot;NN1_thickness&quot;,&quot;topTarget_Depth_predBy_NN1thick&quot;,&quot;DistFrom_NN1ThickPredTopDepth_toRowDept&quot;]</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">train_or_test</span> <span class="o">==</span> <span class="s1">&#39;train&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">train_or_test</span> <span class="o">==</span> <span class="s2">&quot;train&quot;</span><span class="p">:</span>
             <span class="n">TrainOrTest_index</span> <span class="o">=</span> <span class="n">MLobj</span><span class="o">.</span><span class="n">train_index</span>
             <span class="n">df_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MLobj</span><span class="o">.</span><span class="n">train_X</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">TrainOrTest_index</span> <span class="o">=</span> <span class="n">MLobj</span><span class="o">.</span><span class="n">test_index</span>
             <span class="n">df_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MLobj</span><span class="o">.</span><span class="n">test_X</span>
         <span class="n">df_results_test_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">concat_modelResults_w_indexValues</span>
-        <span class="n">df_results_test_wIndex</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_results_test_</span><span class="p">,</span> <span class="n">TrainOrTest_index</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">df_results_test_wIndex2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_results_test_wIndex</span><span class="p">,</span> <span class="n">df_</span><span class="p">[</span><span class="n">cols_to_keep_list</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">df_results_test_wIndex</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">df_results_test_</span><span class="p">,</span> <span class="n">TrainOrTest_index</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+        <span class="p">)</span>
+        <span class="n">df_results_test_wIndex2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">df_results_test_wIndex</span><span class="p">,</span> <span class="n">df_</span><span class="p">[</span><span class="n">cols_to_keep_list</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">df_results_trainOrtest_wIndex</span> <span class="o">=</span> <span class="n">df_results_test_wIndex2</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;in concat_step2, type of df_results_trainOrtest_wIndex=&quot;</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_results_trainOrtest_wIndex</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;in concat_step2, type of df_results_trainOrtest_wIndex=&quot;</span><span class="p">,</span>
+            <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_results_trainOrtest_wIndex</span><span class="p">),</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">df_results_trainOrtest_wIndex</span></div>
-        
-    
-<div class="viewcode-block" id="InputDistClassPrediction_to_BestDepthForTop.calc_pred_vs_real_top_dif"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.calc_pred_vs_real_top_dif">[docs]</a>    <span class="k">def</span> <span class="nf">calc_pred_vs_real_top_dif</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">df</span><span class="p">,</span><span class="n">depth_str</span><span class="p">,</span><span class="n">pick_pred_class_str</span><span class="p">,</span><span class="n">UWI_str</span><span class="p">,</span><span class="n">rollingWindows</span><span class="p">,</span><span class="n">predClasses</span><span class="p">):</span>
+
+<div class="viewcode-block" id="InputDistClassPrediction_to_BestDepthForTop.calc_pred_vs_real_top_dif"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.calc_pred_vs_real_top_dif">[docs]</a>    <span class="k">def</span> <span class="nf">calc_pred_vs_real_top_dif</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">depth_str</span><span class="p">,</span> <span class="n">pick_pred_class_str</span><span class="p">,</span> <span class="n">UWI_str</span><span class="p">,</span> <span class="n">rollingWindows</span><span class="p">,</span> <span class="n">predClasses</span>
+    <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Function takes in:</span>
 <span class="sd">            A dataframe with predictions and dataframe with UWIs and known pick depths. Dataframes may not be same length but df 2 must have all UWIs in df 1.</span>
@@ -415,64 +468,103 @@
         <span class="n">df_merges</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">all_new_rolling_mean_col</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">Window</span> <span class="ow">in</span> <span class="n">rollingWindows</span><span class="p">:</span>
-            <span class="n">new_col</span> <span class="o">=</span> <span class="n">pick_pred_class_str</span><span class="o">+</span><span class="s1">&#39;_classRollMean&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">Window</span><span class="p">)</span>
+            <span class="n">new_col</span> <span class="o">=</span> <span class="n">pick_pred_class_str</span> <span class="o">+</span> <span class="s2">&quot;_classRollMean&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Window</span><span class="p">)</span>
             <span class="n">all_new_rolling_mean_col</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_col</span><span class="p">)</span>
-            <span class="n">half_window_neg</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">Window</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
-            <span class="n">df_merges</span><span class="p">[</span><span class="n">new_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_merges</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">UWI_str</span><span class="p">])[</span><span class="n">pick_pred_class_str</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">half_window_neg</span><span class="p">)</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">Window</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">df_merges</span><span class="p">[</span><span class="n">pick_pred_class_str</span><span class="o">+</span><span class="s1">&#39;classRollMeanSum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">half_window_neg</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">Window</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">df_merges</span><span class="p">[</span><span class="n">new_col</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">df_merges</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">UWI_str</span><span class="p">])[</span><span class="n">pick_pred_class_str</span><span class="p">]</span>
+                <span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">half_window_neg</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">Window</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+                <span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="n">df_merges</span><span class="p">[</span><span class="n">pick_pred_class_str</span> <span class="o">+</span> <span class="s2">&quot;classRollMeanSum&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">all_new_rolling_mean_col</span><span class="p">:</span>
-            <span class="n">df_merges</span><span class="p">[</span><span class="n">pick_pred_class_str</span><span class="o">+</span><span class="s1">&#39;classRollMeanSum&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">df_merges</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
-        <span class="n">df_merges</span><span class="p">[</span><span class="n">pick_pred_class_str</span><span class="o">+</span><span class="s1">&#39;classRollMeanSum&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">df_merges</span><span class="p">[</span><span class="n">pick_pred_class_str</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-        <span class="n">idx</span> <span class="o">=</span> <span class="n">df_merges</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_merges</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;UWI&quot;</span><span class="p">])[</span><span class="n">pick_pred_class_str</span><span class="o">+</span><span class="s1">&#39;classRollMeanSum&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()]</span> 
-        <span class="c1">#print(&#39;idx=&#39;,idx)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;type(idx)&#39;</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">idx</span><span class="p">))</span>
+            <span class="n">df_merges</span><span class="p">[</span><span class="n">pick_pred_class_str</span> <span class="o">+</span> <span class="s2">&quot;classRollMeanSum&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">df_merges</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+        <span class="n">df_merges</span><span class="p">[</span><span class="n">pick_pred_class_str</span> <span class="o">+</span> <span class="s2">&quot;classRollMeanSum&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">df_merges</span><span class="p">[</span>
+            <span class="n">pick_pred_class_str</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">df_merges</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+            <span class="n">df_merges</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;UWI&quot;</span><span class="p">])[</span>
+                <span class="n">pick_pred_class_str</span> <span class="o">+</span> <span class="s2">&quot;classRollMeanSum&quot;</span>
+            <span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span>
+        <span class="p">]</span>
+        <span class="c1"># print(&#39;idx=&#39;,idx)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;type(idx)&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">idx</span><span class="p">))</span>
         <span class="c1">#     print(idx[[&#39;UWI&#39;,&#39;DEPT&#39;,pick_pred_class_str+&#39;classRollMeanSum&#39;]])</span>
-        <span class="n">max_frame</span> <span class="o">=</span> <span class="n">idx</span><span class="p">[[</span><span class="s1">&#39;UWI&#39;</span><span class="p">,</span><span class="s1">&#39;DEPT&#39;</span><span class="p">,</span><span class="n">pick_pred_class_str</span><span class="o">+</span><span class="s1">&#39;classRollMeanSum&#39;</span><span class="p">]]</span>
-        <span class="n">max_frame</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;UWI&#39;</span><span class="p">,</span><span class="n">pick_pred_class_str</span><span class="o">+</span><span class="s1">&#39;_DEPT_pred&#39;</span><span class="p">,</span><span class="n">pick_pred_class_str</span><span class="o">+</span><span class="s1">&#39;_classRollMeanSum&#39;</span><span class="p">]</span>
-        <span class="c1">#print(&quot;type&quot;,type(max_series),&quot;and max series is &quot;,max_series)</span>
-        <span class="n">df_merges</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_merges</span><span class="p">,</span><span class="n">max_frame</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;UWI&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+        <span class="n">max_frame</span> <span class="o">=</span> <span class="n">idx</span><span class="p">[[</span><span class="s2">&quot;UWI&quot;</span><span class="p">,</span> <span class="s2">&quot;DEPT&quot;</span><span class="p">,</span> <span class="n">pick_pred_class_str</span> <span class="o">+</span> <span class="s2">&quot;classRollMeanSum&quot;</span><span class="p">]]</span>
+        <span class="n">max_frame</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;UWI&quot;</span><span class="p">,</span>
+            <span class="n">pick_pred_class_str</span> <span class="o">+</span> <span class="s2">&quot;_DEPT_pred&quot;</span><span class="p">,</span>
+            <span class="n">pick_pred_class_str</span> <span class="o">+</span> <span class="s2">&quot;_classRollMeanSum&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="c1"># print(&quot;type&quot;,type(max_series),&quot;and max series is &quot;,max_series)</span>
+        <span class="n">df_merges</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_merges</span><span class="p">,</span> <span class="n">max_frame</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;UWI&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">df_merges</span></div>
-    
-                       <span class="c1">#ML1,model,&quot;test&quot;,         vs,cols_to_keep_list,concatClass_test.df_results_trainOrtest_wIndex,vs.depth_str,vs.pick_class_str,vs.UWI_str,vs.rollingWindows,vs.distClassIntegersArray</span>
-<div class="viewcode-block" id="InputDistClassPrediction_to_BestDepthForTop.run_all"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.run_all">[docs]</a>    <span class="k">def</span> <span class="nf">run_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">MLobj</span><span class="p">,</span><span class="n">model</span><span class="p">,</span><span class="n">trainOrTest_str</span><span class="p">,</span><span class="n">cols_to_keep_list</span><span class="p">,</span><span class="n">depth_str</span><span class="p">,</span><span class="n">pick_pred_class_str</span><span class="p">,</span><span class="n">UWI_str</span><span class="p">,</span><span class="n">rollingWindows</span><span class="p">,</span><span class="n">predClasses</span><span class="p">):</span>
+
+        <span class="c1"># ML1,model,&quot;test&quot;,         vs,cols_to_keep_list,concatClass_test.df_results_trainOrtest_wIndex,vs.depth_str,vs.pick_class_str,vs.UWI_str,vs.rollingWindows,vs.distClassIntegersArray</span>
+
+<div class="viewcode-block" id="InputDistClassPrediction_to_BestDepthForTop.run_all"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.InputDistClassPrediction_to_BestDepthForTop.run_all">[docs]</a>    <span class="k">def</span> <span class="nf">run_all</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">MLobj</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">,</span>
+        <span class="n">trainOrTest_str</span><span class="p">,</span>
+        <span class="n">cols_to_keep_list</span><span class="p">,</span>
+        <span class="n">depth_str</span><span class="p">,</span>
+        <span class="n">pick_pred_class_str</span><span class="p">,</span>
+        <span class="n">UWI_str</span><span class="p">,</span>
+        <span class="n">rollingWindows</span><span class="p">,</span>
+        <span class="n">predClasses</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Runs two functions. Takes in first the resulting dataframe from model.predict(df_X_toPredict). Take in second, depth_str,pick_pred_class_str,UWI_str,rollingWindows,predClasses.</span>
 <span class="sd">        Creates rolling means and median distance class values across different size rolling windows.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1">## </span>
+        <span class="c1">##</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">load_MLobj</span><span class="p">(</span><span class="n">MLobj</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">trainOrTest_str</span> <span class="o">==</span> <span class="s1">&#39;train&#39;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">predict_from_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">MLobj</span><span class="o">.</span><span class="n">train_X</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">trainOrTest_str</span> <span class="o">==</span> <span class="s2">&quot;train&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">predict_from_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">MLobj</span><span class="o">.</span><span class="n">train_X</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">predict_from_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">MLobj</span><span class="o">.</span><span class="n">test_X</span><span class="p">)</span>
-        <span class="c1">#self.load_dist_class_pred_df(dist_class_pred_df)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">concat_modelResultsNDArray_w_indexValues</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">result_df_dist_class_prediction</span><span class="p">,</span><span class="n">trainOrTest_str</span><span class="p">,</span><span class="n">pick_pred_class_str</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">concat_step2</span><span class="p">(</span><span class="n">MLobj</span><span class="p">,</span><span class="n">trainOrTest_str</span><span class="p">,</span><span class="n">cols_to_keep_list</span><span class="p">)</span>
-        
+            <span class="bp">self</span><span class="o">.</span><span class="n">predict_from_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">MLobj</span><span class="o">.</span><span class="n">test_X</span><span class="p">)</span>
+        <span class="c1"># self.load_dist_class_pred_df(dist_class_pred_df)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">concat_modelResultsNDArray_w_indexValues</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">result_df_dist_class_prediction</span><span class="p">,</span> <span class="n">trainOrTest_str</span><span class="p">,</span> <span class="n">pick_pred_class_str</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">concat_step2</span><span class="p">(</span><span class="n">MLobj</span><span class="p">,</span> <span class="n">trainOrTest_str</span><span class="p">,</span> <span class="n">cols_to_keep_list</span><span class="p">)</span>
+
         <span class="c1">##</span>
         <span class="n">dist_class_pred_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df_results_trainOrtest_wIndex</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;type of dist_class_pred_df&quot;</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">dist_class_pred_df</span><span class="p">))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;type of self.df_results_trainOrtest_wIndex&quot;</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_results_trainOrtest_wIndex</span><span class="p">))</span>
-        
-        <span class="n">df_merges</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_vs_real_top_dif</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_results_trainOrtest_wIndex</span><span class="p">,</span><span class="n">depth_str</span><span class="p">,</span><span class="n">pick_pred_class_str</span><span class="p">,</span><span class="n">UWI_str</span><span class="p">,</span><span class="n">rollingWindows</span><span class="p">,</span><span class="n">predClasses</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;type of dist_class_pred_df&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">dist_class_pred_df</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;type of self.df_results_trainOrtest_wIndex&quot;</span><span class="p">,</span>
+            <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_results_trainOrtest_wIndex</span><span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="n">df_merges</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_vs_real_top_dif</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">df_results_trainOrtest_wIndex</span><span class="p">,</span>
+            <span class="n">depth_str</span><span class="p">,</span>
+            <span class="n">pick_pred_class_str</span><span class="p">,</span>
+            <span class="n">UWI_str</span><span class="p">,</span>
+            <span class="n">rollingWindows</span><span class="p">,</span>
+            <span class="n">predClasses</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">df_merges</span></div></div>
-    
 
 
-
-<div class="viewcode-block" id="accuracy_singleTopPerWellPrediction_fromRollingRules"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules">[docs]</a><span class="k">class</span> <span class="nc">accuracy_singleTopPerWellPrediction_fromRollingRules</span><span class="p">():</span>
+<div class="viewcode-block" id="accuracy_singleTopPerWellPrediction_fromRollingRules"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules">[docs]</a><span class="k">class</span> <span class="nc">accuracy_singleTopPerWellPrediction_fromRollingRules</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    stuff here</span>
 <span class="sd">    calculates accuracy on a per well basis after doing some rolling mean analysis on per depth point scores from machine-learning classification of distance class.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">mean_absolute_error</span>
-    
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">ML</span><span class="p">,</span> <span class="n">vs</span><span class="p">,</span><span class="n">distClassDF_wRollingCols_training</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ML</span><span class="p">,</span> <span class="n">vs</span><span class="p">,</span> <span class="n">distClassDF_wRollingCols_training</span><span class="p">):</span>
         <span class="c1"># self.knn_dir = ML.knn_dir</span>
         <span class="c1"># self.load_dir = ML.load_dir</span>
         <span class="c1"># self.features_dir = ML.features_dir</span>
         <span class="c1"># self.machine_learning_dir = ML.machine_learning_dir</span>
-        <span class="c1"># self.h5_to_load = ML.h5_to_load </span>
+        <span class="c1"># self.h5_to_load = ML.h5_to_load</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">train_X</span> <span class="o">=</span> <span class="n">ML</span><span class="o">.</span><span class="n">train_X</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">train_y</span> <span class="o">=</span> <span class="n">ML</span><span class="o">.</span><span class="n">train_y</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_X</span> <span class="o">=</span> <span class="n">ML</span><span class="o">.</span><span class="n">test_X</span>
@@ -480,10 +572,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">train_index</span> <span class="o">=</span> <span class="n">ML</span><span class="o">.</span><span class="n">train_index</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_index</span> <span class="o">=</span> <span class="n">ML</span><span class="o">.</span><span class="n">test_index</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">preSplitpreBal</span> <span class="o">=</span> <span class="n">ML</span><span class="o">.</span><span class="n">preSplitpreBal</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">result_df_from_prediction</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1">#df</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result_df_from_prediction</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># df</span>
         <span class="c1">####</span>
         <span class="c1">####</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vs</span> <span class="o">=</span> <span class="n">vs</span> <span class="c1"># object instance from variables class</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vs</span> <span class="o">=</span> <span class="n">vs</span>  <span class="c1"># object instance from variables class</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">depth_str</span> <span class="o">=</span> <span class="n">vs</span><span class="p">[</span><span class="s2">&quot;depth_str&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pick_class_str</span> <span class="o">=</span> <span class="n">vs</span><span class="p">[</span><span class="s2">&quot;pick_class_str&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">UWI_str</span> <span class="o">=</span> <span class="n">vs</span><span class="p">[</span><span class="s2">&quot;UWI_str&quot;</span><span class="p">]</span>
@@ -491,143 +583,199 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">distClassIntegersArray</span> <span class="o">=</span> <span class="n">vs</span><span class="p">[</span><span class="s2">&quot;distClassIntegersArray&quot;</span><span class="p">]</span>
         <span class="c1">####</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred</span> <span class="o">=</span> <span class="n">distClassDF_wRollingCols_training</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">excludeWellsThatOnlyHaveTheseClasses</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">### aka dropIfOnlyClasses in optionallyExcludeWellsWithoutStrongPredictions()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">NoGoodWellsToExclude</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">#### UWIs of wells that only had zeros in the predicted dsitance class so these wells were excluded from accurracy prediction</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">excludeWellsThatOnlyHaveTheseClasses</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">[]</span>
+        <span class="p">)</span>  <span class="c1">### aka dropIfOnlyClasses in optionallyExcludeWellsWithoutStrongPredictions()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">NoGoodWellsToExclude</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">[]</span>
+        <span class="p">)</span>  <span class="c1">#### UWIs of wells that only had zeros in the predicted dsitance class so these wells were excluded from accurracy prediction</span>
         <span class="c1">####</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_TopMcMr_Pick_pred_DEPT_pred</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1">#df</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_TopTarget_DEPTH</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1">#df</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fullUWIsSet</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">### set of UWIs in the dataframe</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_TopMcMr_Pick_pred_DEPT_pred</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># df</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_TopTarget_DEPTH</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># df</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fullUWIsSet</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1">### set of UWIs in the dataframe</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">precentWellsKept</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">UWIsSetSubsetKept</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">#### subset of the wells that have predictions that aren&#39;t just zero or something else not wanted</span>
-        
+        <span class="bp">self</span><span class="o">.</span><span class="n">UWIsSetSubsetKept</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">[]</span>
+        <span class="p">)</span>  <span class="c1">#### subset of the wells that have predictions that aren&#39;t just zero or something else not wanted</span>
+
     <span class="c1">## if zeros, calc_pred is changed to without zeros and zerosExcluded Array is populated</span>
-    
-    
+
 <div class="viewcode-block" id="accuracy_singleTopPerWellPrediction_fromRollingRules.help"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.help">[docs]</a>    <span class="k">def</span> <span class="nf">help</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; eventually there will some sort of help printed here to explain this function more and how it is envisioned you wil run it. In other words, step 1, step 2, etc.&quot;</span><span class="p">)</span></div>
-        
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot; eventually there will some sort of help printed here to explain this function more and how it is envisioned you wil run it. In other words, step 1, step 2, etc.&quot;</span>
+        <span class="p">)</span></div>
+
 <div class="viewcode-block" id="accuracy_singleTopPerWellPrediction_fromRollingRules.load_variables_obj"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.load_variables_obj">[docs]</a>    <span class="k">def</span> <span class="nf">load_variables_obj</span><span class="p">(</span><span class="n">vs</span><span class="p">):</span>
-        <span class="c1">#vs.depth_str,vs.pick_class_str,vs.UWI_str</span>
+        <span class="c1"># vs.depth_str,vs.pick_class_str,vs.UWI_str</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vs</span> <span class="o">=</span> <span class="n">vs</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;variables loaded include:&quot;</span><span class="p">,</span><span class="nb">list</span><span class="p">(</span><span class="n">vs</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span></div>
-        
-<div class="viewcode-block" id="accuracy_singleTopPerWellPrediction_fromRollingRules.optionallyExcludeWellsWithoutStrongPredictions"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.optionallyExcludeWellsWithoutStrongPredictions">[docs]</a>    <span class="k">def</span> <span class="nf">optionallyExcludeWellsWithoutStrongPredictions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">keepAllWells</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">dropIfOnlyClasses</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;variables loaded include:&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">vs</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span></div>
+
+<div class="viewcode-block" id="accuracy_singleTopPerWellPrediction_fromRollingRules.optionallyExcludeWellsWithoutStrongPredictions"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.optionallyExcludeWellsWithoutStrongPredictions">[docs]</a>    <span class="k">def</span> <span class="nf">optionallyExcludeWellsWithoutStrongPredictions</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">keepAllWells</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dropIfOnlyClasses</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="p">):</span>
         <span class="c1"># [0,60,70,95,100]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">excludeWellsThatOnlyHaveTheseClasses</span> <span class="o">=</span> <span class="n">dropIfOnlyClasses</span>
         <span class="k">if</span> <span class="n">keepAllWells</span> <span class="o">==</span> <span class="s2">&quot;no&quot;</span><span class="p">:</span>
             <span class="n">calc_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fullUWIsSet</span> <span class="o">=</span> <span class="n">calc_pred</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">UWI_str</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">eachClass</span> <span class="ow">in</span> <span class="n">dropIfOnlyClasses</span><span class="p">:</span>
-                <span class="n">calc_pred</span> <span class="o">=</span> <span class="n">calc_pred</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">calc_pred</span><span class="p">[</span><span class="s1">&#39;TopTarget_Pick_pred_classRollMeanSum&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">eachClass</span><span class="p">]</span>
-            <span class="c1">#calc_pred_noZeros = calc_pred.loc[calc_pred[&#39;TopTarget_Pick_pred_classRollMeanSum&#39;] != 0]</span>
+                <span class="n">calc_pred</span> <span class="o">=</span> <span class="n">calc_pred</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+                    <span class="n">calc_pred</span><span class="p">[</span><span class="s2">&quot;TopTarget_Pick_pred_classRollMeanSum&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">eachClass</span>
+                <span class="p">]</span>
+            <span class="c1"># calc_pred_noZeros = calc_pred.loc[calc_pred[&#39;TopTarget_Pick_pred_classRollMeanSum&#39;] != 0]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">UWIsSetSubsetKept</span> <span class="o">=</span> <span class="n">calc_pred</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">UWI_str</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-            
+
             <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred</span> <span class="o">=</span> <span class="n">calc_pred</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hit yes in optionallyExcludeWellsWithoutStrongPredictions()&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">calc_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fullUWIsSet</span> <span class="o">=</span> <span class="n">calc_pred</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">UWI_str</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">UWIsSetSubsetKept</span> <span class="o">=</span> <span class="n">calc_pred</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">UWI_str</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-            <span class="c1">#uniqueVals = df[&quot;cluster&quot;].unique()</span>
+            <span class="c1"># uniqueVals = df[&quot;cluster&quot;].unique()</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hit pass in optionallyExcludeWellsWithoutStrongPredictions()&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">precentWellsKept</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">UWIsSetSubsetKept</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fullUWIsSet</span><span class="p">)</span></div>
-    
-<div class="viewcode-block" id="accuracy_singleTopPerWellPrediction_fromRollingRules.reduceDFtoOneBestTopPredictionPerWell"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.reduceDFtoOneBestTopPredictionPerWell">[docs]</a>    <span class="k">def</span> <span class="nf">reduceDFtoOneBestTopPredictionPerWell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">TopTarget_Pick_pred_DEPT_pred</span><span class="p">):</span>
+
+<div class="viewcode-block" id="accuracy_singleTopPerWellPrediction_fromRollingRules.reduceDFtoOneBestTopPredictionPerWell"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.reduceDFtoOneBestTopPredictionPerWell">[docs]</a>    <span class="k">def</span> <span class="nf">reduceDFtoOneBestTopPredictionPerWell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">TopTarget_Pick_pred_DEPT_pred</span><span class="p">):</span>
         <span class="c1">## TopTarget_Pick_pred_DEPT_pred = &#39;TopTarget_Pick_pred_DEPT_pred&#39;</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        THINGS GO HERE</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_Pick_pred_DEPT_pred</span> <span class="o">=</span> <span class="n">TopTarget_Pick_pred_DEPT_pred</span>
         <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_Top_Pick_pred_DEPT_pred</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">UWI_str</span><span class="p">])[</span><span class="n">TopTarget_Pick_pred_DEPT_pred</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span></div>
-        
-<div class="viewcode-block" id="accuracy_singleTopPerWellPrediction_fromRollingRules.reduceDFtoOriginalTopPerWell"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.reduceDFtoOriginalTopPerWell">[docs]</a>    <span class="k">def</span> <span class="nf">reduceDFtoOriginalTopPerWell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">TopTarget_DEPTH</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_Top_Pick_pred_DEPT_pred</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">UWI_str</span><span class="p">])[</span><span class="n">TopTarget_Pick_pred_DEPT_pred</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+            <span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+            <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="accuracy_singleTopPerWellPrediction_fromRollingRules.reduceDFtoOriginalTopPerWell"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.reduceDFtoOriginalTopPerWell">[docs]</a>    <span class="k">def</span> <span class="nf">reduceDFtoOriginalTopPerWell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">TopTarget_DEPTH</span><span class="p">):</span>
         <span class="c1">## TopTarget_DEPTH = &#39;TopTarget_DEPTH&#39;</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        THINGS GO HERE</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_DEPTH</span> <span class="o">=</span> <span class="n">TopTarget_DEPTH</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_TopTarget_DEPTH</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">UWI_str</span><span class="p">]</span> <span class="p">)[</span><span class="n">TopTarget_DEPTH</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_TopTarget_DEPTH</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">UWI_str</span><span class="p">])[</span><span class="n">TopTarget_DEPTH</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="accuracy_singleTopPerWellPrediction_fromRollingRules.r2_func"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.r2_func">[docs]</a>    <span class="k">def</span> <span class="nf">r2_func</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        THINGS GO HERE</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">r2_</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_TopTarget_DEPTH</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_DEPTH</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_Top_Pick_pred_DEPT_pred</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_Pick_pred_DEPT_pred</span><span class="p">])</span>
+        <span class="n">r2_</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_TopTarget_DEPTH</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_DEPTH</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_Top_Pick_pred_DEPT_pred</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_Pick_pred_DEPT_pred</span><span class="p">],</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">r2_</span></div>
-    
+
 <div class="viewcode-block" id="accuracy_singleTopPerWellPrediction_fromRollingRules.mean_absolute_error_func"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.mean_absolute_error_func">[docs]</a>    <span class="k">def</span> <span class="nf">mean_absolute_error_func</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        THINGS GO HERE</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1">#self.TopTarget_DEPTH</span>
+        <span class="c1"># self.TopTarget_DEPTH</span>
         <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_TopTarget_DEPTH</span><span class="p">))</span>
         <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_TopTarget_DEPTH</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_DEPTH</span><span class="p">]))</span>
         <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_Top_Pick_pred_DEPT_pred</span><span class="p">))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_Top_Pick_pred_DEPT_pred</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_Pick_pred_DEPT_pred</span><span class="p">]))</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="nb">type</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_Top_Pick_pred_DEPT_pred</span><span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_Pick_pred_DEPT_pred</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_DEPTH</span><span class="p">))</span>
         <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_Pick_pred_DEPT_pred</span><span class="p">))</span>
-        <span class="n">mean_absolute_error_</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_TopTarget_DEPTH</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_DEPTH</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_Top_Pick_pred_DEPT_pred</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_Pick_pred_DEPT_pred</span><span class="p">])</span>
-        
-        <span class="c1">#mean_absolute_error_ = mean_absolute_error(self.calc_pred_TopTarget_DEPTH[self.TopTarget_DEPTH], self.calc_pred_Top_Pick_pred_DEPT_pred[self.TopTarget_Pick_pred_DEPT_pred])</span>
-        
-        <span class="c1">#mean_absolute_error_ = mean_absolute_error(self.calc_pred_TopTarget_DEPTH[&#39;TopTarget_DEPTH&#39;], self.calc_pred_Top_Pick_pred_DEPT_pred[&#39;TopTarget_Pick_pred_DEPT_pred&#39;])</span>
-        
+        <span class="n">mean_absolute_error_</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_TopTarget_DEPTH</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_DEPTH</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_Top_Pick_pred_DEPT_pred</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_Pick_pred_DEPT_pred</span><span class="p">],</span>
+        <span class="p">)</span>
+
+        <span class="c1"># mean_absolute_error_ = mean_absolute_error(self.calc_pred_TopTarget_DEPTH[self.TopTarget_DEPTH], self.calc_pred_Top_Pick_pred_DEPT_pred[self.TopTarget_Pick_pred_DEPT_pred])</span>
+
+        <span class="c1"># mean_absolute_error_ = mean_absolute_error(self.calc_pred_TopTarget_DEPTH[&#39;TopTarget_DEPTH&#39;], self.calc_pred_Top_Pick_pred_DEPT_pred[&#39;TopTarget_Pick_pred_DEPT_pred&#39;])</span>
+
         <span class="k">return</span> <span class="n">mean_absolute_error_</span></div>
-    
+
 <div class="viewcode-block" id="accuracy_singleTopPerWellPrediction_fromRollingRules.compare_RealTop_vsTopFromRollingMean"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.compare_RealTop_vsTopFromRollingMean">[docs]</a>    <span class="k">def</span> <span class="nf">compare_RealTop_vsTopFromRollingMean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        things go here</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">new_diff_col</span> <span class="o">=</span> <span class="s1">&#39;diff_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_DEPTH</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;_-_&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_Pick_pred_DEPT_pred</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_Top_Pick_pred_DEPT_pred</span><span class="p">[</span><span class="n">new_diff_col</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_TopTarget_DEPTH</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_DEPTH</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_Top_Pick_pred_DEPT_pred</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_Pick_pred_DEPT_pred</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_Top_Pick_pred_DEPT_pred</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_DEPTH</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_TopTarget_DEPTH</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_DEPTH</span><span class="p">]</span>
+        <span class="n">new_diff_col</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;diff_&quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_DEPTH</span><span class="p">)</span>
+            <span class="o">+</span> <span class="s2">&quot;_-_&quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_Pick_pred_DEPT_pred</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_Top_Pick_pred_DEPT_pred</span><span class="p">[</span><span class="n">new_diff_col</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_TopTarget_DEPTH</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_DEPTH</span><span class="p">]</span>
+            <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_Top_Pick_pred_DEPT_pred</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_Pick_pred_DEPT_pred</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_Top_Pick_pred_DEPT_pred</span><span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_DEPTH</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_TopTarget_DEPTH</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">TopTarget_DEPTH</span><span class="p">]</span>
         <span class="c1">#### line below prints histogram</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_Top_Pick_pred_DEPT_pred</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="n">new_diff_col</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span></div>
-    
-    
-<div class="viewcode-block" id="accuracy_singleTopPerWellPrediction_fromRollingRules.run_all"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.run_all">[docs]</a>    <span class="k">def</span> <span class="nf">run_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">TopTarget_Pick_pred_DEPT_pred</span><span class="p">,</span><span class="n">TopTarget_DEPTH</span><span class="p">,</span><span class="n">keepAllWells</span><span class="o">=</span><span class="s2">&quot;no&quot;</span><span class="p">,</span><span class="n">dropIfOnlyClasses</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_Top_Pick_pred_DEPT_pred</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+            <span class="n">column</span><span class="o">=</span><span class="n">new_diff_col</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="accuracy_singleTopPerWellPrediction_fromRollingRules.run_all"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.accuracy_singleTopPerWellPrediction_fromRollingRules.run_all">[docs]</a>    <span class="k">def</span> <span class="nf">run_all</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">TopTarget_Pick_pred_DEPT_pred</span><span class="p">,</span>
+        <span class="n">TopTarget_DEPTH</span><span class="p">,</span>
+        <span class="n">keepAllWells</span><span class="o">=</span><span class="s2">&quot;no&quot;</span><span class="p">,</span>
+        <span class="n">dropIfOnlyClasses</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1">####</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">optionallyExcludeWellsWithoutStrongPredictions</span><span class="p">(</span><span class="n">keepAllWells</span><span class="p">,</span><span class="n">dropIfOnlyClasses</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optionallyExcludeWellsWithoutStrongPredictions</span><span class="p">(</span>
+            <span class="n">keepAllWells</span><span class="p">,</span> <span class="n">dropIfOnlyClasses</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reduceDFtoOneBestTopPredictionPerWell</span><span class="p">(</span><span class="n">TopTarget_Pick_pred_DEPT_pred</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reduceDFtoOriginalTopPerWell</span><span class="p">(</span><span class="n">TopTarget_DEPTH</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2&quot;</span><span class="p">)</span>
-<span class="c1">#         self.reduceDFtoOneBestTopPredictionPerWell(TopTarget_DEPTH,TopTarget_Pick_pred_DEPT_pred)</span>
-<span class="c1">#         print(&quot;3&quot;)</span>
-<span class="c1">#         self.reduceDFtoOriginalTopPerWell(df)</span>
+        <span class="c1">#         self.reduceDFtoOneBestTopPredictionPerWell(TopTarget_DEPTH,TopTarget_Pick_pred_DEPT_pred)</span>
+        <span class="c1">#         print(&quot;3&quot;)</span>
+        <span class="c1">#         self.reduceDFtoOriginalTopPerWell(df)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;4&quot;</span><span class="p">)</span>
         <span class="n">r2__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">r2_func</span><span class="p">()</span>
-        <span class="c1">#mean = mean_absolute_error_ = mean_absolute_error(self.calc_pred_TopTarget_DEPTH[self.TopTarget_DEPTH], self.calc_pred_Top_Pick_pred_DEPT_pred[self.TopTarget_Pick_pred_DEPT_pred])</span>
+        <span class="c1"># mean = mean_absolute_error_ = mean_absolute_error(self.calc_pred_TopTarget_DEPTH[self.TopTarget_DEPTH], self.calc_pred_Top_Pick_pred_DEPT_pred[self.TopTarget_Pick_pred_DEPT_pred])</span>
         <span class="n">mean_absolute_error_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_absolute_error_func</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">compare_RealTop_vsTopFromRollingMean</span><span class="p">()</span>
-        
-        <span class="k">return</span> <span class="n">r2__</span><span class="p">,</span><span class="n">mean_absolute_error_</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_Top_Pick_pred_DEPT_pred</span></div></div>
+
+        <span class="k">return</span> <span class="n">r2__</span><span class="p">,</span> <span class="n">mean_absolute_error_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_pred_Top_Pick_pred_DEPT_pred</span></div></div>
 
 
-<div class="viewcode-block" id="saveRebalanceResultsAsHDF"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.saveRebalanceResultsAsHDF">[docs]</a><span class="k">def</span> <span class="nf">saveRebalanceResultsAsHDF</span><span class="p">(</span><span class="n">df_testPlusRebalTrain_featWithHighCount</span><span class="p">,</span> <span class="n">train_X</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">test_X</span><span class="p">,</span> <span class="n">test_y</span><span class="p">,</span> <span class="n">train_index</span><span class="p">,</span> <span class="n">test_index</span><span class="p">,</span> <span class="n">output_data_inst</span><span class="p">):</span>
+<div class="viewcode-block" id="saveRebalanceResultsAsHDFs"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.predictionclasses.saveRebalanceResultsAsHDFs">[docs]</a><span class="k">def</span> <span class="nf">saveRebalanceResultsAsHDFs</span><span class="p">(</span><span class="n">df_testPlusRebalTrain_featWithHighCount</span><span class="p">,</span><span class="n">train_X</span><span class="p">,</span><span class="n">train_y</span><span class="p">,</span><span class="n">test_X</span><span class="p">,</span>
+    <span class="n">test_y</span><span class="p">,</span>
+    <span class="n">train_index</span><span class="p">,</span>
+    <span class="n">test_index</span><span class="p">,</span>
+    <span class="n">output_data_inst</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Takes in </span>
 <span class="sd">    Saves </span>
 <span class="sd">    Returns </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1">###### Establish file path to save </span>
-    <span class="n">load_dir</span> <span class="o">=</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">base_path_for_all_results</span><span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">path_balance</span>
-    <span class="n">load_results_full_file_path</span> <span class="o">=</span> <span class="n">load_dir</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">output_data_inst</span><span class="o">.</span><span class="n">balance_results_wells_df</span><span class="o">+</span><span class="n">output_data_inst</span><span class="o">.</span><span class="n">default_results_file_format</span>
+    <span class="c1">###### Establish file path to save</span>
+    <span class="n">load_dir</span> <span class="o">=</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">base_path_for_all_results</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">path_balance</span>
+    <span class="n">load_results_full_file_path</span> <span class="o">=</span> <span class="n">load_dir</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">balance_results_wells_df</span> <span class="o">+</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">default_results_file_format</span>
     <span class="c1">#########################  Write each pandas dataframes to single HDF5 using separate keys to retrieve later</span>
-    <span class="n">df_testPlusRebalTrain_featWithHighCount</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">load_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;preSplitpreBal&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
-    <span class="n">train_X</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">load_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;train_X&#39;</span><span class="p">)</span>
-    <span class="n">train_y</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">load_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;train_y&#39;</span><span class="p">)</span>
-    <span class="n">test_X</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">load_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;test_X&#39;</span><span class="p">)</span>
-    <span class="n">test_y</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">load_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;test_y&#39;</span><span class="p">)</span>
-    <span class="n">train_index</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">load_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;train_index&#39;</span><span class="p">)</span>
-    <span class="n">test_index</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">load_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;test_index&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;finished saving the results of the rebalancing script in the location set in the output class instance. = &quot;</span><span class="p">,</span><span class="n">load_results_full_file_path</span><span class="p">)</span></div>
-
+    <span class="n">df_testPlusRebalTrain_featWithHighCount</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">oad_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;preSplitpreBal&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+    <span class="n">train_X</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">load_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;train_X&quot;</span><span class="p">)</span>
+    <span class="n">train_y</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">load_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;train_y&quot;</span><span class="p">)</span>
+    <span class="n">test_X</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">load_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;test_X&quot;</span><span class="p">)</span>
+    <span class="n">test_y</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">load_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;test_y&quot;</span><span class="p">)</span>
+    <span class="n">train_index</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">load_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;train_index&quot;</span><span class="p">)</span>
+    <span class="n">test_index</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">load_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;test_index&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;finished saving the results of the rebalancing script in the location set in the output class instance. = &quot;</span><span class="p">,</span>
+        <span class="n">load_results_full_file_path</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;finished saving the results of the rebalancing script in the location set in the output class instance. = &quot;</span></div>
 </pre></div>
 
            </div>

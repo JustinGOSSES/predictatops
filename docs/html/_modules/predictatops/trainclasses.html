@@ -167,6 +167,7 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
+
 <span class="c1"># import matplotlib.pyplot as plt</span>
 <span class="c1"># %matplotlib inline</span>
 <span class="kn">import</span> <span class="nn">welly</span>
@@ -188,29 +189,40 @@
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">mean_absolute_error</span>
 <span class="kn">from</span> <span class="nn">sklearn.externals</span> <span class="k">import</span> <span class="n">joblib</span>
 <span class="kn">import</span> <span class="nn">multiprocessing</span>
+
 <span class="c1">#### Adding this bit to silence an error that was causing the notebook to have a dead kernal</span>
 <span class="c1">#### This is an unsafe solution but couldn&#39;t get any  of the &quot;right solutions&quot; to work!</span>
 <span class="c1">#### Ended up using this = https://www.kaggle.com/c/bosch-production-line-performance/discussion/25082</span>
 <span class="c1">#### Other solutions = https://github.com/dmlc/xgboost/issues/1715 but the solution here didn&#39;t seem to work for me?</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="c1">#os.environ[&#39;KMP_DUPLICATE_LIB_OK&#39;]=&#39;True&#39;</span>
+
+<span class="c1"># os.environ[&#39;KMP_DUPLICATE_LIB_OK&#39;]=&#39;True&#39;</span>
 
 <span class="c1">######## Input variables defined at start   @###########</span>
 
 
 <div class="viewcode-block" id="findDirAndPathForBalancedresults"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.trainclasses.findDirAndPathForBalancedresults">[docs]</a><span class="k">def</span> <span class="nf">findDirAndPathForBalancedresults</span><span class="p">():</span>
 
-    <span class="k">return</span> </div>
+    <span class="k">return</span></div>
 
-<div class="viewcode-block" id="ML_obj_class"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.trainclasses.ML_obj_class">[docs]</a><span class="k">class</span> <span class="nc">ML_obj_class</span><span class="p">():</span>
+
+<div class="viewcode-block" id="ML_obj_class"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.trainclasses.ML_obj_class">[docs]</a><span class="k">class</span> <span class="nc">ML_obj_class</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;doc string&quot;&quot;&quot;</span>
+
     <span class="c1">##def __init__(self, knn_dir,load_dir,features_dir,machine_learning_dir,h5_to_load ):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_data_inst</span><span class="p">):</span>
         <span class="c1"># self.knn_dir = knn_dir</span>
         <span class="c1"># self.load_dir = load_dir</span>
         <span class="c1"># self.features_dir = features_dir</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">machine_learning_dir</span> <span class="o">=</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">base_path_for_all_results</span> <span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">path_balance</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">h5_to_load</span> <span class="o">=</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">balance_results_wells_df</span> <span class="o">+</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">default_results_file_format</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">machine_learning_dir</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">output_data_inst</span><span class="o">.</span><span class="n">base_path_for_all_results</span>
+            <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
+            <span class="o">+</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">path_balance</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h5_to_load</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">output_data_inst</span><span class="o">.</span><span class="n">balance_results_wells_df</span>
+            <span class="o">+</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">default_results_file_format</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">train_X</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">train_y</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_X</span> <span class="o">=</span> <span class="kc">None</span>
@@ -218,106 +230,167 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">train_index</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_index</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">preSplitpreBal</span> <span class="o">=</span> <span class="kc">None</span>
-        
+
 <div class="viewcode-block" id="ML_obj_class.check_test_df_same_size"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.trainclasses.ML_obj_class.check_test_df_same_size">[docs]</a>    <span class="k">def</span> <span class="nf">check_test_df_same_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_X</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_y</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_y</span><span class="p">)</span><span class="o">==</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_index</span><span class="p">):</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="s2">&quot;PASSED: test_X and test_y and test_index are all the same size as asserted &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_X</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_X</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_y</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_y</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">test_index</span>
+        <span class="p">):</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;PASSED: test_X and test_y and test_index are all the same size as asserted &quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_X</span><span class="p">))</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="s2">&quot;FAIL?: test_X and test_y in the test dataset should be the same size BUT THEY ARE NOT!!! test_X = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_X</span><span class="p">))</span><span class="o">+</span><span class="s2">&quot; and test_y =&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_y</span><span class="p">))</span><span class="o">+</span><span class="s2">&quot; and test_index=&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_index</span><span class="p">))</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;FAIL?: test_X and test_y in the test dataset should be the same size BUT THEY ARE NOT!!! test_X = &quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_X</span><span class="p">))</span>
+                <span class="o">+</span> <span class="s2">&quot; and test_y =&quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_y</span><span class="p">))</span>
+                <span class="o">+</span> <span class="s2">&quot; and test_index=&quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_index</span><span class="p">))</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="n">response</span></div>
-    
+
 <div class="viewcode-block" id="ML_obj_class.check_train_df_same_size"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.trainclasses.ML_obj_class.check_train_df_same_size">[docs]</a>    <span class="k">def</span> <span class="nf">check_train_df_same_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_X</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_y</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_y</span><span class="p">)</span><span class="o">==</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_index</span><span class="p">):</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="s2">&quot;PASSED: train_X and train_y and train_index are all the same size as asserted &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_X</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_X</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_y</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_y</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">train_index</span>
+        <span class="p">):</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;PASSED: train_X and train_y and train_index are all the same size as asserted &quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_X</span><span class="p">))</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="s2">&quot;FAIL?: train_X and train_y and train_index should be the same size BUT THEY ARE NOT!!! train_X = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_X</span><span class="p">))</span><span class="o">+</span><span class="s2">&quot; and train_y =&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_y</span><span class="p">))</span><span class="o">+</span><span class="s2">&quot; and train_index=&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_index</span><span class="p">))</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;FAIL?: train_X and train_y and train_index should be the same size BUT THEY ARE NOT!!! train_X = &quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_X</span><span class="p">))</span>
+                <span class="o">+</span> <span class="s2">&quot; and train_y =&quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_y</span><span class="p">))</span>
+                <span class="o">+</span> <span class="s2">&quot; and train_index=&quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_index</span><span class="p">))</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="n">response</span></div>
-    
-<div class="viewcode-block" id="ML_obj_class.dropCol"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.trainclasses.ML_obj_class.dropCol">[docs]</a>    <span class="k">def</span> <span class="nf">dropCol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">df</span><span class="p">,</span><span class="n">col_list</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ML_obj_class.dropCol"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.trainclasses.ML_obj_class.dropCol">[docs]</a>    <span class="k">def</span> <span class="nf">dropCol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">col_list</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">col_list</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">df</span></div>
-    
-<div class="viewcode-block" id="ML_obj_class.dropNeighbors_ObjCol"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.trainclasses.ML_obj_class.dropNeighbors_ObjCol">[docs]</a>    <span class="k">def</span> <span class="nf">dropNeighbors_ObjCol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">col_list</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ML_obj_class.dropNeighbors_ObjCol"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.trainclasses.ML_obj_class.dropNeighbors_ObjCol">[docs]</a>    <span class="k">def</span> <span class="nf">dropNeighbors_ObjCol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col_list</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">train_X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropCol</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_X</span><span class="p">,</span><span class="n">col_list</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">test_X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropCol</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_X</span><span class="p">,</span><span class="n">col_list</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">preSplitpreBal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropCol</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">preSplitpreBal</span><span class="p">,</span><span class="n">col_list</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;dropped :&quot;</span><span class="p">,</span><span class="n">col_list</span><span class="p">,</span><span class="s2">&quot; in train_X, test_X, and preSplitpreBal dataframes&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">train_X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropCol</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_X</span><span class="p">,</span> <span class="n">col_list</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">test_X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropCol</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_X</span><span class="p">,</span> <span class="n">col_list</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">preSplitpreBal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropCol</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">preSplitpreBal</span><span class="p">,</span> <span class="n">col_list</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;dropped :&quot;</span><span class="p">,</span>
+                <span class="n">col_list</span><span class="p">,</span>
+                <span class="s2">&quot; in train_X, test_X, and preSplitpreBal dataframes&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Could not find something in &quot;</span><span class="p">,</span><span class="n">col_list</span><span class="p">,</span><span class="s2">&quot; and such did not drop :&quot;</span><span class="p">,</span><span class="n">col_list</span><span class="p">,</span><span class="s2">&quot; in train_X, test_X, and preSplitpreBal dataframes. It may nto exist.&quot;</span><span class="p">)</span></div>
-        
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;Could not find something in &quot;</span><span class="p">,</span>
+                <span class="n">col_list</span><span class="p">,</span>
+                <span class="s2">&quot; and such did not drop :&quot;</span><span class="p">,</span>
+                <span class="n">col_list</span><span class="p">,</span>
+                <span class="s2">&quot; in train_X, test_X, and preSplitpreBal dataframes. It may nto exist.&quot;</span><span class="p">,</span>
+            <span class="p">)</span></div>
+
 <div class="viewcode-block" id="ML_obj_class.load_data_for_ml"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.trainclasses.ML_obj_class.load_data_for_ml">[docs]</a>    <span class="k">def</span> <span class="nf">load_data_for_ml</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        doc string goes here</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">train_X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">machine_learning_dir</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_to_load</span><span class="p">,</span> <span class="s1">&#39;train_X&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">train_y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">machine_learning_dir</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_to_load</span><span class="p">,</span> <span class="s1">&#39;train_y&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">test_X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">machine_learning_dir</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_to_load</span><span class="p">,</span> <span class="s1">&#39;test_X&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">test_y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">machine_learning_dir</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_to_load</span><span class="p">,</span> <span class="s1">&#39;test_y&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">train_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">machine_learning_dir</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_to_load</span><span class="p">,</span> <span class="s1">&#39;train_index&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">test_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">machine_learning_dir</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_to_load</span><span class="p">,</span> <span class="s1">&#39;test_index&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">preSplitpreBal</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">machine_learning_dir</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_to_load</span><span class="p">,</span> <span class="s1">&#39;preSplitpreBal&#39;</span><span class="p">)</span>
-        <span class="c1">#print(&quot;X and Y in the test dataset should be the same size&quot;, &quot; test_X = &quot;,len(self.test_X),&quot; and test_y =&quot;,len(self.test_y),&quot; and test_index=&quot;,len(self.test_index))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">machine_learning_dir</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_to_load</span><span class="p">,</span> <span class="s2">&quot;train_X&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">machine_learning_dir</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_to_load</span><span class="p">,</span> <span class="s2">&quot;train_y&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">machine_learning_dir</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_to_load</span><span class="p">,</span> <span class="s2">&quot;test_X&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">machine_learning_dir</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_to_load</span><span class="p">,</span> <span class="s2">&quot;test_y&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">machine_learning_dir</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_to_load</span><span class="p">,</span> <span class="s2">&quot;train_index&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">machine_learning_dir</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_to_load</span><span class="p">,</span> <span class="s2">&quot;test_index&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preSplitpreBal</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">machine_learning_dir</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_to_load</span><span class="p">,</span> <span class="s2">&quot;preSplitpreBal&quot;</span>
+        <span class="p">)</span>
+        <span class="c1"># print(&quot;X and Y in the test dataset should be the same size&quot;, &quot; test_X = &quot;,len(self.test_X),&quot; and test_y =&quot;,len(self.test_y),&quot; and test_index=&quot;,len(self.test_index))</span>
         <span class="n">check_response_test</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_test_df_same_size</span><span class="p">()</span>
         <span class="n">check_response_train</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_train_df_same_size</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">check_response_test</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">check_response_train</span><span class="p">)</span>
         <span class="k">return</span> <span class="s2">&quot;Loading the h5 format data into pandas finished. You may access the dataframes by appending to the ML1 object .train_X | .train_y | test_X | .test_y | .train_index | .test_index | .preSplitpreBal&quot;</span></div>
-    
+
 <div class="viewcode-block" id="ML_obj_class.init_XGBoost_withSettings"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.trainclasses.ML_obj_class.init_XGBoost_withSettings">[docs]</a>    <span class="k">def</span> <span class="nf">init_XGBoost_withSettings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Takes in </span>
 <span class="sd">        Returns</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        
+
         <span class="c1">##########################     Initial Machine Learning Using XGBoost classification   ##########################</span>
         <span class="c1">##########################     Optional</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">XGBClassifier</span><span class="p">(</span>
             <span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-            <span class="n">objective</span><span class="o">=</span><span class="s1">&#39;multi:softmax&#39;</span><span class="p">,</span>  <span class="c1"># error evaluation for multiclass training</span>
+            <span class="n">objective</span><span class="o">=</span><span class="s2">&quot;multi:softmax&quot;</span><span class="p">,</span>  <span class="c1"># error evaluation for multiclass training</span>
             <span class="n">num_class</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-            <span class="n">n_gpus</span><span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="n">n_gpus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
             <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span>
-            <span class="c1"># gamma=gamma, </span>
-            <span class="c1"># reg_alpha=reg_alpha, </span>
-            <span class="c1"># max_depth=max_depth, </span>
-            <span class="c1"># subsample=subsample, </span>
-            <span class="c1"># colsample_bytree= colsample_bytree, </span>
-            <span class="c1"># n_estimators= n_estimators, </span>
-            <span class="c1"># learning_rate= learning_rate, </span>
+            <span class="c1"># gamma=gamma,</span>
+            <span class="c1"># reg_alpha=reg_alpha,</span>
+            <span class="c1"># max_depth=max_depth,</span>
+            <span class="c1"># subsample=subsample,</span>
+            <span class="c1"># colsample_bytree= colsample_bytree,</span>
+            <span class="c1"># n_estimators= n_estimators,</span>
+            <span class="c1"># learning_rate= learning_rate,</span>
             <span class="c1"># min_child_weight= min_child_weight,</span>
             <span class="c1"># n_jobs=n_jobs</span>
-            <span class="c1">#params</span>
+            <span class="c1"># params</span>
         <span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; init_XGBoost_withSettings function has been called which initiates a XGBoost classifier with settings of : max_depth=4,objective=&#39;multi:softmax&#39;, training,num_class=5,n_gpus= 0,n_jobs=8&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;model coming out of init_XGBoost_withSettings() function is:&quot;</span><span class="p">,</span><span class="n">model</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot; init_XGBoost_withSettings function has been called which initiates a XGBoost classifier with settings of : max_depth=4,objective=&#39;multi:softmax&#39;, training,num_class=5,n_gpus= 0,n_jobs=8&quot;</span>
+        <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;model coming out of init_XGBoost_withSettings() function is:&quot;</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">model</span></div></div>
-                            
 
-<div class="viewcode-block" id="saveTrainClassesResultsAsPickle"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.trainclasses.saveTrainClassesResultsAsPickle">[docs]</a><span class="k">def</span> <span class="nf">saveTrainClassesResultsAsPickle</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">MLinstance</span><span class="p">,</span><span class="n">output_data_inst</span><span class="p">):</span>
+
+<div class="viewcode-block" id="saveTrainClassesResultsAsPickle"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.trainclasses.saveTrainClassesResultsAsPickle">[docs]</a><span class="k">def</span> <span class="nf">saveTrainClassesResultsAsPickle</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">MLinstance</span><span class="p">,</span> <span class="n">output_data_inst</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Takes in </span>
 <span class="sd">    Saves </span>
 <span class="sd">    Returns </span>
 <span class="sd">    NOTE: This pickle may have problems loading properly if you switch OS or version of Python!!!</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1">###### Establish file path to save </span>
-    <span class="n">load_dir</span> <span class="o">=</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">base_path_for_all_results</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">path_trainclasses</span>
-    <span class="n">load_results_full_file_path</span> <span class="o">=</span> <span class="n">load_dir</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">output_data_inst</span><span class="o">.</span><span class="n">trainclasses_results_model</span><span class="o">+</span><span class="n">output_data_inst</span><span class="o">.</span><span class="n">default_results_file_format</span>
+    <span class="c1">###### Establish file path to save</span>
+    <span class="n">load_dir</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">output_data_inst</span><span class="o">.</span><span class="n">base_path_for_all_results</span>
+        <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
+        <span class="o">+</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">path_trainclasses</span>
+    <span class="p">)</span>
+    <span class="n">load_results_full_file_path</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">load_dir</span>
+        <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
+        <span class="o">+</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">trainclasses_results_model</span>
+        <span class="o">+</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">default_results_file_format</span>
+    <span class="p">)</span>
     <span class="c1">#########################  Write each pandas dataframes to single HDF5 using separate keys to retrieve later</span>
     <span class="c1"># Save to file in the current working directory</span>
-    <span class="n">joblib_file</span> <span class="o">=</span> <span class="s2">&quot;trainclasses_model.pkl&quot;</span>  
-    <span class="n">joblib_file</span> <span class="o">=</span> <span class="n">load_dir</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">joblib_file</span> 
+    <span class="n">joblib_file</span> <span class="o">=</span> <span class="s2">&quot;trainclasses_model.pkl&quot;</span>
+    <span class="n">joblib_file</span> <span class="o">=</span> <span class="n">load_dir</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">joblib_file</span>
     <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">joblib_file</span><span class="p">)</span>
-    <span class="c1">#model.to_hdf(load_results_full_file_path, key=&#39;model&#39;, mode=&#39;w&#39;)</span>
-    <span class="n">joblib_fileMLInstance</span> <span class="o">=</span> <span class="n">load_dir</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="s2">&quot;trainclasses_ML1_instance.pkl&quot;</span>
+    <span class="c1"># model.to_hdf(load_results_full_file_path, key=&#39;model&#39;, mode=&#39;w&#39;)</span>
+    <span class="n">joblib_fileMLInstance</span> <span class="o">=</span> <span class="n">load_dir</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="s2">&quot;trainclasses_ML1_instance.pkl&quot;</span>
     <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">MLinstance</span><span class="p">,</span> <span class="n">joblib_fileMLInstance</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;finished saving the results of the model step in the location set in the output class instance. = &quot;</span><span class="p">,</span><span class="n">joblib_file</span><span class="p">)</span></div>
-
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;finished saving the results of the model step in the location set in the output class instance. = &quot;</span><span class="p">,</span>
+        <span class="n">joblib_file</span><span class="p">,</span>
+    <span class="p">)</span></div>
 </pre></div>
 
            </div>

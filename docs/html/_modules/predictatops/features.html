@@ -167,6 +167,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
 <span class="c1"># %matplotlib inline</span>
 <span class="kn">import</span> <span class="nn">welly</span>
 <span class="kn">from</span> <span class="nn">welly</span> <span class="k">import</span> <span class="n">Well</span>
@@ -175,6 +176,7 @@
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">neighbors</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="kn">import</span> <span class="nn">math</span>
+
 <span class="c1"># import dask</span>
 <span class="c1"># import dask.dataframe as dd</span>
 <span class="c1"># #from dask.distributed import Client</span>
@@ -183,12 +185,11 @@
 
 <span class="c1"># import pdvega</span>
 <span class="c1"># import vega</span>
-<span class="c1">#from IPython.display import display</span>
+<span class="c1"># from IPython.display import display</span>
 <span class="c1"># pd.set_option(&#39;display.max_rows&#39;, 500)</span>
 <span class="c1"># pd.set_option(&#39;display.max_columns&#39;, 500)</span>
 <span class="c1"># pd.set_option(&#39;display.width&#39;, 1000)</span>
 <span class="c1"># pd.options.display.max_colwidth = 100000</span>
-
 
 
 <span class="c1">################### Purpose for this code ###################</span>
@@ -197,25 +198,27 @@
 <span class="c1">###################################################################</span>
 
 
-
 <span class="c1">################ Load dataframe of tops data from wellsKNN script ###################</span>
 
-<div class="viewcode-block" id="getMainDFsavedInStep"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.getMainDFsavedInStep">[docs]</a><span class="k">def</span> <span class="nf">getMainDFsavedInStep</span><span class="p">(</span><span class="n">path_to_results</span><span class="p">,</span><span class="n">path_to_directory</span><span class="p">,</span><span class="n">file_name</span><span class="p">,</span><span class="n">ending</span><span class="p">):</span>
+
+<div class="viewcode-block" id="getMainDFsavedInStep"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.getMainDFsavedInStep">[docs]</a><span class="k">def</span> <span class="nf">getMainDFsavedInStep</span><span class="p">(</span><span class="n">path_to_results</span><span class="p">,</span> <span class="n">path_to_directory</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">ending</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Takes in </span>
 <span class="sd">    Returns</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">dir_path</span> <span class="o">=</span> <span class="n">path_to_results</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">path_to_directory</span>
-    <span class="n">full_path_to_results_file</span> <span class="o">=</span> <span class="n">dir_path</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">file_name</span><span class="o">+</span><span class="n">ending</span>
+    <span class="n">full_path_to_results_file</span> <span class="o">=</span> <span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">file_name</span> <span class="o">+</span> <span class="n">ending</span>
     <span class="k">return</span> <span class="n">full_path_to_results_file</span></div>
 
-<div class="viewcode-block" id="load_prev_results_at_path"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.load_prev_results_at_path">[docs]</a><span class="k">def</span> <span class="nf">load_prev_results_at_path</span><span class="p">(</span><span class="n">full_path_to_results_file</span><span class="p">,</span><span class="n">key</span><span class="o">=</span><span class="s1">&#39;df&#39;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="load_prev_results_at_path"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.load_prev_results_at_path">[docs]</a><span class="k">def</span> <span class="nf">load_prev_results_at_path</span><span class="p">(</span><span class="n">full_path_to_results_file</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;df&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Takes in </span>
 <span class="sd">    Returns</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">wells_df_from_wellsKNN</span>  <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">full_path_to_results_file</span><span class="p">,</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">wells_df_from_wellsKNN</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">full_path_to_results_file</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">wells_df_from_wellsKNN</span></div>
+
 
 <div class="viewcode-block" id="get_wellsKNN_results"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.get_wellsKNN_results">[docs]</a><span class="k">def</span> <span class="nf">get_wellsKNN_results</span><span class="p">(</span><span class="n">output_data_inst</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -227,11 +230,13 @@
     <span class="n">path_to_directory</span> <span class="o">=</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">path_wellsKNN</span>
     <span class="n">file_name</span> <span class="o">=</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">wellsKNN_results_wells_df</span>
     <span class="n">ending</span> <span class="o">=</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">default_results_file_format</span>
-    <span class="c1">##### combine all those variables into a single </span>
+    <span class="c1">##### combine all those variables into a single</span>
 
-    <span class="n">full_path_to_wellsKNN_results</span> <span class="o">=</span> <span class="n">getMainDFsavedInStep</span><span class="p">(</span><span class="n">path_to_prev_results</span><span class="p">,</span><span class="n">path_to_directory</span><span class="p">,</span><span class="n">file_name</span><span class="p">,</span><span class="n">ending</span><span class="p">)</span>
+    <span class="n">full_path_to_wellsKNN_results</span> <span class="o">=</span> <span class="n">getMainDFsavedInStep</span><span class="p">(</span>
+        <span class="n">path_to_prev_results</span><span class="p">,</span> <span class="n">path_to_directory</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">ending</span>
+    <span class="p">)</span>
     <span class="c1">##### load dataframe from full path</span>
-    <span class="n">wells_df_from_wellsKNN</span>  <span class="o">=</span> <span class="n">load_prev_results_at_path</span><span class="p">(</span><span class="n">full_path_to_wellsKNN_results</span><span class="p">)</span>
+    <span class="n">wells_df_from_wellsKNN</span> <span class="o">=</span> <span class="n">load_prev_results_at_path</span><span class="p">(</span><span class="n">full_path_to_wellsKNN_results</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">wells_df_from_wellsKNN</span></div>
 
 
@@ -246,74 +251,93 @@
     <span class="n">path_to_directory</span> <span class="o">=</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">path_split</span>
     <span class="n">file_name</span> <span class="o">=</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">split_results_wells_df</span>
     <span class="n">ending</span> <span class="o">=</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">default_results_file_format</span>
-    <span class="c1">##### combine all those variables into a single </span>
+    <span class="c1">##### combine all those variables into a single</span>
 
-    <span class="n">full_path_to_split_curve_results</span> <span class="o">=</span> <span class="n">getMainDFsavedInStep</span><span class="p">(</span><span class="n">path_to_prev_results</span><span class="p">,</span><span class="n">path_to_directory</span><span class="p">,</span><span class="n">file_name</span><span class="p">,</span><span class="n">ending</span><span class="p">)</span>
+    <span class="n">full_path_to_split_curve_results</span> <span class="o">=</span> <span class="n">getMainDFsavedInStep</span><span class="p">(</span>
+        <span class="n">path_to_prev_results</span><span class="p">,</span> <span class="n">path_to_directory</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">ending</span>
+    <span class="p">)</span>
     <span class="c1">##### load dataframe from full path</span>
-    <span class="n">wells_df_from_split_curveData</span>  <span class="o">=</span> <span class="n">load_prev_results_at_path</span><span class="p">(</span><span class="n">full_path_to_split_curve_results</span><span class="p">)</span>
+    <span class="n">wells_df_from_split_curveData</span> <span class="o">=</span> <span class="n">load_prev_results_at_path</span><span class="p">(</span>
+        <span class="n">full_path_to_split_curve_results</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">wells_df_from_split_curveData</span></div>
 
 
-<div class="viewcode-block" id="mergeCurvesAndTopsDF"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.mergeCurvesAndTopsDF">[docs]</a><span class="k">def</span> <span class="nf">mergeCurvesAndTopsDF</span><span class="p">(</span><span class="n">wells_df_from_split_curveData</span><span class="p">,</span><span class="n">wells_df_from_wellsKNN</span><span class="p">,</span><span class="n">config</span><span class="p">):</span>
+<div class="viewcode-block" id="mergeCurvesAndTopsDF"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.mergeCurvesAndTopsDF">[docs]</a><span class="k">def</span> <span class="nf">mergeCurvesAndTopsDF</span><span class="p">(</span><span class="n">wells_df_from_split_curveData</span><span class="p">,</span> <span class="n">wells_df_from_wellsKNN</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Takes in </span>
 <span class="sd">    Returns</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">#### check if UWI column exists in each dataframe, if not, find SitID and create UWI column from SiteID</span>
-    
-    <span class="n">df_all_wells_wKNN</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">wells_df_from_split_curveData</span><span class="p">,</span> <span class="n">wells_df_from_wellsKNN</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">UWI</span><span class="p">)</span>
+
+    <span class="n">df_all_wells_wKNN</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">wells_df_from_split_curveData</span><span class="p">,</span> <span class="n">wells_df_from_wellsKNN</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">UWI</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">df_all_wells_wKNN</span></div>
+
 
 <span class="c1">#####################</span>
 
-<div class="viewcode-block" id="convertAllColButGivenToFloat"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.convertAllColButGivenToFloat">[docs]</a><span class="k">def</span> <span class="nf">convertAllColButGivenToFloat</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="n">df_all_wells_wKNN</span><span class="p">):</span>
+
+<div class="viewcode-block" id="convertAllColButGivenToFloat"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.convertAllColButGivenToFloat">[docs]</a><span class="k">def</span> <span class="nf">convertAllColButGivenToFloat</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">df_all_wells_wKNN</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Takes in </span>
 <span class="sd">    Returns</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1">#keepStringsArray = [&#39;UWI&#39;, &#39;SiteID&#39;, &#39;trainOrTest&#39;,&#39;Neighbors_Obj&#39;]</span>
+    <span class="c1"># keepStringsArray = [&#39;UWI&#39;, &#39;SiteID&#39;, &#39;trainOrTest&#39;,&#39;Neighbors_Obj&#39;]</span>
     <span class="n">keepStringsArray</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">colsToNotTurnToFloats</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;turning all columns but these into floats. Should come from config.colsToNotTurnToFloats&quot;</span><span class="p">,</span><span class="n">keepStringsArray</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;turning all columns but these into floats. Should come from config.colsToNotTurnToFloats&quot;</span><span class="p">,</span>
+        <span class="n">keepStringsArray</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df_all_wells_wKNN</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
-    <span class="n">columns_to_turn_to_floats</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">columns</span> <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">keepStringsArray</span><span class="p">]</span>
-    <span class="n">df_all_wells_wKNN</span><span class="p">[</span><span class="n">columns_to_turn_to_floats</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all_wells_wKNN</span><span class="p">[</span><span class="n">columns_to_turn_to_floats</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">columns_to_turn_to_floats</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">columns</span> <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">keepStringsArray</span>
+    <span class="p">]</span>
+    <span class="n">df_all_wells_wKNN</span><span class="p">[</span><span class="n">columns_to_turn_to_floats</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all_wells_wKNN</span><span class="p">[</span>
+        <span class="n">columns_to_turn_to_floats</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">df_all_wells_wKNN</span></div>
 
-<div class="viewcode-block" id="takeLASOffUWI"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.takeLASOffUWI">[docs]</a><span class="k">def</span> <span class="nf">takeLASOffUWI</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">config</span><span class="p">):</span>
+
+<div class="viewcode-block" id="takeLASOffUWI"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.takeLASOffUWI">[docs]</a><span class="k">def</span> <span class="nf">takeLASOffUWI</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Change UWI string .LAS to just UWI string</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">df</span><span class="p">[</span><span class="n">config</span><span class="o">.</span><span class="n">UWI</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">config</span><span class="o">.</span><span class="n">UWI</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.LAS&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">config</span><span class="o">.</span><span class="n">UWI</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">config</span><span class="o">.</span><span class="n">UWI</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.LAS&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">df</span></div>
 
-<div class="viewcode-block" id="convertSiteIDListToUWIList"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.convertSiteIDListToUWIList">[docs]</a><span class="k">def</span> <span class="nf">convertSiteIDListToUWIList</span><span class="p">(</span><span class="n">input_data_inst</span><span class="p">,</span><span class="n">df_with_sitID</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">input_data_inst</span><span class="o">.</span><span class="n">wells_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">wells</span> <span class="o">=</span> <span class="n">input_data_inst</span><span class="o">.</span><span class="n">load_wells_file</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">wells</span> <span class="o">=</span> <span class="n">input_data_inst</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">wells_df</span>
-        <span class="c1"># if self.wells_with_all_given_tops is not None:</span>
-        <span class="c1">#     wells_with_all_given_tops = self.findWellsWithAllTopsGive()</span>
-        <span class="c1"># else:</span>
-        <span class="c1">#     wells_with_all_given_tops = self.wells_with_all_given_tops</span>
-        <span class="n">wells</span> <span class="o">=</span> <span class="n">wells</span><span class="p">[[</span><span class="s1">&#39;SitID&#39;</span><span class="p">,</span><span class="s1">&#39;UWI&#39;</span><span class="p">]]</span>
-        <span class="c1">#wells[&quot;UWInew&quot;] = wells[&quot;UWI&quot;].str.replace(&quot;/&quot;,&quot;-&quot;)+&quot;.LAS&quot;</span>
-        <span class="n">wells</span><span class="p">[</span><span class="s2">&quot;UWInew&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wells</span><span class="p">[</span><span class="s2">&quot;UWI&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="s2">&quot;-&quot;</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;.LAS&quot;</span>
-        <span class="n">wells</span> <span class="o">=</span> <span class="n">wells</span><span class="p">[[</span><span class="s1">&#39;SitID&#39;</span><span class="p">,</span><span class="s1">&#39;UWInew&#39;</span><span class="p">]]</span>
-        <span class="n">wells_dict</span> <span class="o">=</span> <span class="n">wells</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;SitID&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;wells_dict = &quot;</span><span class="p">,</span><span class="n">wells_dict</span><span class="p">)</span>
-        <span class="c1">#df_with_sitID[&#39;UWI&#39;] = df_with_sitID[&#39;SitID&#39;]</span>
-        <span class="c1">#df_with_sitID.replace({&#39;UWI&#39;: wells_dict},inplace=True)</span>
-        <span class="n">df_with_sitID</span><span class="p">[</span><span class="s1">&#39;UWI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_with_sitID</span><span class="p">[</span><span class="s1">&#39;SitID&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">wells_dict</span><span class="p">)</span>
-        <span class="c1">#df_with_sitID[&#39;UWI&#39;] = df_with_sitID[&#39;UWI&#39;][1]</span>
-        <span class="c1">#df_with_sitID[&#39;UWI&#39;] = wells_dict[df_with_sitID[&#39;SitID&#39;]][1]</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;df_with_sitID[0:2]&quot;</span><span class="p">,</span><span class="n">df_with_sitID</span><span class="o">.</span><span class="n">UWI</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">df_with_sitID</span></div>
+
+<div class="viewcode-block" id="convertSiteIDListToUWIList"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.convertSiteIDListToUWIList">[docs]</a><span class="k">def</span> <span class="nf">convertSiteIDListToUWIList</span><span class="p">(</span><span class="n">input_data_inst</span><span class="p">,</span> <span class="n">df_with_sitID</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;doc string goes here&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">input_data_inst</span><span class="o">.</span><span class="n">wells_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">wells</span> <span class="o">=</span> <span class="n">input_data_inst</span><span class="o">.</span><span class="n">load_wells_file</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">wells</span> <span class="o">=</span> <span class="n">input_data_inst</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">wells_df</span>
+    <span class="c1"># if self.wells_with_all_given_tops is not None:</span>
+    <span class="c1">#     wells_with_all_given_tops = self.findWellsWithAllTopsGive()</span>
+    <span class="c1"># else:</span>
+    <span class="c1">#     wells_with_all_given_tops = self.wells_with_all_given_tops</span>
+    <span class="n">wells</span> <span class="o">=</span> <span class="n">wells</span><span class="p">[[</span><span class="s2">&quot;SitID&quot;</span><span class="p">,</span> <span class="s2">&quot;UWI&quot;</span><span class="p">]]</span>
+    <span class="c1"># wells[&quot;UWInew&quot;] = wells[&quot;UWI&quot;].str.replace(&quot;/&quot;,&quot;-&quot;)+&quot;.LAS&quot;</span>
+    <span class="n">wells</span><span class="p">[</span><span class="s2">&quot;UWInew&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wells</span><span class="p">[</span><span class="s2">&quot;UWI&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.LAS&quot;</span>
+    <span class="n">wells</span> <span class="o">=</span> <span class="n">wells</span><span class="p">[[</span><span class="s2">&quot;SitID&quot;</span><span class="p">,</span> <span class="s2">&quot;UWInew&quot;</span><span class="p">]]</span>
+    <span class="n">wells_dict</span> <span class="o">=</span> <span class="n">wells</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;SitID&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;wells_dict = &quot;</span><span class="p">,</span> <span class="n">wells_dict</span><span class="p">)</span>
+    <span class="c1"># df_with_sitID[&#39;UWI&#39;] = df_with_sitID[&#39;SitID&#39;]</span>
+    <span class="c1"># df_with_sitID.replace({&#39;UWI&#39;: wells_dict},inplace=True)</span>
+    <span class="n">df_with_sitID</span><span class="p">[</span><span class="s2">&quot;UWI&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_with_sitID</span><span class="p">[</span><span class="s2">&quot;SitID&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">wells_dict</span><span class="p">)</span>
+    <span class="c1"># df_with_sitID[&#39;UWI&#39;] = df_with_sitID[&#39;UWI&#39;][1]</span>
+    <span class="c1"># df_with_sitID[&#39;UWI&#39;] = wells_dict[df_with_sitID[&#39;SitID&#39;]][1]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;df_with_sitID[0:2]&quot;</span><span class="p">,</span> <span class="n">df_with_sitID</span><span class="o">.</span><span class="n">UWI</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df_with_sitID</span></div>
+
 
 <span class="c1">################################################## #####################################</span>
 <span class="c1">########## ALL THE NEXT FEW FUNCTIONS BELOW CREATES FEATURES AS COL IN  ################</span>
 <span class="c1">########## DATAFRAME HAVING TO DO WITH NEAREST NEIGHBOR AND DEPTH IN WELL ##############</span>
 <span class="c1">########## AND RELATIVE TO KNOWN PICKS #################################################</span>
+
 
 <div class="viewcode-block" id="createDepthRelToKnownTopInSameWell"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.createDepthRelToKnownTopInSameWell">[docs]</a><span class="k">def</span> <span class="nf">createDepthRelToKnownTopInSameWell</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -326,12 +350,19 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span> <span class="o">=</span> <span class="n">df</span>
     <span class="c1">#### for top McMurray</span>
-    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span><span class="p">[</span><span class="s1">&#39;diff_TopTarget_DEPTH_v_rowDEPT&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span><span class="p">[</span><span class="s1">&#39;TopTarget_DEPTH&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span><span class="p">[</span><span class="s1">&#39;DEPT&#39;</span><span class="p">]</span>
+    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span><span class="p">[</span><span class="s2">&quot;diff_TopTarget_DEPTH_v_rowDEPT&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span><span class="p">[</span><span class="s2">&quot;TopTarget_DEPTH&quot;</span><span class="p">]</span>
+        <span class="o">-</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span><span class="p">[</span><span class="s2">&quot;DEPT&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
     <span class="c1">#### for base McMurray or Top Paleozoic</span>
-    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span><span class="p">[</span><span class="s1">&#39;diff_TopHelper_DEPTH_v_rowDEPT&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span><span class="p">[</span><span class="s1">&#39;TopHelper_DEPTH&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span><span class="p">[</span><span class="s1">&#39;DEPT&#39;</span><span class="p">]</span>
+    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span><span class="p">[</span><span class="s2">&quot;diff_TopHelper_DEPTH_v_rowDEPT&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span><span class="p">[</span><span class="s2">&quot;TopHelper_DEPTH&quot;</span><span class="p">]</span>
+        <span class="o">-</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span><span class="p">[</span><span class="s2">&quot;DEPT&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span></div>
 
-<div class="viewcode-block" id="createFeat_withinZoneOfKnownPick"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.createFeat_withinZoneOfKnownPick">[docs]</a><span class="k">def</span> <span class="nf">createFeat_withinZoneOfKnownPick</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">config</span><span class="p">):</span>
+
+<div class="viewcode-block" id="createFeat_withinZoneOfKnownPick"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.createFeat_withinZoneOfKnownPick">[docs]</a><span class="k">def</span> <span class="nf">createFeat_withinZoneOfKnownPick</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Input is 3 parts. </span>
 <span class="sd">    First part is: dataframe with tops &amp; curve data for feature creation after wellsKNN step.</span>
@@ -346,31 +377,63 @@
     <span class="n">zonesAroundTops</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">zonesAroundTops</span>
     <span class="n">zones</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">zonesAroundTops</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
     <span class="c1">#### CHANGE =&gt; diff_TMcM_Pick_v_DEPT</span>
-    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span><span class="p">[</span><span class="s1">&#39;class_DistFrPick_TopTarget&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span><span class="p">[</span><span class="s1">&#39;diff_TopTarget_DEPTH_v_rowDEPT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">zones</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="p">(</span> <span class="n">zones</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="p">(</span><span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="mi">1</span><span class="p">])</span> <span class="k">else</span> <span class="n">zones</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="p">(</span><span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">2</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">2</span><span class="p">]][</span><span class="mi">1</span><span class="p">])</span> <span class="k">else</span> <span class="n">zones</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="k">if</span> <span class="p">(</span><span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">3</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">3</span><span class="p">]][</span><span class="mi">1</span><span class="p">])</span> <span class="k">else</span> <span class="n">zones</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
+    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span><span class="p">[</span>
+        <span class="s2">&quot;class_DistFrPick_TopTarget&quot;</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span><span class="p">[</span><span class="s2">&quot;diff_TopTarget_DEPTH_v_rowDEPT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">zones</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span> <span class="p">(</span>
+            <span class="n">zones</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">else</span> <span class="n">zones</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">2</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">2</span><span class="p">]][</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">else</span> <span class="n">zones</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">3</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">3</span><span class="p">]][</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">else</span> <span class="n">zones</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
     <span class="c1">#### Top paleozoic version</span>
-    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span><span class="p">[</span><span class="s1">&#39;class_DistFrPick_TopHelper&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span><span class="p">[</span><span class="s1">&#39;diff_TopTarget_DEPTH_v_rowDEPT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">zones</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="p">(</span> <span class="n">zones</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="p">(</span><span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="mi">1</span><span class="p">])</span> <span class="k">else</span> <span class="n">zones</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="p">(</span><span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">2</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">2</span><span class="p">]][</span><span class="mi">1</span><span class="p">])</span> <span class="k">else</span> <span class="n">zones</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="k">if</span> <span class="p">(</span><span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">3</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">3</span><span class="p">]][</span><span class="mi">1</span><span class="p">])</span> <span class="k">else</span> <span class="n">zones</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
+    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span><span class="p">[</span>
+        <span class="s2">&quot;class_DistFrPick_TopHelper&quot;</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span><span class="p">[</span><span class="s2">&quot;diff_TopTarget_DEPTH_v_rowDEPT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">zones</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span> <span class="p">(</span>
+            <span class="n">zones</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">else</span> <span class="n">zones</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">2</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">2</span><span class="p">]][</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">else</span> <span class="n">zones</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">3</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">zonesAroundTops</span><span class="p">[</span><span class="n">zones</span><span class="p">[</span><span class="mi">3</span><span class="p">]][</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">else</span> <span class="n">zones</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
 
     <span class="c1"># df_all_wells_wKNN_DEPTHtoDEPT[&#39;class_DistFrPick_TopHelper&#39;]=df_all_wells_wKNN_DEPTHtoDEPT[&#39;diff_TopHelper_DEPTH_v_rowDEPT&#39;].apply(lambda x: 100 if x==0 else ( 95 if (-0.5 &lt; x and x &lt;0.5) else 60 if (-5 &lt; x and x &lt;-0.5) else 70 if (0.5 &lt; x and x &lt;5) else 0))</span>
     <span class="k">return</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT</span></div>
 
 
-<div class="viewcode-block" id="NN1_TopMcMDepth_Abs"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.NN1_TopMcMDepth_Abs">[docs]</a><span class="k">def</span> <span class="nf">NN1_TopMcMDepth_Abs</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">config</span><span class="p">):</span>
+<div class="viewcode-block" id="NN1_TopMcMDepth_Abs"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.NN1_TopMcMDepth_Abs">[docs]</a><span class="k">def</span> <span class="nf">NN1_TopMcMDepth_Abs</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    ### Takes MM_Top_Depth_predBy_NN1thick and subtracts depth at that point, returns *absolute* value</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">DEPT</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">DEPTH_col_in_featureCreation</span>
     <span class="n">col_topTarget_Depth_predBy_NN1thick</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">col_topTarget_Depth_predBy_NN1thick</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;DistFrom_NN1ThickPredTopDepth_toRowDept&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col_topTarget_Depth_predBy_NN1thick</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="n">DEPT</span><span class="p">])</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;DistFrom_NN1ThickPredTopDepth_toRowDept&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">col_topTarget_Depth_predBy_NN1thick</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="n">DEPT</span><span class="p">]</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">df</span></div>
 
-<span class="c1">#### The difficult thing about creating features based on windows within a well when you have multiple wells stacked </span>
-<span class="c1">#### in a dataframe is that sometimes that window from one well goes into the next well.</span>
-<span class="c1">#### To get around that, we&#39;re going create a column that says the distance from the top of the well and another </span>
-<span class="c1">#### column that says the distance form the bottom of the well. When a row&#39;s distance from top or bottom is greater </span>
-<span class="c1">#### than 1/2 the max window size, we&#39;ll just use proceed as normal. When the distance between that row&#39;s depth and</span>
-<span class="c1">#### top or bottom is less than 1/2 the max window size, we&#39;ll </span>
 
-<div class="viewcode-block" id="markingEdgeOfWells"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.markingEdgeOfWells">[docs]</a><span class="k">def</span> <span class="nf">markingEdgeOfWells</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">config</span><span class="p">):</span>
+<span class="c1">#### The difficult thing about creating features based on windows within a well when you have multiple wells stacked</span>
+<span class="c1">#### in a dataframe is that sometimes that window from one well goes into the next well.</span>
+<span class="c1">#### To get around that, we&#39;re going create a column that says the distance from the top of the well and another</span>
+<span class="c1">#### column that says the distance form the bottom of the well. When a row&#39;s distance from top or bottom is greater</span>
+<span class="c1">#### than 1/2 the max window size, we&#39;ll just use proceed as normal. When the distance between that row&#39;s depth and</span>
+<span class="c1">#### top or bottom is less than 1/2 the max window size, we&#39;ll</span>
+
+
+<div class="viewcode-block" id="markingEdgeOfWells"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.markingEdgeOfWells">[docs]</a><span class="k">def</span> <span class="nf">markingEdgeOfWells</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    #### The difficult thing about creating features based on windows within a well when you have multiple wells stacked </span>
 <span class="sd">    #### in a dataframe is that sometimes that window from one well goes into the next well.</span>
@@ -381,47 +444,89 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span> <span class="o">=</span> <span class="n">df</span>
 
-    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;NewWell&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;UWI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">!=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;UWI&#39;</span><span class="p">]</span>
-    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;LastBitWell&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;UWI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">!=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;UWI&#39;</span><span class="p">]</span>
+    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;NewWell&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;UWI&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="o">!=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;UWI&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;LastBitWell&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;UWI&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="o">!=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;UWI&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
 
-    <span class="n">TopOfWellRowsOnly</span> <span class="o">=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;NewWell&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span>
-    <span class="n">BottomOfWellRowsOnly</span> <span class="o">=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;LastBitWell&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span>
+    <span class="n">TopOfWellRowsOnly</span> <span class="o">=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+        <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;NewWell&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span>
+    <span class="p">]</span>
+    <span class="n">BottomOfWellRowsOnly</span> <span class="o">=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+        <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;LastBitWell&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span>
+    <span class="p">]</span>
 
-    <span class="c1">#rename depth to top and bottom depths , delete all other columns</span>
-    <span class="n">TopOfWellRowsOnly</span> <span class="o">=</span> <span class="n">TopOfWellRowsOnly</span><span class="p">[[</span><span class="s1">&#39;UWI&#39;</span><span class="p">,</span><span class="s1">&#39;DEPT&#39;</span><span class="p">]]</span>
-    <span class="n">TopOfWellRowsOnly</span><span class="p">[</span><span class="s1">&#39;TopWellDept&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">TopOfWellRowsOnly</span><span class="p">[</span><span class="s1">&#39;DEPT&#39;</span><span class="p">]</span>
-    <span class="n">TopOfWellRowsOnly</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;DEPT&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># rename depth to top and bottom depths , delete all other columns</span>
+    <span class="n">TopOfWellRowsOnly</span> <span class="o">=</span> <span class="n">TopOfWellRowsOnly</span><span class="p">[[</span><span class="s2">&quot;UWI&quot;</span><span class="p">,</span> <span class="s2">&quot;DEPT&quot;</span><span class="p">]]</span>
+    <span class="n">TopOfWellRowsOnly</span><span class="p">[</span><span class="s2">&quot;TopWellDept&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">TopOfWellRowsOnly</span><span class="p">[</span><span class="s2">&quot;DEPT&quot;</span><span class="p">]</span>
+    <span class="n">TopOfWellRowsOnly</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;DEPT&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="c1">#### same thing for bottom</span>
-    <span class="n">BottomOfWellRowsOnly</span> <span class="o">=</span> <span class="n">BottomOfWellRowsOnly</span><span class="p">[[</span><span class="s1">&#39;UWI&#39;</span><span class="p">,</span><span class="s1">&#39;DEPT&#39;</span><span class="p">]]</span>
-    <span class="n">BottomOfWellRowsOnly</span><span class="p">[</span><span class="s1">&#39;BotWellDept&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">BottomOfWellRowsOnly</span><span class="p">[</span><span class="s1">&#39;DEPT&#39;</span><span class="p">]</span>
-    <span class="n">BottomOfWellRowsOnly</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;DEPT&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">BottomOfWellRowsOnly</span> <span class="o">=</span> <span class="n">BottomOfWellRowsOnly</span><span class="p">[[</span><span class="s2">&quot;UWI&quot;</span><span class="p">,</span> <span class="s2">&quot;DEPT&quot;</span><span class="p">]]</span>
+    <span class="n">BottomOfWellRowsOnly</span><span class="p">[</span><span class="s2">&quot;BotWellDept&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">BottomOfWellRowsOnly</span><span class="p">[</span><span class="s2">&quot;DEPT&quot;</span><span class="p">]</span>
+    <span class="n">BottomOfWellRowsOnly</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;DEPT&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="c1">#### merge these two small dataframes</span>
-    <span class="n">TopAndBottomOfWellRowsOnly</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">TopOfWellRowsOnly</span><span class="p">,</span> <span class="n">BottomOfWellRowsOnly</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;UWI&#39;</span><span class="p">)</span>
+    <span class="n">TopAndBottomOfWellRowsOnly</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">TopOfWellRowsOnly</span><span class="p">,</span> <span class="n">BottomOfWellRowsOnly</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;UWI&quot;</span>
+    <span class="p">)</span>
     <span class="c1">#### merge with larger dataframe</span>
-    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">,</span> <span class="n">TopAndBottomOfWellRowsOnly</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;UWI&#39;</span><span class="p">)</span>
-    
+    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">,</span>
+        <span class="n">TopAndBottomOfWellRowsOnly</span><span class="p">,</span>
+        <span class="n">on</span><span class="o">=</span><span class="s2">&quot;UWI&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
     <span class="c1">####</span>
     <span class="c1">#### Create a col for distance from row to top of well</span>
-    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;FromTopWell&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;DEPT&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;TopWellDept&#39;</span><span class="p">]</span>
+    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;FromTopWell&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;DEPT&quot;</span><span class="p">]</span>
+        <span class="o">-</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;TopWellDept&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
 
     <span class="c1">#### Create a col for distance from row to bottom of well</span>
-    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;FromBotWell&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;BotWellDept&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;DEPT&#39;</span><span class="p">]</span>
+    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;FromBotWell&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;BotWellDept&quot;</span><span class="p">]</span>
+        <span class="o">-</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;DEPT&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
 
     <span class="c1">#### Create col for well total thickness measured</span>
-    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;WellThickness&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;BotWellDept&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;TopWellDept&#39;</span><span class="p">]</span>
+    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;WellThickness&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;BotWellDept&quot;</span><span class="p">]</span>
+        <span class="o">-</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;TopWellDept&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
 
     <span class="c1">####</span>
     <span class="c1">####This adds a column that says whether a row is closer to the bottm or the top of the well</span>
     <span class="c1">####This is useful for doing creation of features of rolling windows where you want to avoid going into another well stacked above.¶</span>
     <span class="c1">#### This adds a column that says whether a row is closer to the bottm or the top of the well</span>
     <span class="c1">#### This is useful for doing creation of features of rolling windows where you want to avoid going into another well stacked above.</span>
-    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;closerToBotOrTop&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;FromTopWell&#39;</span><span class="p">]</span><span class="o">&lt;=</span><span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;FromBotWell&#39;</span><span class="p">],</span> <span class="s1">&#39;FromTopWell&#39;</span><span class="p">,</span> <span class="s1">&#39;FromBotWell&#39;</span><span class="p">)</span>
-    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;closTopBotDist&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;FromTopWell&#39;</span><span class="p">]</span><span class="o">&lt;=</span><span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;FromBotWell&#39;</span><span class="p">],</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;FromTopWell&#39;</span><span class="p">],</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;FromBotWell&#39;</span><span class="p">])</span>
-    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;rowsToEdge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;closTopBotDist&#39;</span><span class="p">]</span><span class="o">/</span><span class="mf">0.25</span>
-    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;rowsToEdge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;rowsToEdge&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;closerToBotOrTop&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+        <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;FromTopWell&quot;</span><span class="p">]</span>
+        <span class="o">&lt;=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;FromBotWell&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;FromTopWell&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;FromBotWell&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;closTopBotDist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+        <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;FromTopWell&quot;</span><span class="p">]</span>
+        <span class="o">&lt;=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;FromBotWell&quot;</span><span class="p">],</span>
+        <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;FromTopWell&quot;</span><span class="p">],</span>
+        <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;FromBotWell&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;rowsToEdge&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;closTopBotDist&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="mf">0.25</span>
+    <span class="p">)</span>
+    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span>
+        <span class="s2">&quot;rowsToEdge&quot;</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;rowsToEdge&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
-    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;diff_DEPT_vs_NN1_topTarget_DEPTH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;DEPT&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s1">&#39;NN1_topTarget_DEPTH&#39;</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span> </div>
+    <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;diff_DEPT_vs_NN1_topTarget_DEPTH&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;DEPT&quot;</span><span class="p">]</span>
+        <span class="o">-</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span><span class="p">[</span><span class="s2">&quot;NN1_topTarget_DEPTH&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM</span></div>
 
 
 <span class="c1">################################################## #####################################</span>
@@ -429,14 +534,16 @@
 <span class="c1">########## DATAFRAME HAVING TO DO WITH ANALYZING CURVES ACROSS WINDOWS #################</span>
 <span class="c1">########## RELATIVE TO EACH DEPTH IN EACH WELL #########################################</span>
 
-<div class="viewcode-block" id="nLargest"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.nLargest">[docs]</a><span class="k">def</span> <span class="nf">nLargest</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">nValues</span><span class="p">):</span>
+
+<div class="viewcode-block" id="nLargest"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.nLargest">[docs]</a><span class="k">def</span> <span class="nf">nLargest</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">nValues</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    writes things here</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">answer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">array</span><span class="p">)[</span><span class="o">-</span><span class="n">nValues</span><span class="p">:]])</span>  
+    <span class="n">answer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">array</span><span class="p">)[</span><span class="o">-</span><span class="n">nValues</span><span class="p">:]])</span>
     <span class="k">return</span> <span class="n">answer</span></div>
 
-<div class="viewcode-block" id="thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses">[docs]</a><span class="k">def</span> <span class="nf">thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span><span class="n">curves</span><span class="p">,</span><span class="n">windows</span><span class="p">):</span>
+
+<div class="viewcode-block" id="thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses">[docs]</a><span class="k">def</span> <span class="nf">thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span> <span class="n">curves</span><span class="p">,</span> <span class="n">windows</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    for loop for each combination of parameter for rolling functions</span>
 <span class="sd">    curves = [&#39;GR&#39;,&#39;ILD&#39;]</span>
@@ -446,130 +553,176 @@
 <span class="sd">        #       Skipping this for now will come back when not tired. Maybe use shift?</span>
 <span class="sd">    For each column created, check window size vs. allowable window size column, if too small, use single row value from original column</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">comboArg_B</span> <span class="o">=</span> <span class="p">[</span><span class="n">curves</span><span class="p">,</span><span class="n">windows</span><span class="p">]</span>
+    <span class="n">comboArg_B</span> <span class="o">=</span> <span class="p">[</span><span class="n">curves</span><span class="p">,</span> <span class="n">windows</span><span class="p">]</span>
     <span class="n">all_comboArgs_B</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">comboArg_B</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">eachArgList</span> <span class="ow">in</span> <span class="n">all_comboArgs_B</span><span class="p">:</span>
         <span class="n">col</span> <span class="o">=</span> <span class="n">eachArgList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">windowSize</span> <span class="o">=</span> <span class="n">eachArgList</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="c1">#centered = eachArgList[2]</span>
-        <span class="n">featureName</span> <span class="o">=</span> <span class="n">col</span><span class="o">+</span><span class="s2">&quot;_min_&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">windowSize</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;winSize_&quot;</span>
-        <span class="n">half_window</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">windowSize</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+        <span class="c1"># centered = eachArgList[2]</span>
+        <span class="n">featureName</span> <span class="o">=</span> <span class="n">col</span> <span class="o">+</span> <span class="s2">&quot;_min_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">windowSize</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;winSize_&quot;</span>
+        <span class="n">half_window</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">windowSize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
         <span class="c1">#         quarter_window = int(windowSize/4)</span>
 
-        
         <span class="c1">### goes through distance to edge and when less than windowSize writes &quot;too close&quot; otherwise returns NaN</span>
         <span class="c1">### fills in Nan with calculated feature column</span>
         <span class="c1">### replaces &quot;too close&quot; with NaN</span>
         <span class="c1">### replaces NaN with dd[col]</span>
         <span class="c1">### overrights original column</span>
-        
+
         <span class="c1">#### MIN</span>
-        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Around&#39;</span><span class="o">+</span><span class="s1">&#39;Min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">windowSize</span><span class="p">,</span><span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Around&#39;</span><span class="o">+</span><span class="s1">&#39;Min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Around&#39;</span><span class="o">+</span><span class="s1">&#39;Min&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="s1">&#39;closTopBotDist&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">half_window</span><span class="p">,</span> <span class="n">other</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
-        
-        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Above&#39;</span><span class="o">+</span><span class="s1">&#39;Min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">windowSize</span><span class="p">,</span><span class="n">center</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Above&#39;</span><span class="o">+</span><span class="s1">&#39;Min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Above&#39;</span><span class="o">+</span><span class="s1">&#39;Min&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="s1">&#39;closTopBotDist&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">windowSize</span><span class="p">,</span> <span class="n">other</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;finished min in function thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses&quot;</span><span class="p">)</span>
+        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Around&quot;</span> <span class="o">+</span> <span class="s2">&quot;Min&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">windowSize</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Around&quot;</span> <span class="o">+</span> <span class="s2">&quot;Min&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span>
+            <span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Around&quot;</span> <span class="o">+</span> <span class="s2">&quot;Min&quot;</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="s2">&quot;closTopBotDist&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">half_window</span><span class="p">,</span> <span class="n">other</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+
+        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Above&quot;</span> <span class="o">+</span> <span class="s2">&quot;Min&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">windowSize</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Above&quot;</span> <span class="o">+</span> <span class="s2">&quot;Min&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span>
+            <span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Above&quot;</span> <span class="o">+</span> <span class="s2">&quot;Min&quot;</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="s2">&quot;closTopBotDist&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">windowSize</span><span class="p">,</span> <span class="n">other</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;finished min in function thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses&quot;</span>
+        <span class="p">)</span>
         <span class="c1">### MAX</span>
-        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Around&#39;</span><span class="o">+</span><span class="s1">&#39;Max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">windowSize</span><span class="p">,</span><span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Around&#39;</span><span class="o">+</span><span class="s1">&#39;Max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Around&#39;</span><span class="o">+</span><span class="s1">&#39;Max&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="s1">&#39;closTopBotDist&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">half_window</span><span class="p">,</span> <span class="n">other</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
-        
-        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Above&#39;</span><span class="o">+</span><span class="s1">&#39;Max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">windowSize</span><span class="p">,</span><span class="n">center</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Above&#39;</span><span class="o">+</span><span class="s1">&#39;Max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Above&#39;</span><span class="o">+</span><span class="s1">&#39;Max&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="s1">&#39;closTopBotDist&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">windowSize</span><span class="p">,</span> <span class="n">other</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Around&quot;</span> <span class="o">+</span> <span class="s2">&quot;Max&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">windowSize</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Around&quot;</span> <span class="o">+</span> <span class="s2">&quot;Max&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span>
+            <span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Around&quot;</span> <span class="o">+</span> <span class="s2">&quot;Max&quot;</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="s2">&quot;closTopBotDist&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">half_window</span><span class="p">,</span> <span class="n">other</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+
+        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Above&quot;</span> <span class="o">+</span> <span class="s2">&quot;Max&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">windowSize</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Above&quot;</span> <span class="o">+</span> <span class="s2">&quot;Max&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span>
+            <span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Above&quot;</span> <span class="o">+</span> <span class="s2">&quot;Max&quot;</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="s2">&quot;closTopBotDist&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">windowSize</span><span class="p">,</span> <span class="n">other</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
         <span class="c1">#### Mean</span>
-        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Around&#39;</span><span class="o">+</span><span class="s1">&#39;Mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">windowSize</span><span class="p">,</span><span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Around&#39;</span><span class="o">+</span><span class="s1">&#39;Mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Around&#39;</span><span class="o">+</span><span class="s1">&#39;Mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="s1">&#39;closTopBotDist&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">half_window</span><span class="p">,</span> <span class="n">other</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
-        
-        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Above&#39;</span><span class="o">+</span><span class="s1">&#39;Mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">windowSize</span><span class="p">,</span><span class="n">center</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Above&#39;</span><span class="o">+</span><span class="s1">&#39;Mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Above&#39;</span><span class="o">+</span><span class="s1">&#39;Mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="s1">&#39;closTopBotDist&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">windowSize</span><span class="p">,</span> <span class="n">other</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;finished mean in function thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses&quot;</span><span class="p">)</span>
+        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Around&quot;</span> <span class="o">+</span> <span class="s2">&quot;Mean&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">windowSize</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Around&quot;</span> <span class="o">+</span> <span class="s2">&quot;Mean&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span>
+            <span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Around&quot;</span> <span class="o">+</span> <span class="s2">&quot;Mean&quot;</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="s2">&quot;closTopBotDist&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">half_window</span><span class="p">,</span> <span class="n">other</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+
+        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Above&quot;</span> <span class="o">+</span> <span class="s2">&quot;Mean&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">windowSize</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Above&quot;</span> <span class="o">+</span> <span class="s2">&quot;Mean&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span>
+            <span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Above&quot;</span> <span class="o">+</span> <span class="s2">&quot;Mean&quot;</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="s2">&quot;closTopBotDist&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">windowSize</span><span class="p">,</span> <span class="n">other</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;finished mean in function thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses&quot;</span>
+        <span class="p">)</span>
         <span class="c1">## nLargest</span>
         <span class="n">nValues</span> <span class="o">=</span> <span class="mi">5</span>
-        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Above&#39;</span><span class="o">+</span><span class="s1">&#39;nLarge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">windowSize</span><span class="p">,</span><span class="n">center</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">nLargest</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">nValues</span><span class="p">),</span><span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
-        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Above&#39;</span><span class="o">+</span><span class="s1">&#39;nLarge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Above&#39;</span><span class="o">+</span><span class="s1">&#39;nLarge&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="s1">&#39;closTopBotDist&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">windowSize</span><span class="p">,</span> <span class="n">other</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
-        
-        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Around&#39;</span><span class="o">+</span><span class="s1">&#39;nLarge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">windowSize</span><span class="p">,</span><span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">nLargest</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">nValues</span><span class="p">),</span><span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
-        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Around&#39;</span><span class="o">+</span><span class="s1">&#39;nLarge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span><span class="o">+</span><span class="s1">&#39;dir&#39;</span><span class="o">+</span><span class="s1">&#39;Around&#39;</span><span class="o">+</span><span class="s1">&#39;nLarge&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="s1">&#39;closTopBotDist&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">windowSize</span><span class="p">,</span> <span class="n">other</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
-    
+        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Above&quot;</span> <span class="o">+</span> <span class="s2">&quot;nLarge&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">windowSize</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">nLargest</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">nValues</span><span class="p">),</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Above&quot;</span> <span class="o">+</span> <span class="s2">&quot;nLarge&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span>
+            <span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Above&quot;</span> <span class="o">+</span> <span class="s2">&quot;nLarge&quot;</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="s2">&quot;closTopBotDist&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">windowSize</span><span class="p">,</span> <span class="n">other</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+
+        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Around&quot;</span> <span class="o">+</span> <span class="s2">&quot;nLarge&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">windowSize</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">nLargest</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">nValues</span><span class="p">),</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">dd</span><span class="p">[</span><span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Around&quot;</span> <span class="o">+</span> <span class="s2">&quot;nLarge&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span>
+            <span class="n">featureName</span> <span class="o">+</span> <span class="s2">&quot;dir&quot;</span> <span class="o">+</span> <span class="s2">&quot;Around&quot;</span> <span class="o">+</span> <span class="s2">&quot;nLarge&quot;</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="s2">&quot;closTopBotDist&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">windowSize</span><span class="p">,</span> <span class="n">other</span><span class="o">=</span><span class="n">dd</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+
     <span class="k">return</span> <span class="n">dd</span></div>
 
 
-<div class="viewcode-block" id="createManyFeatFromCurvesOverWindows_withDask"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.createManyFeatFromCurvesOverWindows_withDask">[docs]</a><span class="k">def</span> <span class="nf">createManyFeatFromCurvesOverWindows_withDask</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">config</span><span class="p">):</span>
+<div class="viewcode-block" id="createManyFeatFromCurvesOverWindows_withDask"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.createManyFeatFromCurvesOverWindows_withDask">[docs]</a><span class="k">def</span> <span class="nf">createManyFeatFromCurvesOverWindows_withDask</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    asdf</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">###</span>
     <span class="c1">#### To run Dask computations with only a subset of the full dataframe is sometimes useful for debugging as seen in line below.</span>
-    <span class="c1">#### df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop = df[0:20000] </span>
+    <span class="c1">#### df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop = df[0:20000]</span>
     <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop</span> <span class="o">=</span> <span class="n">df</span>
 
     <span class="c1">###</span>
-    <span class="c1">#client = Client()</span>
+    <span class="c1"># client = Client()</span>
     <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="c1">#client</span>
+    <span class="c1"># client</span>
     <span class="n">test_5</span> <span class="o">=</span> <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;copied test_5&quot;</span><span class="p">)</span>
     <span class="n">test_5</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">test_5</span><span class="p">,</span> <span class="n">npartitions</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;type(test_5)&quot;</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">test_5</span><span class="p">))</span>
-    <span class="c1">#curves = [&#39;GR&#39;,&#39;ILD&#39;,&#39;NPHI&#39;,&#39;DPHI&#39;]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;type(test_5)&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">test_5</span><span class="p">))</span>
+    <span class="c1"># curves = [&#39;GR&#39;,&#39;ILD&#39;,&#39;NPHI&#39;,&#39;DPHI&#39;]</span>
     <span class="n">curves</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">must_have_curves_list</span>
-    <span class="c1">#windows = [5,7,11,21]</span>
+    <span class="c1"># windows = [5,7,11,21]</span>
     <span class="n">windows</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">curve_windows_for_rolling_features</span>
 
-    <span class="c1">#### The function nLargest is used via apply, I should probably re-write this to use Dask&#39;s Nlargest API </span>
+    <span class="c1">#### The function nLargest is used via apply, I should probably re-write this to use Dask&#39;s Nlargest API</span>
     <span class="c1">#### but didn&#39;t here as the docs imply it might behave slightly differently.</span>
-    <span class="c1">#### A quick look at the status dashboard in the Dask Client suggests the use of apply takes up maybe 1/4-1/2 </span>
+    <span class="c1">#### A quick look at the status dashboard in the Dask Client suggests the use of apply takes up maybe 1/4-1/2</span>
     <span class="c1">#### of total compute time currently!</span>
-    
-    <span class="n">ddf_test5</span> <span class="o">=</span> <span class="n">thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses</span><span class="p">(</span><span class="n">test_5</span><span class="p">,</span><span class="n">curves</span><span class="p">,</span><span class="n">windows</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NOTE: currently in createManyFeatFromCurvesOverWindows(df,config) function &amp; calculated graph for ddf_test5. This will take a while to compute() via Dask, so sit tight!&quot;</span><span class="p">)</span>
+
+    <span class="n">ddf_test5</span> <span class="o">=</span> <span class="n">thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses</span><span class="p">(</span>
+        <span class="n">test_5</span><span class="p">,</span> <span class="n">curves</span><span class="p">,</span> <span class="n">windows</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;NOTE: currently in createManyFeatFromCurvesOverWindows(df,config) function &amp; calculated graph for ddf_test5. This will take a while to compute() via Dask, so sit tight!&quot;</span>
+    <span class="p">)</span>
     <span class="n">test5result</span> <span class="o">=</span> <span class="n">ddf_test5</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;test5result.head()&quot;</span><span class="p">,</span><span class="n">test5result</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;type(test5result)&quot;</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">test5result</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(test5result.columns)&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">test5result</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;test5result.head()&quot;</span><span class="p">,</span> <span class="n">test5result</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;type(test5result)&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">test5result</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(test5result.columns)&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">test5result</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">test5result</span></div>
 
+
 <span class="c1">########### MIGHT HAVE ALREADY ADDED IN THIS , BUT CHECK #####</span>
-<span class="c1">#test5result[&#39;diff_DEPT_vs_NN1_topTarget_DEPTH&#39;] = test5result[&#39;DEPT&#39;] - test5result[&#39;NN1_topTarget_DEPTH&#39;]</span>
+<span class="c1"># test5result[&#39;diff_DEPT_vs_NN1_topTarget_DEPTH&#39;] = test5result[&#39;DEPT&#39;] - test5result[&#39;NN1_topTarget_DEPTH&#39;]</span>
 
 
-<div class="viewcode-block" id="createManyFeatFromCurvesOverWindows_withOutDask"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.createManyFeatFromCurvesOverWindows_withOutDask">[docs]</a><span class="k">def</span> <span class="nf">createManyFeatFromCurvesOverWindows_withOutDask</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">config</span><span class="p">):</span>
+<div class="viewcode-block" id="createManyFeatFromCurvesOverWindows_withOutDask"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.features.createManyFeatFromCurvesOverWindows_withOutDask">[docs]</a><span class="k">def</span> <span class="nf">createManyFeatFromCurvesOverWindows_withOutDask</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    asdf</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">###</span>
     <span class="c1">#### To run Dask computations with only a subset of the full dataframe is sometimes useful for debugging as seen in line below.</span>
-    <span class="c1">#### df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop = df[0:20000] </span>
+    <span class="c1">#### df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop = df[0:20000]</span>
     <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop</span> <span class="o">=</span> <span class="n">df</span>
 
     <span class="c1">###</span>
-    <span class="c1">#client = Client()</span>
-    <span class="c1">#client = Client(processes=False)</span>
-    <span class="c1">#client</span>
-    <span class="c1">#test_5 = df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop.copy()</span>
-    <span class="c1">#print(&quot;copied test_5&quot;)</span>
-    <span class="c1">#test_5 = dd.from_pandas(test_5, npartitions=50)</span>
-    <span class="c1">#print(&quot;type(test_5)&quot;,type(test_5))</span>
-    <span class="c1">#curves = [&#39;GR&#39;,&#39;ILD&#39;,&#39;NPHI&#39;,&#39;DPHI&#39;]</span>
+    <span class="c1"># client = Client()</span>
+    <span class="c1"># client = Client(processes=False)</span>
+    <span class="c1"># client</span>
+    <span class="c1"># test_5 = df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop.copy()</span>
+    <span class="c1"># print(&quot;copied test_5&quot;)</span>
+    <span class="c1"># test_5 = dd.from_pandas(test_5, npartitions=50)</span>
+    <span class="c1"># print(&quot;type(test_5)&quot;,type(test_5))</span>
+    <span class="c1"># curves = [&#39;GR&#39;,&#39;ILD&#39;,&#39;NPHI&#39;,&#39;DPHI&#39;]</span>
     <span class="n">curves</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">must_have_curves_list</span>
-    <span class="c1">#windows = [5,7,11,21]</span>
+    <span class="c1"># windows = [5,7,11,21]</span>
     <span class="n">windows</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">curve_windows_for_rolling_features</span>
 
-    <span class="c1">#### The function nLargest is used via apply, I should probably re-write this to use Dask&#39;s Nlargest API </span>
+    <span class="c1">#### The function nLargest is used via apply, I should probably re-write this to use Dask&#39;s Nlargest API</span>
     <span class="c1">#### but didn&#39;t here as the docs imply it might behave slightly differently.</span>
-    <span class="c1">#### A quick look at the status dashboard in the Dask Client suggests the use of apply takes up maybe 1/4-1/2 </span>
+    <span class="c1">#### A quick look at the status dashboard in the Dask Client suggests the use of apply takes up maybe 1/4-1/2</span>
     <span class="c1">#### of total compute time currently!</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;started to run long function to create features in createManyFeatFromCurvesOverWindows_withOutDask(df,config), sit tight!&quot;</span><span class="p">)</span>
-    <span class="n">df_test5</span> <span class="o">=</span> <span class="n">thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses</span><span class="p">(</span><span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop</span><span class="p">,</span><span class="n">curves</span><span class="p">,</span><span class="n">windows</span><span class="p">)</span>
-    <span class="c1">#print(&quot;NOTE: currently in createManyFeatFromCurvesOverWindows(df,config) function &amp; calculated graph for ddf_test5. This will take a while to compute() via Dask, so sit tight!&quot;)</span>
-    <span class="c1">#test5result = ddf_test5.compute()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;test5result.head()&quot;</span><span class="p">,</span><span class="n">df_test5</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;type(test5result)&quot;</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">df_test5</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(test5result.columns)&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">df_test5</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(df_test5)&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">df_test5</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;started to run long function to create features in createManyFeatFromCurvesOverWindows_withOutDask(df,config), sit tight!&quot;</span>
+    <span class="p">)</span>
+    <span class="n">df_test5</span> <span class="o">=</span> <span class="n">thoughts_seperateRollingAndConditionalIntoTwoDaskProcesses</span><span class="p">(</span>
+        <span class="n">df_all_wells_wKNN_DEPTHtoDEPT_KNN1PredTopMcM_NearTop</span><span class="p">,</span> <span class="n">curves</span><span class="p">,</span> <span class="n">windows</span>
+    <span class="p">)</span>
+    <span class="c1"># print(&quot;NOTE: currently in createManyFeatFromCurvesOverWindows(df,config) function &amp; calculated graph for ddf_test5. This will take a while to compute() via Dask, so sit tight!&quot;)</span>
+    <span class="c1"># test5result = ddf_test5.compute()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;test5result.head()&quot;</span><span class="p">,</span> <span class="n">df_test5</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;type(test5result)&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">df_test5</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(test5result.columns)&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_test5</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;len(df_test5)&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_test5</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">df_test5</span></div>
-
-
 </pre></div>
 
            </div>
