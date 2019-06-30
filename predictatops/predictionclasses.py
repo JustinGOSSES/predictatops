@@ -602,7 +602,7 @@ def saveRebalanceResultsAsHDFs(df_testPlusRebalTrain_featWithHighCount,train_X,t
     load_dir = output_data_inst.base_path_for_all_results + "/" + output_data_inst.path_balance
     load_results_full_file_path = load_dir + "/" + output_data_inst.balance_results_wells_df + output_data_inst.default_results_file_format
     #########################  Write each pandas dataframes to single HDF5 using separate keys to retrieve later
-    df_testPlusRebalTrain_featWithHighCount.to_hdf(oad_results_full_file_path, key="preSplitpreBal", mode="w")
+    df_testPlusRebalTrain_featWithHighCount.to_hdf(load_results_full_file_path, key="preSplitpreBal", mode="w")
     train_X.to_hdf(load_results_full_file_path, key="train_X")
     train_y.to_hdf(load_results_full_file_path, key="train_y")
     test_X.to_hdf(load_results_full_file_path, key="test_X")

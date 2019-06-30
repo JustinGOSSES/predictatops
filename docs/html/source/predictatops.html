@@ -169,8 +169,87 @@
 <div class="section" id="predictatops-all-runner-module">
 <h2>predictatops.all_runner module<a class="headerlink" href="#predictatops-all-runner-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="predictatops-balance-module">
-<h2>predictatops.balance module<a class="headerlink" href="#predictatops-balance-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-predictatops.balance">
+<span id="predictatops-balance-module"></span><h2>predictatops.balance module<a class="headerlink" href="#module-predictatops.balance" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="predictatops.balance.addsRowsToBalanceClasses">
+<code class="descclassname">predictatops.balance.</code><code class="descname">addsRowsToBalanceClasses</code><span class="sig-paren">(</span><em>df</em>, <em>rangeFor100</em>, <em>rangeFor95</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/balance.html#addsRowsToBalanceClasses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.balance.addsRowsToBalanceClasses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input is a dataframe, range for class 100, and range for class 95
+Copies the rows with labels that don’t occur very much so they are a larger part of dataframe
+returns the new dataframe with additional copies of rows added on</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.balance.combineRebalancedTrainDFWithUnrebalancedTestDF">
+<code class="descclassname">predictatops.balance.</code><code class="descname">combineRebalancedTrainDFWithUnrebalancedTestDF</code><span class="sig-paren">(</span><em>df_train_featWithHighCount</em>, <em>df_test_featWithHighCount</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/balance.html#combineRebalancedTrainDFWithUnrebalancedTestDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.balance.combineRebalancedTrainDFWithUnrebalancedTestDF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Now let’s combine the rebalanced train df with the unrebalanced test df to make a df we will then split into 4 pieces: train-data, train-labels, test-data,test-lables</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.balance.countRowsByClassOfNearPickOrNot">
+<code class="descclassname">predictatops.balance.</code><code class="descname">countRowsByClassOfNearPickOrNot</code><span class="sig-paren">(</span><em>df</em>, <em>arrayOfClass</em>, <em>divisionInt</em>, <em>classToShrink</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/balance.html#countRowsByClassOfNearPickOrNot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.balance.countRowsByClassOfNearPickOrNot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes as input a dataframe, array of classes, an integer to divide by, and  a column, and a class within the column to shrink.
+Returns the dataframe minus the rows that match the ClassToShrink in the Col and prints details about the number of rows of the various classes.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.balance.dropsRowsWithMatchClassAndDeptRemainderIsZero">
+<code class="descclassname">predictatops.balance.</code><code class="descname">dropsRowsWithMatchClassAndDeptRemainderIsZero</code><span class="sig-paren">(</span><em>df</em>, <em>Col</em>, <em>RemainderInt</em>, <em>classToShrink</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/balance.html#dropsRowsWithMatchClassAndDeptRemainderIsZero"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.balance.dropsRowsWithMatchClassAndDeptRemainderIsZero" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes as input a dataframe, a column, a remainder integer, and a class within the column.
+Returns the dataframe minus the rows that match the ClassToShrink in the Col and have a depth from the DEPT col with a remainder of zero.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.balance.findNumberOfEachClass">
+<code class="descclassname">predictatops.balance.</code><code class="descname">findNumberOfEachClass</code><span class="sig-paren">(</span><em>df</em>, <em>col</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/balance.html#findNumberOfEachClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.balance.findNumberOfEachClass" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="predictatops.balance.getListOfKeysForZonesObj">
+<code class="descclassname">predictatops.balance.</code><code class="descname">getListOfKeysForZonesObj</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/balance.html#getListOfKeysForZonesObj"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.balance.getListOfKeysForZonesObj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in the configuration object
+Returns the keys of the zonesAroundTops object in configuration class</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.balance.get_features_df_results">
+<code class="descclassname">predictatops.balance.</code><code class="descname">get_features_df_results</code><span class="sig-paren">(</span><em>output_data_inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/balance.html#get_features_df_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.balance.get_features_df_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in
+Returns</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.balance.make4separateDF">
+<code class="descclassname">predictatops.balance.</code><code class="descname">make4separateDF</code><span class="sig-paren">(</span><em>labels</em>, <em>df_testPlusRebalTrain_featWithHighCount</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/balance.html#make4separateDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.balance.make4separateDF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Things</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.balance.makeDFofJustLabels">
+<code class="descclassname">predictatops.balance.</code><code class="descname">makeDFofJustLabels</code><span class="sig-paren">(</span><em>df</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/balance.html#makeDFofJustLabels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.balance.makeDFofJustLabels" title="Permalink to this definition">¶</a></dt>
+<dd><p>write here</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.balance.saveRebalanceResultsAsHDF">
+<code class="descclassname">predictatops.balance.</code><code class="descname">saveRebalanceResultsAsHDF</code><span class="sig-paren">(</span><em>df_testPlusRebalTrain_featWithHighCount</em>, <em>train_X</em>, <em>train_y</em>, <em>test_X</em>, <em>test_y</em>, <em>train_index</em>, <em>test_index</em>, <em>output_data_inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/balance.html#saveRebalanceResultsAsHDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.balance.saveRebalanceResultsAsHDF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in
+Saves
+Returns</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.balance.takeInDFandSplitIntoTrainTestDF">
+<code class="descclassname">predictatops.balance.</code><code class="descname">takeInDFandSplitIntoTrainTestDF</code><span class="sig-paren">(</span><em>df</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/balance.html#takeInDFandSplitIntoTrainTestDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.balance.takeInDFandSplitIntoTrainTestDF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Splits single input df into two dataframes, one test and one train, based on column values already assigned for train &amp; test.
+Assumes that column in config.trainOrTest has values of only “train” or “test” and nothing else and no capitalization. A test should be written for this!</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="predictatops.balance.takeOutColNotNeededInTrainingDF">
+<code class="descclassname">predictatops.balance.</code><code class="descname">takeOutColNotNeededInTrainingDF</code><span class="sig-paren">(</span><em>df</em>, <em>list_allCol</em>, <em>colToTakeOutCurves</em>, <em>colToTakeOutOther</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/balance.html#takeOutColNotNeededInTrainingDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.balance.takeOutColNotNeededInTrainingDF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="predictatops-balance-runner-module">
 <h2>predictatops.balance_runner module<a class="headerlink" href="#predictatops-balance-runner-module" title="Permalink to this headline">¶</a></h2>

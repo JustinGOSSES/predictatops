@@ -1,0 +1,696 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>predictatops.balance &mdash; predictatops 0.0.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> predictatops
+          
+
+          
+            
+            <img src="../../_static/Yale-Peabody-Triceratops-004Trp.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Readme File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html#more-complicated-ways-to-run">More complicated ways to run</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html#if-you-use-your-own-dataset-some-code-features-you-might-need-to-change">If you use your own dataset, some code features you might need to change</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../theory.html">Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../functions_and_classes.html">functions and classes</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">predictatops</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>predictatops.balance</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for predictatops.balance</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1">##### import statements #####</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="c1"># import matplotlib.pyplot as plt</span>
+
+<span class="c1">#%matplotlib inline</span>
+<span class="c1"># import welly</span>
+<span class="c1"># from welly import Well</span>
+<span class="c1"># import lasio</span>
+<span class="c1"># import glob</span>
+<span class="c1"># from sklearn import neighbors</span>
+<span class="c1"># import pickle</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="c1"># import dask</span>
+<span class="c1"># import dask.dataframe as dd</span>
+<span class="c1"># from dask.distributed import Client</span>
+
+<span class="c1"># import pdvega</span>
+<span class="c1"># import vega</span>
+<span class="c1"># import random</span>
+<span class="c1"># from xgboost.sklearn import XGBClassifier</span>
+<span class="c1"># from sklearn.metrics import mean_squared_error</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1">###### IMPORT FROM PREVIOUS SCRIPT IN WORKFLOW TWO HELPER FUNCTIONS ######</span>
+<span class="kn">import</span> <span class="nn">features</span>
+<span class="kn">from</span> <span class="nn">features</span> <span class="k">import</span> <span class="n">getMainDFsavedInStep</span><span class="p">,</span> <span class="n">load_prev_results_at_path</span>
+
+
+<span class="c1">######################  Purpose is to duplicate some of the rows near the pick so they are more common  ######################</span>
+<span class="c1">######################  and take out some of the rows farther away in training dataset, so they are less common  ######################</span>
+<span class="c1">######################</span>
+
+<span class="c1">#####################   Originally based on Mannville notebook PreML_ClassRebalence_FeatureSelection_Prep_20181003_vF #####################</span>
+
+
+<span class="c1"># What dataframes to get out of this notebook:</span>
+
+<span class="c1">#     Dataframes of:</span>
+<span class="c1">#         Dataframe with everything</span>
+<span class="c1">#         Dataframe with only training data (with class rebalancing &amp; no index values that might leak)</span>
+<span class="c1">#         Dataframe with only training labels (with class rebalancing &amp; no index values that might leak)</span>
+<span class="c1">#         Dataframe with only test data (with no class rebalancing &amp; no index values that might leak)</span>
+<span class="c1">#         Dataframe with only test labels (with no class rebalancing &amp; no index values that might leak)</span>
+<span class="c1">#         Dataframes for each of the 4 above but also with indexes like UWI and DEPT which were kept off</span>
+<span class="c1">#     Order of creation:</span>
+<span class="c1">#         Split into train/test dataframes</span>
+<span class="c1">#         Rebalance only training dataset</span>
+<span class="c1">#         Split into test data, test label, train data, train label</span>
+<span class="c1">#         Save versions with ONLY index colummns (UWI &amp; Depth)</span>
+<span class="c1">#         Take off (UWI &amp; Depth &amp; Others)</span>
+<span class="c1">#         Save versions with only relevent information</span>
+<span class="c1">#         Do ML</span>
+
+
+<span class="c1">##### Contents</span>
+
+<span class="c1">######     Read In a HDF5 from the previous notebook that creates the features</span>
+<span class="c1">######     Add column for train or test based on a split %, like 80%/20%, split based on well UWI</span>
+<span class="c1">######     Rebalance the classes by throwing out some of the rows away from the pick and duplicating some rows at or near the known pick.</span>
+<span class="c1">######     Identify which columns to use as training features</span>
+<span class="c1">######     Identify which columns to use as labels</span>
+<span class="c1">######     Split single dataframe into 4 for train-features,train-labels,test-features,test-labels</span>
+<span class="c1">######     Machine learning using standard XGBoost classifier and not yet Dask</span>
+<span class="c1">######     Evaluate the initial results</span>
+<span class="c1">######     Turning row-by-row classification prediction into single well pick depth prediction</span>
+
+<span class="c1"># print(welly.__version__)</span>
+<span class="c1"># print(dask.__version__)</span>
+<span class="c1"># print(pd.__version__)</span>
+<span class="c1">#######  0.3.5</span>
+<span class="c1">#######  0.18.2</span>
+<span class="c1">#######  0.23.3</span>
+
+
+<span class="c1">###################### LOAD PREVIOUS CREATED DATASET WITH FEATURES ########################################################</span>
+
+
+<div class="viewcode-block" id="get_features_df_results"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.balance.get_features_df_results">[docs]</a><span class="k">def</span> <span class="nf">get_features_df_results</span><span class="p">(</span><span class="n">output_data_inst</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in </span>
+<span class="sd">    Returns</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#### get parts of the path to the resulting dataframe from wellsKN from the output_data_inst variable</span>
+    <span class="n">path_to_prev_results</span> <span class="o">=</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">base_path_for_all_results</span>
+    <span class="n">path_to_directory</span> <span class="o">=</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">path_features</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">features_results_wells_df</span>
+    <span class="n">ending</span> <span class="o">=</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">default_results_file_format</span>
+    <span class="c1">##### combine all those variables into a single</span>
+
+    <span class="n">full_path_to_features_results</span> <span class="o">=</span> <span class="n">getMainDFsavedInStep</span><span class="p">(</span>
+        <span class="n">path_to_prev_results</span><span class="p">,</span> <span class="n">path_to_directory</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">ending</span>
+    <span class="p">)</span>
+    <span class="c1">##### load dataframe from full path</span>
+    <span class="n">wells_df_from_features_results</span> <span class="o">=</span> <span class="n">load_prev_results_at_path</span><span class="p">(</span>
+        <span class="n">full_path_to_features_results</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">wells_df_from_features_results</span></div>
+
+
+<span class="c1">###################### Split into training and test dataframes ########################################################</span>
+
+
+<div class="viewcode-block" id="takeInDFandSplitIntoTrainTestDF"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.balance.takeInDFandSplitIntoTrainTestDF">[docs]</a><span class="k">def</span> <span class="nf">takeInDFandSplitIntoTrainTestDF</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Splits single input df into two dataframes, one test and one train, based on column values already assigned for train &amp; test.</span>
+<span class="sd">    Assumes that column in config.trainOrTest has values of only &quot;train&quot; or &quot;test&quot; and nothing else and no capitalization. A test should be written for this!</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">trainOrTest_col</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">trainOrTest</span>
+    <span class="n">df_all_Col_preSplit</span> <span class="o">=</span> <span class="n">df</span>
+    <span class="n">df_all_Col_train_noRebalance</span> <span class="o">=</span> <span class="n">df_all_Col_preSplit</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+        <span class="n">df_all_Col_preSplit</span><span class="p">[</span><span class="n">trainOrTest_col</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;train&quot;</span>
+    <span class="p">]</span>
+    <span class="n">df_all_Col_test</span> <span class="o">=</span> <span class="n">df_all_Col_preSplit</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+        <span class="n">df_all_Col_preSplit</span><span class="p">[</span><span class="n">trainOrTest_col</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;test&quot;</span>
+    <span class="p">]</span>
+    <span class="k">return</span> <span class="n">df_all_Col_train_noRebalance</span><span class="p">,</span> <span class="n">df_all_Col_test</span></div>
+
+
+<span class="c1">##### Rebalance class, aka label, populations to deal with lopsided class populations</span>
+<span class="c1">##### Because we have a lot more rows far away from the pick than exactly at the pick or close to the pick, we run the risk of being class heavy in some areas. This can result in not enough ability to identify the sparsely populate classes, like right at the pick.</span>
+<span class="c1">##### We&#39;ll attemp to deal with this problem by throwing out some of the rows far away from the pick and duplicating some of the rows right at or near the pick.</span>
+<span class="c1">##### THIS SHOULD ONLY BE DONE TO THE TRAINING DATA NOT THE TEST DATA OR THAT IS CHEATING!</span>
+<span class="c1">###################### Rebalance class, aka label, populations to deal with lopsided class populations ########################################################</span>
+<span class="c1">############################# THIS SHOULD ONLY BE DONE TO THE TRAINING DATA NOT THE TEST DATA OR THAT IS CHEATING! ##########3</span>
+
+
+<div class="viewcode-block" id="countRowsByClassOfNearPickOrNot"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.balance.countRowsByClassOfNearPickOrNot">[docs]</a><span class="k">def</span> <span class="nf">countRowsByClassOfNearPickOrNot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">arrayOfClass</span><span class="p">,</span> <span class="n">divisionInt</span><span class="p">,</span> <span class="n">classToShrink</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes as input a dataframe, array of classes, an integer to divide by, and  a column, and a class within the column to shrink.</span>
+<span class="sd">    Returns the dataframe minus the rows that match the ClassToShrink in the Col and prints details about the number of rows of the various classes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">eachClass</span> <span class="ow">in</span> <span class="n">arrayOfClass</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;length of rows with &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">eachClass</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; in class_DistFrPick_TopTarget:&quot;</span><span class="p">,</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;class_DistFrPick_TopTarget&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">eachClass</span><span class="p">]),</span>
+        <span class="p">)</span>
+    <span class="n">df_NearPickZeroSmall</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;class_DistFrPick_TopTarget&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">classToShrink</span><span class="p">)</span>
+    <span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;length of rows with 0 in class_DistFrPick_TopTarget and %&quot;</span>
+        <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">divisionInt</span><span class="p">)</span>
+        <span class="o">+</span> <span class="s2">&quot; == 0 is:&quot;</span><span class="p">,</span>
+        <span class="nb">len</span><span class="p">(</span><span class="n">df_NearPickZeroSmall</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;</span><span class="si">% r</span><span class="s2">eduction in classs 0 is:&quot;</span><span class="p">,</span>
+        <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">df_NearPickZeroSmall</span><span class="p">)</span>
+            <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;class_DistFrPick_TopTarget&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">classToShrink</span><span class="p">)</span>
+            <span class="o">*</span> <span class="mi">100</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;%&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">total_after_reduction_in_bigger_class</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;class_DistFrPick_TopTarget&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">classToShrink</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_NearPickZeroSmall</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;if taken out using this remainder, the total number of 0 class will be: &quot;</span><span class="p">,</span>
+        <span class="n">total_after_reduction_in_bigger_class</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1">#     print(&quot;ratio between that class away from pick and classes near pick is :&quot;:)</span>
+    <span class="k">return</span> <span class="n">df_NearPickZeroSmall</span></div>
+
+
+<span class="c1">##### example of how to run countRowsByClassOfNearPickOrNot() function.</span>
+<span class="c1">##### class_array_NearPick = [100,95,70,60,0]</span>
+<span class="c1">##### test_df_return = countRowsByClassOfNearPickOrNot(df_test_5,class_array_NearPick,2,0)</span>
+
+
+<div class="viewcode-block" id="getListOfKeysForZonesObj"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.balance.getListOfKeysForZonesObj">[docs]</a><span class="k">def</span> <span class="nf">getListOfKeysForZonesObj</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in the configuration object </span>
+<span class="sd">    Returns the keys of the zonesAroundTops object in configuration class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">class_array_NearPick</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">zonesAroundTops</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">class_array_NearPick</span></div>
+
+
+<div class="viewcode-block" id="dropsRowsWithMatchClassAndDeptRemainderIsZero"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.balance.dropsRowsWithMatchClassAndDeptRemainderIsZero">[docs]</a><span class="k">def</span> <span class="nf">dropsRowsWithMatchClassAndDeptRemainderIsZero</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">Col</span><span class="p">,</span> <span class="n">RemainderInt</span><span class="p">,</span> <span class="n">classToShrink</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes as input a dataframe, a column, a remainder integer, and a class within the column.</span>
+<span class="sd">    Returns the dataframe minus the rows that match the ClassToShrink in the Col and have a depth from the DEPT col with a remainder of zero.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;original lenght of dataframe = &quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+    <span class="n">df_new</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="n">Col</span><span class="p">]</span> <span class="o">==</span> <span class="n">classToShrink</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)]</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;length of new dataframe after dropping rows = &quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_new</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;number of rows dropped = &quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_new</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;length of 0 class is :&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_new</span><span class="p">[</span><span class="n">df_new</span><span class="p">[</span><span class="n">Col</span><span class="p">]</span> <span class="o">==</span> <span class="n">classToShrink</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">df_new</span></div>
+
+
+<span class="c1"># df_all_Col_preSplit_wTrainTest_ClassBalanced = dropsRowsWithMatchClassAndDeptRemainderIsZero(df_all_Col_train_noRebalance,&#39;class_DistFrPick_TopTarget&#39;,7,0)</span>
+
+<span class="c1"># df_all_Col_preSplit_wTrainTest_ClassBalanced.info()</span>
+
+
+<div class="viewcode-block" id="addsRowsToBalanceClasses"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.balance.addsRowsToBalanceClasses">[docs]</a><span class="k">def</span> <span class="nf">addsRowsToBalanceClasses</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rangeFor100</span><span class="p">,</span> <span class="n">rangeFor95</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Input is a dataframe, range for class 100, and range for class 95</span>
+<span class="sd">    Copies the rows with labels that don&#39;t occur very much so they are a larger part of dataframe</span>
+<span class="sd">    returns the new dataframe with additional copies of rows added on</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df_class100</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;class_DistFrPick_TopTarget&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;100&quot;</span><span class="p">]</span>
+    <span class="n">df_class95</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;class_DistFrPick_TopTarget&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;95&quot;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">each1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rangeFor100</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;replicating rows of uncommon classes to ensure balance&quot;</span><span class="p">,</span> <span class="n">each1</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df_class100</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">each2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rangeFor95</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;replicating rows of uncommon classes to ensure balance&quot;</span><span class="p">,</span> <span class="n">each2</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df_class95</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<span class="c1">#### EXAMPLE OF</span>
+<span class="c1">#### #### now we duplicate some rows for the class that wasn&#39;t well populated.</span>
+<span class="c1">#### df_all_Col_preSplit_wTrainTest_ClassBalanced2 = addsRowsToBalanceClasses(df_all_Col_preSplit_wTrainTest_ClassBalanced,50,10)</span>
+
+
+<div class="viewcode-block" id="findNumberOfEachClass"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.balance.findNumberOfEachClass">[docs]</a><span class="k">def</span> <span class="nf">findNumberOfEachClass</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span></div>
+
+
+<span class="c1">#### findNumberOfEachClass(df_all_Col_preSplit_wTrainTest_ClassBalanced2,&#39;class_DistFrPick_TopTarget&#39;)</span>
+
+<span class="c1">##### len(df_all_Col_preSplit_wTrainTest_ClassBalanced2)</span>
+
+<span class="c1">#####df_all_Col_preSplit_wTrainTest_ClassBalanced2.info()</span>
+
+<span class="c1">##### df_all_Col_preSplit_wTrainTest_ClassBalanced = df_all_Col_preSplit_wTrainTest_ClassBalanced2</span>
+
+<span class="c1">##### col_list = df_all_Col_preSplit_wTrainTest_ClassBalanced.columns</span>
+<span class="c1">##### print(col_list)</span>
+
+<span class="c1">##### col_list = list(col_list)</span>
+<span class="c1">##### col_list</span>
+
+<span class="c1">########### Manually copy the list above and take out some that are labels or aren&#39;t things you want to use as training #######</span>
+<span class="c1">##################### At some point come back and see if I can instead use a standard list of things to not include and make the list of columns to use as features more automatically???  ############</span>
+
+<span class="c1">####### Two lists of columns to not use as training features, Columns taken out as they aren&#39;t present often enough in the well dataset</span>
+
+<span class="c1">######### Columns taken out as they either contain information probably captures in other columns, are related to labels too closely, or other reasons.</span>
+<span class="c1">############## BUT LEAVE IN THE &#39;class_DistFrPick_TopTarget&#39; column for now as thats a label we&#39;ll use in label df!!!!</span>
+
+<span class="c1">#### THESE ARE DEFINED IN CONFIG CLASS!  ########</span>
+<span class="c1">#### columns_to_not_trainOn_andNotCurves = config.columns_to_not_trainOn_andNotCurves</span>
+<span class="c1">#### columns_to_not_trainOn_andAreCurves = config.columns_to_not_trainOn_andAreCurves</span>
+
+<span class="c1">############## Next few lines to combine the two lists above and take those columns out of dataframe</span>
+
+
+<div class="viewcode-block" id="takeOutColNotNeededInTrainingDF"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.balance.takeOutColNotNeededInTrainingDF">[docs]</a><span class="k">def</span> <span class="nf">takeOutColNotNeededInTrainingDF</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">,</span> <span class="n">list_allCol</span><span class="p">,</span> <span class="n">colToTakeOutCurves</span><span class="p">,</span> <span class="n">colToTakeOutOther</span>
+<span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;number of columns in dataframe coming into function&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+    <span class="n">train_feats_minusLowCount</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">list_allCol</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">colToTakeOutCurves</span><span class="p">]</span>
+    <span class="n">train_feats_minusLowCount</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">train_feats_minusLowCount</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">colToTakeOutOther</span>
+    <span class="p">]</span>
+    <span class="n">df_train_featWithHighCount</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">train_feats_minusLowCount</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;number of columns in dataframe leaving function&quot;</span><span class="p">,</span>
+        <span class="nb">len</span><span class="p">(</span><span class="n">df_train_featWithHighCount</span><span class="o">.</span><span class="n">columns</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">df_train_featWithHighCount</span></div>
+
+
+<span class="c1"># df_train_featWithHighCount = takeOutColNotNeededInTrainingDF(df_all_Col_preSplit_wTrainTest_ClassBalanced,col_list,training_feats_w_lowCount,takeOutColumnsNotCurvesList)</span>
+
+
+<span class="c1"># list(df_train_featWithHighCount.columns)</span>
+
+
+<span class="c1">##############  Number of columns for training</span>
+<span class="c1"># len(df_train_featWithHighCount.columns)</span>
+
+<span class="c1"># df_train_featWithHighCount.describe()</span>
+
+<span class="c1"># used_features = list(df_train_featWithHighCount.columns)</span>
+<span class="c1"># used_features</span>
+
+<span class="c1">#####################   Now let&#39;s take out those same columns in the test only dataframe</span>
+<span class="c1"># df_test_featWithHighCount = takeOutColNotNeededInTrainingDF(df_all_Col_test,col_list,training_feats_w_lowCount,takeOutColumnsNotCurvesList)</span>
+
+<span class="c1">################ Now let&#39;s combine the rebalanced train df with the unrebalanced test df to make a df we will then split into 4 pieces: train-data, train-labels, test-data,test-lables</span>
+<span class="c1"># df_testPlusRebalTrain_featWithHighCount = pd.concat([df_train_featWithHighCount,df_test_featWithHighCount])</span>
+<span class="c1"># len(df_testPlusRebalTrain_featWithHighCount.columns)</span>
+
+
+<div class="viewcode-block" id="combineRebalancedTrainDFWithUnrebalancedTestDF"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.balance.combineRebalancedTrainDFWithUnrebalancedTestDF">[docs]</a><span class="k">def</span> <span class="nf">combineRebalancedTrainDFWithUnrebalancedTestDF</span><span class="p">(</span>
+    <span class="n">df_train_featWithHighCount</span><span class="p">,</span> <span class="n">df_test_featWithHighCount</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Now let&#39;s combine the rebalanced train df with the unrebalanced test df to make a df we will then split into 4 pieces: train-data, train-labels, test-data,test-lables</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df_testPlusRebalTrain_featWithHighCount</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">df_train_featWithHighCount</span><span class="p">,</span> <span class="n">df_test_featWithHighCount</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">df_testPlusRebalTrain_featWithHighCount</span></div>
+
+
+<span class="c1"># Identify which columns to use as labels</span>
+<span class="c1"># The column &#39;cat_isTopMcMrNearby_known&#39; is what we&#39;ll use as labels.</span>
+
+<span class="c1">#     100 = exactly the Top McMurray Pick</span>
+<span class="c1">#     95 if the distance between that depth and the Top McMurray Pick is -0.5 &lt; x and x &lt;0.5</span>
+<span class="c1">#     60 if the distance between that depth and the Top McMurray Pick is -5 &lt; x and x &lt; 5</span>
+<span class="c1">#     0 = not near the Top McMurray Pick</span>
+
+<span class="c1"># The function used to make these classes or lables as column was: df_all_wells_wKNN_DEPTHtoDEPT[&#39;cat_isTopMcMrNearby_known&#39;]=df_all_wells_wKNN_DEPTHtoDEPT[&#39;diff_TMcM_Pick_v_DEPT&#39;].apply(lambda x: 100 if x==0 else ( 95 if (-0.5 &lt; x and x &lt;0.5) else 60 if (-5 &lt; x and x &lt;5) else 0))</span>
+
+<span class="c1"># df_testPlusRebalTrain_featWithHighCount[&#39;class_DistFrPick_TopTarget&#39;].unique()</span>
+<span class="c1"># labels = df_testPlusRebalTrain_featWithHighCount[[&#39;class_DistFrPick_TopTarget&#39;,&#39;UWI&#39;,&#39;trainOrTest&#39;,&#39;TopTarget_DEPTH&#39;]]</span>
+
+<span class="c1"># labels.head()</span>
+
+<span class="c1"># labels.tail()</span>
+
+<span class="c1"># len(labels)</span>
+
+<span class="c1">############### e lengths of training dataframes and labels dataframes should be the same. We&#39;ll take out UWI and trainOrTest further down.</span>
+
+
+<span class="c1">##########################################################################################</span>
+<span class="c1"># Now separate into 4 dataframes =</span>
+<span class="c1"># train_labels</span>
+<span class="c1"># train_feat</span>
+<span class="c1"># test_labels</span>
+<span class="c1"># test_feat</span>
+
+<span class="c1"># Then take off UWI and TrainTest col</span>
+<span class="c1">##########################################################################################</span>
+<span class="c1"># Create label dataframes</span>
+
+
+<div class="viewcode-block" id="makeDFofJustLabels"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.balance.makeDFofJustLabels">[docs]</a><span class="k">def</span> <span class="nf">makeDFofJustLabels</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    write here</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">columns_to_use_as_labels</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">columns_to_use_as_labels</span>
+    <span class="p">)</span>  <span class="c1">##### [&#39;class_DistFrPick_TopTarget&#39;,&#39;UWI&#39;,&#39;trainOrTest&#39;,&#39;TopTarget_DEPTH&#39;]</span>
+    <span class="n">labels_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">columns_to_use_as_labels</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">labels_df</span></div>
+
+
+<span class="c1">##############     Now separate into 4 dataframes =    ###########</span>
+<span class="c1"># train_labels</span>
+<span class="c1"># train_feat</span>
+<span class="c1"># test_labels</span>
+<span class="c1"># test_feat</span>
+
+<span class="c1"># Then take off UWI and TrainTest col</span>
+
+
+<div class="viewcode-block" id="make4separateDF"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.balance.make4separateDF">[docs]</a><span class="k">def</span> <span class="nf">make4separateDF</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">df_testPlusRebalTrain_featWithHighCount</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Things</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">trainOrTest_str</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">trainOrTest</span>
+    <span class="c1">###### Create label dataframes</span>
+    <span class="c1">#### split based on train in trainOrTest col</span>
+    <span class="n">labels_train</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="s2">&quot;trainOrTest&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;train&quot;</span><span class="p">]</span>
+    <span class="c1">#### Keep only the &#39;cat_isTopMcMrNearby_known&#39; column, so now it is just a series of labels</span>
+    <span class="n">labels_train</span> <span class="o">=</span> <span class="n">labels_train</span><span class="p">[</span><span class="s2">&quot;class_DistFrPick_TopTarget&quot;</span><span class="p">]</span>
+    <span class="c1">#### split based on test in trainOrTest col</span>
+    <span class="n">labels_test</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="s2">&quot;trainOrTest&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;test&quot;</span><span class="p">]</span>
+    <span class="c1">#### Keep only the &#39;cat_isTopMcMrNearby_known&#39; column, so now it is just a series of labels</span>
+    <span class="n">labels_test</span> <span class="o">=</span> <span class="n">labels_test</span><span class="p">[</span><span class="s2">&quot;class_DistFrPick_TopTarget&quot;</span><span class="p">]</span>
+    <span class="c1">#### rename</span>
+    <span class="n">df_train_featWithHighCount</span> <span class="o">=</span> <span class="n">df_testPlusRebalTrain_featWithHighCount</span>
+    <span class="c1">###### Create training dataframes</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;columns that are being treated as labels and dropped/added accordinating are:&quot;</span><span class="p">,</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">columns_to_use_as_labels</span><span class="p">,</span>
+        <span class="s2">&quot; from configuration class instance attribute &#39;columns_to_use_as_labels&#39;&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1">#### split based on train in trainOrTest col and drop UWI and TrainOrTest columns</span>
+    <span class="n">df_train_featWithHighCount_train</span> <span class="o">=</span> <span class="n">df_testPlusRebalTrain_featWithHighCount</span><span class="p">[</span>
+        <span class="n">df_testPlusRebalTrain_featWithHighCount</span><span class="p">[</span><span class="n">trainOrTest_str</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;train&quot;</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">columns_to_use_as_labels</span><span class="p">)</span>
+    <span class="c1">#### split based on test in trainOrTest col and drop UWI and TrainOrTest columns</span>
+    <span class="n">df_train_featWithHighCount_test</span> <span class="o">=</span> <span class="n">df_testPlusRebalTrain_featWithHighCount</span><span class="p">[</span>
+        <span class="n">df_testPlusRebalTrain_featWithHighCount</span><span class="p">[</span><span class="n">trainOrTest_str</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;test&quot;</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">columns_to_use_as_labels</span><span class="p">)</span>
+    <span class="c1">###### Create index dataframes for :</span>
+    <span class="c1">###### reattaching&#39;UWI&#39;, &#39;trainOrTest&#39;,&#39;class_DistFrPick_TopTarget&#39;,&#39;TopTarget_DEPTH&#39;</span>
+    <span class="n">df_train_featWithHighCount_train_indexOnly</span> <span class="o">=</span> <span class="n">df_testPlusRebalTrain_featWithHighCount</span><span class="p">[</span>
+        <span class="n">df_testPlusRebalTrain_featWithHighCount</span><span class="p">[</span><span class="n">trainOrTest_str</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;train&quot;</span>
+    <span class="p">][</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">columns_to_use_as_labels</span>
+    <span class="p">]</span>
+    <span class="n">df_train_featWithHighCount_test_indexOnly</span> <span class="o">=</span> <span class="n">df_testPlusRebalTrain_featWithHighCount</span><span class="p">[</span>
+        <span class="n">df_testPlusRebalTrain_featWithHighCount</span><span class="p">[</span><span class="n">trainOrTest_str</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;test&quot;</span>
+    <span class="p">][</span><span class="n">config</span><span class="o">.</span><span class="n">columns_to_use_as_labels</span><span class="p">]</span>
+    <span class="c1"># print(&quot;df_train_featWithHighCount_train_indexOnly.head()&quot;,df_train_featWithHighCount_train_indexOnly.head())</span>
+    <span class="c1">#### Rename to avoid overwriting &amp; keep with previous work</span>
+    <span class="n">train_X</span> <span class="o">=</span> <span class="n">df_train_featWithHighCount_train</span>
+    <span class="n">train_y</span> <span class="o">=</span> <span class="n">labels_train</span>
+    <span class="n">test_X</span> <span class="o">=</span> <span class="n">df_train_featWithHighCount_test</span>
+    <span class="n">test_y</span> <span class="o">=</span> <span class="n">labels_test</span>
+    <span class="n">train_index</span> <span class="o">=</span> <span class="n">df_train_featWithHighCount_train_indexOnly</span>
+    <span class="n">test_index</span> <span class="o">=</span> <span class="n">df_train_featWithHighCount_test_indexOnly</span>
+    <span class="c1">#### Inspect to make sure column headers and lengths make sense</span>
+    <span class="c1">#### MAKE A TEST HERE, LENGTH SHOULD BE THE SAME BEWEEN 1 &amp; 2 and 3 &amp; 4 ! ####</span>
+    <span class="c1">## print(len(train_X))</span>
+    <span class="c1">## train_X.head()</span>
+    <span class="c1">## print(len(train_y))</span>
+    <span class="c1">## train_y.head()</span>
+    <span class="c1">## print(len(test_X))</span>
+    <span class="c1">## test_X.head()</span>
+    <span class="c1">## print(len(test_y))</span>
+    <span class="c1">## test_y.head()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_X</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_y</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;THERE MAY BE A ERROR WHILE REBALANCEING train_X and train_y ARE NOT SAME LENGTH&quot;</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_X</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_y</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;THERE MAY BE A ERROR WHILE REBALANCEING test_X and test_y ARE NOT SAME LENGTH&quot;</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">df_testPlusRebalTrain_featWithHighCount</span><span class="p">,</span>
+        <span class="n">train_X</span><span class="p">,</span>
+        <span class="n">train_y</span><span class="p">,</span>
+        <span class="n">test_X</span><span class="p">,</span>
+        <span class="n">test_y</span><span class="p">,</span>
+        <span class="n">train_index</span><span class="p">,</span>
+        <span class="n">test_index</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<span class="c1">########################################</span>
+<span class="c1"># Save the dataframes as a dict</span>
+<span class="c1">#     train_X</span>
+<span class="c1">#     train_y</span>
+<span class="c1">#     test_X</span>
+<span class="c1">#     test_y</span>
+<span class="c1">#     &amp; full</span>
+
+
+<div class="viewcode-block" id="saveRebalanceResultsAsHDF"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.balance.saveRebalanceResultsAsHDF">[docs]</a><span class="k">def</span> <span class="nf">saveRebalanceResultsAsHDF</span><span class="p">(</span>
+    <span class="n">df_testPlusRebalTrain_featWithHighCount</span><span class="p">,</span>
+    <span class="n">train_X</span><span class="p">,</span>
+    <span class="n">train_y</span><span class="p">,</span>
+    <span class="n">test_X</span><span class="p">,</span>
+    <span class="n">test_y</span><span class="p">,</span>
+    <span class="n">train_index</span><span class="p">,</span>
+    <span class="n">test_index</span><span class="p">,</span>
+    <span class="n">output_data_inst</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in </span>
+<span class="sd">    Saves </span>
+<span class="sd">    Returns </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">###### Establish file path to save</span>
+    <span class="n">load_dir</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">output_data_inst</span><span class="o">.</span><span class="n">base_path_for_all_results</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">path_balance</span>
+    <span class="p">)</span>
+    <span class="n">load_results_full_file_path</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">load_dir</span>
+        <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
+        <span class="o">+</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">balance_results_wells_df</span>
+        <span class="o">+</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">default_results_file_format</span>
+    <span class="p">)</span>
+    <span class="c1">#########################  Write each pandas dataframes to single HDF5 using separate keys to retrieve later</span>
+    <span class="n">df_testPlusRebalTrain_featWithHighCount</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span>
+        <span class="n">load_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;preSplitpreBal&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span>
+    <span class="p">)</span>
+    <span class="n">train_X</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">load_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;train_X&quot;</span><span class="p">)</span>
+    <span class="n">train_y</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">load_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;train_y&quot;</span><span class="p">)</span>
+    <span class="n">test_X</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">load_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;test_X&quot;</span><span class="p">)</span>
+    <span class="n">test_y</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">load_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;test_y&quot;</span><span class="p">)</span>
+    <span class="n">train_index</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">load_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;train_index&quot;</span><span class="p">)</span>
+    <span class="n">test_index</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">load_results_full_file_path</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;test_index&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;finished saving the results of the rebalancing script in the location set in the output class instance. = &quot;</span><span class="p">,</span>
+        <span class="n">load_results_full_file_path</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<span class="c1">###################### LOAD PREVIOUS CREATED DATASET WITH FEATURES ########################################################</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Justin Gosses
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
