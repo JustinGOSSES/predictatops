@@ -78,15 +78,25 @@ Demo notebooks
 <https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_Every_Step_Via_HighLevel_Runner_Scripts_v1.ipynb>`_. covers:
 Running the high-level runner modules for each step one by one. This does the whole pipeline from data load, data evaluation, data processing, feature creation, model training, to prediction.
 - fetch_demo_data.py
+
 - configurationplusfiles_runner.py
+
 - checkdata_runner.py
+
 - load_runner.py
+
 - split_runner.py
+
 - wellsKNN_runner.py
+
 - features_runner.py
+
 - balance_runner.py
+
 - trainclasses_runner.py
+
 - predictionclasses_runner.py
+
 
 1. The notebook `Example_firstSteps_modules_fetchdata_configuration_checkdata.ipynb
 <https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_firstSteps_modules_fetchdata_configuration_checkdata.ipynb/>`_. Covers the initial data load, data evaluation, and configuration. Specifically it covers the modules:
