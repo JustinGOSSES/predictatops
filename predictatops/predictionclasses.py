@@ -588,35 +588,21 @@ class accuracy_singleTopPerWellPrediction_fromRollingRules:
         return r2__, mean_absolute_error_, self.calc_pred_Top_Pick_pred_DEPT_pred
 
 
-def saveRebalanceResultsAsHDF(
-    df_testPlusRebalTrain_featWithHighCount,
-    train_X,
-    train_y,
-    test_X,
+def saveRebalanceResultsAsHDFs(df_testPlusRebalTrain_featWithHighCount,train_X,train_y,test_X,
     test_y,
     train_index,
     test_index,
-    output_data_inst,
-):
+    output_data_inst):
     """
     Takes in 
     Saves 
     Returns 
     """
     ###### Establish file path to save
-    load_dir = (
-        output_data_inst.base_path_for_all_results + "/" + output_data_inst.path_balance
-    )
-    load_results_full_file_path = (
-        load_dir
-        + "/"
-        + output_data_inst.balance_results_wells_df
-        + output_data_inst.default_results_file_format
-    )
+    load_dir = output_data_inst.base_path_for_all_results + "/" + output_data_inst.path_balance
+    load_results_full_file_path = load_dir + "/" + output_data_inst.balance_results_wells_df + output_data_inst.default_results_file_format
     #########################  Write each pandas dataframes to single HDF5 using separate keys to retrieve later
-    df_testPlusRebalTrain_featWithHighCount.to_hdf(
-        load_results_full_file_path, key="preSplitpreBal", mode="w"
-    )
+    df_testPlusRebalTrain_featWithHighCount.to_hdf(oad_results_full_file_path, key="preSplitpreBal", mode="w")
     train_X.to_hdf(load_results_full_file_path, key="train_X")
     train_y.to_hdf(load_results_full_file_path, key="train_y")
     test_X.to_hdf(load_results_full_file_path, key="test_X")
@@ -627,3 +613,4 @@ def saveRebalanceResultsAsHDF(
         "finished saving the results of the rebalancing script in the location set in the output class instance. = ",
         load_results_full_file_path,
     )
+    return "finished saving the results of the rebalancing script in the location set in the output class instance. = "
