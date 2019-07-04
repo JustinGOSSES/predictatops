@@ -57,13 +57,13 @@ The '_runner' modules know how to execute the modules without '_runner' based on
 of sensible defaults defined in the '_runner' files & choices established in the
 configurationplusfiles_runner.py module.
 
--------------
+=============
 How install predictatops and run the demo dataset straight through in shortest way possibe:
--------------
+=============
 This uses Conda, so you might have to install that first. 
 
 In a terminal type the following commands - 
-=============
+---------------------------------------------
 Note: These first steps are duplicated here from the installation section:
 Clone the predictatops repository first as we don't have have it PyPy yet::
 
