@@ -92,15 +92,25 @@
 <li class="toctree-l1"><a class="reference internal" href="readme.html">Readme File</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#how-to-use-predictatops-in-a-project">How to use predictatops in a project:</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#in-a-terminal-type-the-following-commands">In a terminal type the following commands -</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#what-this-runs">What this runs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#changing-how-it-runs-via-configuration-instructions">Changing how it runs via configuration instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quick-high-level-description-of-code-project-architecture">Quick High-level Description of Code Project Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#a-pipeline">A pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modules-that-hold-functions-vs-modules-that-will-execute-code">Modules that hold functions vs. modules that will execute code.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-pipeline-using-only-high-level-runner-modules">Running the Pipeline Using Only High-Level “_runner” Modules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#how-install-predictatops-and-run-the-demo-dataset-straight-through-in-shortest-way-possibe">How install predictatops and run the demo dataset straight through in shortest way possibe:</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#more-complicated-ways-to-run">More complicated ways to run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#in-a-terminal-type-the-following-commands">In a terminal type the following commands -</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-this-runs">What this runs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#changing-how-it-runs-via-configuration-instructions">Changing how it runs via configuration instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#more-complicated-ways-to-run">More complicated ways to run</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#running-with-more-control-or-different-code-swapped-in">Running with more control or different code swapped in</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#demo-notebooks">Demo notebooks</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="#if-you-use-your-own-dataset-some-code-features-you-might-need-to-change">If you use your own dataset, some code features you might need to change</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
@@ -173,12 +183,56 @@
             
   <div class="section" id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="how-to-use-predictatops-in-a-project">
-<h2>How to use predictatops in a project:<a class="headerlink" href="#how-to-use-predictatops-in-a-project" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="quick-high-level-description-of-code-project-architecture">
+<h2>Quick High-level Description of Code Project Architecture<a class="headerlink" href="#quick-high-level-description-of-code-project-architecture" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="a-pipeline">
+<h3>A pipeline<a class="headerlink" href="#a-pipeline" title="Permalink to this headline">¶</a></h3>
+<p>Predictatops is a pipeline. It consists of a series of steps.</p>
+<p>The steps include things like fetch the demo data, load data, train, etc.</p>
+<p>The code for each step was written with the assumption that people, including the authors,
+would want to throw out parts and substitute in new or different code while keeping the
+other code the same. It was also written with the idea that sometimes you’d want to just
+call an entire step via a single command and other times you’d want to call things incrementally
+sub-step by sub-step.</p>
+</div>
+<div class="section" id="modules-that-hold-functions-vs-modules-that-will-execute-code">
+<h3>Modules that hold functions vs. modules that will execute code.<a class="headerlink" href="#modules-that-hold-functions-vs-modules-that-will-execute-code" title="Permalink to this headline">¶</a></h3>
+<p>If you look at the modules in Predicatops, you’ll noticed there are pairs of modules where one member
+of a pair has the same name but ‘_runner’ affixed to its end, for example load.py &amp; load_runner.py.
+Load.py contains only functions and class definitions. It doesn’t execute any code by itself.
+load_runner.py calls functions and classes from load.py and then executes them. Any Python module
+with ‘_runner’ on the end is basically a single module you can call to run all the functions in the
+module without ‘_runner’ on the end.</p>
+</div>
+<div class="section" id="running-the-pipeline-using-only-high-level-runner-modules">
+<h3>Running the Pipeline Using Only High-Level “_runner” Modules<a class="headerlink" href="#running-the-pipeline-using-only-high-level-runner-modules" title="Permalink to this headline">¶</a></h3>
+<p>You can combine all the ‘_runner.py’ modules one after another to run through the whole Predictatops
+sequence quite simply. The major modules necessary to run the Predicatops pipline are listed below.
+These are called in the same sequence below in the all_runner.py module.</p>
+<ul class="simple">
+<li><p><em>fetch_demo_data.py</em> = fetches demo dataset for predicting top Mcmurray.</p></li>
+<li><p><em>configurationplusfiles_runner.py</em> = establishes configuration, input data, &amp; output variables.</p></li>
+<li><p><em>checkdata_runner.py</em> = finds what curves &amp; tops are available for use in the input dataset.</p></li>
+<li><p><em>load_runner.py</em> = loads the well curves and tops.</p></li>
+<li><p><em>split_runner.py</em> = splits the wells into train &amp; test portions.</p></li>
+<li><p><em>wellsKNN_runner.py</em> = finds the nearest neighbors of each well and creates some features.</p></li>
+<li><p><em>features_runner.py</em> = creates the rest of the features.</p></li>
+<li><p><em>balance_runner.py</em> = throws away instances of common classes &amp; duplicates uncommon classes.</p></li>
+<li><p><em>trainclasses_runner.py</em> = trains the dataset using XGBoost algorithm.</p></li>
+<li><p><em>predictionclasses_runner.py</em> = uses the trained model to predict stratigraphic tops.</p></li>
+</ul>
+<p>The ‘_runner’ modules know how to execute the modules without ‘_runner’ based on a combination
+of sensible defaults defined in the ‘_runner’ files &amp; choices established in the
+configurationplusfiles_runner.py module.</p>
+<div class="section" id="how-install-predictatops-and-run-the-demo-dataset-straight-through-in-shortest-way-possibe">
+<h4>How install predictatops and run the demo dataset straight through in shortest way possibe:<a class="headerlink" href="#how-install-predictatops-and-run-the-demo-dataset-straight-through-in-shortest-way-possibe" title="Permalink to this headline">¶</a></h4>
 <p>This uses Conda, so you might have to install that first.</p>
+</div>
+</div>
+</div>
 <div class="section" id="in-a-terminal-type-the-following-commands">
-<h3>In a terminal type the following commands -<a class="headerlink" href="#in-a-terminal-type-the-following-commands" title="Permalink to this headline">¶</a></h3>
-<p>These first steps are duplicated here from the installation section:
+<h2>In a terminal type the following commands -<a class="headerlink" href="#in-a-terminal-type-the-following-commands" title="Permalink to this headline">¶</a></h2>
+<p>Note: These first steps are duplicated here from the installation section:
 Clone the predictatops repository first as we don’t have have it PyPy yet:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">JustinGOSSES</span><span class="o">/</span><span class="n">predictatops</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
@@ -210,14 +264,13 @@ Clone the predictatops repository first as we don’t have have it PyPy yet:</p>
 </div>
 </div>
 <div class="section" id="what-this-runs">
-<h3>What this runs<a class="headerlink" href="#what-this-runs" title="Permalink to this headline">¶</a></h3>
+<h2>What this runs<a class="headerlink" href="#what-this-runs" title="Permalink to this headline">¶</a></h2>
 <p>This will run all the code using the demo dataset and default configuration, which predicts the top McMurray surface. It takes about 1.5 hours on a 2015 MacBook Pro.</p>
 </div>
 <div class="section" id="changing-how-it-runs-via-configuration-instructions">
-<h3>Changing how it runs via configuration instructions<a class="headerlink" href="#changing-how-it-runs-via-configuration-instructions" title="Permalink to this headline">¶</a></h3>
+<h2>Changing how it runs via configuration instructions<a class="headerlink" href="#changing-how-it-runs-via-configuration-instructions" title="Permalink to this headline">¶</a></h2>
 <p>Results should be in the results folder or whatever output folder is set as the base output folder via configurationplusfiles.py
 This method of running assumes you’re using all the default input, configuration, and output settings for the demo dataset. If you aren’t interested in that, you’ll need to change those via the configurationplusfiles.py file.</p>
-</div>
 </div>
 </div>
 <div class="section" id="more-complicated-ways-to-run">
@@ -226,8 +279,13 @@ This method of running assumes you’re using all the default input, configurati
 <p>(1.) You can run one python script that does everything based on configuration. This is the all_runner.py used above.</p>
 <p>(2.) You can call each major step via a python file, examples of how to do that have _runner on the end, like load_runner.py or features_runner.py.</p>
 <p>(3.) You can also import functions from the python file for each step and call them from within your own code.</p>
+<div class="section" id="running-with-more-control-or-different-code-swapped-in">
+<h2>Running with more control or different code swapped in<a class="headerlink" href="#running-with-more-control-or-different-code-swapped-in" title="Permalink to this headline">¶</a></h2>
 <p>If you want the most control, you can import the functions in the python files for each of those major steps and call those functions within your own code. This is method 3 above. This will let you more easily swap in and out new parts and interrogate itermediate results. Notebooks below give some examples on how to do this.</p>
 <p>Note: these jupyter notebooks are still in progress.</p>
+</div>
+<div class="section" id="demo-notebooks">
+<h2>Demo notebooks<a class="headerlink" href="#demo-notebooks" title="Permalink to this headline">¶</a></h2>
 <p>0. The notebook <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_Every_Step_Via_HighLevel_Runner_Scripts_v1.ipynb">Example_Every_Step_Via_HighLevel_Runner_Scripts_v1.ipynb</a>. covers:
 Running the high-level runner modules for each step one by one. This does the whole pipeline from data load, data evaluation, data processing, feature creation, model training, to prediction.
 - fetch_demo_data.py</p>
@@ -344,6 +402,7 @@ Running the high-level runner modules for each step one by one. This does the wh
 </dl>
 </li>
 </ul>
+</div>
 </div>
 <div class="section" id="if-you-use-your-own-dataset-some-code-features-you-might-need-to-change">
 <h1>If you use your own dataset, some code features you might need to change<a class="headerlink" href="#if-you-use-your-own-dataset-some-code-features-you-might-need-to-change" title="Permalink to this headline">¶</a></h1>

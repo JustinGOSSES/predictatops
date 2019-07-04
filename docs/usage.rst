@@ -2,14 +2,69 @@
 Usage
 =====
 
+
+Quick High-level Description of Code Project Architecture
+=============
+
+A pipeline
+----------
+Predictatops is a pipeline. It consists of a series of steps. 
+
+The steps include things like fetch the demo data, load data, train, etc. 
+
+The code for each step was written with the assumption that people, including the authors, 
+would want to throw out parts and substitute in new or different code while keeping the
+other code the same. It was also written with the idea that sometimes you'd want to just 
+call an entire step via a single command and other times you'd want to call things incrementally
+sub-step by sub-step.
+
+Modules that hold functions vs. modules that will execute code.
+--------------------------------------------------------------
+If you look at the modules in Predicatops, you'll noticed there are pairs of modules where one member
+of a pair has the same name but '_runner' affixed to its end, for example load.py & load_runner.py.
+Load.py contains only functions and class definitions. It doesn't execute any code by itself.
+load_runner.py calls functions and classes from load.py and then executes them. Any Python module
+with '_runner' on the end is basically a single module you can call to run all the functions in the
+module without '_runner' on the end.
+
+Running the Pipeline Using Only High-Level "_runner" Modules
+------------------------------------------------------------
+You can combine all the '_runner.py' modules one after another to run through the whole Predictatops
+sequence quite simply. The major modules necessary to run the Predicatops pipline are listed below. 
+These are called in the same sequence below in the all_runner.py module.
+
+- *fetch_demo_data.py* = fetches demo dataset for predicting top Mcmurray.
+
+- *configurationplusfiles_runner.py* = establishes configuration, input data, & output variables.
+
+- *checkdata_runner.py* = finds what curves & tops are available for use in the input dataset.
+
+- *load_runner.py* = loads the well curves and tops.
+
+- *split_runner.py* = splits the wells into train & test portions.
+
+- *wellsKNN_runner.py* = finds the nearest neighbors of each well and creates some features.
+
+- *features_runner.py* = creates the rest of the features.
+
+- *balance_runner.py* = throws away instances of common classes & duplicates uncommon classes.
+
+- *trainclasses_runner.py* = trains the dataset using XGBoost algorithm.
+
+- *predictionclasses_runner.py* = uses the trained model to predict stratigraphic tops.
+
+The '_runner' modules know how to execute the modules without '_runner' based on a combination
+of sensible defaults defined in the '_runner' files & choices established in the
+configurationplusfiles_runner.py module.
+
 -------------
-How to use predictatops in a project:
+How install predictatops and run the demo dataset straight through in shortest way possibe:
 -------------
 This uses Conda, so you might have to install that first. 
 
 In a terminal type the following commands - 
 =============
-These first steps are duplicated here from the installation section:
+Note: These first steps are duplicated here from the installation section:
 Clone the predictatops repository first as we don't have have it PyPy yet::
 
     git clone https://github.com/JustinGOSSES/predictatops.git
@@ -44,6 +99,8 @@ Run the all_runner script to run all the code in one go::
 What this runs
 =============
 This will run all the code using the demo dataset and default configuration, which predicts the top McMurray surface. It takes about 1.5 hours on a 2015 MacBook Pro.
+
+
 
 Changing how it runs via configuration instructions
 =============
