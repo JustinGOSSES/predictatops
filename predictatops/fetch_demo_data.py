@@ -39,8 +39,8 @@ GOODBOY = pooch.create(
 # numbers of data files. The registry file should be in the same directory as this
 # module.
 
-GOODBOY.load_registry("./registry.txt")
-
+#GOODBOY.load_registry("./registry.txt")
+GOODBOY.load_registry(os.path.join(os.path.dirname(__file__),"registry.txt"))
 
 # Define functions that your users can call to get back some sample data in memory
 def fetch_mannville_data():
@@ -61,7 +61,7 @@ def fetch_mannville_data():
     Nothing but three dots which reads as ellipses in Python for now. It does write files to the directory given above in goodboy, which is created in fetch_demo_data.py by pooch.create()
    """
 
-    with open("registry.txt") as f:
+    with open(os.path.join(os.path.dirname(__file__),"registry.txt")) as f:
         lines = f.readlines()
     for line in lines:
         firstname = line.split(" ")[0]
