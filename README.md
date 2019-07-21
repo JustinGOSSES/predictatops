@@ -27,11 +27,11 @@ Development was in this repo: <a href="https://github.com/JustinGOSSES/Mannville
 Philosophy
 -------
 
-In human-generated stratigraphic correlations there is often talk of lithostratigraphy vs. chronostratigraphy. We propose there is a weak analogy between lithostratigraphy and chronostratigraphy and different methods of computer assisted stratigraphy. 
+In human-generated stratigraphic correlations there is often talk of lithostratigraphy vs. chronostratigraphy. We propose there is a weak analogy between lithostratigraphy and chronostratigraphy and the different methods of computer assisted stratigraphy. Some of the past efforts, which work very well under certain circumstances, are similar to lithostratigraphy in terms of what they accomplish. They match curve patterns between neighboring wells and rely on the assumption that changes in lithology ~ curve shapes are equivelant to stratigraphy.
 
-Historically, many papers that attempted to use code to correlate well logs either assumed there was a mathematical or pattern basis for stratigraphic surfaces that can be teased out of individual logs or one could measured differences in curve patterns between neighboring wells. Some workflows share some characteristics with lithostratigraphy in terms of their reliance of matching curve shapes and assumption that changes in lithology are equivelant to stratigraphy, at least at distances equal or greater than well to well distances. 
+Other papers attempt to use code to correlate well logs assuming there was a mathematical or pattern basis for stratigraphic surfaces that can be teased out of individual logs. Although there are recent papers that seem to do better with this type of approach, no code was released, the earlier ones seem to have problems that at least in part were related to their assumption that stratigraphic changes had similar expression across large spatial areas.
 
-In contrast, chronostratigraphy assumes lithology equates to facies belts that can fluctuate gradually in space over time, and are not correlated with time, resulting in two wells having similar lithology patterns in different time packages. Traditional chronostratigraphy relies on models of how facies belts should change in space when not otherwise constrained by biostratigraphy, chemostratigraphy, or radiometric dating. 
+In contrast to lithostratigraphy, chronostratigraphy assumes lithology equates to facies belts that can fluctuate gradually in space over time, and are not correlated with time. Two wells with similar lithology patterns can be in different time packages. Traditional chronostratigraphy relies on models of how facies belts should change in space when not otherwise constrained by biostratigraphy, chemostratigraphy, or radiometric dating. 
 
 Instead of relying on stratigraphic models, this project proposes known picks can define spatial distribution of, and variance of, well log curve patterns that are then used to predict picks in new wells. This project attempts to focus on creating programatic features and operations that mimic the low level observations of a human geologist and progressively build into higher order clustering of patterns occuring across many wells that would have been done by a human geologist.
 
@@ -73,21 +73,7 @@ There's a theme here. Check the <a href="https://justingosses.github.io/predicta
 ______________________________
 ## Status
 
-Small parts of the code are still in <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon">the old repository</a>, but it is progressively being moved here and repackaged out of Jupyter notebooks and into an actual package.
-
-The code runs faster and and mean absolute error is down from 90 to 15.03 and now ~7 (with a handful of wells identified as too difficult to predict, -8% depending on settings. 
-
-Key approaches were:
-1. Leverage knowledge from nearby wells.
-2. Instead of distinguishing between 2 classes, pick and not pick, distinguish between 3 classes: (a) pick, (b) not pick but within 3 meters and (c) not pick and not within 3 meters of pick.
-3. More features
-4. A Two step approach to machine-learning: 
-
-- 4.1. First step is class-based prediction. Classes are groups based on distance from actual pick. For example, depths at the pick, depths within 0.5 meter, depths within 5 meters above, etc. 
-- 4-2. Second step is more concerned with picking between the depths predicted as being in the classes nearest to the pick. We've explored both a rule-based scoring and a regression machine-learning process for this. 
-- 4.2.1. The rule-based approach uses the class prediction and simple additive scoring of the class predictions based across different size windows. In a scenario where there are two depths with a predicted class of 100, we decide between them by adding up all the class scores across different size windows above and below each depth. The depth with the highest aggregate score wins  and it declared the "predicted depth". We take this route as we assume the right depth will have more depths near it that look like the top pick and as such have higher classes predicted for depths around it while false positives will be more likely to have more lower level classes around it.
-- 4.2.2. We're also trying regression-based machine-learning to predict the distance from each depth in question to the actual pick. The depth with the lowest predicted distance between it and actual pick is chosen as the "predicted pick". This approach hasn't given any better results than the simple rule-based aggregate scoring.
- 
+The root mean squared error for the Top McMurray surface is down to ~7 meters (with a handful of wells identified as too difficult to predict, -8% depending on settings). 
 
 #### Distribution of Absolute Error in Test Portion of Dataset for Top McMurray Surface in Meters. 
 Y-axis is number of picks in each bin, and X-axis is distance predicted pick is off from human-generated pick.
@@ -98,9 +84,7 @@ Y-axis is number of picks in each bin, and X-axis is distance predicted pick is 
 Current algorithm used is XGBoost.
 
 #### Future Work [also see issues]
+6. Improve documentation.
 7. Visualize probabilty of pick along well instead of just returning max probability prediction in each well. 
-8. Generate average aggregate wells in different local areas for wells at different prediction levels. See if there are trends or if this helps to idenetify geologic meaningful features that correlate to many combined machine-learning model features. 
-9. Explore methods to visualize weigtings of features on individual well basis using techniques similar to those learned in image-based deep-learning. 
 10. Cluster wells using unsupervised learning and then see if clusters can be created that correlated with supervised prediction results. (initial trials with UMAP give encouraging results)
-11. Rework parts of this into more object oriented approach.
 12. Use H2O's automl library to try to improve on standard XGBoost approach.
