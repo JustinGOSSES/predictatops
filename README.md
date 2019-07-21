@@ -82,9 +82,3 @@ Y-axis is number of picks in each bin, and X-axis is distance predicted pick is 
      style="float: left; margin-right: 25px;" />
 
 Current algorithm used is XGBoost.
-
-#### Future Work [also see issues]
-6. Improve documentation.
-7. Visualize probabilty of pick along well instead of just returning max probability prediction in each well. 
-10. Cluster wells using unsupervised learning and then see if clusters can be created that correlated with supervised prediction results. (initial trials with UMAP give encouraging results)
-12. Use H2O's automl library to try to improve on standard XGBoost approach.
