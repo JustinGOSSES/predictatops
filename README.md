@@ -24,6 +24,8 @@ The <b><a href="https://github.com/JustinGOSSES/predictatops/blob/master/docs/AC
 
 Development was in this repo: <a href="https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon">MannvilleGroup_Strat_Hackathon</a> but is now moving here as the code gets cleaned and modulized. This project is under active development. A few portions of the code still only exist on MannvilleGroup_Strat_Hackathon repo at this time. This is a nights and weekend side project, but will continue to be developed by the main developer.
 
+A more non-coder friendly description of the work can be found in <a href="http://justingosses.com/predictatops/">this</a> blog post. 
+
 Philosophy
 -------
 
