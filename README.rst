@@ -64,6 +64,9 @@ This code is the subject of an `abstract
 The `slides
 <https://github.com/JustinGOSSES/predictatops/blob/master/docs/ACE2019_Gosses_theme8_StratigraphicTopML_201905018_submitted.pdf/>`_  presented at AAPG ACE 2019 are available in PDF form. They give an introduction to the theory and thought process behind Predictatops.
 
+A more non-coder friendly description of the work can be found in `this
+<http://justingosses.com/predictatops/>`_  blog post.
+
 In human-generated stratigraphic correlations there is often talk of lithostratigraphy vs. chronostratigraphy. We propose there is a weak analogy between lithostratigraphy and chronostratigraphy and different methods of computer assisted stratigraphy. 
 
 Historically, many papers that attempted to use code to correlate well logs either assumed there was a mathematical or pattern basis for stratigraphic surfaces that can be teased out of individual logs or one could measured differences in curve patterns between neighboring wells. These workflows share some characteristics with lithostratigraphy in terms of their reliance of matching curve shapes and assumption that changes in lithology are equivelant to stratigraphy, at least at distances equal or greater than well to well distances. 
