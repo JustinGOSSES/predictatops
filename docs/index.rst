@@ -3,6 +3,9 @@ Welcome to predictatops's documentation!
 
 We're new and still developing, so please pardon the disorganization.
 
+link to `repository on github
+<https://github.com/JustinGOSSES/predictatops/>`_.
+
 You can search for modules via * :ref:`modindex`
 
 .. toctree::

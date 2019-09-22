@@ -7,6 +7,9 @@ Predictatops
 Code for stratigraphic pick prediction via supervised machine-learning
 --------------
 
+link to `repository on github
+<https://github.com/JustinGOSSES/predictatops/>`_.
+
 .. image:: Yale-Peabody-Triceratops-004Trp.png
    :width: 512pt
 
