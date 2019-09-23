@@ -162,6 +162,9 @@
             
   <h1>Source code for predictatops.main</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The main.py module of predictatops merely holds a few utility functions leveraged by other modules.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -179,13 +182,28 @@
 
 
 <div class="viewcode-block" id="printHello"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.main.printHello">[docs]</a><span class="k">def</span> <span class="nf">printHello</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function simply prints a hello message for testing.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hello, you&#39;ve run the main module&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="load_prev_results_at_path"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.main.load_prev_results_at_path">[docs]</a><span class="k">def</span> <span class="nf">load_prev_results_at_path</span><span class="p">(</span><span class="n">full_path_to_results_file</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;df&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Takes in </span>
+<span class="sd">    A function used to return a dataframe of wells stored in an h5 file at a given path with a given key.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    full_path_to_results_file: string</span>
+<span class="sd">        A path to a .h5 file that contains a wells dataframe.</span>
+
+<span class="sd">    key: string</span>
+<span class="sd">        A string representation of a key used to find the dataframe in the h5 file whose path is defined by the full_path_to_results_file argument.</span>
+
 <span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    wells_df_from_wellsKNN: dataframe</span>
+<span class="sd">        Returns a dataframe of wells that existed at the path defined in the full_path_to_results_file argument.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">wells_df_from_wellsKNN</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">full_path_to_results_file</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">wells_df_from_wellsKNN</span></div>
@@ -193,8 +211,27 @@
 
 <div class="viewcode-block" id="getMainDFsavedInStep"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.main.getMainDFsavedInStep">[docs]</a><span class="k">def</span> <span class="nf">getMainDFsavedInStep</span><span class="p">(</span><span class="n">path_to_results</span><span class="p">,</span> <span class="n">path_to_directory</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">ending</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Takes in </span>
+<span class="sd">    A function used to return a dataframe of data stored in a file at a given path. Not specific to a dataframe of wells in h5 file like load_prev_results_at_path.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path_to_results: string</span>
+<span class="sd">        A path to a top-level results folder.</span>
+
+<span class="sd">    path_to_directory: string</span>
+<span class="sd">        A path to a folder within the results folder that has the file in question.</span>
+
+<span class="sd">    file_name: string</span>
+<span class="sd">        A path to a file within the path_to_results and path_to_directory arguments.</span>
+<span class="sd">    </span>
+<span class="sd">    ending: string</span>
+<span class="sd">        String representation of the file type like &quot;.h5&quot; or &quot;.csv&quot;. It should include the dot!</span>
+
 <span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    full_path_to_results_file: string</span>
+<span class="sd">        Returns a string representation of the full path to the file in question.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">dir_path</span> <span class="o">=</span> <span class="n">path_to_results</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">path_to_directory</span>
     <span class="n">full_path_to_results_file</span> <span class="o">=</span> <span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">file_name</span> <span class="o">+</span> <span class="n">ending</span>
@@ -203,8 +240,23 @@
 
 <div class="viewcode-block" id="get_df_results_from_step_X"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.main.get_df_results_from_step_X">[docs]</a><span class="k">def</span> <span class="nf">get_df_results_from_step_X</span><span class="p">(</span><span class="n">output_data_inst</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;df&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Takes in </span>
+<span class="sd">    Another function used to return a dataframe stored in an h5 file at a given path with a given key.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    output_data_inst: string</span>
+<span class="sd">        A path to a folder with previously output data.</span>
+
+<span class="sd">    directory: string</span>
+<span class="sd">        A folder within the directory defined by the &#39;output_data_inst&#39; that holds a file.</span>
+
+<span class="sd">    key: string</span>
+<span class="sd">        A string representation of a key used to find the dataframe in the h5 file. Default is &quot;df&quot;.</span>
+
 <span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    wells_df_of_results: dataframe</span>
+<span class="sd">        Returns a dataframe of wells that existed at the path defined via the given input arguments.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">#### get parts of the path to the resulting dataframe from wellsKN from the output_data_inst variable</span>
     <span class="n">ending</span> <span class="o">=</span> <span class="n">output_data_inst</span><span class="o">.</span><span class="n">default_results_file_format</span>
@@ -220,8 +272,23 @@
 
 <div class="viewcode-block" id="getJobLibPickleResults"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.main.getJobLibPickleResults">[docs]</a><span class="k">def</span> <span class="nf">getJobLibPickleResults</span><span class="p">(</span><span class="n">output_data_inst</span><span class="p">,</span> <span class="n">subfolder</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Inputs</span>
+<span class="sd">    Another function used to generate the string representation of the path to a pickle file and then returns that pickled datafile.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    output_data_inst: string</span>
+<span class="sd">        A path to a folder with previously output data.</span>
+
+<span class="sd">    subfolder: string</span>
+<span class="sd">        A folder within the directory defined by the &#39;output_data_inst&#39; that holds a file.</span>
+
+<span class="sd">    filename: string</span>
+<span class="sd">        Name of the file in question.</span>
+
 <span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    joblib.load(full_path_to_pickle): dataframe</span>
+<span class="sd">        Returns a dataframe that exists at the path defined via the given input arguments.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">full_path_to_pickle</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">output_data_inst</span><span class="o">.</span><span class="n">base_path_for_all_results</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">subfolder</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">filename</span>

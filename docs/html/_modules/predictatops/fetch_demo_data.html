@@ -163,39 +163,50 @@
   <h1>Source code for predictatops.fetch_demo_data</h1><div class="highlight"><pre>
 <span></span><span class="c1">##coding: utf-8 -*-</span>
 
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   The fetch_data_data.py script is used to fetch the demo data using the pooch data fetching library. This is the only module that executes on being run but doesn&#39;t has a &quot;_runner&quot; ending to its name.</span>
+<span class="sd">   </span>
+<span class="sd">   Alternatively, you can use your own data in a top-level &quot;data&quot; directory and skip using this script entirely.</span>
+
+<span class="sd">   The script imports pooch, then fetches the demo dataset from: &quot;https://github.com/JustinGOSSES/predictatops/raw/{version}/demo/mannville_demo_data/&quot;.</span>
+<span class="sd">   That link is defined in the registry.txt file. Pooch is used to create a GOODBYE object instance, which then exectures the fetching using the fetch_mannville_data() function in this python file.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+
 <span class="c1">##### import statements #####</span>
 <span class="kn">import</span> <span class="nn">pooch</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
 <span class="c1"># Get the version string from your project. You have one of these, right?</span>
-<span class="c1">#from . import version</span>
+<span class="c1"># from . import version</span>
 
 
 <span class="c1"># Create a new friend to manage your sample data storage</span>
 <span class="n">GOODBOY</span> <span class="o">=</span> <span class="n">pooch</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-   <span class="c1"># Folder where the data will be stored. For a sensible default, use the default</span>
-   <span class="c1"># cache folder for your OS.</span>
-   <span class="c1">#path=pooch.os_cache(&quot;mypackage_test&quot;),</span>
-   <span class="c1">#path=pooch.os_cache(&quot;mypackage_test&quot;),</span>
-   <span class="n">path</span><span class="o">=</span><span class="s2">&quot;../data/Mannville_input_data/&quot;</span><span class="p">,</span>
-   <span class="c1"># Base URL of the remote data store. Will call .format on this string to insert</span>
-   <span class="c1">#https://github.com/JustinGOSSES/predictatops/</span>
-   <span class="c1"># the version (see below).  https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/tree/master/SPE_006_originalData</span>
-   <span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;https://github.com/JustinGOSSES/predictatops/raw/</span><span class="si">{version}</span><span class="s2">/demo/mannville_demo_data/&quot;</span><span class="p">,</span>
-   <span class="c1"># Pooches are versioned so that you can use multiple versions of a package</span>
-   <span class="c1"># simultaneously. Use PEP440 compliant version number. The version will be</span>
-   <span class="c1"># appended to the path.</span>
-   <span class="n">version</span><span class="o">=</span><span class="s1">&#39;v0.0.0-alpha&#39;</span><span class="p">,</span>
-   <span class="c1"># If a version as a &quot;+XX.XXXXX&quot; suffix, we&#39;ll assume that this is a dev version</span>
-   <span class="c1"># and replace the version with this string.</span>
-   <span class="n">version_dev</span><span class="o">=</span><span class="s2">&quot;master&quot;</span><span class="p">,</span>
-   <span class="c1"># An environment variable that overwrites the path.</span>
-   <span class="n">env</span><span class="o">=</span><span class="s2">&quot;../data/Mannville_input_data/&quot;</span><span class="p">,</span>
-   <span class="c1"># The cache file registry. A dictionary with all files managed by this pooch.</span>
-   <span class="c1"># Keys are the file names (relative to *base_url*) and values are their</span>
-   <span class="c1"># respective SHA256 hashes. Files will be downloaded automatically when needed</span>
-   <span class="c1"># (see fetch_gravity_data).  1414057d0c5235b0ed13103c72c864ddfd34a0c8</span>
-   <span class="c1">#registry={&quot;OilSandsDB/LITHOLOGY_DIC.TXT&quot;: &quot;83f3be338d6fa42eeadf60466c716e4370fe8723682c187d214a054bd695880a&quot;}</span>
+    <span class="c1"># Folder where the data will be stored. For a sensible default, use the default</span>
+    <span class="c1"># cache folder for your OS.</span>
+    <span class="c1"># path=pooch.os_cache(&quot;mypackage_test&quot;),</span>
+    <span class="c1"># path=pooch.os_cache(&quot;mypackage_test&quot;),</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;../data/Mannville_input_data/&quot;</span><span class="p">,</span>
+    <span class="c1"># Base URL of the remote data store. Will call .format on this string to insert</span>
+    <span class="c1"># https://github.com/JustinGOSSES/predictatops/</span>
+    <span class="c1"># the version (see below).  https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/tree/master/SPE_006_originalData</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;https://github.com/JustinGOSSES/predictatops/raw/</span><span class="si">{version}</span><span class="s2">/demo/mannville_demo_data/&quot;</span><span class="p">,</span>
+    <span class="c1"># Pooches are versioned so that you can use multiple versions of a package</span>
+    <span class="c1"># simultaneously. Use PEP440 compliant version number. The version will be</span>
+    <span class="c1"># appended to the path.</span>
+    <span class="n">version</span><span class="o">=</span><span class="s2">&quot;v0.0.0-alpha&quot;</span><span class="p">,</span>
+    <span class="c1"># If a version as a &quot;+XX.XXXXX&quot; suffix, we&#39;ll assume that this is a dev version</span>
+    <span class="c1"># and replace the version with this string.</span>
+    <span class="n">version_dev</span><span class="o">=</span><span class="s2">&quot;master&quot;</span><span class="p">,</span>
+    <span class="c1"># An environment variable that overwrites the path.</span>
+    <span class="n">env</span><span class="o">=</span><span class="s2">&quot;../data/Mannville_input_data/&quot;</span><span class="p">,</span>
+    <span class="c1"># The cache file registry. A dictionary with all files managed by this pooch.</span>
+    <span class="c1"># Keys are the file names (relative to *base_url*) and values are their</span>
+    <span class="c1"># respective SHA256 hashes. Files will be downloaded automatically when needed</span>
+    <span class="c1"># (see fetch_gravity_data).  1414057d0c5235b0ed13103c72c864ddfd34a0c8</span>
+    <span class="c1"># registry={&quot;OilSandsDB/LITHOLOGY_DIC.TXT&quot;: &quot;83f3be338d6fa42eeadf60466c716e4370fe8723682c187d214a054bd695880a&quot;}</span>
 <span class="p">)</span>
 <span class="c1"># You can also load the registry from a file. Each line contains a file name and</span>
 <span class="c1"># it&#39;s sha256 hash separated by a space. This makes it easier to manage large</span>
@@ -203,11 +214,11 @@
 <span class="c1"># module.</span>
 
 <span class="c1">#GOODBOY.load_registry(&quot;./registry.txt&quot;)</span>
-
+<span class="n">GOODBOY</span><span class="o">.</span><span class="n">load_registry</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span><span class="s2">&quot;registry.txt&quot;</span><span class="p">))</span>
 
 <span class="c1"># Define functions that your users can call to get back some sample data in memory</span>
 <div class="viewcode-block" id="fetch_mannville_data"><a class="viewcode-back" href="../../source/predictatops.html#predictatops.fetch_demo_data.fetch_mannville_data">[docs]</a><span class="k">def</span> <span class="nf">fetch_mannville_data</span><span class="p">():</span>
-   <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">   Loads all required Mannville Group data and metadata for demo data. </span>
 <span class="sd">   Fetches the path to a file in the local storae. If it&#39;s not there, we&#39;ll</span>
 <span class="sd">   download it.</span>
@@ -221,22 +232,22 @@
 <span class="sd">   Returns</span>
 <span class="sd">   -------</span>
 <span class="sd">   ...: ellipses</span>
-<span class="sd">    Nothing but three dots which reads as ellipses in Python for now. It does write files to the directory given above in goodboy, which is created in fetch_demo_data.py by pooch.create()</span>
+<span class="sd">    Returns nothing but three dots which reads as ellipses in Python. It does, however, write files to the data or whatever directory is given above in goodboy instance, which is created in fetch_demo_data.py by the pooch.create() call.</span>
 <span class="sd">   &quot;&quot;&quot;</span>
 
-   <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;registry.txt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-       <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
-   <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-       <span class="n">firstname</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-       <span class="n">GOODBOY</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">firstname</span><span class="p">)</span>
-   
-   <span class="c1">#fname = GOODBOY.fetch(&quot;OilSandsDB/LITHOLOGY_DIC.TXT&quot;)</span>
-   <span class="c1"># Load it with numpy/pandas/etc</span>
-   <span class="n">data</span> <span class="o">=</span> <span class="o">...</span>
-   <span class="k">return</span> <span class="n">data</span></div>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span><span class="s2">&quot;registry.txt&quot;</span><span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="n">firstname</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">GOODBOY</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">firstname</span><span class="p">)</span>
+
+    <span class="c1"># fname = GOODBOY.fetch(&quot;OilSandsDB/LITHOLOGY_DIC.TXT&quot;)</span>
+    <span class="c1"># Load it with numpy/pandas/etc</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="o">...</span>
+    <span class="k">return</span> <span class="n">data</span></div>
 
 
-<span class="c1">#fetch_mannville_data()</span>
+<span class="n">fetch_mannville_data</span><span class="p">()</span>
 </pre></div>
 
            </div>
