@@ -15,12 +15,14 @@ You can search for modules via * :ref:`modindex`
    readme
    installation
    usage
-   modules
+   demo_notebooks
+   functions_and_classes
+   theory
    contributing
    authors
    history
-   theory
-   functions_and_classes
+
+   
 
 Indices and tables
 ==================

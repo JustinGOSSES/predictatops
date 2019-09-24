@@ -1,6 +1,8 @@
 functions and classes
 =====================
 
+!!THIS SECTION IS IN PROGRESS!!
+
 This section is partially autodocumented. You can find a link to the the completely autodocumented functions and classes page at :ref:`modindex`
 
 Modules in rough order of use are defined below:

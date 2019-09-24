@@ -44,16 +44,13 @@ Stable release
 --------------
 Eh, a stable release doesn't quite exist yet. Enough to work with but not enough to call it stable. It will be pushed to PyPy at some point soon, but has not been pushed there yet. When it does, it will run like this:
 
-To install predictatops, run this command in your terminal:
+If we were to put this on PyPy, you could install predictatops by running this command in your terminal:
 
 .. code-block:: console
 
     $ pip install predictatops
 
-Eventually, this will be the preferred method to install predictatops, as it will always install the most recent stable release.
-
-If you don't have `pip`_ installed, this `Python installation guide`_ can guide
-you through the process.
+But it isn't there, so don't try it.
 
 .. _pip: https://pip.pypa.io
 .. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/

@@ -1,0 +1,337 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Demo notebooks &mdash; predictatops 0.0.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="functions and classes" href="functions_and_classes.html" />
+    <link rel="prev" title="Usage" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> predictatops
+          
+
+          
+            
+            <img src="_static/Yale-Peabody-Triceratops-004Trp.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">Readme File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Demo notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions_and_classes.html">functions and classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theory.html">Theory</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">predictatops</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Demo notebooks</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/demo_notebooks.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="demo-notebooks">
+<h1>Demo notebooks<a class="headerlink" href="#demo-notebooks" title="Permalink to this headline">¶</a></h1>
+<p id="demo-notebooks-label">These notebooks give examples of how to run different parts of predictatops’s sequence of steps.</p>
+<p>To a large extent the notebooks either run modules with the “_runner” ending in their name that directly execute code or they mirror the code execution patterns in the “_runner” modules.</p>
+<p>1. The notebook <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_Every_Step_Via_HighLevel_Runner_Scripts_v1.ipynb">Example_Every_Step_Via_HighLevel_Runner_Scripts_v1.ipynb</a>. covers:</p>
+<p>Running the high-level runner modules for each step one by one. This does the whole pipeline from data load, data evaluation, data processing, feature creation, model training, to prediction.</p>
+<ul class="simple">
+<li><p>fetch_demo_data.py</p></li>
+<li><p>configurationplusfiles_runner.py</p></li>
+<li><p>checkdata_runner.py</p></li>
+<li><p>load_runner.py</p></li>
+<li><p>split_runner.py</p></li>
+<li><p>wellsKNN_runner.py</p></li>
+<li><p>features_runner.py</p></li>
+<li><p>balance_runner.py</p></li>
+<li><p>trainclasses_runner.py</p></li>
+<li><p>predictionclasses_runner.py</p></li>
+</ul>
+<hr class="docutils" />
+<p>NOTE: The following notebooks don’t use “_runner” modules. Code is imported from predictatops and more code written in the notebooks themselves expresses how and when to execute that code.</p>
+<p>2. The notebook <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_firstSteps_modules_fetchdata_configuration_checkdata.ipynb/">Example_firstSteps_modules_fetchdata_configuration_checkdata.ipynb</a>. Covers the initial data load, data evaluation, and configuration. Specifically it covers the modules:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>fetch_demo_data.py</dt><dd><ul>
+<li><p>Gets the data into the data folder from the demo folder in the repository.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>configurationplusfiles.py</dt><dd><ul>
+<li><p>Instantiates the class objects that contain information on how to run the rest of the program as it applies to input files, output files, and general configuration.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>checkdata.py</dt><dd><ul>
+<li><p>Helps to find out which wells have the tops and curves you need or the inverse to find out which curves you have if you want a certain number of wells in your data population.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p>This notebook TBD</p></li>
+</ol>
+<ul class="simple">
+<li><dl class="simple">
+<dt>load.py</dt><dd><ul>
+<li><p>Loads the data from wells identified in the checkdata.py step above.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>split.py</dt><dd><ul>
+<li><p>Splits the data from the load.py step into train and test groups.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>4. The notebook <a href="#id1"><span class="problematic" id="id2">`Example_module_wellsKNN_v1.ipynb
+https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_module_wellsKNN_v1.ipynb/&gt;`_</span></a>. covers:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>wellsKNN.py</dt><dd><ul>
+<li><p>Uses well location to identify wells next to one another up to X number of neighbors.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>5. The notebook <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_module_balance_v1.ipynb/">Example_module_balance_v1.ipynb</a>.  covers:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>balance.py</dt><dd><ul>
+<li><p>balancing the populations of classes, or labels, associated with each depth point in each well for training, so there are roughly equal number of classes.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>6. The notebook <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_module_features_and_balance.ipynb/">Example_module_features_and_balance.ipynb</a>. covers:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>features.py</dt><dd><ul>
+<li><p>creates features not already created in wellsKNN.py</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>balance.py</dt><dd><ul>
+<li><p>balancing the populations of classes, or labels, associated with each depth point in each well for training, so there are roughly equal number of classes.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>7. The notebook <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_module_trainclasses_v2.ipynb/">Example_module_trainclasses_v2.ipynb</a>.  covers:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>trainclasses.py</dt><dd><ul>
+<li><p>training the model</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>8. The notebook <a class="reference external" href="https://github.com/JustinGOSSES/predictatops/blob/master/demo/Example_module_predictionclasses_v1.ipynb/">Example_module_predictionclasses_v1.ipynb</a>.  covers:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>predictionclasses.py</dt><dd><ul>
+<li><p>making the top prediction</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="functions_and_classes.html" class="btn btn-neutral float-right" title="functions and classes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="usage.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Justin Gosses
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
