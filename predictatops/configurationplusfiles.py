@@ -2,9 +2,11 @@
 """
 
 The configurationplusfiles.py module sets up three objects from class functions. 
-input_data() establishes where data is loaded from.
-configuration() establishes various configuration variables used in the rest of the code.
-output_data() establishes where data is written to. 
+
+- input_data() establishes where data is loaded from.
+- configuration() establishes various configuration variables used in the rest of the code.
+- output_data() establishes where data is written to. 
+
 These are intended to be changed by the configurationplusfiles_runner.py module.
 
 """

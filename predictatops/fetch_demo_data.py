@@ -1,5 +1,16 @@
 ##coding: utf-8 -*-
 
+"""
+   The fetch_data_data.py script is used to fetch the demo data using the pooch data fetching library. This is the only module that executes on being run but doesn't has a "_runner" ending to its name.
+   
+   Alternatively, you can use your own data in a top-level "data" directory and skip using this script entirely.
+
+   The script imports pooch, then fetches the demo dataset from: "https://github.com/JustinGOSSES/predictatops/raw/{version}/demo/mannville_demo_data/".
+   That link is defined in the registry.txt file. Pooch is used to create a GOODBYE object instance, which then exectures the fetching using the fetch_mannville_data() function in this python file.
+
+"""
+
+
 ##### import statements #####
 import pooch
 import os
@@ -58,7 +69,7 @@ def fetch_mannville_data():
    Returns
    -------
    ...: ellipses
-    Nothing but three dots which reads as ellipses in Python for now. It does write files to the directory given above in goodboy, which is created in fetch_demo_data.py by pooch.create()
+    Returns nothing but three dots which reads as ellipses in Python. It does, however, write files to the data or whatever directory is given above in goodboy instance, which is created in fetch_demo_data.py by the pooch.create() call.
    """
 
     with open(os.path.join(os.path.dirname(__file__),"registry.txt")) as f:
