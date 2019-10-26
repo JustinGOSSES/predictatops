@@ -49,7 +49,7 @@ class input_data:
     def __init__(self, picks_file_path, picks_delimiter_str, path_to_logs_str):
         #### Default initiation = ('../../../SPE_006_originalData/OilSandsDB/PICKS.TXT','\t','../../../SPE_006_originalData/OilSandsDB/Logs/*.LAS')
         #### Only things that are mandatory on initiation are below
-        self.data_directory = "../data/Mannville_input_data/v0.0.0-alpha/"
+        self.data_directory = "../data/Mannville_input_data/v0.0.3-alpha/"
         self.picks_file_path = (
             picks_file_path
         )  #### example = '../../../SPE_006_originalData/OilSandsDB/PICKS.TXT'
