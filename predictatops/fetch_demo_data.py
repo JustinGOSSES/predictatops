@@ -8,16 +8,19 @@
    The script imports pooch, then fetches the demo dataset from: "https://github.com/JustinGOSSES/predictatops/raw/{version}/demo/mannville_demo_data/".
    That link is defined in the registry.txt file. Pooch is used to create a GOODBYE object instance, which then exectures the fetching using the fetch_mannville_data() function in this python file.
 
+   NOTE: This was changed since version 1 to pull in a single zip file and unzip it as that's faster than pulling in each file unzipped individually!
 """
 
 
 ##### import statements #####
 import pooch
 import os
+from zipfile import ZipFile
 
 # Get the version string from your project. You have one of these, right?
 # from . import version
 
+data_path = "../data/Mannville_input_data/"
 
 # Create a new friend to manage your sample data storage
 GOODBOY = pooch.create(
@@ -25,20 +28,22 @@ GOODBOY = pooch.create(
     # cache folder for your OS.
     # path=pooch.os_cache("mypackage_test"),
     # path=pooch.os_cache("mypackage_test"),
-    path="../data/Mannville_input_data/",
+    path=data_path,
     # Base URL of the remote data store. Will call .format on this string to insert
     # https://github.com/JustinGOSSES/predictatops/
     # the version (see below).  https://github.com/JustinGOSSES/MannvilleGroup_Strat_Hackathon/tree/master/SPE_006_originalData
-    base_url="https://github.com/JustinGOSSES/predictatops/raw/{version}/demo/mannville_demo_data/",
+    #base_url="https://github.com/JustinGOSSES/predictatops/raw/{version}/demo/mannville_demo_data/",
+    base_url="https://github.com/JustinGOSSES/predictatops/raw/{version}/demo/",
     # Pooches are versioned so that you can use multiple versions of a package
     # simultaneously. Use PEP440 compliant version number. The version will be
     # appended to the path.
-    version="v0.0.0-alpha",
+    #version="v0.0.0-alpha",
+    version="v0.0.3-alpha",
     # If a version as a "+XX.XXXXX" suffix, we'll assume that this is a dev version
     # and replace the version with this string.
     version_dev="master",
     # An environment variable that overwrites the path.
-    env="../data/Mannville_input_data/",
+    env=data_path,
     # The cache file registry. A dictionary with all files managed by this pooch.
     # Keys are the file names (relative to *base_url*) and values are their
     # respective SHA256 hashes. Files will be downloaded automatically when needed
@@ -51,7 +56,7 @@ GOODBOY = pooch.create(
 # module.
 
 #GOODBOY.load_registry("./registry.txt")
-GOODBOY.load_registry(os.path.join(os.path.dirname(__file__),"registry.txt"))
+GOODBOY.load_registry(os.path.join(os.path.dirname(__file__),"registry_zip.txt"))
 
 # Define functions that your users can call to get back some sample data in memory
 def fetch_mannville_data():
@@ -72,16 +77,18 @@ def fetch_mannville_data():
     Returns nothing but three dots which reads as ellipses in Python. It does, however, write files to the data or whatever directory is given above in goodboy instance, which is created in fetch_demo_data.py by the pooch.create() call.
    """
 
-    with open(os.path.join(os.path.dirname(__file__),"registry.txt")) as f:
+    with open(os.path.join(os.path.dirname(__file__),"registry_zip.txt")) as f:
         lines = f.readlines()
     for line in lines:
         firstname = line.split(" ")[0]
         GOODBOY.fetch(firstname)
-
-    # fname = GOODBOY.fetch("OilSandsDB/LITHOLOGY_DIC.TXT")
-    # Load it with numpy/pandas/etc
     data = ...
+    
     return data
 
 
 fetch_mannville_data()
+# ZipFile.extractall("../data/Mannville_input_data/mannville_demo_data.zip")
+
+with ZipFile("../data/Mannville_input_data/v0.0.3-alpha/mannville_demo_data.zip", 'r') as zip_ref:
+    zip_ref.extractall("../data/Mannville_input_data/v0.0.3-alpha/")
