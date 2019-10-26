@@ -1369,6 +1369,7 @@ directions = [“around”,”below”,”above”]</p>
 <p>Alternatively, you can use your own data in a top-level “data” directory and skip using this script entirely.</p>
 <p>The script imports pooch, then fetches the demo dataset from: “<a class="reference external" href="https://github.com/JustinGOSSES/predictatops/raw">https://github.com/JustinGOSSES/predictatops/raw</a>/{version}/demo/mannville_demo_data/”.
 That link is defined in the registry.txt file. Pooch is used to create a GOODBYE object instance, which then exectures the fetching using the fetch_mannville_data() function in this python file.</p>
+<p>NOTE: This was changed since version 1 to pull in a single zip file and unzip it as that’s faster than pulling in each file unzipped individually!</p>
 <dl class="function">
 <dt id="predictatops.fetch_demo_data.fetch_mannville_data">
 <code class="descclassname">predictatops.fetch_demo_data.</code><code class="descname">fetch_mannville_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/predictatops/fetch_demo_data.html#fetch_mannville_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#predictatops.fetch_demo_data.fetch_mannville_data" title="Permalink to this definition">¶</a></dt>
