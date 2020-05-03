@@ -127,3 +127,5 @@ demo_hidden/
 *.las
 mannville_demo_data/*
 data
+*editorconfig
+*travis.yml
