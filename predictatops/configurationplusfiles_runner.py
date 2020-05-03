@@ -6,21 +6,21 @@ from configurationplusfiles import *
 
 
 input_data_inst = input_data(
-    "../data/Mannville_input_data/v0.0.0-alpha/OilSandsDB/PICKS.TXT",
+    "../data/Mannville_input_data/v0.0.3-alpha/mannville_demo_data/OilSandsDB/PICKS.TXT",
     "\t",
-    "../data/SPE_006_originalData/OilSandsDB/Logs/*.LAS",
+    "../data/Mannville_input_data/v0.0.3-alpha/mannville_demo_data/OilSandsDB/Logs/*.LAS",
 )
 
 input_data_inst.set_wells_file_path(
-    "../data/Mannville_input_data/v0.0.0-alpha/OilSandsDB/WELLS.TXT", "\t"
+    "../data/Mannville_input_data/v0.0.3-alpha/mannville_demo_data/OilSandsDB/WELLS.TXT", "\t"
 )
 
 input_data_inst.set_gis_file_path(
-    "../data/Mannville_input_data/v0.0.0-alpha/well_lat_lng.csv", ","
+    "../data/Mannville_input_data/v0.0.3-alpha/mannville_demo_data/well_lat_lng.csv", ","
 )
 
 input_data_inst.las_folder_path = (
-    "../data/Mannville_input_data/v0.0.0-alpha/OilSandsDB/Logs/"
+    "../data/Mannville_input_data/v0.0.3-alpha/mannville_demo_data/OilSandsDB/Logs/"
 )
 
 print("head of picks df = ", input_data_inst.picks_df.head())

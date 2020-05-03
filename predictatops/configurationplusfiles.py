@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 
-The configurationplusfiles.py module sets up three objects from class functions. 
+The a module sets up three objects from class functions. 
 
 - input_data() establishes where data is loaded from.
 - configuration() establishes various configuration variables used in the rest of the code.
@@ -49,7 +49,7 @@ class input_data:
     def __init__(self, picks_file_path, picks_delimiter_str, path_to_logs_str):
         #### Default initiation = ('../../../SPE_006_originalData/OilSandsDB/PICKS.TXT','\t','../../../SPE_006_originalData/OilSandsDB/Logs/*.LAS')
         #### Only things that are mandatory on initiation are below
-        self.data_directory = "../data/Mannville_input_data/v0.0.0-alpha/"
+        self.data_directory = "../data/Mannville_input_data/v0.0.3-alpha/mannville_demo_data"
         self.picks_file_path = (
             picks_file_path
         )  #### example = '../../../SPE_006_originalData/OilSandsDB/PICKS.TXT'
