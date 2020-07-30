@@ -50,7 +50,7 @@ If we were to put this on PyPy, you could install predictatops by running this c
 
     $ pip install predictatops
 
-But it isn't there, so don't try it.
+But it isn't there, so don't try it!
 
 .. _pip: https://pip.pypa.io
 .. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
