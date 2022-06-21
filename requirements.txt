@@ -64,7 +64,7 @@ nbpresent==3.0.2
 notebook>=5.7.8
 numba==0.39.0
 numexpr==2.6.5
-numpy==1.15.0
+numpy==1.22.0
 ordereddict==1.1
 packaging==17.1
 pandas==0.23.3
