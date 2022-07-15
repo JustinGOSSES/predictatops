@@ -22,7 +22,7 @@ dask-glm==0.1.0
 dask-ml==0.7.0
 dask-xgboost==0.1.5
 decorator==4.3.0
-distributed==1.22.0
+distributed==2021.10.0
 entrypoints==0.2.3
 folium==0.5.0
 hdbscan==0.8.15
