@@ -10,6 +10,8 @@ _Code for stratigraphic pick prediction via supervised machine-learning_
 
 <a href="https://github.com/JustinGOSSES/predictatops/blob/master/LICENSE">![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)</a>
 
+## THIS REPOSITORY HAS BEEN ARCHIVED TO SIGNIFY THERE WILL NOT BE ADDITIONAL WORK. HOWEVER, IT IS HAS ALWAYS BEEN A PROOF OF CONCEPT OF AN APPROACH RATHER THAN A TOOL SO YOUR USE OF IT SHOULD NOT REALLY CHANGE.
+
 <b>Status</b>: Runs and ready for others to try. This code project is most useful as a working proof-of-concept. It is not optimized to be used in a plug-n-play or as a dependency. Updated to v0.0.4-alpha October 26th, 2019. Updates to dependencies are done but not frequently.
 <i>NOTE: Running in a standard google colab notebook may fail during model training due to memory requirements exceeding the default initial amount of RAM.</i>
 
